@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd" uri="www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"/>
+    <system systemId="http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd" uri="www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd"/>
+    <system systemId="http://www.springframework.org/schema/faces/spring-faces-2.0.xsd" uri="www.springframework.org/schema/faces/spring-faces-2.0.xsd"/>
+    <system systemId="http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" uri="www.springframework.org/schema/beans/spring-beans-2.5.xsd"/>
+</catalog>

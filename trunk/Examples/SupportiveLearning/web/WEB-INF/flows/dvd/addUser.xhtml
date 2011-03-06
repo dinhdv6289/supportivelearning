@@ -1,0 +1,67 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sf="http://www.springframework.org/tags/faces"
+                template="/WEB-INF/layouts/standard.xhtml">
+
+    <ui:define name="content">
+
+        <div class="section">
+            <h1>Add User</h1>
+        </div>
+
+        <div class="section">
+            <h:form id="confirm">
+                <fieldset>
+                    <div class="field">
+                        <div class="label">
+                            <h:outputLabel for="idUser">Id:</h:outputLabel>
+                        </div>
+                        <div class="output">
+                            <sf:clientTextValidator required="true" invalidMessage="Not null">
+                                <h:inputText id="idUser" value="#{user.id}" required="true"/>
+                            </sf:clientTextValidator>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="label">
+                            <h:outputLabel for="name"> Name:</h:outputLabel>
+                        </div>
+                        <div class="output">
+                            <sf:clientTextValidator required="true" invalidMessage="Not null">
+                                <h:inputText id="name" value="#{user.name}" required="true"/>
+                            </sf:clientTextValidator>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="label">
+                            <h:outputLabel for="username">User Name:</h:outputLabel>
+                        </div>
+                        <div class="output">
+                            <sf:clientTextValidator required="true" invalidMessage="Not null">
+                                <h:inputText id="username" value="#{user.username}" required="true"/>
+                            </sf:clientTextValidator>
+                        </div>
+                    </div>
+                    <div class="field">
+
+                        <div class="label">
+                            <h:outputLabel for="password">Password:</h:outputLabel>
+                        </div>
+                        <sf:clientTextValidator required="true" invalidMessage="Not null">
+                            <h:inputText id="password" value="#{user.password}" required="true"/>
+                        </sf:clientTextValidator>
+                        <div class="output"></div>
+                    </div>
+                    <div class="buttonGroup">
+                        <h:commandButton id="save" value="Save" action="save"/>&#160;
+                        <h:commandButton id="cancel" value="Cancel" action="cancel"/>
+                    </div>
+                </fieldset>
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>
