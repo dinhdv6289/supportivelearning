@@ -15,7 +15,6 @@ import java.util.ArrayList;
  */
 public class StudentDAO extends AbstractDAO<Student> {
 
-    // thu bien ko phai toan cuc.
     private  ArrayList<Student> students = new ArrayList<Student>();
 
     public StudentDAO() {
@@ -27,7 +26,7 @@ public class StudentDAO extends AbstractDAO<Student> {
         for (int i = 0; i < 10; i++) {
             Clazz clazz = new Clazz();
             clazz.setId(i);
-            clazz.setName("class Name:" + i);
+            clazz.setName("class Name no:" + i);
             clazzs.add(clazz);
         }
         return clazzs;
