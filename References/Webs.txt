@@ -1,2 +1,0 @@
-http://www.springbyexample.org/examples/simple-spring-web-flow-webapp-spring-config.html
-http://static.springsource.org/spring-webflow/docs/2.0-m1/reference/spring-faces.html
