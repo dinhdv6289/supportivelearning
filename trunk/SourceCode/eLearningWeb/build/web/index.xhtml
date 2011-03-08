@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>eLearning</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:dataTable value="#{studentBean.students}" var="student" emptyMessage="No students"
+                         paginator="true" rows="10"  
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="5,10,15">
+                <p:column filterBy="#{student.course.name}" sortBy="#{student.course.name}" 
+                          headerText="Course" 
+                          filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{student.course.name}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{student.course.name}" />
+                        </f:facet>                            
+                    </p:cellEditor>
+
+                </p:column>  
+                <p:column filterBy="#{student.clazzs.name}" sortBy="#{student.clazzs.name}" 
+                          headerText="Class">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{student.clazzs.name}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{student.clazzs.name}"/>
+                        </f:facet>
+                    </p:cellEditor>
+
+                </p:column>                    
+                <p:column filterBy="#{student.name}" sortBy="#{student.name}"
+                          headerText="Name" >
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{student.name}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{student.name}" />
+                        </f:facet>                        
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Actions">
+                    <p:commandButton update="display" oncomplete="studentDialog.show()"  
+                                     image="ui-icon ui-icon-search">  
+                        <f:setPropertyActionListener value="#{student}"  
+                                                     target="#{studentBean.selectedStudent}" />  
+                    </p:commandButton>
+                     <p:rowEditor /> 
+                </p:column>
+            </p:dataTable>
+            <p:dialog header="Student Detail" widgetVar="studentDialog" resizable="false"
+                      width="200" showEffect="explode" hideEffect="explode">
+                <h:panelGrid id="display" columns="2" cellpadding="4">
+                    <h:outputText value="Course:" />
+                    <h:outputText value="#{studentBean.selectedStudent.course}" />
+
+                    <h:outputText value="Class:" />
+                    <h:outputText value="#{studentBean.selectedStudent.clazzs}" />
+
+                    <h:outputText value="Name:" />
+                    <h:outputText value="#{studentBean.selectedStudent.name}" />
+                </h:panelGrid>
+            </p:dialog>
+
+        </h:form>
+    </h:body>
+</html>
+
