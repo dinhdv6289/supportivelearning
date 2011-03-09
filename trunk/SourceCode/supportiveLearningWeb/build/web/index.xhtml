@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>eLearning</title>
+    </h:head>
+    <h:body>
+
+        <h:form prependId="false">
+            <a href="#{request.contextPath}new.xhtml"/>
+            <p:growl id="messages" showDetail="true" />
+            <p:dataTable var="student" value="#{studentBean.students}"  emptyMessage="No students"  paginator="true" rows="10">
+                <p:column  headerText="Course" >
+                    <h:outputText value="#{student.course.name}" />
+                </p:column>
+                <p:column headerText="Class">
+                    <h:outputText value="#{student.clazz.name}" />
+
+                </p:column>
+                <p:column headerText="Name" >
+                    <h:outputText value="#{student.name}" />
+                </p:column>
+
+                <p:column headerText="Actions">
+                    <p:commandLink
+                        action="#{studentBean.onRequestStudent(student)}"
+                        update="displayEdit"
+                        onclick="editStudentDialog.show()">
+                    </p:commandLink>
+                    <p:commandButton  value="Delete" onclick="confirmDelete.show()" type="button"/>
+
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="Edit Student" widgetVar="editStudentDialog" resizable="false"
+                      width="400" showEffect="explode" hideEffect="explode">
+
+                <h:panelGrid id="displayEdit" columns="2" cellpadding="4">
+                    <h:outputText value="Course:" />
+                    <p:inputText value="#{studentBean.studentSelected.course.name}" />
+
+                    <h:outputText value="Class:" />
+                    <p:inputText value="#{studentBean.studentSelected.clazz.name}" />
+
+                    <h:outputText value="Name:" />
+                    <p:inputText value="#{studentBean.studentSelected.name}" />
+                    <p:commandButton value="Update" actionListener="#{studentBean.editStudent}"  update="messages" oncomplete="editStudentDialog.hide()"/>
+                </h:panelGrid>
+
+            </p:dialog>
+
+
+            <p:confirmDialog widgetVar="confirmDelete" message="Are you sure?"
+                             showEffect="bounce" hideEffect="explode"
+                             header="Initiating delete process" severity="alert">
+                <p:commandButton  actionListener="#{studentBean.deleteStudent}" update="messages" value="Delete" oncomplete="confirmDelete.hide()"/>
+                <p:commandButton  onclick="confirmDelete.hide()" type="button" value="Cancel"/>
+
+            </p:confirmDialog>
+
+        </h:form>
+    </h:body>
+</html>
+
