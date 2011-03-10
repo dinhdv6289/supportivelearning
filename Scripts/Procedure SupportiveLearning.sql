@@ -1,3 +1,6 @@
+use SupportiveLearning
+
+ GO 
 /* Create Procedure Sel_AllRoles*/
 
 CREATE PROCEDURE Sel_AllRoles
@@ -38,12 +41,11 @@ AS BEGIN
 /* Create Procedure Ins_Roles */
 
 CREATE PROCEDURE Ins_Roles
-@RoleId	int ,
 @RoleName	nvarchar(100) ,
 @Description	nvarchar(100)  
 AS BEGIN 
-     INSERT INTO Roles(RoleId,RoleName,Description  ) 
-     VALUES (@RoleId,@RoleName,@Description  ) 
+     INSERT INTO Roles(RoleName,Description  ) 
+     VALUES (@RoleName,@Description  ) 
   END 
 
  GO 
@@ -103,14 +105,13 @@ AS BEGIN
 /* Create Procedure Ins_Account */
 
 CREATE PROCEDURE Ins_Account
-@AcountId	int ,
 @RoleId	int ,
 @UserName	nvarchar(100) ,
 @PassWord	nvarchar(100) ,
 @DateCreate	datetime  
 AS BEGIN 
-     INSERT INTO Account(AcountId,RoleId,UserName,PassWord,DateCreate  ) 
-     VALUES (@AcountId,@RoleId,@UserName,@PassWord,@DateCreate  ) 
+     INSERT INTO Account(RoleId,UserName,PassWord,DateCreate  ) 
+     VALUES (@RoleId,@UserName,@PassWord,@DateCreate  ) 
   END 
 
  GO 
@@ -170,14 +171,13 @@ AS BEGIN
 /* Create Procedure Ins_Course */
 
 CREATE PROCEDURE Ins_Course
-@CourseId	int ,
 @CourseName	nvarchar(100) ,
 @DateStart	datetime ,
 @DateEnd	datetime ,
 @Batch	nvarchar(100)  
 AS BEGIN 
-     INSERT INTO Course(CourseId,CourseName,DateStart,DateEnd,Batch  ) 
-     VALUES (@CourseId,@CourseName,@DateStart,@DateEnd,@Batch  ) 
+     INSERT INTO Course(CourseName,DateStart,DateEnd,Batch  ) 
+     VALUES (@CourseName,@DateStart,@DateEnd,@Batch  ) 
   END 
 
  GO 
@@ -233,12 +233,11 @@ AS BEGIN
 /* Create Procedure Ins_Semester */
 
 CREATE PROCEDURE Ins_Semester
-@SemesterId	int ,
 @SemesterName	nvarchar(100) ,
 @SemesterTime	int  
 AS BEGIN 
-     INSERT INTO Semester(SemesterId,SemesterName,SemesterTime  ) 
-     VALUES (@SemesterId,@SemesterName,@SemesterTime  ) 
+     INSERT INTO Semester(SemesterName,SemesterTime  ) 
+     VALUES (@SemesterName,@SemesterTime  ) 
   END 
 
  GO 
@@ -298,14 +297,13 @@ AS BEGIN
 /* Create Procedure Ins_Clazz */
 
 CREATE PROCEDURE Ins_Clazz
-@ClazzId	int ,
 @CourseId	int ,
 @SemesterId	int ,
 @ClazzName	nvarchar(100) ,
 @StartDate	datetime  
 AS BEGIN 
-     INSERT INTO Clazz(ClazzId,CourseId,SemesterId,ClazzName,StartDate  ) 
-     VALUES (@ClazzId,@CourseId,@SemesterId,@ClazzName,@StartDate  ) 
+     INSERT INTO Clazz(CourseId,SemesterId,ClazzName,StartDate  ) 
+     VALUES (@CourseId,@SemesterId,@ClazzName,@StartDate  ) 
   END 
 
  GO 
@@ -361,12 +359,11 @@ AS BEGIN
 /* Create Procedure Ins_Staff */
 
 CREATE PROCEDURE Ins_Staff
-@StaffId	int ,
 @AcountId	int ,
 @StaffName	nvarchar(100)  
 AS BEGIN 
-     INSERT INTO Staff(StaffId,AcountId,StaffName  ) 
-     VALUES (@StaffId,@AcountId,@StaffName  ) 
+     INSERT INTO Staff(AcountId,StaffName  ) 
+     VALUES (@AcountId,@StaffName  ) 
   END 
 
  GO 
@@ -422,12 +419,11 @@ AS BEGIN
 /* Create Procedure Ins_StaffAndClazz */
 
 CREATE PROCEDURE Ins_StaffAndClazz
-@StaffAndClazzId	int ,
 @StaffId	int ,
 @ClazzId	int  
 AS BEGIN 
-     INSERT INTO StaffAndClazz(StaffAndClazzId,StaffId,ClazzId  ) 
-     VALUES (@StaffAndClazzId,@StaffId,@ClazzId  ) 
+     INSERT INTO StaffAndClazz(StaffId,ClazzId  ) 
+     VALUES (@StaffId,@ClazzId  ) 
   END 
 
  GO 
@@ -495,7 +491,6 @@ AS BEGIN
 /* Create Procedure Ins_Student */
 
 CREATE PROCEDURE Ins_Student
-@StudentId	int ,
 @AcountId	int ,
 @ClazzId	int ,
 @FullName	nvarchar(200) ,
@@ -505,8 +500,8 @@ CREATE PROCEDURE Ins_Student
 @Email	nvarchar(100) ,
 @Address	nvarchar(255)  
 AS BEGIN 
-     INSERT INTO Student(StudentId,AcountId,ClazzId,FullName,BirthDay,Gender,Phone,Email,Address  ) 
-     VALUES (@StudentId,@AcountId,@ClazzId,@FullName,@BirthDay,@Gender,@Phone,@Email,@Address  ) 
+     INSERT INTO Student(AcountId,ClazzId,FullName,BirthDay,Gender,Phone,Email,Address  ) 
+     VALUES (@AcountId,@ClazzId,@FullName,@BirthDay,@Gender,@Phone,@Email,@Address  ) 
   END 
 
  GO 
@@ -564,13 +559,12 @@ AS BEGIN
 /* Create Procedure Ins_Subject */
 
 CREATE PROCEDURE Ins_Subject
-@SubjectId	int ,
 @SubjectName	nvarchar(100) ,
 @StartData	datetime ,
 @EndDate	datetime  
 AS BEGIN 
-     INSERT INTO Subject(SubjectId,SubjectName,StartData,EndDate  ) 
-     VALUES (@SubjectId,@SubjectName,@StartData,@EndDate  ) 
+     INSERT INTO Subject(SubjectName,StartData,EndDate  ) 
+     VALUES (@SubjectName,@StartData,@EndDate  ) 
   END 
 
  GO 
@@ -636,7 +630,6 @@ AS BEGIN
 /* Create Procedure Ins_Assignment */
 
 CREATE PROCEDURE Ins_Assignment
-@AssignmentId	int ,
 @SubjectId	int ,
 @StudentId	int ,
 @StaffId	int ,
@@ -645,8 +638,8 @@ CREATE PROCEDURE Ins_Assignment
 @Mark	float ,
 @DateUpload	datetime  
 AS BEGIN 
-     INSERT INTO Assignment(AssignmentId,SubjectId,StudentId,StaffId,AssignmentName,FileUpload,Mark,DateUpload  ) 
-     VALUES (@AssignmentId,@SubjectId,@StudentId,@StaffId,@AssignmentName,@FileUpload,@Mark,@DateUpload  ) 
+     INSERT INTO Assignment(SubjectId,StudentId,StaffId,AssignmentName,FileUpload,Mark,DateUpload  ) 
+     VALUES (@SubjectId,@StudentId,@StaffId,@AssignmentName,@FileUpload,@Mark,@DateUpload  ) 
   END 
 
  GO 
@@ -700,11 +693,10 @@ AS BEGIN
 /* Create Procedure Ins_Admin */
 
 CREATE PROCEDURE Ins_Admin
-@AdminId	int ,
 @AcountId	int  
 AS BEGIN 
-     INSERT INTO Admin(AdminId,AcountId  ) 
-     VALUES (@AdminId,@AcountId  ) 
+     INSERT INTO Admin(AcountId  ) 
+     VALUES (@AcountId  ) 
   END 
 
  GO 
@@ -762,13 +754,12 @@ AS BEGIN
 /* Create Procedure Ins_FAQ */
 
 CREATE PROCEDURE Ins_FAQ
-@FAQId	int ,
 @Quesion	ntext ,
 @Answer	ntext ,
 @DateCreation	datetime  
 AS BEGIN 
-     INSERT INTO FAQ(FAQId,Quesion,Answer,DateCreation  ) 
-     VALUES (@FAQId,@Quesion,@Answer,@DateCreation  ) 
+     INSERT INTO FAQ(Quesion,Answer,DateCreation  ) 
+     VALUES (@Quesion,@Answer,@DateCreation  ) 
   END 
 
  GO 
@@ -828,14 +819,13 @@ AS BEGIN
 /* Create Procedure Ins_FeedBack */
 
 CREATE PROCEDURE Ins_FeedBack
-@FeedBackId	int ,
 @AcountId	int ,
 @FeedBackTitle	nvarchar(100) ,
 @FeedBackContent	ntext ,
 @DateCreation	datetime  
 AS BEGIN 
-     INSERT INTO FeedBack(FeedBackId,AcountId,FeedBackTitle,FeedBackContent,DateCreation  ) 
-     VALUES (@FeedBackId,@AcountId,@FeedBackTitle,@FeedBackContent,@DateCreation  ) 
+     INSERT INTO FeedBack(AcountId,FeedBackTitle,FeedBackContent,DateCreation  ) 
+     VALUES (@AcountId,@FeedBackTitle,@FeedBackContent,@DateCreation  ) 
   END 
 
  GO 
@@ -893,13 +883,12 @@ AS BEGIN
 /* Create Procedure Ins_Comment */
 
 CREATE PROCEDURE Ins_Comment
-@CommentId	int ,
 @AcountId	int ,
 @FeedBackId	int ,
 @CommentContent	ntext  
 AS BEGIN 
-     INSERT INTO Comment(CommentId,AcountId,FeedBackId,CommentContent  ) 
-     VALUES (@CommentId,@AcountId,@FeedBackId,@CommentContent  ) 
+     INSERT INTO Comment(AcountId,FeedBackId,CommentContent  ) 
+     VALUES (@AcountId,@FeedBackId,@CommentContent  ) 
   END 
 
  GO 
@@ -955,12 +944,11 @@ AS BEGIN
 /* Create Procedure Ins_Newscategories */
 
 CREATE PROCEDURE Ins_Newscategories
-@NewsCategoryId	int ,
 @NewsCategoryName	nvarchar(100) ,
 @Description	nvarchar(200)  
 AS BEGIN 
-     INSERT INTO Newscategories(NewsCategoryId,NewsCategoryName,Description  ) 
-     VALUES (@NewsCategoryId,@NewsCategoryName,@Description  ) 
+     INSERT INTO Newscategories(NewsCategoryName,Description  ) 
+     VALUES (@NewsCategoryName,@Description  ) 
   END 
 
  GO 
@@ -1032,8 +1020,8 @@ CREATE PROCEDURE Ins_News
 @NewsContent	ntext ,
 @DateCreation	datetime  
 AS BEGIN 
-     INSERT INTO News(NewsId,NewsCategoryId,Tittle,Picture,SubContent,NewsContent,DateCreation  ) 
-     VALUES (@NewsId,@NewsCategoryId,@Tittle,@Picture,@SubContent,@NewsContent,@DateCreation  ) 
+     INSERT INTO News(NewsCategoryId,Tittle,Picture,SubContent,NewsContent,DateCreation  ) 
+     VALUES (@NewsCategoryId,@Tittle,@Picture,@SubContent,@NewsContent,@DateCreation  ) 
   END 
 
  GO 
@@ -1049,3 +1037,12 @@ AS BEGIN
 
  GO 
 
+
+
+CREATE PROCEDURE Sel_Students 
+AS BEGIN 
+SELECT     Student.StudentId, Account.AcountId, Account.RoleId, Account.UserName, Account.PassWord, Account.DateCreation, Student.ClazzId, Student.FullName, 
+                      Student.BirthDay, Student.Gender, Student.Phone, Student.Email, Student.Address
+FROM         Account INNER JOIN
+                      Student ON Account.AcountId = Student.AcountId
+  END

@@ -34,7 +34,7 @@ create table Account
 	RoleId           INT REFERENCES Roles(RoleId) NOT NULL,
 	UserName         NVARCHAR(100),
 	PassWord         NVARCHAR(100),
-	DateCreate       DATETIME DEFAULT GETDATE()
+	DateCreation       DATETIME DEFAULT GETDATE()
 )
 GO
 create table Course
@@ -145,4 +145,13 @@ create table Comment
 	FeedBackId         INT REFERENCES FeedBack(FeedBackId) NOT NULL,
 	CommentContent    ntext
 )
+
+
+
+
+
+
+
+
+
 
