@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                template="./templates/ui.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="4">
+                <h:outputLabel value="Name:"></h:outputLabel>
+                <p:inputText value="#{studentBean.selectedStudent.name}"/>
+                <h:outputLabel value="Class:"></h:outputLabel>
+                <h:selectOneMenu value="#{studentBean.clazzId}">
+                    <c:forEach var="clazzItem" items="#{studentBean.listClazzs}">
+                        <f:selectItem itemLabel="#{clazzItem.name}" itemValue="#{clazzItem.id}"/>
+                    </c:forEach>
+                </h:selectOneMenu>
+                <p:commandButton ajax="false" value="Update" action="#{studentBean.editStudent}">
+
+                </p:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

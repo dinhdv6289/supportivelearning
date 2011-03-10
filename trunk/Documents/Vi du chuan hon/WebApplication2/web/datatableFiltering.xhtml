@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                template="./templates/ui.xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable var="student"
+                         value="#{studentBean.listStudents}"
+                         paginator="true"
+                         rows="10"
+                         emptyMessage="No students">
+                <p:column filterBy="#{student.clazz.name}"
+                          headerText="Class"
+                          filterMatchMode="contains">
+                    <h:outputLabel value="#{student.clazz.name}"/>
+                </p:column>
+
+                <p:column filterBy="#{student.name}"
+                          headerText="Name"
+                          filterMatchMode="contains">
+                    <h:outputLabel value="#{student.name}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
