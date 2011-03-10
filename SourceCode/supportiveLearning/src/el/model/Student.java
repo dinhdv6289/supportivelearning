@@ -19,6 +19,87 @@ public class Student extends User {
     private String phone;
     private String email;
     private String address;
+
+    public Student(int id, String name, String userName, String password, Date dateCreate, Clazz clazz, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.clazz = clazz;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Student(String name, String userName, String password, Date dateCreate, Clazz clazz, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.clazz = clazz;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Student(Clazz clazz, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.clazz = clazz;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Student(int id, String name, String userName, String password, Date dateCreate, Role role, Clazz clazz, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.clazz = clazz;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+
+    public Student(int id, String name, String userName, String password, Date dateCreate, Clazz clazz, Course course, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.clazz = clazz;
+        this.course = course;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Student(String name, String userName, String password, Date dateCreate, Clazz clazz, Course course, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.clazz = clazz;
+        this.course = course;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Student(Clazz clazz, Course course, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.clazz = clazz;
+        this.course = course;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Student(int id, String name, String userName, String password, Date dateCreate, Role role, Clazz clazz, Course course, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.clazz = clazz;
+        this.course = course;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Student() {
+        
+    }
     
 
     public String getAddress() {
