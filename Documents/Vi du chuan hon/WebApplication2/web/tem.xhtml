@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>ReplacePattern Manager</title>
+        <style type="text/css">
+            .ui-widget,
+            .ui-widget .ui-widget {
+                font-size: 12px !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <p:ajaxStatus style="width:16px;height:16px;">
+            <f:facet name="start">  
+                <h:outputText value="loading..." />
+            </f:facet>
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+            <f:facet name="error">
+                <h:outputText value="Server Error!" />
+            </f:facet>
+        </p:ajaxStatus>
+        <h:form id="form_replace_list" >
+            <c:set var="bean" value="#{replaceBean}"/>
+            <p:dataTable id="datatable_replace_list"
+                         var="model"
+                         value="#{bean.lazyModel}"
+                         lazy="true"
+                         dynamic="true"
+                         paginator="true"
+                         rows="10"
+                         selectionMode="single"
+                         rowsPerPageTemplate="5,10,15"
+                         selection="#{bean.currentModel}">
+                <p:column  headerText="?" style="width:10px" >
+                    <h:selectBooleanCheckbox value="#{model.exts['custom']}" disabled="true" />
+                </p:column>
+                <p:column  headerText="Text" filterBy="#{model.text}" style="width:150px">
+                    <h:outputText value="#{model.text}"/>
+                </p:column>
+                <p:column  headerText="Replace" filterBy="#{model.replace}"  style="width:150px">
+                    <h:outputText value="#{model.replace}"/>
+                </p:column>
+                <p:column  headerText="Tags" filterBy="#{model.tags_}" style="width:150px">
+                    <h:outputText value="#{model.tags_}"/>
+                </p:column>
+                <p:column  headerText="Test" style="width:200px">
+                    <h:outputText value="#{bean.testReplacePattern(model,model.exts['test'])}" escape="false" />
+                </p:column>
+            </p:dataTable>
+            <p:hotkey bind="space"
+                      update="form_replace_edit:dialog_replace_edit"
+                      oncomplete="dialog_replace_edit.show()"/>
+            <p:hotkey bind="d"
+                      oncomplete="confirm_replace_delete.show()"/>
+            <p:hotkey bind="ctrl+space"
+                      action="#{bean.requestInsert()}"
+                      update="form_replace_edit:dialog_replace_edit"
+                      oncomplete="dialog_replace_edit.show()"/>
+
+        </h:form>
+        <h:form>
+            <h:inputTextarea value="#{bean.textTest}" rows="10" style="width:600px"/><br/>
+            <p:commandButton value="Test"
+                             action="#{bean.testReplace}"
+                             update="panel_test_replace_result"/> <br/>
+            <p:outputPanel id="panel_test_replace_result">
+                <h:outputText value="#{bean.resultTest}" escape="false"/>
+            </p:outputPanel>
+        </h:form>
+        <ui:include src="ReplaceDialog.xhtml"/>
+    </h:body>
+</html>
+
