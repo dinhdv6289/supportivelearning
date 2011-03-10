@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package el.dao;
 
-import el.model.Role;
+import el.model.Semester;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,20 +16,20 @@ import java.util.ArrayList;
  *
  * @author TuyenPV
  */
-public class RoleDAO extends AbstractDAO<Role> {
+public class SemesterDAO extends AbstractDAO<Semester> {
 
     @Override
-    public boolean insert(Role t) throws Exception {
-        String sql = "Ins_Roles ?, ?";
+    public boolean insert(Semester t) throws Exception {
+        String sql = "Ins_Semester ?, ?";
         Connection conn = null;
         int a = 0;
         try {
             conn = getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, t.getName());
-            ps.setString(2, t.getDescription());
-
+            ps.setString(1, t.getSemesterName());
+            ps.setInt(2, t.getSemesterTime());
+           
             a = ps.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -41,8 +42,9 @@ public class RoleDAO extends AbstractDAO<Role> {
     }
 
     @Override
-    public boolean update(Role t) throws Exception {
-        String sql = "Udp_RolesById ?, ?, ?";
+    public boolean update(Semester t) throws Exception {
+        
+        String sql = "Udp_SemesterById ?, ?, ?";
         Connection conn = null;
         int a = 0;
         try {
@@ -50,8 +52,8 @@ public class RoleDAO extends AbstractDAO<Role> {
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, t.getId());
-            ps.setString(2, t.getName());
-            ps.setString(3, t.getDescription());
+            ps.setString(2, t.getSemesterName());
+            ps.setInt(3, t.getSemesterTime());
 
             a = ps.executeUpdate();
         } catch (Exception ex) {
@@ -65,24 +67,24 @@ public class RoleDAO extends AbstractDAO<Role> {
     }
 
     @Override
-    public boolean delete(Role t) throws Exception {
+    public boolean delete(Semester t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public ArrayList<Role> list() throws Exception {
-        ArrayList<Role> roles = new ArrayList<Role>();
+    public ArrayList<Semester> list() throws Exception {
+         ArrayList<Semester> semesters = new ArrayList<Semester>();
         Connection conn = null;
-        String sql = "Sel_AllRoles";
+        String sql = "Sel_AllSemester";
         try {
             conn = getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                roles.add(new Role(
-                            rs.getInt("RoleId")
-                        , rs.getString("RoleName")
-                        , rs.getString("Description")));
+                semesters.add(new Semester(
+                            rs.getInt("SemesterId")
+                        , rs.getString("SemesterName")
+                        , rs.getInt("SemesterTime")));
 
             }
         } finally {
@@ -91,28 +93,29 @@ public class RoleDAO extends AbstractDAO<Role> {
             }
         }
 
-        return roles;
+        return semesters;
     }
 
-    public Role getRoleById(int roleId) throws Exception {
+    public Semester getSemesterById(int semesterId) throws Exception {
         Connection conn = null;
-        Role role = null;
-        String sql = "Sel_RolesById ?";
+        Semester semester = null;
+        String sql = "Sel_SemesterById ?";
         try {
             conn = getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, roleId);
+            ps.setInt(1, semesterId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                role = new Role(rs.getInt("RoleId")
-                        , rs.getString("RoleName")
-                        , rs.getString("Description"));
+                semester = new Semester(rs.getInt("SemesterId")
+                        , rs.getString("SemesterName")
+                        ,rs.getInt("SemesterTime"));
             }
         } finally {
             if (conn != null) {
                 conn.close();
             }
         }
-        return role;
+        return semester;
     }
+
 }

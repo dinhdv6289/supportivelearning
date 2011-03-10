@@ -5,6 +5,7 @@
 package el.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -14,7 +15,57 @@ public class Clazz {
 
     private int id;
     private String name;
+    private Course course;
+    private Semester semester;
+    private Date startDate;
     private ArrayList<Student> students;
+
+    public Clazz(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Clazz(int id, String name, Course course, Semester semester, Date startDate, ArrayList<Student> students) {
+        this.id = id;
+        this.name = name;
+        this.course = course;
+        this.semester = semester;
+        this.startDate = startDate;
+        this.students = students;
+    }
+
+    public Clazz(int id, String name, Course course, Semester semester, Date startDate ) {
+        this.id = id;
+        this.name = name;
+        this.course = course;
+        this.semester = semester;
+        this.startDate = startDate;
+    }
+    
 
     public int getId() {
         return id;
