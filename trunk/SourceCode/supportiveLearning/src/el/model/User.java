@@ -17,6 +17,25 @@ public class User {
     private String userName;
     private String password;
     private Date dateCreate;
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public User(int id, String name, String userName, String password, Date dateCreate, Role role) {
+        this.id = id;
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
+        this.dateCreate = dateCreate;
+        this.role = role;
+    }
+    
 
     public User() {
     }
