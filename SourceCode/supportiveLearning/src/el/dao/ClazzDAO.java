@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package el.dao;
 
 import el.model.Clazz;
@@ -20,22 +19,23 @@ import java.util.ArrayList;
  *
  * @author TuyenPV
  */
-public class ClazzDAO extends AbstractDAO<Clazz>{
+public class ClazzDAO extends AbstractDAO<Clazz> {
 
     @Override
     public boolean insert(Clazz t) throws Exception {
-        String sql = "Ins_Clazz ?, ?, ?, ?";
         Connection conn = null;
         int a = 0;
+        String sql = "{call Ins_Clazz (?, ?, ?, ?)}";
+        CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, t.getCourse().getId());
-            ps.setInt(2, t.getSemester().getId());
-            ps.setString(3, t.getName());
-            ps.setDate(4, (Date) t.getStartDate());
+            cstmt = conn.prepareCall (sql);
+            cstmt.setInt(1, t.getCourse().getId());
+            cstmt.setInt(2, t.getSemester().getId());
+            cstmt.setString(3, t.getName());
+            cstmt.setDate(4, (Date) t.getStartDate());
 
-            a = ps.executeUpdate();
+            a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -43,24 +43,25 @@ public class ClazzDAO extends AbstractDAO<Clazz>{
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
     public boolean update(Clazz t) throws Exception {
-        String sql = "Udp_ClazzById ?, ?, ?, ?, ?";
         Connection conn = null;
         int a = 0;
+        String sql = "{call Udp_ClazzById (?, ?, ?, ?, ?)}";
+        CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, t.getId());
-            ps.setInt(2, t.getCourse().getId());
-            ps.setInt(3, t.getSemester().getId());
-            ps.setString(4, t.getName());
-            ps.setDate(5, (Date) t.getStartDate());
+            cstmt = conn.prepareCall (sql);
+            cstmt.setInt(1, t.getId());
+            cstmt.setInt(2, t.getCourse().getId());
+            cstmt.setInt(3, t.getSemester().getId());
+            cstmt.setString(4, t.getName());
+            cstmt.setDate(5, (Date) t.getStartDate());
 
-            a = ps.executeUpdate();
+            a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -68,7 +69,7 @@ public class ClazzDAO extends AbstractDAO<Clazz>{
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
@@ -90,11 +91,7 @@ public class ClazzDAO extends AbstractDAO<Clazz>{
                 Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
                 SemesterDAO semesterDAO = new SemesterDAO();
                 Semester semester = semesterDAO.getSemesterById(rs.getInt("SemesterId"));
-                clazzs.add (new Clazz(rs.getInt("ClazzId")
-                        , rs.getString("ClazzName")
-                        , course
-                        , semester
-                        , rs.getDate("StartDate")));
+                clazzs.add(new Clazz(rs.getInt("ClazzId"), rs.getString("ClazzName"), course, semester, rs.getDate("StartDate")));
             }
         } finally {
             if (conn != null) {
@@ -122,11 +119,7 @@ public class ClazzDAO extends AbstractDAO<Clazz>{
                 Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
                 SemesterDAO semesterDAO = new SemesterDAO();
                 Semester semester = semesterDAO.getSemesterById(rs.getInt("SemesterId"));
-                clazz = new Clazz(rs.getInt("ClazzId")
-                        , rs.getString("ClazzName")
-                        , course
-                        , semester
-                        , rs.getDate("StartDate"));
+                clazz = new Clazz(rs.getInt("ClazzId"), rs.getString("ClazzName"), course, semester, rs.getDate("StartDate"));
             }
         } finally {
             if (conn != null) {
@@ -135,5 +128,4 @@ public class ClazzDAO extends AbstractDAO<Clazz>{
         }
         return clazz;
     }
-
 }
