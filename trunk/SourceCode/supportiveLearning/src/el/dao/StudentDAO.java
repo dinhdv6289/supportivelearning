@@ -7,9 +7,9 @@ package el.dao;
 import el.model.Clazz;
 import el.model.Role;
 import el.model.Student;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -28,25 +28,24 @@ public class StudentDAO extends AbstractDAO<Student> {
 
     @Override
     public boolean insert(Student student) throws Exception {
-        String sql = "proc insert chua viet";
+        String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, student.getClazz().getId());
-            ps.setInt(2, student.getCourse().getId());
-            ps.setString(3, student.getName());
-            ps.setString(4, student.getAddress());
-            ps.setString(5, student.getEmail());
-            ps.setString(6, student.getPhone());
-            ps.setString(7, student.getUserName());
-            ps.setString(8, student.getPassword());
-            ps.setDate(9, (Date) student.getBirthDay());
-            ps.setBoolean(10, student.getGender());
-            ps.setDate(11, (Date) student.getDateCreate());
-            a = ps.executeUpdate();
+            CallableStatement stmt = conn.prepareCall(sql);
+            stmt.setInt(1, student.getClazz().getId());
+            stmt.setInt(2, student.getCourse().getId());
+            stmt.setString(3, student.getName());
+            stmt.setString(4, student.getAddress());
+            stmt.setString(5, student.getEmail());
+            stmt.setString(6, student.getPhone());
+            stmt.setString(7, student.getUserName());
+            stmt.setString(8, student.getPassword());
+            stmt.setDate(9, (Date) student.getBirthDay());
+            stmt.setBoolean(10, student.getGender());
+            stmt.setDate(11, (Date) student.getDateCreate());
+            a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -54,30 +53,30 @@ public class StudentDAO extends AbstractDAO<Student> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
     public boolean update(Student student) throws Exception {
-        String sql = "proc update chua viet";
+        String sql = "{call Udp_StudentById (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, student.getId());
-            ps.setInt(2, student.getClazz().getId());
-            ps.setInt(3, student.getCourse().getId());
-            ps.setString(4, student.getName());
-            ps.setString(5, student.getAddress());
-            ps.setString(6, student.getEmail());
-            ps.setString(7, student.getPhone());
-            ps.setString(8, student.getUserName());
-            ps.setString(9, student.getPassword());
-            ps.setDate(10, (Date) student.getBirthDay());
-            ps.setBoolean(11, student.getGender());
-            ps.setDate(12, (Date) student.getDateCreate());
-            a = ps.executeUpdate();
+            CallableStatement stmt = conn.prepareCall(sql);
+            stmt.setInt(1, student.getId());
+            stmt.setInt(2, student.getClazz().getId());
+            stmt.setInt(3, student.getCourse().getId());
+            stmt.setString(4, student.getName());
+            stmt.setString(5, student.getAddress());
+            stmt.setString(6, student.getEmail());
+            stmt.setString(7, student.getPhone());
+            stmt.setString(8, student.getUserName());
+            stmt.setString(9, student.getPassword());
+            stmt.setDate(10, (Date) student.getBirthDay());
+            stmt.setBoolean(11, student.getGender());
+            stmt.setDate(12, (Date) student.getDateCreate());
+            a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -85,19 +84,19 @@ public class StudentDAO extends AbstractDAO<Student> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
     public boolean delete(Student student) throws Exception {
-        String sql = "proc delete chua viet";
+        String sql = "{call Del_StudentById (?)}";
         Connection conn = null;
         int a = 0;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, student.getId());
-            a = ps.executeUpdate();
+            CallableStatement stmt = conn.prepareCall(sql);
+            stmt.setInt(1, student.getId());
+            a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -105,7 +104,7 @@ public class StudentDAO extends AbstractDAO<Student> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
@@ -148,14 +147,16 @@ public class StudentDAO extends AbstractDAO<Student> {
         return students;
     }
 
-    public Student getStudentById() throws Exception {
+    public Student getStudentById(Student s) throws Exception {
         Student student = new Student();
         Connection conn = null;
-        String sql = "Sel_StudentById ?";
+        String sql = "{call Sel_StudentById (?)}";
+        CallableStatement cstmt = null;
         try {
-            conn = getConnection(); // from BaseDAO
-            Statement stmt = conn.createStatement();
-            ResultSet rsstudents = stmt.executeQuery(sql);
+            conn = getConnection();
+            cstmt.setInt(1, s.getId());
+            cstmt = conn.prepareCall(sql);
+            ResultSet rsstudents = cstmt.executeQuery(sql);
             while (rsstudents.next()) {
                 RoleDAO roleDAO = new RoleDAO();
                 Role role = roleDAO.getRoleById(rsstudents.getInt("RoleId"));

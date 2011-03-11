@@ -7,7 +7,6 @@ package el.dao;
 import el.model.Role;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -20,17 +19,18 @@ public class RoleDAO extends AbstractDAO<Role> {
 
     @Override
     public boolean insert(Role t) throws Exception {
-        String sql = "Ins_Roles ?, ?";
         Connection conn = null;
         int a = 0;
+        String sql = "{call Ins_Roles (?, ?)}";
+        CallableStatement cstmt = null;
+
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            cstmt = conn.prepareCall (sql);
+            cstmt.setString(1, t.getName());
+            cstmt.setString(2, t.getDescription());
 
-            ps.setString(1, t.getName());
-            ps.setString(2, t.getDescription());
-
-            a = ps.executeUpdate();
+            a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -38,23 +38,24 @@ public class RoleDAO extends AbstractDAO<Role> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
     public boolean update(Role t) throws Exception {
-        String sql = "Udp_RolesById ?, ?, ?";
         Connection conn = null;
         int a = 0;
+        String sql = "{call Udp_RolesById (?, ?, ?)}";
+        CallableStatement cstmt = null;
+
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            cstmt = conn.prepareCall (sql);
+            cstmt.setInt(1, t.getId());
+            cstmt.setString(2, t.getName());
+            cstmt.setString(3, t.getDescription());
 
-            ps.setInt(1, t.getId());
-            ps.setString(2, t.getName());
-            ps.setString(3, t.getDescription());
-
-            a = ps.executeUpdate();
+            a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -62,7 +63,7 @@ public class RoleDAO extends AbstractDAO<Role> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override

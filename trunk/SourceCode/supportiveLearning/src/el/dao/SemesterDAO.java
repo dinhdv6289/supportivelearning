@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package el.dao;
 
 import el.model.Semester;
@@ -21,17 +20,17 @@ public class SemesterDAO extends AbstractDAO<Semester> {
 
     @Override
     public boolean insert(Semester t) throws Exception {
-        String sql = "Ins_Semester ?, ?";
         Connection conn = null;
         int a = 0;
+        String sql = "{call Ins_Semester (?, ?)}";
+        CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            cstmt = conn.prepareCall(sql);
+            cstmt.setString(1, t.getSemesterName());
+            cstmt.setInt(2, t.getSemesterTime());
 
-            ps.setString(1, t.getSemesterName());
-            ps.setInt(2, t.getSemesterTime());
-           
-            a = ps.executeUpdate();
+            a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -39,24 +38,23 @@ public class SemesterDAO extends AbstractDAO<Semester> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
     public boolean update(Semester t) throws Exception {
-        
-        String sql = "Udp_SemesterById ?, ?, ?";
         Connection conn = null;
         int a = 0;
+        String sql = "{call Udp_SemesterById (?, ?, ?)}";
+        CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, t.getId());
+            cstmt.setString(2, t.getSemesterName());
+            cstmt.setInt(3, t.getSemesterTime());
 
-            ps.setInt(1, t.getId());
-            ps.setString(2, t.getSemesterName());
-            ps.setInt(3, t.getSemesterTime());
-
-            a = ps.executeUpdate();
+            a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -64,7 +62,7 @@ public class SemesterDAO extends AbstractDAO<Semester> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
@@ -74,7 +72,7 @@ public class SemesterDAO extends AbstractDAO<Semester> {
 
     @Override
     public ArrayList<Semester> list() throws Exception {
-         ArrayList<Semester> semesters = new ArrayList<Semester>();
+        ArrayList<Semester> semesters = new ArrayList<Semester>();
         Connection conn = null;
         String sql = "Sel_AllSemester";
         try {
@@ -83,9 +81,7 @@ public class SemesterDAO extends AbstractDAO<Semester> {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 semesters.add(new Semester(
-                            rs.getInt("SemesterId")
-                        , rs.getString("SemesterName")
-                        , rs.getInt("SemesterTime")));
+                        rs.getInt("SemesterId"), rs.getString("SemesterName"), rs.getInt("SemesterTime")));
 
             }
         } finally {
@@ -108,9 +104,7 @@ public class SemesterDAO extends AbstractDAO<Semester> {
             cstmt.setInt(1, semesterId);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                semester = new Semester(rs.getInt("SemesterId")
-                        , rs.getString("SemesterName")
-                        ,rs.getInt("SemesterTime"));
+                semester = new Semester(rs.getInt("SemesterId"), rs.getString("SemesterName"), rs.getInt("SemesterTime"));
             }
         } finally {
             if (conn != null) {
@@ -119,5 +113,4 @@ public class SemesterDAO extends AbstractDAO<Semester> {
         }
         return semester;
     }
-
 }

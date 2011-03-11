@@ -21,18 +21,20 @@ public class CourseDAO extends AbstractDAO<Course> {
 
     @Override
     public boolean insert(Course t) throws Exception {
-        String sql = "Ins_Course ?, ?, ?, ?";
         Connection conn = null;
         int a = 0;
+        String sql = "{call Ins_Course (?, ?, ?, ?)}";
+        CallableStatement cstmt = null;
+
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, t.getName());
-            ps.setDate(2, (Date) t.getDateStart());
-            ps.setDate(3, (Date) t.getDateEnd());
-            ps.setString(4, t.getBatch());
+            cstmt = conn.prepareCall (sql);
+            cstmt.setString(1, t.getName());
+            cstmt.setDate(2, (Date) t.getDateStart());
+            cstmt.setDate(3, (Date) t.getDateEnd());
+            cstmt.setString(4, t.getBatch());
 
-            a = ps.executeUpdate();
+            a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -40,25 +42,26 @@ public class CourseDAO extends AbstractDAO<Course> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
     public boolean update(Course t) throws Exception {
-        String sql = "Udp_CourseById ?, ?, ?, ?, ?";
         Connection conn = null;
         int a = 0;
+        String sql = "{call Udp_CourseById (?, ?, ?, ?, ?)}";
+        CallableStatement cstmt = null;
+
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            cstmt = conn.prepareCall (sql);
+            cstmt.setInt(1, t.getId());
+            cstmt.setString(2, t.getName());
+            cstmt.setDate(3, (Date) t.getDateStart());
+            cstmt.setDate(4, (Date) t.getDateEnd());
+            cstmt.setString(5, t.getBatch());
 
-            ps.setInt(1, t.getId());
-            ps.setString(2, t.getName());
-            ps.setDate(3, (Date) t.getDateStart());
-            ps.setDate(4, (Date) t.getDateEnd());
-            ps.setString(5, t.getBatch());
-
-            a = ps.executeUpdate();
+            a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -66,7 +69,7 @@ public class CourseDAO extends AbstractDAO<Course> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a == 1 ? true : false;
     }
 
     @Override
