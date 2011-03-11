@@ -174,7 +174,6 @@ public class StudentBean implements Serializable {
         try {
             FacesMessage message;
             if (studentDAO.delete(selectedStudent)) {
-                //  loadStudents();
                 message = new FacesMessage("Delete Student success!");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             } else {
