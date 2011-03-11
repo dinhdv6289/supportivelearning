@@ -5,6 +5,7 @@
 package el.dao;
 
 import el.model.Role;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -97,12 +98,15 @@ public class RoleDAO extends AbstractDAO<Role> {
     public Role getRoleById(int roleId) throws Exception {
         Connection conn = null;
         Role role = null;
-        String sql = "Sel_RolesById ?";
+        String sql = "{call Sel_RolesById (?)}";
+        CallableStatement cstmt = null;
+
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, roleId);
-            ResultSet rs = ps.executeQuery();
+            cstmt = conn.prepareCall (sql);
+
+            cstmt.setInt(1, roleId);
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 role = new Role(rs.getInt("RoleId")
                         , rs.getString("RoleName")

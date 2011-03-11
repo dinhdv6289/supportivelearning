@@ -59,7 +59,7 @@ public class StudentDAO extends AbstractDAO<Student> {
 
     @Override
     public boolean update(Student student) throws Exception {
-         String sql = "proc update chua viet";
+        String sql = "proc update chua viet";
         Connection conn = null;
         int a = 0;
         try {
@@ -114,26 +114,29 @@ public class StudentDAO extends AbstractDAO<Student> {
         Connection conn = null;
         String sql = "Sel_Students";
         try {
-            conn = getConnection(); // from BaseDAO
+            conn = getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rsstudents = stmt.executeQuery(sql);
-            while (rsstudents.next()) {   
+            while (rsstudents.next()) {
                 RoleDAO roleDAO = new RoleDAO();
                 Role role = roleDAO.getRoleById(rsstudents.getInt("RoleId"));
                 ClazzDAO clazzDAO = new ClazzDAO();
                 Clazz clazz = clazzDAO.getClazzById(rsstudents.getInt("ClazzId"));
-                students.add(new Student(rsstudents.getInt("StudentId")
-                        , rsstudents.getString("FullName")
-                        , rsstudents.getString("UserName")
-                        , rsstudents.getString("Password")
-                        , rsstudents.getDate("DateCreation")
-                        , role
-                        , clazz
-                        , rsstudents.getDate("BirthDay")
-                        , rsstudents.getBoolean("Gender")
-                        , rsstudents.getString("Phone")
-                        , rsstudents.getString("Email")
-                        , rsstudents.getString("Address")));
+                Student student = new Student();
+                student.setId(rsstudents.getInt("StudentId"));
+                student.setName(rsstudents.getString("FullName"));
+                student.setUserName(rsstudents.getString("UserName"));
+                student.setPassword(rsstudents.getString("Password"));
+                student.setDateCreate(rsstudents.getDate("DateCreation"));
+                student.setRole(role);
+                student.setClazz(clazz);
+                student.setBirthDay(rsstudents.getDate("BirthDay"));
+                student.setGender(rsstudents.getBoolean("Gender"));
+                student.setPhone(rsstudents.getString("Phone"));
+                student.setEmail(rsstudents.getString("Email"));
+                student.setAddress(rsstudents.getString("Address"));
+
+                students.add(student);
 
             }
         } finally {
@@ -158,19 +161,18 @@ public class StudentDAO extends AbstractDAO<Student> {
                 Role role = roleDAO.getRoleById(rsstudents.getInt("RoleId"));
                 ClazzDAO clazzDAO = new ClazzDAO();
                 Clazz clazz = clazzDAO.getClazzById(rsstudents.getInt("ClazzId"));
-                student  = new Student(rsstudents.getInt("StudentId")
-                        , rsstudents.getString("FullName")
-                        , rsstudents.getString("UserName")
-                        , rsstudents.getString("Password")
-                        , rsstudents.getDate("DateCreation")
-                        , role
-                        , clazz
-                        , rsstudents.getDate("BirthDay")
-                        , rsstudents.getBoolean("Gender")
-                        , rsstudents.getString("Phone")
-                        , rsstudents.getString("Email")
-                        , rsstudents.getString("Address"));
-
+                student.setId(rsstudents.getInt("StudentId"));
+                student.setName(rsstudents.getString("FullName"));
+                student.setUserName(rsstudents.getString("UserName"));
+                student.setPassword(rsstudents.getString("Password"));
+                student.setDateCreate(rsstudents.getDate("DateCreation"));
+                student.setRole(role);
+                student.setClazz(clazz);
+                student.setBirthDay(rsstudents.getDate("BirthDay"));
+                student.setGender(rsstudents.getBoolean("Gender"));
+                student.setPhone(rsstudents.getString("Phone"));
+                student.setEmail(rsstudents.getString("Email"));
+                student.setAddress(rsstudents.getString("Address"));
             }
         } finally {
             if (conn != null) {

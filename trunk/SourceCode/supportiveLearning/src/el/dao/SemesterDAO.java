@@ -6,6 +6,7 @@
 package el.dao;
 
 import el.model.Semester;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,12 +100,13 @@ public class SemesterDAO extends AbstractDAO<Semester> {
     public Semester getSemesterById(int semesterId) throws Exception {
         Connection conn = null;
         Semester semester = null;
-        String sql = "Sel_SemesterById ?";
+        String sql = "{call Sel_SemesterById (?)}";
+        CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, semesterId);
-            ResultSet rs = ps.executeQuery();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, semesterId);
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 semester = new Semester(rs.getInt("SemesterId")
                         , rs.getString("SemesterName")
