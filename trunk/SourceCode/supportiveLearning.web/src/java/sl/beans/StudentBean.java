@@ -4,13 +4,15 @@
  */
 package sl.beans;
 
-import el.dao.CLazzDAO;
+import el.dao.ClazzDAO;
 import el.dao.StudentDAO;
 import el.model.Clazz;
 import el.model.Student;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,7 +29,7 @@ public class StudentBean implements Serializable {
 
     private StudentDAO studentDAO = new StudentDAO();
     private Student selectedStudent;
-    private CLazzDAO clazzDAO = new CLazzDAO();
+    private ClazzDAO clazzDAO = new ClazzDAO();
     private ArrayList<Student> listStudents = new ArrayList<Student>();
     private ArrayList<Clazz> listClazzs = new ArrayList<Clazz>();
 
@@ -142,7 +144,11 @@ public class StudentBean implements Serializable {
     }
 
     public void loadListClazzs() {
-        this.listClazzs = clazzDAO.list();
+        try {
+            this.listClazzs = clazzDAO.list();
+        } catch (Exception ex) {
+            Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void onRequestStudent(Student student) {
@@ -150,30 +156,37 @@ public class StudentBean implements Serializable {
     }
 
     public void editStudent(ActionEvent event) {
-        FacesMessage message;
-        if (studentDAO.update(selectedStudent)) {
-
-            message = new FacesMessage("update success!!!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        } else {
-            message = new FacesMessage("update failure!!!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+        try {
+            FacesMessage message;
+            if (studentDAO.update(selectedStudent)) {
+                message = new FacesMessage("update success!!!");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } else {
+                message = new FacesMessage("update failure!!!");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void deleteStudent(ActionEvent event) {
-        FacesMessage message;
-        if (studentDAO.delete(selectedStudent)) {
-            //  loadStudents();
-            message = new FacesMessage("Delete Student success!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        } else {
-            message = new FacesMessage("Delete Student failure!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+        try {
+            FacesMessage message;
+            if (studentDAO.delete(selectedStudent)) {
+                //  loadStudents();
+                message = new FacesMessage("Delete Student success!");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } else {
+                message = new FacesMessage("Delete Student failure!");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public String login(){
+    public String login() {
 
         return null;
     }
