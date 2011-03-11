@@ -1,0 +1,230 @@
+/*
+   blue.css
+   Giornale HTML
+   
+	Alternate Color Stylings for Giornale
+
+   Created by Mark Southard on 2010-08-23.
+   Copyright 2010. All rights reserved.
+*/
+
+
+/* ============== */
+/* = TYPOGRAPHY = */
+/* ============== */
+a {
+	border-bottom: 1px dotted #004A80;
+	color: #004A80;
+}
+a:hover { border-bottom: 1px solid #004A80; }
+
+/* =========== */
+/* = HEADERS = */
+/* =========== */
+/* Header Two */
+#header_two {
+	background: #004A80;
+	background: -moz-linear-gradient(top, #004A80, #002157);
+	background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+	    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157')"; /* IE8 */
+}
+/* Header Three */
+#menu a.active,
+#menu a:hover { color: #004A80; }
+
+			
+/* ===================== */
+/* = MAIN CONTENT AREA = */
+/* ===================== */
+
+/* Article Styles */
+span.article_sticker {
+	background: transparent url("../../images/blue/article_sticker.png") no-repeat top left;
+	text-shadow: -1px -1px 2px #00203b;
+}
+span.article_banner {
+	background: transparent url("../../images/blue/article_banner.png") no-repeat top left;
+	text-shadow: -1px -1px 1px #00203b;
+}
+span.article_ribbon {
+	background: transparent url("../../images/blue/article_ribbon.png") no-repeat top left;
+	text-shadow: -1px -1px 1px #00203b;
+	top: 75px;
+	right: -40px;
+	width: 185px;
+	height: 26px;
+}
+
+/* ========================= */
+/* = Page Specific Styling = */
+/* ========================= */
+
+/* == Blog Page Styling == */
+/* Comments Styling */
+.commentlist .reply a { background: transparent url("../../images/blue/reply.png") no-repeat right; }
+.commentlist .reply a:hover { border-bottom: 1px dotted #004A80; }
+.commentlist .vcard cite.fn a.url:hover { border-bottom: 1px dotted #004A80;}
+
+/* == Porfolio Page Styling == */
+a.portfolio { border-bottom: 1px dotted #004A80; }
+a.portfolio:hover { border-bottom: 1px solid #004A80; }
+
+/* ===================== */
+/* = STYLIZED ELEMENTS = */
+/* ===================== */
+/* Breadcrumbs */
+span.breadcrumbs a:hover { border-bottom: 1px dotted #004A80; }
+span.breadcrumbs a:active { border-bottom: 1px solid #004A80; }
+
+/* Pagination */
+		ul.pagination li a.active,
+		ul.pagination li a:hover {
+			background: #004A80;
+			background: -moz-linear-gradient(top, #004A80, #002157);
+			background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+			    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157'); /* IE6,IE7 */
+		    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157')"; /* IE8 */
+			border: 1px solid #00203B;
+			text-shadow: 0 -1px 0 #00203B;
+		}
+
+/* == Drop Caps == */
+span.dropcap {
+	background-color: #004A80;
+	background: -moz-linear-gradient(top, #004A80, #002157);
+	background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+	    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157')"; /* IE8 */	
+}
+	
+/* == Tabs Panel == */
+ul.tabs_nav li a:hover {
+	color: #004A80;
+}
+ul.tabs_nav li a.current {
+	background: #004A80;
+	color: #F1F1F1;
+	border: 1px solid #004A80;
+}
+
+/* =========== */
+/* = BUTTONS = */
+/* =========== */
+a.button {
+	background: #004A80;
+	background: -moz-linear-gradient(top, #004A80, #002157);
+	background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+	    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157')"; /* IE8 */	
+	border: 1px solid #00203B;
+	text-shadow: -1px -1px 0 #00203B;
+}
+	a.button:hover {
+		background: #015999;
+		background: -moz-linear-gradient(top, #004A80, #002157);
+		background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+		    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#015999', EndColorStr='#002157'); /* IE6,IE7 */
+	    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#015999', EndColorStr='#002157')"; /* IE8 */	
+		-moz-box-shadow: 0 0 12px rgba(33, 102, 153, 0.95) inset;
+		-webkit-box-shadow: 0 0 12px rgba(33, 102, 153, 0.95) inset;
+		box-shadow: 0 0 12px rgba(33, 102, 153, 0.95) inset;
+	}
+	a.button:active {
+		background: #002157;
+		-moz-box-shadow: 0 0 12px rgba(0, 0, 0, 0.5) inset;
+		-webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.5) inset;;
+		box-shadow: 0 0 12px rgba(0, 0, 0, 0.5) inset;;
+	}
+
+/* ========= */
+/* = FORMS = */
+/* ========= */
+/* Newsletter Sign Up */
+input.button {
+	background: #004A80;
+	background: -moz-linear-gradient(top, #004A80, #002157);
+	background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+	    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157')"; /* IE8 */	
+	border: 1px solid #00203B;
+	text-shadow: 0 -1px 0 #00203b;
+}
+	input.button:hover {
+		background: #015999;
+		background: -moz-linear-gradient(top, #004A80, #002157);
+		background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+		    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#015999', EndColorStr='#002157'); /* IE6,IE7 */
+	    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#015999', EndColorStr='#002157')"; /* IE8 */	
+		-moz-box-shadow: 0 0 12px rgba(33, 102, 153, 0.95) inset;
+		-webkit-box-shadow: 0 0 12px rgba(33, 102, 153, 0.95) inset;
+		box-shadow: 0 0 12px rgba(33, 102, 153, 0.95) inset;
+	}
+	input.button:active {
+		background-color: #002157;
+		-moz-box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+		-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+		box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+	}
+
+/* Contact Form */
+#contact_form input.button {
+	background: #004A80;
+	background: -moz-linear-gradient(top, #004A80, #002157);
+	background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+	    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157')"; /* IE8 */	
+	border: 1px solid #959595;
+	text-shadow: -1px -1px 0 #00203B;
+}
+	#contact_form input.button:hover {
+		background-color: #015999;
+		    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#015999', EndColorStr='#002157'); /* IE6,IE7 */
+	    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#015999', EndColorStr='#002157')"; /* IE8 */	
+		-moz-box-shadow: 0 0 15px rgba(33, 102, 153, .3);
+		-webkit-box-shadow: 0 0 15px rgba(33, 102, 153, .3);
+		box-shadow: 0 0 15px rgba(33, 102, 153, .3);
+	}
+	#contact_form input.button:active {
+		background-color: #002157;
+		-moz-box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+		-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+		box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+	}
+
+/* Comment Form */
+#commentform input.button {
+	background: #004A80;
+	background: -moz-linear-gradient(top, #004A80, #002157);
+	background: -webkit-gradient(linear, left top, left bottom, from(#004A80), to(#002157));
+	    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157')"; /* IE8 */	
+	border: 1px solid #00203B;
+	text-shadow: 0 -1px 0 #00203B;
+}
+	#commentform input.button:hover {
+		background-color: #015999;
+		-moz-box-shadow: 0 0 15px rgba(33, 102, 153, .3);
+		-webkit-box-shadow: 0 0 15px rgba(33, 102, 153, .3);
+		box-shadow: 0 0 15px rgba(33, 102, 153, .3);
+	}
+	#commentform input.button:active {
+		background-color: #002157;
+		-moz-box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+		-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+		box-shadow: 0 0 15px rgba(0, 0, 0, .7) inset;
+	}	
+
+/*
+	Coin Slider jQuery plugin CSS styles
+	http://workshop.rs/projects/coin-slider
+*/
+
+.cs-buttons a.cs-active,
+.cs-buttons a:hover { 
+	background-color: #004A80;
+	background: -moz-linear-gradient(top left, #004A80, #002157);
+	background: -webkit-gradient(linear, left top, right bottom, from(#004A80), to(#002157));
+	    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004A80', EndColorStr='#002157')"; /* IE8 */	
+}
