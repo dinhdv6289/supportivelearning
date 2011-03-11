@@ -8,6 +8,7 @@ package el.dao;
 import el.model.Clazz;
 import el.model.Course;
 import el.model.Semester;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -106,12 +107,16 @@ public class ClazzDAO extends AbstractDAO<Clazz>{
     public Clazz getClazzById(int clazzId) throws Exception {
         Connection conn = null;
         Clazz clazz = null;
-        String sql = "Sel_ClazzById ?";
+
+        String sql = "{call Sel_ClazzById (?)}";
+        CallableStatement cstmt = null;
+
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, clazzId);
-            ResultSet rs = ps.executeQuery();
+            cstmt = conn.prepareCall(sql);
+
+            cstmt.setInt(1, clazzId);
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 CourseDAO courseDAO = new CourseDAO();
                 Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
