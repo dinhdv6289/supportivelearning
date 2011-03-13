@@ -85,18 +85,6 @@ public class StudentBean extends AbstractBean implements Serializable {
         this.setSelectedStudent(student);
     }
 
-    public String login() {
-        //call method studentDAO.getStudentByUserNameAndPassword(student);
-        //if(student != null){
-        //
-        //SessionManager.setSession("studentLogined", student);
-        //
-        //}
-        //
-        //
-
-        return null;
-    }
 
     @Override
     public String insert(ActionEvent event) throws Exception {
