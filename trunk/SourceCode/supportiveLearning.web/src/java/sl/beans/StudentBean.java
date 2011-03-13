@@ -26,10 +26,11 @@ import sl.utils.SessionManager;
  */
 @ManagedBean
 @SessionScoped
-public class StudentBean implements Serializable {
+public class StudentBean extends AbstractBean implements Serializable {
 
     private StudentDAO studentDAO = new StudentDAO();
     private Student selectedStudent;
+    private Student student;
     private ClazzDAO clazzDAO = new ClazzDAO();
     private ArrayList<Student> listStudents = new ArrayList<Student>();
     private ArrayList<Clazz> listClazzs = new ArrayList<Clazz>();
@@ -37,87 +38,15 @@ public class StudentBean implements Serializable {
     /** Creates a new instance of StudentBean */
     public StudentBean() {
         selectedStudent = new Student();
-    }
-    private int id;
-    private String name;
-    private String userName;
-    private String email;
-    private String password;
-    private Date birthDay;
-    private boolean gender;
-    private String phone;
-    private String address;
-
-    public String getEmail() {
-        return email;
+        student = new Student();
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Student getStudent() {
+        return student;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Date getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
-    }
-
-    public boolean isGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public Student getSelectedStudent() {
@@ -156,40 +85,7 @@ public class StudentBean implements Serializable {
         this.setSelectedStudent(student);
     }
 
-    public void editStudent(ActionEvent event) {
-        try {
-            FacesMessage message;
-            if (studentDAO.update(selectedStudent)) {
-                message = new FacesMessage("update success!!!");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            } else {
-                message = new FacesMessage("update failure!!!");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void deleteStudent(ActionEvent event) {
-        try {
-            FacesMessage message;
-            if (studentDAO.delete(selectedStudent)) {
-                message = new FacesMessage("Delete Student success!");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            } else {
-                message = new FacesMessage("Delete Student failure!");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     public String login() {
-        Student student = new Student();
-        student.setUserName(userName);
-        student.setPassword(password);
         //call method studentDAO.getStudentByUserNameAndPassword(student);
         //if(student != null){
         //
@@ -199,6 +95,26 @@ public class StudentBean implements Serializable {
         //
         //
 
+        return null;
+    }
+
+    @Override
+    public String insert(ActionEvent event) throws Exception {
+        return null;
+    }
+
+    @Override
+    public String update(ActionEvent event) throws Exception {
+        return null;
+    }
+
+    @Override
+    public String delete(ActionEvent event) throws Exception {
+        return null;
+    }
+
+    @Override
+    public String login(ActionEvent event) throws Exception {
         return null;
     }
 }
