@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import sl.utils.SessionManager;
 
 /**
  *
@@ -186,6 +187,17 @@ public class StudentBean implements Serializable {
     }
 
     public String login() {
+        Student student = new Student();
+        student.setUserName(userName);
+        student.setPassword(password);
+        //call method studentDAO.getStudentByUserNameAndPassword(student);
+        //if(student != null){
+        //
+        //SessionManager.setSession("studentLogined", student);
+        //
+        //}
+        //
+        //
 
         return null;
     }
