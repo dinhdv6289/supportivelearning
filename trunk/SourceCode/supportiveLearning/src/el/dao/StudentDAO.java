@@ -4,12 +4,13 @@
  */
 package el.dao;
 
-import el.model.Clazz;
+import el.model.Batch;
 import el.model.Role;
 import el.model.Student;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -33,8 +34,23 @@ public class StudentDAO extends AbstractDAO<Student> {
         int a = 0;
         try {
             conn = getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, student.getBatch().getId());
+            ps.setInt(2, student.getCourse().getId());
+            ps.setString(3, student.getName());
+            ps.setString(4, student.getAddress());
+            ps.setString(5, student.getEmail());
+            ps.setString(6, student.getPhone());
+            ps.setString(7, student.getUserName());
+            ps.setString(8, student.getPassword());
+            ps.setDate(9, (Date) student.getBirthDay());
+            ps.setBoolean(10, student.getGender());
+            ps.setDate(11, (Date) student.getDateCreate());
+            a = ps.executeUpdate();
             CallableStatement stmt = conn.prepareCall(sql);
-            stmt.setInt(1, student.getClazz().getId());
+            stmt.setInt(1, student.getBatch().getId());
             stmt.setInt(2, student.getCourse().getId());
             stmt.setString(3, student.getName());
             stmt.setString(4, student.getAddress());
@@ -63,9 +79,23 @@ public class StudentDAO extends AbstractDAO<Student> {
         int a = 0;
         try {
             conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, student.getId());
+            ps.setInt(2, student.getBatch().getId());
+            ps.setInt(3, student.getCourse().getId());
+            ps.setString(4, student.getName());
+            ps.setString(5, student.getAddress());
+            ps.setString(6, student.getEmail());
+            ps.setString(7, student.getPhone());
+            ps.setString(8, student.getUserName());
+            ps.setString(9, student.getPassword());
+            ps.setDate(10, (Date) student.getBirthDay());
+            ps.setBoolean(11, student.getGender());
+            ps.setDate(12, (Date) student.getDateCreate());
+            a = ps.executeUpdate();
             CallableStatement stmt = conn.prepareCall(sql);
             stmt.setInt(1, student.getId());
-            stmt.setInt(2, student.getClazz().getId());
+            stmt.setInt(2, student.getBatch().getId());
             stmt.setInt(3, student.getCourse().getId());
             stmt.setString(4, student.getName());
             stmt.setString(5, student.getAddress());
@@ -119,8 +149,8 @@ public class StudentDAO extends AbstractDAO<Student> {
             while (rsstudents.next()) {
                 RoleDAO roleDAO = new RoleDAO();
                 Role role = roleDAO.getRoleById(rsstudents.getInt("RoleId"));
-                ClazzDAO clazzDAO = new ClazzDAO();
-                Clazz clazz = clazzDAO.getClazzById(rsstudents.getInt("ClazzId"));
+                BatchDAO clazzDAO = new BatchDAO();
+                Batch clazz = clazzDAO.getClazzById(rsstudents.getInt("ClazzId"));
                 Student student = new Student();
                 student.setId(rsstudents.getInt("StudentId"));
                 student.setName(rsstudents.getString("FullName"));
@@ -128,7 +158,7 @@ public class StudentDAO extends AbstractDAO<Student> {
                 student.setPassword(rsstudents.getString("Password"));
                 student.setDateCreate(rsstudents.getDate("DateCreation"));
                 student.setRole(role);
-                student.setClazz(clazz);
+                student.setBatch(clazz);
                 student.setBirthDay(rsstudents.getDate("BirthDay"));
                 student.setGender(rsstudents.getBoolean("Gender"));
                 student.setPhone(rsstudents.getString("Phone"));
@@ -160,15 +190,15 @@ public class StudentDAO extends AbstractDAO<Student> {
             while (rsstudents.next()) {
                 RoleDAO roleDAO = new RoleDAO();
                 Role role = roleDAO.getRoleById(rsstudents.getInt("RoleId"));
-                ClazzDAO clazzDAO = new ClazzDAO();
-                Clazz clazz = clazzDAO.getClazzById(rsstudents.getInt("ClazzId"));
+                BatchDAO clazzDAO = new BatchDAO();
+                Batch clazz = clazzDAO.getClazzById(rsstudents.getInt("ClazzId"));
                 student.setId(rsstudents.getInt("StudentId"));
                 student.setName(rsstudents.getString("FullName"));
                 student.setUserName(rsstudents.getString("UserName"));
                 student.setPassword(rsstudents.getString("Password"));
                 student.setDateCreate(rsstudents.getDate("DateCreation"));
                 student.setRole(role);
-                student.setClazz(clazz);
+                student.setBatch(clazz);
                 student.setBirthDay(rsstudents.getDate("BirthDay"));
                 student.setGender(rsstudents.getBoolean("Gender"));
                 student.setPhone(rsstudents.getString("Phone"));
@@ -182,5 +212,10 @@ public class StudentDAO extends AbstractDAO<Student> {
         }
 
         return student;
+    }
+
+    @Override
+    public Student getObject(Student t) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

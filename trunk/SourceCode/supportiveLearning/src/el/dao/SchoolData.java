@@ -4,7 +4,7 @@
  */
 package el.dao;
 
-import el.model.Clazz;
+import el.model.Batch;
 import el.model.Course;
 import el.model.Student;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.Date;
 public class SchoolData {
 
     private static ArrayList<Course> listCourses = new ArrayList<Course>();
-    private static ArrayList<Clazz> listClazzs = new ArrayList<Clazz>();
+    private static ArrayList<Batch> listClazzs = new ArrayList<Batch>();
     private static ArrayList<Student> listStudents = new ArrayList<Student>();
 
     {
@@ -32,13 +32,13 @@ public class SchoolData {
 
         for (int i = 0; i < listCourses.size(); i++) {
             for (int j = 0; j < 10; j++) {
-                Clazz classes = new Clazz();
+                Batch classes = new Batch();
                 classes.setId(j);
                 classes.setName("Class " + j);
                 listClazzs.add(classes);
 
             }
-            listCourses.get(i).setClazzs(listClazzs);
+            listCourses.get(i).setBatchs(listClazzs);
 
         }
 
@@ -53,7 +53,7 @@ public class SchoolData {
                 student.setPassword("password" + j);
                 student.setDateCreate(new Date());
                 student.setCourse(listCourses.get(0));
-                student.setClazz(listClazzs.get(i));
+                student.setBatch(listClazzs.get(i));
                 listStudents.add(student);
             }
         }
@@ -78,7 +78,7 @@ public class SchoolData {
         if (student != null) {
             for (int i = 0; i < listStudents.size(); i++) {
                 if (listStudents.get(i).getId() == student.getId()) {
-                    listStudents.get(i).setClazz(student.getClazz());
+                    listStudents.get(i).setBatch(student.getBatch());
                     listStudents.get(i).setCourse(student.getCourse());
                     listStudents.get(i).setName(student.getName());
                     return true;
@@ -134,7 +134,7 @@ public class SchoolData {
         return this.getClassesById(id) == null ? true : false;
     }
 
-    private Clazz getClassesById(int id) {
+    private Batch getClassesById(int id) {
         for (int i = 0; i < listClazzs.size(); i++) {
             if (listClazzs.get(i).getId() == id) {
                 return listClazzs.get(i);
@@ -143,7 +143,7 @@ public class SchoolData {
         return null;
     }
 
-    public boolean insertClazz(Clazz clazz) {
+    public boolean insertClazz(Batch clazz) {
         if (!isExistClasses(clazz.getId())) {
             listClazzs.add(clazz);
             return true;
@@ -151,7 +151,7 @@ public class SchoolData {
         return false;
     }
 
-    public boolean updateClazzById(Clazz clazz) {
+    public boolean updateClazzById(Batch clazz) {
         if (clazz != null) {
             for (int i = 0; i < listClazzs.size(); i++) {
                 if (listClazzs.get(i).getId() == clazz.getId()) {
@@ -164,8 +164,8 @@ public class SchoolData {
         return false;
     }
 
-    public boolean deleteClazz(Clazz clazz) {
-        Clazz classesResult = getClassesById(clazz.getId());
+    public boolean deleteClazz(Batch clazz) {
+        Batch classesResult = getClassesById(clazz.getId());
         if (classesResult != null) {
             return listClazzs.remove(classesResult);
         }
@@ -198,7 +198,7 @@ public class SchoolData {
             for (int i = 0; i < listCourses.size(); i++) {
                 if (listCourses.get(i).getId() == course.getId()) {
                     listCourses.get(i).setName(course.getName());
-                    listCourses.get(i).setClazzs(course.getClazzs());
+                    listCourses.get(i).setBatchs(course.getBatchs());
                     return true;
                 }
             }
@@ -214,11 +214,11 @@ public class SchoolData {
         return false;
     }
 
-    public static ArrayList<Clazz> getListClazzs() {
+    public static ArrayList<Batch> getListClazzs() {
         return listClazzs;
     }
 
-    public static void setListClazzs(ArrayList<Clazz> listClazzs) {
+    public static void setListClazzs(ArrayList<Batch> listClazzs) {
         SchoolData.listClazzs = listClazzs;
     }
 
