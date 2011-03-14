@@ -26,7 +26,7 @@ public class RoleDAO extends AbstractDAO<Role> {
 
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall (sql);
+            cstmt = conn.prepareCall(sql);
             cstmt.setString(1, t.getName());
             cstmt.setString(2, t.getDescription());
 
@@ -50,7 +50,7 @@ public class RoleDAO extends AbstractDAO<Role> {
 
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall (sql);
+            cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getId());
             cstmt.setString(2, t.getName());
             cstmt.setString(3, t.getDescription());
@@ -67,7 +67,7 @@ public class RoleDAO extends AbstractDAO<Role> {
     }
 
     @Override
-    public boolean delete(Role t) throws Exception {
+    public boolean delete(Role role) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -82,9 +82,7 @@ public class RoleDAO extends AbstractDAO<Role> {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 roles.add(new Role(
-                            rs.getInt("RoleId")
-                        , rs.getString("RoleName")
-                        , rs.getString("Description")));
+                        rs.getInt("RoleId"), rs.getString("RoleName"), rs.getString("Description")));
 
             }
         } finally {
@@ -96,33 +94,27 @@ public class RoleDAO extends AbstractDAO<Role> {
         return roles;
     }
 
-    public Role getRoleById(int roleId) throws Exception {
+    @Override
+    public Role getObject(Role role) throws Exception {
         Connection conn = null;
-        Role role = null;
+        Role roleObject = null;
         String sql = "{call Sel_RolesById (?)}";
         CallableStatement cstmt = null;
 
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall (sql);
+            cstmt = conn.prepareCall(sql);
 
-            cstmt.setInt(1, roleId);
+            cstmt.setInt(1, role.getId());
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                role = new Role(rs.getInt("RoleId")
-                        , rs.getString("RoleName")
-                        , rs.getString("Description"));
+                roleObject = new Role(rs.getInt("RoleId"), rs.getString("RoleName"), rs.getString("Description"));
             }
         } finally {
             if (conn != null) {
                 conn.close();
             }
         }
-        return role;
-    }
-
-    @Override
-    public Role getObject(Role t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return roleObject;
     }
 }

@@ -148,9 +148,13 @@ public class StudentDAO extends AbstractDAO<Student> {
             ResultSet rsstudents = stmt.executeQuery(sql);
             while (rsstudents.next()) {
                 RoleDAO roleDAO = new RoleDAO();
-                Role role = roleDAO.getRoleById(rsstudents.getInt("RoleId"));
-                BatchDAO clazzDAO = new BatchDAO();
-                Batch clazz = clazzDAO.getClazzById(rsstudents.getInt("ClazzId"));
+                Role roleSearch = new Role();
+                roleSearch.setId(rsstudents.getInt("RoleId"));
+                Role role = roleDAO.getObject(roleSearch);
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batchSearch = new Batch();
+                batchSearch.setId(rsstudents.getInt("BatchId"));
+                Batch batch = batchDAO.getObject(batchSearch);
                 Student student = new Student();
                 student.setId(rsstudents.getInt("StudentId"));
                 student.setName(rsstudents.getString("FullName"));
@@ -158,15 +162,13 @@ public class StudentDAO extends AbstractDAO<Student> {
                 student.setPassword(rsstudents.getString("Password"));
                 student.setDateCreate(rsstudents.getDate("DateCreation"));
                 student.setRole(role);
-                student.setBatch(clazz);
+                student.setBatch(batch);
                 student.setBirthDay(rsstudents.getDate("BirthDay"));
                 student.setGender(rsstudents.getBoolean("Gender"));
                 student.setPhone(rsstudents.getString("Phone"));
                 student.setEmail(rsstudents.getString("Email"));
                 student.setAddress(rsstudents.getString("Address"));
-
                 students.add(student);
-
             }
         } finally {
             if (conn != null) {
@@ -177,7 +179,8 @@ public class StudentDAO extends AbstractDAO<Student> {
         return students;
     }
 
-    public Student getStudentById(Student s) throws Exception {
+    @Override
+    public Student getObject(Student s) throws Exception {
         Student student = new Student();
         Connection conn = null;
         String sql = "{call Sel_StudentById (?)}";
@@ -189,16 +192,20 @@ public class StudentDAO extends AbstractDAO<Student> {
             ResultSet rsstudents = cstmt.executeQuery(sql);
             while (rsstudents.next()) {
                 RoleDAO roleDAO = new RoleDAO();
-                Role role = roleDAO.getRoleById(rsstudents.getInt("RoleId"));
-                BatchDAO clazzDAO = new BatchDAO();
-                Batch clazz = clazzDAO.getClazzById(rsstudents.getInt("ClazzId"));
+                Role roleSearch = new Role();
+                roleSearch.setId(rsstudents.getInt("RoleId"));
+                Role role = roleDAO.getObject(roleSearch);
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batchSearch = new Batch();
+                batchSearch.setId(rsstudents.getInt("BatchId"));
+                Batch batch = batchDAO.getObject(batchSearch);
                 student.setId(rsstudents.getInt("StudentId"));
                 student.setName(rsstudents.getString("FullName"));
                 student.setUserName(rsstudents.getString("UserName"));
                 student.setPassword(rsstudents.getString("Password"));
                 student.setDateCreate(rsstudents.getDate("DateCreation"));
                 student.setRole(role);
-                student.setBatch(clazz);
+                student.setBatch(batch);
                 student.setBirthDay(rsstudents.getDate("BirthDay"));
                 student.setGender(rsstudents.getBoolean("Gender"));
                 student.setPhone(rsstudents.getString("Phone"));
@@ -212,10 +219,5 @@ public class StudentDAO extends AbstractDAO<Student> {
         }
 
         return student;
-    }
-
-    @Override
-    public Student getObject(Student t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
