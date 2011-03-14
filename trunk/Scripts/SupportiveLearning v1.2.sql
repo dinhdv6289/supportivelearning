@@ -18,7 +18,7 @@ create table News
 	Picture			 NVARCHAR(100),
 	SubContent		 NVARCHAR(150),
 	NewsContent		 NTEXT,
-	DateCreation		 DATETIME DEFAULT GETDATE()
+	DateCreation     DATETIME DEFAULT GETDATE()
 )
 GO
 create table Roles
@@ -85,8 +85,8 @@ GO
 create table Student
 (
 	StudentId        INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	RollNumber		nvarchar(50) not null,
-	AcountId           INT REFERENCES Account(AcountId) NOT NULL,
+	RollNumber		 nvarchar(50) not null,
+	AcountId         INT REFERENCES Account(AcountId) NOT NULL,
 	BatchId			 INT REFERENCES Batch(BatchId) NOT NULL,	
 	FullName         NVARCHAR(200) NOT NULL,
 	BirthDay         DATETIME,
