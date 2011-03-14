@@ -5,10 +5,7 @@
 
 package el.dao;
 
-import el.model.Clazz;
-import el.model.Course;
 import el.model.FAQ;
-import el.model.Semester;
 import java.sql.CallableStatement;
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -117,6 +114,11 @@ public class FAQDAO extends AbstractDAO<FAQ> {
             }
         }
         return faq;
+    }
+
+    @Override
+    public FAQ getObject(FAQ t) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

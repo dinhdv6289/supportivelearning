@@ -120,4 +120,9 @@ public class RoleDAO extends AbstractDAO<Role> {
         }
         return role;
     }
+
+    @Override
+    public Role getObject(Role t) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

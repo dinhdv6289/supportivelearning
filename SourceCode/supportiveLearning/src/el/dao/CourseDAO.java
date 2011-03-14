@@ -122,4 +122,9 @@ public class CourseDAO extends AbstractDAO<Course> {
         }
         return course;
     }
+
+    @Override
+    public Course getObject(Course t) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

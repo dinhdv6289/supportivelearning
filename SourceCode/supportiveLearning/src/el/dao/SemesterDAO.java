@@ -113,4 +113,9 @@ public class SemesterDAO extends AbstractDAO<Semester> {
         }
         return semester;
     }
+    @Override
+    public Semester getObject(Semester t) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
