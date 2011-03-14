@@ -17,6 +17,22 @@ public class StaffBatch {
     private ArrayList<Subject> subjects;
     private ArrayList<Batch> batchs;
 
+    public StaffBatch() {
+    }
+
+    public StaffBatch(String name, ArrayList<Subject> subjects, ArrayList<Batch> batchs) {
+        this.name = name;
+        this.subjects = subjects;
+        this.batchs = batchs;
+    }
+
+    public StaffBatch(int id, String name, ArrayList<Subject> subjects, ArrayList<Batch> batchs) {
+        this.id = id;
+        this.name = name;
+        this.subjects = subjects;
+        this.batchs = batchs;
+    }
+
     public ArrayList<Batch> getBatchs() {
         return batchs;
     }
