@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sl.beans;
+package sl.client.beans;
 
 import el.dao.AccountDAO;
 import el.model.Account;
@@ -50,9 +50,7 @@ public class LoginBean implements Serializable {
                     if (accountLogin.getRole().getName().equals("Admin")) {
                         // chuyen ra trang tuong
                     } else if (accountLogin.getRole().getName().equals("Staff")) {
-
                     } else {
-
                     }
                 }
             } catch (Exception ex) {
