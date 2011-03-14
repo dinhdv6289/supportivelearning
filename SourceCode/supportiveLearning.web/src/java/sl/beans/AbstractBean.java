@@ -15,17 +15,36 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean
 @SessionScoped
-public abstract class AbstractBean implements Serializable {
+public abstract class AbstractBean<T> implements Serializable {
+
+    protected Class<T> currentClass;
 
     /** Creates a new instance of AbstractBean */
     public AbstractBean() {
     }
 
-    public abstract String insert(ActionEvent event) throws Exception;
+    public Class<T> getCurrentClass() {
+        return currentClass;
+    }
 
-    public abstract String update(ActionEvent event) throws Exception;
+    public void setCurrentClass(Class<T> currentClass) {
+        this.currentClass = currentClass;
+    }
 
-    public abstract String delete(ActionEvent event) throws Exception;
+    public String insert(ActionEvent event) throws Exception {
 
-    public abstract String login(ActionEvent event) throws Exception;
+        return null;
+    }
+
+    public String update(ActionEvent event) throws Exception {
+        return null;
+    }
+
+    public String delete(ActionEvent event) throws Exception {
+        return null;
+    }
+
+    public String login(ActionEvent event) throws Exception {
+        return null;
+    }
 }
