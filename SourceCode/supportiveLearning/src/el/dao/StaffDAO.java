@@ -4,6 +4,7 @@
  */
 package el.dao;
 
+import el.model.Account;
 import el.model.Staff;
 import java.util.ArrayList;
 
@@ -36,6 +37,10 @@ public class StaffDAO extends AbstractDAO<Staff> {
     @Override
     public Staff getObject(Staff staff) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Staff getStaffByAccount(Account account) throws Exception{
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     
