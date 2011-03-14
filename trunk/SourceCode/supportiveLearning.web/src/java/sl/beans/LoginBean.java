@@ -57,7 +57,7 @@ public class LoginBean implements Serializable {
                 }
             } catch (Exception ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
-                return null;
+                return "";
             }
         }
         return "";
