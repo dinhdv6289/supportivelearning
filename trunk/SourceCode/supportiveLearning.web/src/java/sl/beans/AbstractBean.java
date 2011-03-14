@@ -31,20 +31,20 @@ public abstract class AbstractBean<T> implements Serializable {
         this.currentClass = currentClass;
     }
 
-    public String insert(ActionEvent event) throws Exception {
+    public String insert() throws Exception {
 
         return null;
     }
 
-    public String update(ActionEvent event) throws Exception {
+    public String update() throws Exception {
         return null;
     }
 
-    public String delete(ActionEvent event) throws Exception {
+    public String delete() throws Exception {
         return null;
     }
 
-    public String login(ActionEvent event) throws Exception {
+    public String login() throws Exception {
         return null;
     }
 }
