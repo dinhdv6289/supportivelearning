@@ -18,6 +18,7 @@ public class Course {
     private String name;
     private Date dateStart;
     private Date dateEnd;
+    // sao lai co String batch ???
     private String batch;
 
     public Course(int id, String name, Date dateStart, Date dateEnd, String batch) {
