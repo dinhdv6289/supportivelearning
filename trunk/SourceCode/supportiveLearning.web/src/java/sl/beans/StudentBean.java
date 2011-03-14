@@ -10,15 +10,11 @@ import el.model.Clazz;
 import el.model.Student;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import sl.utils.SessionManager;
 
 /**
  *
@@ -26,7 +22,7 @@ import sl.utils.SessionManager;
  */
 @ManagedBean
 @SessionScoped
-public class StudentBean extends AbstractBean implements Serializable {
+public class StudentBean extends AbstractBean<Student> implements Serializable {
 
     private StudentDAO studentDAO = new StudentDAO();
     private Student selectedStudent;
@@ -85,24 +81,23 @@ public class StudentBean extends AbstractBean implements Serializable {
         this.setSelectedStudent(student);
     }
 
-
     @Override
-    public String insert(ActionEvent event) throws Exception {
+    public String insert(ActionEvent event) {
         return null;
     }
 
     @Override
-    public String update(ActionEvent event) throws Exception {
+    public String update(ActionEvent event) {
         return null;
     }
 
     @Override
-    public String delete(ActionEvent event) throws Exception {
+    public String delete(ActionEvent event) {
         return null;
     }
 
     @Override
-    public String login(ActionEvent event) throws Exception {
+    public String login(ActionEvent event) {
         return null;
     }
 }
