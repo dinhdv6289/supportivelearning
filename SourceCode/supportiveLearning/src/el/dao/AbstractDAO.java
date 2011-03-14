@@ -24,6 +24,7 @@ public abstract class AbstractDAO<T> {
 
     public abstract ArrayList<T> list()  throws Exception;
 
+    public abstract T getObject(T t) throws Exception;
     
 
 
