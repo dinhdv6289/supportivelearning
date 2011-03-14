@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author DINHDV
  */
-public class Clazz {
+public class Batch {
 
     private int id;
     private String name;
@@ -20,7 +20,7 @@ public class Clazz {
     private Date startDate;
     private ArrayList<Student> students;
 
-    public Clazz(int id, String name) {
+    public Batch(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -49,7 +49,7 @@ public class Clazz {
         this.startDate = startDate;
     }
 
-    public Clazz(int id, String name, Course course, Semester semester, Date startDate, ArrayList<Student> students) {
+    public Batch(int id, String name, Course course, Semester semester, Date startDate, ArrayList<Student> students) {
         this.id = id;
         this.name = name;
         this.course = course;
@@ -58,7 +58,7 @@ public class Clazz {
         this.students = students;
     }
 
-    public Clazz(int id, String name, Course course, Semester semester, Date startDate ) {
+    public Batch(int id, String name, Course course, Semester semester, Date startDate ) {
         this.id = id;
         this.name = name;
         this.course = course;
@@ -91,15 +91,15 @@ public class Clazz {
         this.students = students;
     }
 
-    public Clazz() {
+    public Batch() {
     }
 
-    public Clazz(String name, ArrayList<Student> students) {
+    public Batch(String name, ArrayList<Student> students) {
         this.name = name;
         this.students = students;
     }
 
-    public Clazz(int id, String name, ArrayList<Student> students) {
+    public Batch(int id, String name, ArrayList<Student> students) {
         this.id = id;
         this.name = name;
         this.students = students;

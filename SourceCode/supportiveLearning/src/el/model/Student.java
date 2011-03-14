@@ -10,9 +10,9 @@ import java.util.Date;
  *
  * @author DINHDV
  */
-public class Student extends User {
+public class Student extends Account {
 
-    private Clazz clazz;
+    private Batch batch;
     private Course course;
     private Date birthDay;
     private Boolean gender;
@@ -66,12 +66,12 @@ public class Student extends User {
         this.phone = phone;
     }
 
-    public Clazz getClazz() {
-        return clazz;
+    public Batch getBatch() {
+        return batch;
     }
 
-    public void setClazz(Clazz clazz) {
-        this.clazz = clazz;
+    public void setBatch(Batch batch) {
+        this.batch = batch;
     }
 
     public Course getCourse() {

@@ -10,19 +10,19 @@ import java.util.ArrayList;
  *
  * @author DINHDV
  */
-public class StaffClasses {
+public class StaffBatch {
 
     private int id;
     private String name;
     private ArrayList<Subject> subjects;
-    private ArrayList<Clazz> clazzs;
+    private ArrayList<Batch> batchs;
 
-    public ArrayList<Clazz> getClazzs() {
-        return clazzs;
+    public ArrayList<Batch> getBatchs() {
+        return batchs;
     }
 
-    public void setClazzs(ArrayList<Clazz> clazzs) {
-        this.clazzs = clazzs;
+    public void setBatchs(ArrayList<Batch> batchs) {
+        this.batchs = batchs;
     }
 
     public int getId() {

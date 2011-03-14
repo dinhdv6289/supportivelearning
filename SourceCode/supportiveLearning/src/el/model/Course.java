@@ -53,15 +53,15 @@ public class Course {
     }
 
     
-    private ArrayList<Clazz> clazzs;
+    private ArrayList<Batch> batchs;
 
     
-    public ArrayList<Clazz> getClazzs() {
-        return clazzs;
+    public ArrayList<Batch> getBatchs() {
+        return batchs;
     }
 
-    public void setClazzs(ArrayList<Clazz> clazzs) {
-        this.clazzs = clazzs;
+    public void setBatchs(ArrayList<Batch> batchs) {
+        this.batchs = batchs;
     }
 
     
@@ -84,15 +84,15 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, ArrayList<Clazz> clazzs) {
+    public Course(String name, ArrayList<Batch> batchs) {
         this.name = name;
-        this.clazzs = clazzs;
+        this.batchs = batchs;
     }
 
-    public Course(int id, String name, ArrayList<Clazz> clazzs) {
+    public Course(int id, String name, ArrayList<Batch> batchs) {
         this.id = id;
         this.name = name;
-        this.clazzs = clazzs;
+        this.batchs = batchs;
     }
 
     
