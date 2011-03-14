@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author DINHDV
  */
-public class User {
+public class Account {
 
     private int id;
     private String name;
@@ -27,7 +27,7 @@ public class User {
         this.role = role;
     }
 
-    public User(int id, String name, String userName, String password, Date dateCreate, Role role) {
+    public Account(int id, String name, String userName, String password, Date dateCreate, Role role) {
         this.id = id;
         this.name = name;
         this.userName = userName;
@@ -37,17 +37,17 @@ public class User {
     }
     
 
-    public User() {
+    public Account() {
     }
 
-    public User(String name, String userName, String password, Date dateCreate) {
+    public Account(String name, String userName, String password, Date dateCreate) {
         this.name = name;
         this.userName = userName;
         this.password = password;
         this.dateCreate = dateCreate;
     }
 
-    public User(int id, String name, String userName, String password, Date dateCreate) {
+    public Account(int id, String name, String userName, String password, Date dateCreate) {
         this.id = id;
         this.name = name;
         this.userName = userName;

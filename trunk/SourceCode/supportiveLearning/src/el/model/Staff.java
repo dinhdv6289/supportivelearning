@@ -9,7 +9,7 @@ package el.model;
  *
  * @author DINHDV
  */
-public class Staff extends User {
+public class Staff extends Account {
 
 
 }
