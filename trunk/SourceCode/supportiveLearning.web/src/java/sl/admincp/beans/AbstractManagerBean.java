@@ -5,7 +5,6 @@
 package sl.admincp.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
