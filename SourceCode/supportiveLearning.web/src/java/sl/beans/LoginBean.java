@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.SessionManager;
 
 /**
  *
@@ -45,7 +46,7 @@ public class LoginBean implements Serializable {
                     // xem xet'
                     //
                     // cach khac. ko can check role. Cu' the de trang mac dinh.
-                    
+                    SessionManager.setSession("accountLogon", accountLogin);
                     if (accountLogin.getRole().getName().equals("Admin")) {
                         // chuyen ra trang tuong
                     } else if (accountLogin.getRole().getName().equals("Staff")) {
