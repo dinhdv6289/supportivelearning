@@ -22,7 +22,7 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean
 @SessionScoped
-public class StudentBean extends AbstractBean<Student> implements Serializable {
+public class StudentBean extends AbstractBean implements Serializable {
 
     private StudentDAO studentDAO = new StudentDAO();
     private Student selectedStudent;
@@ -82,22 +82,23 @@ public class StudentBean extends AbstractBean<Student> implements Serializable {
     }
 
     @Override
-    public String insert(ActionEvent event) {
+    public String insert() {
+
         return null;
     }
 
     @Override
-    public String update(ActionEvent event) {
+    public String update() {
         return null;
     }
 
     @Override
-    public String delete(ActionEvent event) {
+    public String delete() {
         return null;
     }
 
     @Override
-    public String login(ActionEvent event) {
+    public String login() {
         return null;
     }
 }
