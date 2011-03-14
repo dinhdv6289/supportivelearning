@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package el.dao;
 
 import el.model.Batch;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author TuyenPV
  */
-public class BatchDAO extends AbstractDAO<Batch>{
+public class BatchDAO extends AbstractDAO<Batch> {
 
     @Override
     public boolean insert(Batch t) throws Exception {
@@ -90,11 +89,7 @@ public class BatchDAO extends AbstractDAO<Batch>{
                 Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
                 SemesterDAO semesterDAO = new SemesterDAO();
                 Semester semester = semesterDAO.getSemesterById(rs.getInt("SemesterId"));
-                clazzs.add (new Batch(rs.getInt("ClazzId")
-                        , rs.getString("ClazzName")
-                        , course
-                        , semester
-                        , rs.getDate("StartDate")));
+                clazzs.add(new Batch(rs.getInt("ClazzId"), rs.getString("ClazzName"), course, semester, rs.getDate("StartDate")));
             }
         } finally {
             if (conn != null) {
@@ -104,7 +99,7 @@ public class BatchDAO extends AbstractDAO<Batch>{
         return clazzs;
     }
 
-    public Batch getClazzById(int clazzId) throws Exception {
+    public Batch getClazzById(Batch batch) throws Exception {
         Connection conn = null;
         Batch clazz = null;
 
@@ -115,18 +110,14 @@ public class BatchDAO extends AbstractDAO<Batch>{
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
 
-            cstmt.setInt(1, clazzId);
+            cstmt.setInt(1, batch.getId());
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 CourseDAO courseDAO = new CourseDAO();
                 Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
                 SemesterDAO semesterDAO = new SemesterDAO();
                 Semester semester = semesterDAO.getSemesterById(rs.getInt("SemesterId"));
-                clazz = new Batch(rs.getInt("ClazzId")
-                        , rs.getString("ClazzName")
-                        , course
-                        , semester
-                        , rs.getDate("StartDate"));
+                clazz = new Batch(rs.getInt("ClazzId"), rs.getString("ClazzName"), course, semester, rs.getDate("StartDate"));
             }
         } finally {
             if (conn != null) {
@@ -140,5 +131,4 @@ public class BatchDAO extends AbstractDAO<Batch>{
     public Batch getObject(Batch t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }
