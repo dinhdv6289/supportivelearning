@@ -18,6 +18,43 @@ public class Account {
     private String password;
     private Date dateCreate;
     private Role role;
+    private Date birthDay;
+    private Boolean gender;
+    private String phone;
+    private String email;
+    private String address;
+
+    public Account() {
+    }
+
+    public Account(String name, String userName, String password, Date dateCreate, Role role, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
+        this.dateCreate = dateCreate;
+        this.role = role;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Account(int id, String name, String userName, String password, Date dateCreate, Role role, Date birthDay, Boolean gender, String phone, String email, String address) {
+        this.id = id;
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
+        this.dateCreate = dateCreate;
+        this.role = role;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    
 
     public Role getRole() {
         return role;
@@ -25,34 +62,6 @@ public class Account {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public Account(int id, String name, String userName, String password, Date dateCreate, Role role) {
-        this.id = id;
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.dateCreate = dateCreate;
-        this.role = role;
-    }
-    
-
-    public Account() {
-    }
-
-    public Account(String name, String userName, String password, Date dateCreate) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.dateCreate = dateCreate;
-    }
-
-    public Account(int id, String name, String userName, String password, Date dateCreate) {
-        this.id = id;
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.dateCreate = dateCreate;
     }
 
     public int getId() {
@@ -93,5 +102,45 @@ public class Account {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
