@@ -4,9 +4,9 @@
  */
 package sl.beans;
 
-import el.dao.ClazzDAO;
+import el.dao.BatchDAO;
 import el.dao.StudentDAO;
-import el.model.Clazz;
+import el.model.Batch;
 import el.model.Student;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import sl.utils.SessionManager;
 
 /**
  *
@@ -27,9 +28,9 @@ public class StudentBean extends AbstractBean implements Serializable {
     private StudentDAO studentDAO = new StudentDAO();
     private Student selectedStudent;
     private Student student;
-    private ClazzDAO clazzDAO = new ClazzDAO();
+    private BatchDAO clazzDAO = new BatchDAO();
     private ArrayList<Student> listStudents = new ArrayList<Student>();
-    private ArrayList<Clazz> listClazzs = new ArrayList<Clazz>();
+    private ArrayList<Batch> listClazzs = new ArrayList<Batch>();
 
     /** Creates a new instance of StudentBean */
     public StudentBean() {
@@ -53,11 +54,11 @@ public class StudentBean extends AbstractBean implements Serializable {
         this.selectedStudent = selectedStudent;
     }
 
-    public ArrayList<Clazz> getListClazzs() {
+    public ArrayList<Batch> getListClazzs() {
         return listClazzs;
     }
 
-    public void setListClazzs(ArrayList<Clazz> listClazzs) {
+    public void setListClazzs(ArrayList<Batch> listClazzs) {
         this.listClazzs = listClazzs;
     }
 
@@ -97,8 +98,4 @@ public class StudentBean extends AbstractBean implements Serializable {
         return null;
     }
 
-    @Override
-    public String login() {
-        return null;
-    }
 }
