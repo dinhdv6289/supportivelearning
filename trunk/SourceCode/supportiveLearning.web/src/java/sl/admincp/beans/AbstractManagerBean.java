@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sl.beans;
+package sl.admincp.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -14,17 +15,16 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public abstract class AbstractBean implements Serializable {
+public abstract class AbstractManagerBean<T> implements Serializable {
 
-
-    /** Creates a new instance of AbstractBean */
-    public AbstractBean() {
+    /** Creates a new instance of AbstractManagerBean */
+    public AbstractManagerBean() {
     }
 
     public abstract String insert() throws Exception;
 
     public abstract String update() throws Exception;
 
-    public abstract String delete()throws Exception;
+    public abstract String delete() throws Exception;
 
 }
