@@ -28,5 +28,4 @@ public abstract class AbstractBean implements Serializable {
 
     public abstract String delete()throws Exception;
 
-    public abstract String login() throws Exception;
 }
