@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author DINHDV
  */
-public class AssgnmentDAO extends AbstractDAO<Assignment> {
+public class AssignmentDAO extends AbstractDAO<Assignment> {
 
     @Override
     public boolean insert(Assignment t) throws Exception {
