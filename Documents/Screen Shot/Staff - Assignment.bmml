@@ -1,0 +1,24 @@
+<mockup version="1.0" skin="sketch" measuredW="1045" measuredH="306" mockupW="731" mockupH="293">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::DataGrid" x="314" y="100" w="562" h="206" measuredW="365" measuredH="206" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Subject%5Cr%5E%2C%20Assignment%20Name%2C%20Start%20Date%2C%20EndDate%0AA%5Cr%2C%20e%2C%2012/3/2011%2C%2016/3/2011%0AB%2C%20f%2C%20The%20Guids%2C%20%5B%5D%0AC%5Cr%2C%20g%2C%20%2C%20%5Bx%5D%0AD%5Cr%2C%20h%2C%20Patata%2C%20%5Bx%5D%0AE%5Cr%5C%2C%2Ci%2C%20Val%2C%20%5Bx%5D%0A%7B75L%2C%200R%2C%2025%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="385" y="53" w="429" h="25" measuredW="393" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>all%20the%20assignments%2C%20that%20are%20currently%20assigned%20will%20be%20listed</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="385" y="13" w="-1" h="-1" measuredW="42" measuredH="25" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Staff</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::StickyNote" x="936" y="109" w="-1" h="-1" measuredW="109" measuredH="123" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Can%20%0AAdd%2C%20edit%2C%20delete</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

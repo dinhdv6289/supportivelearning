@@ -1,0 +1,36 @@
+<mockup version="1.0" skin="sketch" measuredW="798" measuredH="470" mockupW="450" mockupH="460">
+  <controls>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="507" y="10" w="-1" h="-1" measuredW="136" measuredH="25" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>FeedBack%20post%20query</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::TitleWindow" x="348" y="70" w="-1" h="-1" measuredW="450" measuredH="400" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Form%20FeedBack%20post%20query</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::TextArea" x="507" y="127" w="269" h="171" measuredW="200" measuredH="140" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::FormattingToolbar" x="507" y="98" w="-1" h="-1" measuredW="270" measuredH="29" zOrder="3" locked="false" isInGroup="-1"/>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Label" x="364" y="109" w="-1" h="-1" measuredW="61" measuredH="25" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Content%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::Button" x="451" y="345" w="-1" h="-1" measuredW="51" measuredH="28" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Post</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::Button" x="542" y="345" w="-1" h="-1" measuredW="60" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reset</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::Button" x="629" y="345" w="-1" h="-1" measuredW="65" measuredH="28" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
