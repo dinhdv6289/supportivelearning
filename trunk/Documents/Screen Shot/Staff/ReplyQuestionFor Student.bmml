@@ -1,0 +1,24 @@
+<mockup version="1.0" skin="sketch" measuredW="838" measuredH="406" mockupW="450" mockupH="400">
+  <controls>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TitleWindow" x="388" y="6" w="-1" h="-1" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reply%20question%20for%20Student</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Paragraph" x="403" y="50" w="411" h="70" measuredW="200" measuredH="140" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Noi%20dung%20cau%20hoi%20cua%20sinh%20vien</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="490" y="267" w="-1" h="-1" measuredW="58" measuredH="28" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reply</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Button" x="601" y="264" w="-1" h="-1" measuredW="71" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Discard</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
