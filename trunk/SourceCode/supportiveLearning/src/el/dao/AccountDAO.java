@@ -15,7 +15,11 @@ import java.util.ArrayList;
 public class AccountDAO extends AbstractDAO<Account>{
 
     @Override
-    public boolean insert(Account account) throws Exception {
+    public int insert(Account account) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public int insertAccount(Account account) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -38,5 +42,6 @@ public class AccountDAO extends AbstractDAO<Account>{
     public Account getObject(Account account) throws Exception {
         return null;
     }
+
 
 }

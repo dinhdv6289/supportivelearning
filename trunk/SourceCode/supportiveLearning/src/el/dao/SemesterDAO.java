@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class SemesterDAO extends AbstractDAO<Semester> {
 
     @Override
-    public boolean insert(Semester t) throws Exception {
+    public int insert(Semester t) throws Exception {
         Connection conn = null;
         int a = 0;
         String sql = "{call Ins_Semester (?, ?)}";
@@ -38,7 +38,7 @@ public class SemesterDAO extends AbstractDAO<Semester> {
                 conn.close();
             }
         }
-        return a == 1 ? true : false;
+        return a;
     }
 
     @Override

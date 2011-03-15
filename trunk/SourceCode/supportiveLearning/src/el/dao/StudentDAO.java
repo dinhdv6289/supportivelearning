@@ -28,7 +28,7 @@ public class StudentDAO extends AbstractDAO<Student> {
     }
 
     @Override
-    public boolean insert(Student student) throws Exception {
+    public int insert(Student student) throws Exception {
         String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
@@ -69,7 +69,7 @@ public class StudentDAO extends AbstractDAO<Student> {
                 conn.close();
             }
         }
-        return a == 1 ? true : false;
+        return a;
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.sql.Statement;
 public class FAQDAO extends AbstractDAO<FAQ> {
 
     @Override
-    public boolean insert(FAQ t) throws Exception {
+    public int insert(FAQ t) throws Exception {
         Connection conn = null;
         int a = 0;
         String sql = "{call Ins_FAQ (?, ?, ?)}";
@@ -39,7 +39,7 @@ public class FAQDAO extends AbstractDAO<FAQ> {
                 conn.close();
             }
         }
-        return a == 1 ? true : false;
+        return a;
     }
 
     @Override
