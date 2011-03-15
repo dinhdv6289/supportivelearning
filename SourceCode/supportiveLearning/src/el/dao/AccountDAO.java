@@ -19,9 +19,6 @@ public class AccountDAO extends AbstractDAO<Account>{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public int insertAccount(Account account) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public boolean update(Account account) throws Exception {

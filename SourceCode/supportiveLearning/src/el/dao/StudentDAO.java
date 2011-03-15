@@ -4,6 +4,7 @@
  */
 package el.dao;
 
+import el.model.Account;
 import el.model.Batch;
 import el.model.Role;
 import el.model.Student;
@@ -29,29 +30,19 @@ public class StudentDAO extends AbstractDAO<Student> {
 
     @Override
     public int insert(Student student) throws Exception {
+        return 0;
+    }
+
+    public int insertStudent(Student student, int accountId) throws Exception {
         String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
             conn = getConnection();
-
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, student.getBatch().getId());
-            ps.setInt(2, student.getCourse().getId());
-            ps.setString(3, student.getName());
-            ps.setString(4, student.getAddress());
-            ps.setString(5, student.getEmail());
-            ps.setString(6, student.getPhone());
-            ps.setString(7, student.getUserName());
-            ps.setString(8, student.getPassword());
-            ps.setDate(9, (Date) student.getBirthDay());
-            ps.setBoolean(10, student.getGender());
-            ps.setDate(11, (Date) student.getDateCreate());
-            a = ps.executeUpdate();
             CallableStatement stmt = conn.prepareCall(sql);
             stmt.setInt(1, student.getBatch().getId());
             stmt.setInt(2, student.getCourse().getId());
+
             stmt.setString(3, student.getName());
             stmt.setString(4, student.getAddress());
             stmt.setString(5, student.getEmail());
@@ -61,6 +52,9 @@ public class StudentDAO extends AbstractDAO<Student> {
             stmt.setDate(9, (Date) student.getBirthDay());
             stmt.setBoolean(10, student.getGender());
             stmt.setDate(11, (Date) student.getDateCreate());
+
+            // Phai them trong store proc 1 truong la AccountId
+            stmt.setInt(12, accountId);
             a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -79,20 +73,6 @@ public class StudentDAO extends AbstractDAO<Student> {
         int a = 0;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, student.getId());
-            ps.setInt(2, student.getBatch().getId());
-            ps.setInt(3, student.getCourse().getId());
-            ps.setString(4, student.getName());
-            ps.setString(5, student.getAddress());
-            ps.setString(6, student.getEmail());
-            ps.setString(7, student.getPhone());
-            ps.setString(8, student.getUserName());
-            ps.setString(9, student.getPassword());
-            ps.setDate(10, (Date) student.getBirthDay());
-            ps.setBoolean(11, student.getGender());
-            ps.setDate(12, (Date) student.getDateCreate());
-            a = ps.executeUpdate();
             CallableStatement stmt = conn.prepareCall(sql);
             stmt.setInt(1, student.getId());
             stmt.setInt(2, student.getBatch().getId());
