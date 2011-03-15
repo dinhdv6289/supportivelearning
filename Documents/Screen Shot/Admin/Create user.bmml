@@ -1,8 +1,14 @@
-<mockup version="1.0" skin="sketch" measuredW="1084" measuredH="464" mockupW="450" mockupH="238">
+<mockup version="1.0" skin="sketch" measuredW="704" measuredH="302" mockupW="341" mockupH="296">
   <controls>
-    <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="634" y="226" w="450" h="238" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::DataGrid" x="363" y="66" w="-1" h="-1" measuredW="341" measuredH="236" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="371" y="6" w="-1" h="-1" measuredW="232" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Add%20New%20User</text>
+        <text>Danh%20sach%20sinh%20vien%20chua%20co%20account</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="583" y="38" w="-1" h="-1" measuredW="121" measuredH="28" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>create%20Account</text>
       </controlProperties>
     </control>
   </controls>
