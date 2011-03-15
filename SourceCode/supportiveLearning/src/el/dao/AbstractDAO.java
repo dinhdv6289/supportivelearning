@@ -16,7 +16,7 @@ import java.util.Date;
 public abstract class AbstractDAO<T> {
 
 
-    public abstract boolean insert(T t) throws Exception;
+    public abstract int insert(T t) throws Exception;
 
     public abstract boolean update(T t)  throws Exception;
 

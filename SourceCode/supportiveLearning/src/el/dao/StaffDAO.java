@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class StaffDAO extends AbstractDAO<Staff> {
 
     @Override
-    public boolean insert(Staff staff) throws Exception {
+    public int insert(Staff staff) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

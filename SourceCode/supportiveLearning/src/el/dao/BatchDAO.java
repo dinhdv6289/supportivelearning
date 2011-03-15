@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class BatchDAO extends AbstractDAO<Batch> {
 
     @Override
-    public boolean insert(Batch t) throws Exception {
+    public int insert(Batch t) throws Exception {
         String sql = "Ins_Clazz ?, ?, ?, ?";
         Connection conn = null;
         int a = 0;
@@ -42,7 +42,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
                 conn.close();
             }
         }
-        return true ? a == 1 : false;
+        return a;
     }
 
     @Override

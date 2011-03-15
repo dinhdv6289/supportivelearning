@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class RoleDAO extends AbstractDAO<Role> {
 
     @Override
-    public boolean insert(Role t) throws Exception {
+    public int insert(Role t) throws Exception {
         Connection conn = null;
         int a = 0;
         String sql = "{call Ins_Roles (?, ?)}";
@@ -38,7 +38,7 @@ public class RoleDAO extends AbstractDAO<Role> {
                 conn.close();
             }
         }
-        return a == 1 ? true : false;
+        return a;
     }
 
     @Override

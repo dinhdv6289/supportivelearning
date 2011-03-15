@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class CourseDAO extends AbstractDAO<Course> {
 
     @Override
-    public boolean insert(Course t) throws Exception {
+    public int insert(Course t) throws Exception {
         Connection conn = null;
         int a = 0;
         String sql = "{call Ins_Course (?, ?, ?, ?)}";
@@ -28,7 +28,7 @@ public class CourseDAO extends AbstractDAO<Course> {
 
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall (sql);
+            cstmt = conn.prepareCall(sql);
             cstmt.setString(1, t.getName());
             cstmt.setDate(2, (Date) t.getDateStart());
             cstmt.setDate(3, (Date) t.getDateEnd());
@@ -42,7 +42,7 @@ public class CourseDAO extends AbstractDAO<Course> {
                 conn.close();
             }
         }
-        return a == 1 ? true : false;
+        return a;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CourseDAO extends AbstractDAO<Course> {
 
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall (sql);
+            cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getId());
             cstmt.setString(2, t.getName());
             cstmt.setDate(3, (Date) t.getDateStart());

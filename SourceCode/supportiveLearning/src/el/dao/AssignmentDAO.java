@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class AssignmentDAO extends AbstractDAO<Assignment> {
 
     @Override
-    public boolean insert(Assignment t) throws Exception {
+    public int insert(Assignment t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
