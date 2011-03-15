@@ -1,0 +1,74 @@
+<mockup version="1.0" skin="sketch" measuredW="1186" measuredH="475" mockupW="1183" mockupH="475">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::TextInput" x="792" y="278" w="197" h="-1" measuredW="79" measuredH="29" zOrder="10" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="792" y="322" w="65" h="35" measuredW="66" measuredH="28" zOrder="11" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>Upload</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::StickyNote" x="22" y="271" w="378" h="204" measuredW="109" measuredH="123" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sau%20khi%20Staff%20cham%20diem%20xong.%0A%20%0ADe%20upload%20diem%20len%20se%20thong%20qua%20link%20%22Marks%22%0ASau%20khi%20chuyen%20den%20%20trang%20Marks%20can%60%20phai%20upload%20diem%20do%20len.%0ATrang%20Marks%20nay%20la%20noi%20chua%20tat%20ca%20cac%20diem%20cua%20cac%20mon.</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="51" y="14" w="-1" h="-1" measuredW="447" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Danh%20sach%20cac%20Assignment%20cua%20sinh%20vien%20da%20upload%20de%20Staff%20cham%20diem</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::DataGrid" x="3" y="54" w="382" h="196" measuredW="246" measuredH="196" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%5CrAssignment%20%5E%2C%20Subject%2C%20Student%0Aa%20%20%2C%20subject1%2C%20Peldi%0Ab%2C%20subject2%2C%20The%20Guids%0Ac%2C%20subject3%2C%20name%0Ad%2C%20subject4%2C%20Patata%0Ae%2C%20subject5%2C%20Val%0A%7B75L%2C%200R%2C%2025%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Link" x="385" y="60" w="-1" h="-1" measuredW="36" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>down</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Link" x="385" y="100" w="-1" h="-1" measuredW="36" measuredH="25" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>down</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Link" x="388" y="138" w="-1" h="-1" measuredW="36" measuredH="25" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>down</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Link" x="392" y="178" w="-1" h="-1" measuredW="36" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>down</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Link" x="392" y="218" w="-1" h="-1" measuredW="36" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>down</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::TitleWindow" x="770" y="32" w="416" h="367" measuredW="450" measuredH="400" zOrder="8" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>Marks</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::DataGrid" x="787" y="60" w="382" h="196" measuredW="217" measuredH="196" zOrder="9" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>Name%5CrAssignment%20%5E%2C%20Subject%2C%20Mark%0Aa%20%20%2C%20subject1%2CLink%0Ab%2C%20subject2%2CLink%0Ac%2C%20subject3%2CLink%0Ad%2C%20subject4%2CLink%0Ae%2C%20subject5%2CLink%0A%7B75L%2C%200R%2C%2025%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Label" x="770" y="0" w="-1" h="-1" measuredW="84" measuredH="25" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Trang%20Marks</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Button" x="998" y="279" w="178" h="26" measuredW="178" measuredH="28" zOrder="13" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>browse%20file%20marks%20assign</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
