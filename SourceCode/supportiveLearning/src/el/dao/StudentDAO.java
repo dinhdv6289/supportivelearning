@@ -42,7 +42,6 @@ public class StudentDAO extends AbstractDAO<Student> {
             CallableStatement stmt = conn.prepareCall(sql);
             stmt.setInt(1, student.getBatch().getId());
             stmt.setInt(2, student.getCourse().getId());
-
             stmt.setString(3, student.getName());
             stmt.setString(4, student.getAddress());
             stmt.setString(5, student.getEmail());
