@@ -27,6 +27,10 @@ public class Account {
     public Account() {
     }
 
+    public Account(int id) {
+        this.id = id;
+    }
+
     public Account(String name, String userName, String password, Date dateCreate, Role role, Date birthDay, Boolean gender, String phone, String email, String address) {
         this.name = name;
         this.userName = userName;
@@ -53,8 +57,6 @@ public class Account {
         this.email = email;
         this.address = address;
     }
-
-    
 
     public Role getRole() {
         return role;
