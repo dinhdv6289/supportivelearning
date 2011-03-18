@@ -1,52 +1,70 @@
-window.addEvent('domready', function(){
-	var box = $('typeCity');
-	if(box){
-		var fx = new Fx.Styles(box, {
-			duration: 600,
-			wait: false,
-			transition: Fx.Transitions.Quad.easeOut
-		});
-		box.setStyles({
-			opacity: 0
-		});
-		
-		$('toggler').addEvent('click', function() {
-			fx.start({
-				opacity: [0, 1],
-				bottom: [-72, -4]
-			});	
-		});	
-		$('togglerhide').addEvent('click', function() {
-			fx.start({
-				opacity: [1, 0],
-				bottom: [-4, -72]
-			});	
-		});	
+//JS script for Joomla template
+var siteurl = '';
+
+function switchFontSize (ckname,val){
+	var bd = $E('body');
+	switch (val) {
+		case 'inc':
+		if (CurrentFontSize+1 < 7) {
+			bd.removeClass('fs'+CurrentFontSize);
+			CurrentFontSize++;
+			bd.addClass('fs'+CurrentFontSize);
+		}
+		break;
+		case 'dec':
+		if (CurrentFontSize-1 > 0) {
+			bd.removeClass('fs'+CurrentFontSize);
+			CurrentFontSize--;
+			bd.addClass('fs'+CurrentFontSize);
+		}
+		break;
+		default:
+		bd.removeClass('fs'+CurrentFontSize);
+		CurrentFontSize = val;
+		bd.addClass('fs'+CurrentFontSize);
 	}
+	Cookie.set(ckname, CurrentFontSize,{duration:365});
+}
+
+window.addEvent('load', function(){
+
+	var StyleCookie = new Hash.Cookie('JVNews2StyleCookieSite');
+	var settings = { colors: '' };
+	var style_1, style_2, style_3;
+	//new Asset.css(StyleCookie.get('colors'));
+
+	/* Style 1 */
+	if($('jvcolor1')){$('jvcolor1').addEvent('click', function(e) {
+		e = new Event(e).stop();
+		if (style_1) style_1.remove();
+		new Asset.css(jvpathcolor + 'red.css', {id: 'red'});
+		style_1 = $('red');
+		settings['colors'] = jvpathcolor + 'red.css';
+		StyleCookie.empty();
+		StyleCookie.extend(settings);
+	});}
+
+	/* Style 2 */
+	if($('jvcolor2')){$('jvcolor2').addEvent('click', function(e) {
+		e = new Event(e).stop();
+		if (style_2) style_2.remove();
+		new Asset.css(jvpathcolor + 'purple.css', {id: 'purple'});
+		style_2 = $('purple');
+		settings['colors'] = jvpathcolor + 'purple.css';
+		StyleCookie.empty();
+		StyleCookie.extend(settings);
+	});}
+
+	/* Style 3 */
+	if($('jvcolor3')){$('jvcolor3').addEvent('click', function(e) {
+		e = new Event(e).stop();
+		if (style_3) style_3.remove();
+		new Asset.css(jvpathcolor + 'black.css', {id: 'black'});
+		style_3 = $('black');
+		settings['colors'] = jvpathcolor + 'black.css';
+		StyleCookie.empty();
+		StyleCookie.extend(settings);
+	});}
+
 });
-function request_city() {
-	var log = $('cuccess').empty().addClass('ajax-loading');
-	var cityname = $('cityname').value;
-    var lang = $('lang').value;
-	var url = "modules/mod_jv_gweather/tmpl/city.php?cityname="+ cityname +"&lang="+ lang;
-	var query = new Ajax(url, {
-		method: 'get',
-		onComplete: function(response) {
-			log.removeClass('ajax-loading');
-			if($('sugcity').value){
-				reqcity = $('sugcity').value;
-				do_set(reqcity);
-			}
-		},
-		update: log
-	});
-	query.request();	
-}
-function do_set(cityname) {
-    document.cookie = 'cityname=' + cityname;
-    document.location.reload();   
-}
-function set_temprature(temp) {
-    document.cookie = 'default_temperature=' + temp;
-    document.location.reload();   
-}
+

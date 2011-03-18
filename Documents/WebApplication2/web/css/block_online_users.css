@@ -1,0 +1,4 @@
+/** Path: plugins block_online_users **/
+.block_online_users .content .list li.listentry {clear:both;}
+.block_online_users .content .list li.listentry div.user {float:left;position:relative;}
+.block_online_users .content .list li.listentry div.message {float:right;}
