@@ -45,17 +45,17 @@
     <control controlID="12" controlTypeID="com.balsamiq.mockups::TextInput" x="478" y="269" w="189" h="-1" measuredW="77" measuredH="29" zOrder="10" locked="false" isInGroup="-1"/>
     <control controlID="13" controlTypeID="com.balsamiq.mockups::TextInput" x="479" y="304" w="189" h="-1" measuredW="77" measuredH="29" zOrder="11" locked="false" isInGroup="-1"/>
     <control controlID="14" controlTypeID="com.balsamiq.mockups::TextInput" x="476" y="337" w="189" h="-1" measuredW="77" measuredH="29" zOrder="12" locked="false" isInGroup="-1"/>
-    <control controlID="15" controlTypeID="com.balsamiq.mockups::Button" x="411" y="388" w="-1" h="-1" measuredW="54" measuredH="28" zOrder="13" locked="false" isInGroup="-1">
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Button" x="411" y="403" w="-1" h="-1" measuredW="54" measuredH="28" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Save</text>
       </controlProperties>
     </control>
-    <control controlID="16" controlTypeID="com.balsamiq.mockups::Button" x="478" y="388" w="-1" h="-1" measuredW="60" measuredH="28" zOrder="14" locked="false" isInGroup="-1">
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Button" x="478" y="403" w="-1" h="-1" measuredW="60" measuredH="28" zOrder="14" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Reset</text>
       </controlProperties>
     </control>
-    <control controlID="17" controlTypeID="com.balsamiq.mockups::Button" x="553" y="388" w="-1" h="-1" measuredW="65" measuredH="28" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::Button" x="554" y="403" w="-1" h="-1" measuredW="65" measuredH="28" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Cancel</text>
       </controlProperties>
