@@ -1,0 +1,147 @@
+.jv_weather_current{	
+	overflow:hidden;	
+}
+.wrap_jv_weather{}
+.jv_current_left{
+	float:left;
+	width:auto;
+}
+.jv_current_left p.jv_current_temp{
+	font-size:18px;
+	margin-top:10px;
+	text-align:center;
+}
+.jv_current_left p.jv_oncurr_temp{
+	margin-top:40px;
+}
+.jv_current_right{
+	float:left;
+	margin-left:10px;
+	max-width: 70%;	
+}
+.jv_current_right h2{
+	margin:4px 0;
+	font-size:210% !important;
+}
+.jv_weather_forecast{
+	margin:12px 0 0;
+	clear:both;
+	width:auto;
+	padding:0;
+	list-style-image:none;
+	list-style-type:none;
+}
+ul.jv_weather_forecast li.jv_wfday{	
+	float:left;
+	width:49%;
+}
+li.jv_wfday div.jv_weather_fday{
+	padding-left:6px;	
+	margin-right:6px;
+}
+div.jv_weather_fday span.jv_weather_day{
+	font-style:italic;
+	font-weight:bold;
+	text-align:center;
+	display:block;
+}
+div.jv_weather_fday img{
+	display:block;
+	margin:0 auto;
+}
+li.jv_bfday{
+	border-left:1px solid #DDDDDD;	
+}
+div.jv_weather_fday p.jv_weather_temp{
+	margin:6px 0 0;
+	text-align:center;	
+}
+p.jv_weather_temp span.jv_wtemp_high{
+	padding:2px;
+	font-size:10px;	
+}
+p.jv_weather_temp span.jv_wtemp_low{
+	padding:2px;
+	font-size:10px;	
+	background:#666666;
+	color:#FFFFFF;
+}
+p.jv_windy_condition img{ margin:0 auto;}
+div.option {
+	width: 100%;
+	overflow: hidden;
+	display: block;
+}
+div.typeCity {
+	margin: auto;
+	width: 100%;
+	padding-top: 20px;
+	text-align: center !important;
+	background: #dfdfdf;
+	padding-bottom: 20px;
+	margin: 10px 0 0 0;
+}
+div#cuccess {
+	margin: auto;
+	width: 100%;
+	text-align: center !important;
+}
+div.changeCity  {
+	height:39px;
+	padding:24px 0 0;
+}
+div#typeCity {	
+	bottom:-3px;
+	position:absolute;
+	width:100%;
+	right: 0px;
+	padding-top: 10px;
+	height: 42px;
+}
+div.changeCity a.jv-weather-edit, div.changeCity a.jv-weather-edit:hover, div.changeCity a.jv-weather-edit:active, div.changeCity a.jv-weather-edit:focus {
+	background:url("../images/jv-weather-setting-l.jpg") no-repeat scroll left top transparent;
+	display:block;
+	height:23px;
+	margin:0 auto;
+	padding:0 0 0 8px;
+	width:50px;
+}
+div.changeCity a.jv-weather-edit span {
+	background:url("../images/jv-weather-setting-r.jpg") no-repeat scroll right top transparent;
+	color:#ADADAD;
+	float:left;
+	height:23px;
+	line-height:23px;
+	padding:0 8px 0 0;
+}
+ul#suggestion_city li {
+	list-style: none;
+}
+div.temperature {
+	float: right;
+	padding-right: 10px;
+	font-size: 14px;
+}
+div.temperature a {
+	color: #000;
+}
+div.temperature a:hover {
+	color: #000;
+	text-decoration: none;
+}
+div.temperature a.active {
+	color: #999;
+}
+div#cuccess ul#suggestion_city {
+	padding: 0px;
+}
+span#togglerhide {
+	position: absolute;
+	left: 7px;
+	cursor: pointer;
+	top: 5px;
+	font-size: 10px;
+}
+ul.jv_weather_forecast li {
+	padding: 0px;
+}
