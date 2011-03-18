@@ -1,0 +1,123 @@
+/** MARKET: SUBMENU */ 
+#jv_market_submenu{
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	list-style-image:none !important;
+	list-style-position:outside !important;
+	list-style-type:none !important;
+	background: url('../images/dot.jpg') repeat-x bottom;
+}
+
+
+#jv_market_submenu li{
+	margin: 0 !important;
+	padding: 0 !important;
+	float: left;
+	display: block;
+	cursor: pointer;
+	vertical-align: bottom;
+	border-bottom:1px solid #627AAE;
+	background: none !important;
+	
+}
+
+
+
+#jv_market_submenu li.active{
+	border-bottom:0 none;
+}
+
+#jv_market_submenu li a{
+	text-decoration: none;
+	display:block;
+	float: left;
+	background:#7087BA url('../images/fp_tabs_icons.png') no-repeat scroll -522px -220px;	
+	color:#18479B;
+	
+	/*padding-top: 1px;*/
+}
+#jv_market_submenu li.active a{
+	background:#FFFFFF url('../images/fp_tabs_icons.png') no-repeat scroll -522px -280px;
+	
+}
+
+#jv_market_submenu li a em{
+	background: #7087BA url('../images/fp_tabs_icons.png') no-repeat scroll 100% -220px;
+	color: #FFFFFF;
+	font-size: 90%;
+	font-weight: bold;
+	margin-left: 0.1em;	
+	padding: 5px 8px 4px 6px;
+	display: block;
+	float: left;
+	line-height: 100%;
+}
+
+#jv_market_submenu li.active a em{
+	background:#FFFFFF url('../images/fp_tabs_icons.png') no-repeat scroll 100% -280px;
+	color:#000000;
+	padding-bottom:5px;
+}
+
+/** MARKET: CONTENT */
+#jv_market_content{
+	clear: both;
+	font-size: 12px;
+	/*border-top:1px solid #627AAE;*/
+}
+#jv_market_content table{
+	margin: 0;
+	padding: 0;	
+	width: 100% !important;	
+	cursor: pointer;
+	font-weight: bold;
+}
+
+#jv_market_content table a{
+	font-weight: bold;
+	white-space: nowrap;
+	text-decoration: none !important;
+}
+
+
+#jv_market_content td{	
+	padding: 2px 0px;	
+	width: 50px;
+}
+
+#jv_market_content td.symbol{
+	width: auto;
+}
+
+#jv_market_content td.data{
+}
+
+#jv_market_content td.down{
+	color: #E46062;
+}
+
+#jv_market_content td.up{
+	color: #3A932E;
+}
+
+#jv_market_content div.element{
+	overflow: hidden;
+	margin: 0 auto;
+	width: 98%;
+	border-bottom:1px solid #DEE9F5 !important;
+}
+
+.data, .up, .down{
+	text-align: right !important;
+}
+
+.changbackground{
+	background: #FFFFCC;
+	
+}
+
+.marketsummary h3{
+	padding: 5px 20px !important;
+	
+}
