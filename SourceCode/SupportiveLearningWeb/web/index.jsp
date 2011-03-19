@@ -1,0 +1,1 @@
+<% response.sendRedirect("ui.client/index.jsf"); %>
