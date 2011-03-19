@@ -73,6 +73,17 @@ public class NewsBean implements Serializable {
         }
     }
 
+    public String moreNews(News news) {
+        try {
+            News object = newsDAO.getObject(news);
+            this.setNews(object);
+        } catch (Exception ex) {
+            Logger.getLogger(NewsBean.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return null;
+    }
+
     public String loadListNewsByCategory() {
         try {
             if (newsCategory != null) {

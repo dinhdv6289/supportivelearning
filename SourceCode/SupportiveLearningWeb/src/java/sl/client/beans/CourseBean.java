@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 import sl.utils.beans.EachSession;
 
 /**
@@ -24,11 +26,15 @@ import sl.utils.beans.EachSession;
 @SessionScoped
 public class CourseBean implements Serializable {
 
+    private Course course;
     private CourseDAO courseDAO = new CourseDAO();
     private ArrayList<Course> listCourses = new ArrayList<Course>();
+    //   private TreeNode root;
 
     /** Creates a new instance of CourseBean */
     public CourseBean() {
+        //    root = new DefaultTreeNode("Root", null);
+        //  addToTreeNode(root);
         loadCourses();
     }
 
@@ -38,6 +44,19 @@ public class CourseBean implements Serializable {
 
     public void setListCourses(ArrayList<Course> listCourses) {
         this.listCourses = listCourses;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public String onRequestCourse(Course course) {
+        this.setCourse(course);
+        return "courseDetails";
     }
 
     private void loadCourses() {
@@ -51,6 +70,25 @@ public class CourseBean implements Serializable {
         }
     }
 
+//    private void addToTreeNode(TreeNode root) {
+//        try {
+//            Object object = EachSession.getObjectFromSession("accountId");
+//            ArrayList<Course> loadListCoursesByObject = this.loadListCoursesByObject(object);
+//            for (int i = 0; i < loadListCoursesByObject.size(); i++) {
+//                Course course = loadListCoursesByObject.get(i);
+//                new DefaultTreeNode(course.getName(), root);
+//            }
+//        } catch (Exception ex) {
+//            Logger.getLogger(CourseBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//    public TreeNode getRoot() {
+//        return root;
+//    }
+//
+//    public void setRoot(TreeNode root) {
+//        this.root = root;
+//    }
     private ArrayList<Course> loadListCoursesByObject(Object object) {
         ArrayList<Course> courses = new ArrayList<Course>();
         try {
