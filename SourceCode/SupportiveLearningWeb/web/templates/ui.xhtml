@@ -8,7 +8,8 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <f:view contentType="text/html">
         <h:head>
-            <title>Index</title>
+            <title><ui:insert name="title"></ui:insert></title>
+
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
             <link media="screen" type="text/css" href="#{request.contextPath}/css/style.css" rel="stylesheet"/>
             <ui:insert name="head"></ui:insert>
@@ -37,8 +38,10 @@
                                 <div class="sblock-top">Main menu</div>
                                 <div class="sblock-content">
                                     <ul>
+                                        <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                        <li><a href="#{request.contextPath}/ui.client/viewMark.jsf">View Marks</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/uploadFile.jsf"> Upload File</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -48,10 +51,20 @@
                                 <div class="sblock-top">Navigation</div>
                                 <div class="sblock-content">
                                     <ul>
-                                        <li><a href="#{request.contextPath}/ui.client/index.jsf">MarksView</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                        <li><a href="#{request.contextPath}/ui.client/viewMark.jsf">View Marks</a></li>
-                                        <li><a href="#{request.contextPath}/ui.client/viewMark.jsf">View profiles</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
+                                        <li>
+                                            <ul>
+                                                <c:forEach var="courseItem" items="#{courseBean.listCourses}">
+                                                    <li>
+                                                        <p:commandLink value="#{courseItem.name}"
+                                                                       action="#{courseBean.onRequestCourse(courseItem)}">
+                                                        </p:commandLink>
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -114,18 +127,15 @@
                             <div class="sblock">
                                 <div class="sblock-top">Latest News</div>
                                 <div class="sblock-content">
-                                    <p><strong>Monday, Feb 16, 2008</strong></p>
-                                    <p>
-						Duis porttitor. Donec suscipit. Cras vitae purus.
-                                    </p>
-                                    <p class="clearfix normal"><a class="floatright" href="#">readmore..</a></p>
-                                    <br/>
-                                    <p><strong>Saturday, Feb 14, 2008</strong></p>
-                                    <p>
-						Lorem ipsum dolor sit amet, elit. Duis porttitor.
-                                    </p>
-                                    <p class="clearfix normal"><a class="floatright" href="#">readmore..</a></p>
-                                    <p>&nbsp;</p>
+                                    <c:forEach var="latestNewsItem" items="#{newsBean.listNews}">
+                                        <p> #{latestNewsItem.dateCreate }</p>
+                                        <p>
+                                            #{latestNewsItem.title }
+                                        </p>
+                                        <p:commandLink value="more"
+                                                       action="#{newsBean.moreNews(latestNewsItem)}">
+                                        </p:commandLink>
+                                    </c:forEach>
                                 </div>
                             </div>
                             <!-- Latest News Ends Here -->
