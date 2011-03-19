@@ -33,7 +33,7 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public ArrayList<StudentWork> listStudentWorkBy() throws Exception {
+    public ArrayList<StudentWork> listStudentWorkByStudentId(int studentId) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
