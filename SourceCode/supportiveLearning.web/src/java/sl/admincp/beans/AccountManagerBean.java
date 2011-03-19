@@ -5,6 +5,7 @@
 package sl.admincp.beans;
 
 import el.model.Account;
+import el.model.Role;
 import el.model.Staff;
 import el.model.Student;
 import java.io.Serializable;
@@ -17,17 +18,19 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class AccountManagerBean extends AbstractManagerBean<Account> implements Serializable {
+public class AccountManagerBean implements Serializable {
 
     private Account account;
     private Staff staff;
     private Student student;
-
+    private Role role;
+    
     /** Creates a new instance of AccountManagerBean */
     public AccountManagerBean() {
         account = new Account();
         staff = new Staff();
         student = new Student();
+        role = new Role();
     }
 
     public Account getAccount() {
@@ -54,19 +57,24 @@ public class AccountManagerBean extends AbstractManagerBean<Account> implements 
         this.student = student;
     }
 
-    @Override
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public String insert() {
-        //trycatch
+        
         return null;
     }
 
-    @Override
     public String update() {
         //trycatch
         return null;
     }
 
-    @Override
     public String delete() {
 
         return null;

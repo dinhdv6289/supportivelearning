@@ -15,30 +15,35 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class FAQManagerBean extends AbstractManagerBean<FAQ> implements Serializable {
+public class FAQManagerBean implements Serializable {
+
+    private FAQ fag;
 
     /** Creates a new instance of FAQManagerBean */
     public FAQManagerBean() {
+        fag = new FAQ();
     }
 
-    @Override
+    public FAQ getFag() {
+        return fag;
+    }
+
+    public void setFag(FAQ fag) {
+        this.fag = fag;
+    }
+
     public String insert() {
         //trycatch
         return null;
     }
 
-    @Override
     public String update() {
         //trycatch
         return null;
     }
 
-    @Override
     public String delete() {
 
         return null;
     }
-
-
-
 }

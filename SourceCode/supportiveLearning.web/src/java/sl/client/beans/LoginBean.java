@@ -5,6 +5,7 @@
 package sl.client.beans;
 
 import el.dao.AccountDAO;
+import el.dao.StudentDAO;
 import el.model.Account;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -21,12 +22,15 @@ import sl.utils.SessionManager;
 @SessionScoped
 public class LoginBean implements Serializable {
 
-    private AccountDAO accountDAO = new AccountDAO();
-    private Account account;
+    
+    private Account account = new Account();
 
+
+    private AccountDAO accountDAO = new AccountDAO();
+    private StudentDAO studentDAO = new StudentDAO();
+    //private
     /** Creates a new instance of LoginBean */
     public LoginBean() {
-        account = new Account();
     }
 
     public Account getAccount() {
@@ -46,9 +50,10 @@ public class LoginBean implements Serializable {
                     // xem xet'
                     //
                     // cach khac. ko can check role. Cu' the de trang mac dinh.
-                    SessionManager.setSession("accountLogon", accountLogin);
+                    SessionManager.setSession("accountId", accountLogin.getId());
                     if (accountLogin.getRole().getName().equals("Admin")) {
                         // chuyen ra trang tuong
+
                     } else if (accountLogin.getRole().getName().equals("Staff")) {
                     } else {
                     }
