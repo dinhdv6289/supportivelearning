@@ -7,7 +7,6 @@ package sl.client.beans;
 import el.dao.AssignmentDAO;
 import el.model.Assignment;
 import el.model.Staff;
-import el.model.Student;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,7 +19,7 @@ import sl.utils.beans.EachSession;
  *
  * @author DINHDV
  */
-@ManagedBean(name = "assignmentBean1")
+@ManagedBean
 @SessionScoped
 public class AssignmentBean implements Serializable {
 

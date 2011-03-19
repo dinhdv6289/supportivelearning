@@ -20,7 +20,7 @@ import sl.utils.beans.EachSession;
  *
  * @author DINHDV
  */
-@ManagedBean(name = "student")
+@ManagedBean
 @SessionScoped
 public class StudentBean implements Serializable {
 
