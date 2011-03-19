@@ -5,6 +5,8 @@
 
 package el.model;
 
+import java.util.Date;
+
 /**
  *
  * @author DINHDV
@@ -13,9 +15,10 @@ public class News {
 
     private int id;
     private String title;
-    private String image;
-    private String descriptions;
-
+    private String picture;
+    private String subContent;
+    private String newsContent;
+    private Date dateCreate;
     public News() {
     }
 
@@ -28,18 +31,28 @@ public class News {
         this.title = title;
     }
 
-    public News(int id, String title, String image, String descriptions) {
-        this(id,title);
-        this.image = image;
-        this.descriptions = descriptions;
+    public Date getDateCreate() {
+        return dateCreate;
     }
 
-    public String getDescriptions() {
-        return descriptions;
+    public void setDateCreate(Date dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
+    public String getNewsContent() {
+        return newsContent;
+    }
+
+    public void setNewsContent(String newsContent) {
+        this.newsContent = newsContent;
+    }
+
+    public String getSubContent() {
+        return subContent;
+    }
+
+    public void setSubContent(String subContent) {
+        this.subContent = subContent;
     }
 
     public int getId() {
@@ -50,13 +63,15 @@ public class News {
         this.id = id;
     }
 
-    public String getImage() {
-        return image;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
+
+
 
     public String getTitle() {
         return title;
