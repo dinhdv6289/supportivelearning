@@ -12,6 +12,15 @@ import java.util.ArrayList;
  */
 public class Staff extends Account {
 
+    private int courseId;
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
     private ArrayList<Assignment> assignments;
 
     public ArrayList<Assignment> getAssignments() {

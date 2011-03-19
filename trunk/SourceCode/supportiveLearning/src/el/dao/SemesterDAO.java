@@ -7,7 +7,6 @@ package el.dao;
 import el.model.Semester;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -115,7 +114,26 @@ public class SemesterDAO extends AbstractDAO<Semester> {
     }
     @Override
     public Semester getObject(Semester t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Semester semester = new Semester();
+        Connection conn = null;
+        String sql = "{call Sel_CourseById (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt.setInt(1, t.getId());
+            cstmt = conn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery(sql);
+            while (rs.next()) {
+                semester.setId(rs.getInt("SemesterId"));
+                semester.setSemesterName(rs.getString("SemesterName"));
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return semester;
     }
 
 }

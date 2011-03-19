@@ -129,6 +129,34 @@ public class BatchDAO extends AbstractDAO<Batch> {
 
     @Override
     public Batch getObject(Batch t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Batch batch = new Batch();
+        Connection conn = null;
+        String sql = "{call Sel_BatchById (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt.setInt(1, t.getId());
+            cstmt = conn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery(sql);
+            while (rs.next()) {
+                batch.setId(rs.getInt("BatchId"));
+                batch.setName(rs.getString("BatchName"));
+                CourseDAO courseDAO = new CourseDAO();
+                Course course = new Course();
+                course = courseDAO.getObject(course);
+                batch.setCourse(course);
+                SemesterDAO semesterDAO = new SemesterDAO();
+                Semester semester = new Semester();
+                semester = semesterDAO.getObject(semester);
+                batch.setSemester(semester);
+                batch.setStartDate(rs.getDate(""));
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return batch;
     }
 }

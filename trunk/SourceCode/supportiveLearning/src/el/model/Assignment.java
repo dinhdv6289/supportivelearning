@@ -14,58 +14,27 @@ public class Assignment {
 
     private int id;
     private Staff staff;
-    private Student student;
-    private Float mark;
     private Subject subject;
+    private Batch batch;
+    private String name;
     private String fileUpload;
-    private Date dateUpload;
-    
-    public int getId() {
-        return id;
+    private Date startDate;
+    private Date endDate;
+
+    public Batch getBatch() {
+        return batch;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBatch(Batch batch) {
+        this.batch = batch;
     }
 
-    public Float getMark() {
-        return mark;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setMark(Float mark) {
-        this.mark = mark;
-    }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
-    public Date getDateUpload() {
-        return dateUpload;
-    }
-
-    public void setDateUpload(Date dateUpload) {
-        this.dateUpload = dateUpload;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getFileUpload() {
@@ -76,28 +45,45 @@ public class Assignment {
         this.fileUpload = fileUpload;
     }
 
-    public Assignment() {
+    public int getId() {
+        return id;
     }
 
-    public Assignment(Staff staff, Student student, Float mark, Subject subject, String fileUpload, Date dateUpload) {
-        this.staff = staff;
-        this.student = student;
-        this.mark = mark;
-        this.subject = subject;
-        this.fileUpload = fileUpload;
-        this.dateUpload = dateUpload;
-    }
-
-    public Assignment(int id, Staff staff, Student student, Float mark, Subject subject, String fileUpload, Date dateUpload) {
+    public void setId(int id) {
         this.id = id;
-        this.staff = staff;
-        this.student = student;
-        this.mark = mark;
-        this.subject = subject;
-        this.fileUpload = fileUpload;
-        this.dateUpload = dateUpload;
     }
 
-    
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+    
+    
 }
