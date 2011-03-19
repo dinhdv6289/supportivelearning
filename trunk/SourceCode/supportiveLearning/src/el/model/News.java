@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package el.model;
 
 import java.util.Date;
@@ -19,6 +18,8 @@ public class News {
     private String subContent;
     private String newsContent;
     private Date dateCreate;
+    private NewsCategory newsCategory;
+
     public News() {
     }
 
@@ -71,8 +72,6 @@ public class News {
         this.picture = picture;
     }
 
-
-
     public String getTitle() {
         return title;
     }
@@ -81,6 +80,11 @@ public class News {
         this.title = title;
     }
 
+    public NewsCategory getNewsCategory() {
+        return newsCategory;
+    }
 
-
+    public void setNewsCategory(NewsCategory newsCategory) {
+        this.newsCategory = newsCategory;
+    }
 }
