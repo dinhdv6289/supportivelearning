@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/ui.xhtml">
+    <ui:define name="title"> Mark View</ui:define>
+    <ui:define name="content">
+        <!-- News Block Starts Here -->
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <h4>Mark view</h4>
+                <c:if test="#{studentWorkBean.listMarks == null}">
+                    <h:form prependId="false">
+                        <p:fieldset legend="Mark view"
+                                    toggleable="true"
+                                    toggleSpeed="500"
+                                    >
+                            <h:panelGrid columns="3" cellpadding="4" >
+                                <h:outputLabel value="Roll number" />
+
+                                <p:inputText id="rollNumber" value="#{studentWorkBean.student.rollNumber}"
+                                             required="true"
+                                             requiredMessage="RollNumber must format: Axxxxx . Example : A03829"/>
+                                <p:message for="rollNumber"/>
+                                <p:commandButton ajax="false" value="Search"
+                                                 action="#{studentWorkBean.loadMarks}">
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </p:fieldset>
+                        <br/>
+                    </h:form>
+                </c:if>
+                <c:if test="#{studentWorkBean.listMarks != null}">
+                    <h:form>
+                        <p:fieldset legend="Result Learning of Student"
+                                    toggleable="true"
+                                    toggleSpeed="500"
+                                    >
+                            <p:dataTable id="tbl"
+                                         var="markItem"
+                                         value="#{studentWorkBean.listMarks}"
+                                         emptyMessage="Not have Student.">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Subject" />
+                                    </f:facet>
+                                    <h:outputText value="#{markItem.assignment.subject.name}" />
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Mark"/>
+                                    </f:facet>
+                                    <h:outputText value="#{markItem.mark}" />
+                                </p:column>
+
+                            </p:dataTable>
+                            <br />
+
+                            <h:panelGrid columns="1">
+                                <p:panel header="Export All Data">
+                                    <h:commandLink>
+                                        <p:graphicImage value="/images/excel.png" />
+                                        <p:dataExporter type="xls" target="tbl" fileName="listMarks" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage value="/images/pdf.png" />
+                                        <p:dataExporter type="pdf" target="tbl" fileName="listMarks"/>
+                                    </h:commandLink>
+                                </p:panel>
+
+                            </h:panelGrid>
+                        </p:fieldset>
+                    </h:form>
+                </c:if>
+            </div>
+        </div>
+        <!-- News Block Ends Here -->
+
+    </ui:define>
+</ui:composition>
+
