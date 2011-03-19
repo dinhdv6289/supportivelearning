@@ -14,6 +14,10 @@ public class Semester {
     private String semesterName;
     private int semesterTime;
 
+    public Semester() {
+        
+    }
+
     public int getId() {
         return id;
     }

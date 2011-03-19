@@ -125,6 +125,25 @@ public class CourseDAO extends AbstractDAO<Course> {
 
     @Override
     public Course getObject(Course t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+       Course c = new Course();
+        Connection conn = null;
+        String sql = "{call Sel_CourseById (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt.setInt(1, t.getId());
+            cstmt = conn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery(sql);
+            while (rs.next()) {
+                c.setId(rs.getInt("StaffId"));
+                c.setName(rs.getString("StaffName"));
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return c;
     }
 }
