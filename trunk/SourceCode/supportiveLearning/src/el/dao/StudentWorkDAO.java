@@ -41,4 +41,8 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
     public StudentWork getObject(StudentWork studentWork) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public ArrayList<StudentWork> listStudentWorkByRollNumber(String rollNumber) throws Exception{
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
