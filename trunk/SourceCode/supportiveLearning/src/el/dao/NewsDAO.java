@@ -34,6 +34,10 @@ public class NewsDAO extends AbstractDAO<News> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public ArrayList<News> listNewsByCategoryId(int categoryId) throws Exception{
+        return null;
+    }
+
     @Override
     public News getObject(News t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
