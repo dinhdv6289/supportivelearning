@@ -86,4 +86,8 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
 
         return assignments;
     }
+
+    public ArrayList<Assignment> getListAssignmentsByBatchId(int batchId) throws Exception {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

@@ -159,4 +159,8 @@ public class BatchDAO extends AbstractDAO<Batch> {
 
         return batch;
     }
+
+    public ArrayList<Batch> listBatchOfSemester(int id) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
