@@ -31,4 +31,6 @@ public class SessionManager {
     private static HttpSession getHttpSession() {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     }
+
+
 }
