@@ -12,6 +12,7 @@ public class Student extends Account {
 
     private Batch batch;
     private Course course;
+    private String rollNumber;
 
     public Student() {
     }
@@ -35,5 +36,13 @@ public class Student extends Account {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public String getRollNumber() {
+        return rollNumber;
+    }
+
+    public void setRollNumber(String rollNumber) {
+        this.rollNumber = rollNumber;
     }
 }
