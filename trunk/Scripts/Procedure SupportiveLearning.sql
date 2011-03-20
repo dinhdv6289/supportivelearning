@@ -447,19 +447,7 @@ AS BEGIN
 	 FROM Student
   END 
 
- GO 
-
-/* Create Procedure Sel_StudentById */
-
-CREATE PROCEDURE Sel_StudentById
-@StudentId		int 
-AS BEGIN 
-	 SELECT StudentId,AcountId,ClazzId,FullName,BirthDay,Gender,Phone,Email,Address 
-	 FROM Student
-	 WHERE StudentId=@StudentId 
-  END 
-
- GO 
+ GO  
 
 /* Create Procedure Udp_StudentById */
 
@@ -1037,12 +1025,21 @@ AS BEGIN
 
  GO 
 
-
-
+EXEC Sel_Students 
 CREATE PROCEDURE Sel_Students 
 AS BEGIN 
 SELECT     Student.StudentId, Account.AcountId, Account.RoleId, Account.UserName, Account.PassWord, Account.DateCreation, Student.ClazzId, Student.FullName, 
                       Student.BirthDay, Student.Gender, Student.Phone, Student.Email, Student.Address
 FROM         Account INNER JOIN
                       Student ON Account.AcountId = Student.AcountId
+  END
+
+CREATE PROCEDURE Sel_StudentById 
+@StudentId		int
+AS BEGIN 
+SELECT     Student.StudentId, Account.AcountId, Account.RoleId, Account.UserName, Account.PassWord, Account.DateCreation, Student.ClazzId, Student.FullName, 
+                      Student.BirthDay, Student.Gender, Student.Phone, Student.Email, Student.Address
+FROM         Account INNER JOIN
+                      Student ON Account.AcountId = Student.AcountId
+	 WHERE StudentId=@StudentId 
   END
