@@ -34,7 +34,13 @@ create table Account
 	RoleId           INT REFERENCES Roles(RoleId) NOT NULL,
 	UserName         NVARCHAR(100),
 	PassWord         NVARCHAR(100),
-	DateCreation       DATETIME DEFAULT GETDATE()
+	DateCreation     DATETIME DEFAULT GETDATE()
+	FullName		 NVARCHAR(100),
+	BirthDay         DATETIME,
+	Gender           BIT DEFAULT 1,
+	Phone            NVARCHAR(100),
+	Email            NVARCHAR(100) NOT NULL,
+	Address          NVARCHAR(255)
 )
 GO
 create table Course
@@ -66,12 +72,6 @@ create table Staff
 (
 	StaffId		INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	AcountId     INT REFERENCES [Account](AcountId) NOT NULL,	
-	StaffName	 NVARCHAR(100),
-	BirthDay         DATETIME,
-	Gender           BIT DEFAULT 1,
-	Phone            NVARCHAR(100),
-	Email            NVARCHAR(100) NOT NULL,
-	Address          NVARCHAR(255)
 ) 
 GO
 create table StaffAndBatch
@@ -88,12 +88,6 @@ create table Student
 	RollNumber		 nvarchar(50) not null,
 	AcountId         INT REFERENCES Account(AcountId) NOT NULL,
 	BatchId			 INT REFERENCES Batch(BatchId) NOT NULL,	
-	FullName         NVARCHAR(200) NOT NULL,
-	BirthDay         DATETIME,
-	Gender           BIT DEFAULT 1,
-	Phone            NVARCHAR(100),
-	Email            NVARCHAR(100) NOT NULL,
-	Address          NVARCHAR(255)
 )
 
 GO
