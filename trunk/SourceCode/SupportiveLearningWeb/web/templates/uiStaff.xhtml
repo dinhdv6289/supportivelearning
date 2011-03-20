@@ -15,7 +15,7 @@
             <ui:insert name="head"></ui:insert>
         </h:head>
         <h:body>
-          
+            <h:form prependId="false">
                 <div id="wrapper">
                     <div id="header">
                         <div id="logo"><h1><a href="index.html"><span>Greenlash Innovations</span></a></h1></div>
@@ -33,83 +33,42 @@
                     </div>
                     <div id="container">
                         <div id="left-col">
-                            <h:panelGroup rendered="#{loginBean.panelStudent}" id="panelGroup_Student" >
-                                <!-- Main menu Block Starts Here -->
-                                <div class="sblock">
-                                    <div class="sblock-top">Main menu</div>
-                                    <div class="sblock-content">
-                                        <ul>
-                                            <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
-                                            <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                            <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
-                                            <li><a href="#{request.contextPath}/ui.client/uploadFile.jsf"> Upload File</a></li>
-                                        </ul>
-                                    </div>
+                            <!-- Main menu Block Starts Here -->
+                            <div class="sblock">
+                                <div class="sblock-top">Main menu</div>
+                                <div class="sblock-content">
+                                    <ul>
+                                        <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/uploadFile.jsf"> Upload File</a></li>
+                                    </ul>
                                 </div>
-                                <!-- Main menu Ends Here -->
-                                <!-- Navigation Block Starts Here -->
-                                <div class="sblock">
-                                    <div class="sblock-top">Navigation</div>
-                                    <div class="sblock-content">
-                                        <ul>
-                                            <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
-                                            <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                            <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
-                                            <li>
-                                                <ul>
-                                                    <c:forEach var="courseItem" items="#{courseBean.listCourses}">
-                                                        <li>
-                                                            <p:commandLink value="#{courseItem.name}"
-                                                                           action="#{courseBean.onRequestCourse(courseItem)}">
-                                                            </p:commandLink>
-                                                        </li>
-                                                    </c:forEach>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
+                            </div>
+                            <!-- Main menu Ends Here -->
+                            <!-- Navigation Block Starts Here -->
+                            <div class="sblock">
+                                <div class="sblock-top">Navigation</div>
+                                <div class="sblock-content">
+                                    <ul>
+                                        <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
+                                        <li>
+                                            <ul>
+                                                <c:forEach var="courseItem" items="#{courseBean.listCourses}">
+                                                    <li>
+                                                        <p:commandLink value="#{courseItem.name}"
+                                                                       action="#{courseBean.onRequestCourse(courseItem)}">
+                                                        </p:commandLink>
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <!-- Navigation Block Ends Here -->
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_Staff" >
-                                <!-- Main menu Block Starts Here -->
-                                <div class="sblock">
-                                    <div class="sblock-top">Main menu</div>
-                                    <div class="sblock-content">
-                                        <ul>
-                                            <li><a href="#{request.contextPath}/ui.staff/index.jsf">Home</a></li>
-                                            <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                            <li><a href="#{request.contextPath}/ui.staff/viewUploadedFilesStudent.jsf"> Mark View</a></li>
-                                            <li><a href="#{request.contextPath}/ui.staff/uploadFile.jsf"> Upload File</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Main menu Ends Here -->
-                                <!-- Navigation Block Starts Here -->
-                                <div class="sblock">
-                                    <div class="sblock-top">Navigation</div>
-                                    <div class="sblock-content">
-                                        <ul>
-                                            <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
-                                            <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                            <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
-                                            <li>
-                                                <ul>
-                                                    <c:forEach var="courseItem" items="#{courseBean.listCourses}">
-                                                        <li>
-                                                            <p:commandLink value="#{courseItem.name}"
-                                                                           action="#{courseBean.onRequestCourse(courseItem)}">
-                                                            </p:commandLink>
-                                                        </li>
-                                                    </c:forEach>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Navigation Block Ends Here -->
-                            </h:panelGroup>
-
+                            </div>
+                            <!-- Navigation Block Ends Here -->
                             <!-- Quick Search Starts Here -->
                             <div class="sblock">
                                 <div class="sblock-top">Quick Search</div>
@@ -133,20 +92,20 @@
                                 <div class="sblock">
                                     <div class="sblock-top">Login Form</div>
                                     <div class="sblock-content">
-                                        <h:form prependId="false" id="form_login"  >
+                                        <h:form id="form_login" prependId="false">
                                             <p>
 							Username<br/>
-                                                <p:inputText  value="#{loginBean.account.userName}"  required="true" requiredMessage="UserName is not null!"/>
+                                                <p:inputText value="#{loginBean.account.userName}"  required="true" requiredMessage="UserName is not null!"/>
                                             </p>
                                             <p>
 							Password
-                                                <p:password value="#{loginBean.account.password}" required="true" feedback="true" minLength="4" requiredMessage="Password is not null!"/>
+                                                <p:password value="#{loginBean.account.password}" required="true" feedback="true" minLength="8" requiredMessage="Password is not null!"/>
                                             </p>
                                             <p>
-                                                <p:commandButton value="Sign-in"
-                                                               action="#{loginBean.login}"  
-                                                               ajax="false">
-                                                </p:commandButton>
+                                                <p:commandLink ajax="false" styleClass="signin-btn"
+                                                               value="Sign-in"
+                                                               action="#{loginBean.login}">
+                                                </p:commandLink>
                                             </p>
                                             <p class="clearfix normal">
                                                 <span class="floatleft"><a href="#">Forgot  Password?</a></span>
@@ -182,24 +141,6 @@
                                 </div>
                                 <!-- Login Block Ends Here -->
                             </h:panelGroup>
-                            <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_Messages" >
-                                <!-- Messages Block Starts Here -->
-                                <div class="sblock">
-                                    <div class="sblock-top">Messages</div>
-                                    <div class="sblock-content">
-                                        <c:forEach var="feedBackItem" items="#{feedBackAnswerManagerBean.listFeedBacks}">
-                                            <p:commandLink ajax="false"
-                                                           value="#{feedBackItem.feedBackTitle}"
-                                                           action="#{feedBackAnswerManagerBean.onRequestFeedBack(feedBackItem)}">
-                                            </p:commandLink>
-
-                                        </c:forEach>
-                                        <a href="#{request.contextPath}/ui.staff/messages.jsf">Messages</a>
-                                    </div>
-                                </div>
-                            </h:panelGroup>
-                            <!-- Messages Ends Here -->
-
                             <!-- Navigation Block Starts Here -->
                             <div class="sblock">
                                 <div class="sblock-top">Calendar</div>
@@ -243,7 +184,7 @@
                         <p class="floatright"><a href="#">Terms &amp; Condition</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Sitemap</a></p>
                     </div>
                 </div>
-           
+            </h:form>
         </h:body>
     </f:view>
 </html>
