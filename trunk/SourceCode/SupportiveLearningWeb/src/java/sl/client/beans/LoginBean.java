@@ -80,7 +80,8 @@ public class LoginBean implements Serializable {
         if (account != null) {
             try {
                 Account accountLogin = accountDAO.getObject(account);
-                if (accountLogin != null) {
+                if (accountLogin.getId() > 0) {
+                    account = accountLogin;
                     setPanelHi(true);
                     setPanelLogin(false);
                     // co nen check kieu nay??? lay ra ten hay id.
