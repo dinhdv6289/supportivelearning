@@ -168,9 +168,10 @@ public class StudentDAO extends AbstractDAO<Student> {
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            cstmt.setInt(1, s.getId());
+            
             cstmt = conn.prepareCall(sql);
-            ResultSet rsstudents = cstmt.executeQuery(sql);
+            cstmt.setInt(1, s.getId());
+            ResultSet rsstudents = cstmt.executeQuery();
             while (rsstudents.next()) {
                 RoleDAO roleDAO = new RoleDAO();
                 Role roleSearch = new Role();

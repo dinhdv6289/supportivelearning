@@ -28,7 +28,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
         int a = 0;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            CallableStatement ps = conn.prepareCall(sql);
             ps.setInt(1, t.getCourse().getId());
             ps.setInt(2, t.getSemester().getId());
             ps.setString(3, t.getName());
@@ -52,7 +52,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
         int a = 0;
         try {
             conn = getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            CallableStatement ps = conn.prepareCall(sql);
             ps.setInt(1, t.getId());
             ps.setInt(2, t.getCourse().getId());
             ps.setInt(3, t.getSemester().getId());
@@ -78,7 +78,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
     @Override
     public ArrayList<Batch> list() throws Exception {
         Connection conn = null;
-        ArrayList<Batch> clazzs = new ArrayList<Batch>();
+        ArrayList<Batch> batchs = new ArrayList<Batch>();
         String sql = "Sel_AllClazz";
         try {
             conn = getConnection();
@@ -89,14 +89,14 @@ public class BatchDAO extends AbstractDAO<Batch> {
                 Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
                 SemesterDAO semesterDAO = new SemesterDAO();
                 Semester semester = semesterDAO.getSemesterById(rs.getInt("SemesterId"));
-                clazzs.add(new Batch(rs.getInt("ClazzId"), rs.getString("ClazzName"), course, semester, rs.getDate("StartDate")));
+                batchs.add(new Batch(rs.getInt("ClazzId"), rs.getString("ClazzName"), course, semester, rs.getDate("StartDate")));
             }
         } finally {
             if (conn != null) {
                 conn.close();
             }
         }
-        return clazzs;
+        return batchs;
     }
 
     public Batch getClazzById(Batch batch) throws Exception {
@@ -135,9 +135,10 @@ public class BatchDAO extends AbstractDAO<Batch> {
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            cstmt.setInt(1, t.getId());
+
             cstmt = conn.prepareCall(sql);
-            ResultSet rs = cstmt.executeQuery(sql);
+            cstmt.setInt(1, t.getId());
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 batch.setId(rs.getInt("BatchId"));
                 batch.setName(rs.getString("BatchName"));

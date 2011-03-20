@@ -11,7 +11,6 @@ import el.model.Subject;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -53,9 +52,10 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
         try {
             conn = getConnection();
             CallableStatement cstmt = null;
-            cstmt.setInt(1, staff.getId());
             cstmt = conn.prepareCall(sql);
-            ResultSet rs = cstmt.executeQuery(sql);
+            cstmt.setInt(1, staff.getId());
+            
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 Assignment assignment = new Assignment();
                 assignment.setId(rs.getInt("AssignmentId"));
@@ -88,6 +88,45 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
     }
 
     public ArrayList<Assignment> getListAssignmentsByBatchId(int batchId) throws Exception {
-        throw new UnsupportedOperationException("Not yet implemented");
+         ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+
+        Connection conn = null;
+        String sql = "{call Sel_AssignmentsByBacthId (?)}";
+        try {
+            conn = getConnection();
+            CallableStatement cstmt = null;
+            
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1,batchId);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                Assignment assignment = new Assignment();
+                assignment.setId(rs.getInt("AssignmentId"));
+                assignment.setName(rs.getString("AssignmentName"));
+                assignment.setFileUpload(rs.getString("AssignmentFile"));
+                assignment.setStartDate(rs.getDate("StartData"));
+                assignment.setEndDate(rs.getDate("EndDate"));
+                StaffDAO staffDAO = new StaffDAO();
+                Staff s = new Staff();
+                s.setId(rs.getInt("StaffId"));
+                s = staffDAO.getObject(s);
+                assignment.setStaff(s);
+                SubjectDAO subjectDAO = new SubjectDAO();
+                Subject subject = new Subject();
+                subject = subjectDAO.getObject(subject);
+                assignment.setSubject(subject);
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batch = new Batch();
+                batch = batchDAO.getObject(batch);
+                assignment.setBatch(batch);
+                assignments.add(assignment);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return assignments;
     }
 }
