@@ -30,7 +30,7 @@ create table Roles
 GO
 create table Account
 (
-	AcountId         INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	AccountId         INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	RoleId           INT REFERENCES Roles(RoleId) NOT NULL,
 	UserName         NVARCHAR(100),
 	PassWord         NVARCHAR(100),
@@ -71,7 +71,7 @@ GO
 create table Staff
 (
 	StaffId		INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	AcountId     INT REFERENCES [Account](AcountId) NOT NULL,	
+	AccountId     INT REFERENCES [Account](AccountId) NOT NULL,	
 ) 
 GO
 create table StaffAndBatch
@@ -86,7 +86,7 @@ create table Student
 (
 	StudentId        INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	RollNumber		 nvarchar(50) not null,
-	AcountId         INT REFERENCES Account(AcountId) NOT NULL,
+	AccountId         INT REFERENCES Account(AccountId) NOT NULL,
 	BatchId			 INT REFERENCES Batch(BatchId)
 )
 
@@ -124,7 +124,7 @@ GO
 create table Admin
 (
 	AdminId			INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	AcountId        INT REFERENCES Account(AcountId) NOT NULL,
+	AccountId        INT REFERENCES Account(AccountId) NOT NULL,
 	
 )
 GO
@@ -158,7 +158,7 @@ create table FeedBackAnswer
 --create table Comment
 --(
 --	CommentId		INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
---	AcountId         INT REFERENCES Account(AcountId) NOT NULL,
+--	AccountId         INT REFERENCES Account(AccountId) NOT NULL,
 --	FeedBackId         INT REFERENCES FeedBack(FeedBackId) NOT NULL,
 --	CommentContent    ntext
 --)
