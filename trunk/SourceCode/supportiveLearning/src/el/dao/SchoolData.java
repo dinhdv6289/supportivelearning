@@ -38,7 +38,7 @@ public class SchoolData {
                 listClazzs.add(classes);
 
             }
-            listCourses.get(i).setBatchs(listClazzs);
+          //  listCourses.get(i).setBatchs(listClazzs);
 
         }
 
@@ -198,7 +198,7 @@ public class SchoolData {
             for (int i = 0; i < listCourses.size(); i++) {
                 if (listCourses.get(i).getId() == course.getId()) {
                     listCourses.get(i).setName(course.getName());
-                    listCourses.get(i).setBatchs(course.getBatchs());
+             //       listCourses.get(i).setBatchs(course.getBatchs());
                     return true;
                 }
             }
