@@ -32,8 +32,6 @@ public class CourseDAO extends AbstractDAO<Course> {
             cstmt.setString(1, t.getName());
             cstmt.setDate(2, (Date) t.getDateStart());
             cstmt.setDate(3, (Date) t.getDateEnd());
-            cstmt.setString(4, t.getBatch());
-
             a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -59,8 +57,6 @@ public class CourseDAO extends AbstractDAO<Course> {
             cstmt.setString(2, t.getName());
             cstmt.setDate(3, (Date) t.getDateStart());
             cstmt.setDate(4, (Date) t.getDateEnd());
-            cstmt.setString(5, t.getBatch());
-
             a = cstmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -88,7 +84,7 @@ public class CourseDAO extends AbstractDAO<Course> {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 courses.add(new Course(
-                        rs.getInt("CourseId"), rs.getString("CourseName"), rs.getDate("DateStart"), rs.getDate("DateEnd"), rs.getString("Batch")));
+                        rs.getInt("CourseId"), rs.getString("CourseName"), rs.getDate("DateStart"), rs.getDate("DateEnd")));
 
             }
         } finally {
@@ -113,7 +109,7 @@ public class CourseDAO extends AbstractDAO<Course> {
             cstmt.setInt(1, courseId);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                course = new Course(rs.getInt("CourseId"), rs.getString("CourseName"), rs.getDate("DateStart"), rs.getDate("DateEnd"), rs.getString("Batch"));
+                course = new Course(rs.getInt("CourseId"), rs.getString("CourseName"), rs.getDate("DateStart"), rs.getDate("DateEnd"));
             }
         } finally {
             if (conn != null) {
@@ -125,7 +121,7 @@ public class CourseDAO extends AbstractDAO<Course> {
 
     @Override
     public Course getObject(Course t) throws Exception {
-       Course c = new Course();
+        Course c = new Course();
         Connection conn = null;
         String sql = "{call Sel_CourseById (?)}";
         CallableStatement cstmt = null;
