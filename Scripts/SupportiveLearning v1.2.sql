@@ -34,7 +34,7 @@ create table Account
 	RoleId           INT REFERENCES Roles(RoleId) NOT NULL,
 	UserName         NVARCHAR(100),
 	PassWord         NVARCHAR(100),
-	DateCreation     DATETIME DEFAULT GETDATE()
+	DateCreation     DATETIME DEFAULT GETDATE(),
 	FullName		 NVARCHAR(100),
 	BirthDay         DATETIME,
 	Gender           BIT DEFAULT 1,
@@ -87,7 +87,7 @@ create table Student
 	StudentId        INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	RollNumber		 nvarchar(50) not null,
 	AcountId         INT REFERENCES Account(AcountId) NOT NULL,
-	BatchId			 INT REFERENCES Batch(BatchId) NOT NULL,	
+	BatchId			 INT REFERENCES Batch(BatchId)
 )
 
 GO
