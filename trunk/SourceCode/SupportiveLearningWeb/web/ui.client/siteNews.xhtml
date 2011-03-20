@@ -8,6 +8,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 template="../templates/ui.xhtml">
 
+    <ui:define name="title">Site News</ui:define>
     <ui:define name="content">
         <!-- News Block Starts Here -->
         <div class="content-block">
@@ -22,8 +23,7 @@
                         <c:forEach var="newsItem" items="#{newsBean.listNews}" varStatus="newsStatus">
                             <p:fieldset legend="#{newsItem.title}"
                                         toggleable="true"
-                                        toggleSpeed="500"
-                                        >
+                                        toggleSpeed="500">
                                 <h:panelGrid columns="2" cellpadding="10">
                                     <p:graphicImage value="/images/news/#{newsItem.picture}" />
                                     <h:outputText value="#{newsItem.subContent}"/>
