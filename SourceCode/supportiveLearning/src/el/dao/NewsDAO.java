@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package el.dao;
 
 import el.model.News;
@@ -34,7 +33,7 @@ public class NewsDAO extends AbstractDAO<News> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public ArrayList<News> listNewsByCategoryId(int categoryId) throws Exception{
+    public ArrayList<News> listNewsByCategoryId(int categoryId) throws Exception {
         return null;
     }
 
@@ -43,4 +42,7 @@ public class NewsDAO extends AbstractDAO<News> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public ArrayList<News> listTop3New() throws Exception {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
