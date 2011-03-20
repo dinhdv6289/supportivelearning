@@ -32,7 +32,7 @@ public class EachSession {
                     if (role.equals("Admin")) {
                         // value = adminDAO.getAdminByAccountId(account);
                     } else if (role.equals("Staff")) {
-                        // value = staffDAO.getStaffByAccountId(account);
+                         value = staffDAO.getStaffByAccount(account);
                     } else {
                         // value = studentDAO.getStudentByAccountId(account);
                     }
