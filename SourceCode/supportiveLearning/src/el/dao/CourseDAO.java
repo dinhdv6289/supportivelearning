@@ -105,7 +105,6 @@ public class CourseDAO extends AbstractDAO<Course> {
         try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
-
             cstmt.setInt(1, courseId);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
@@ -126,10 +125,10 @@ public class CourseDAO extends AbstractDAO<Course> {
         String sql = "{call Sel_CourseById (?)}";
         CallableStatement cstmt = null;
         try {
-            conn = getConnection();
-            cstmt.setInt(1, t.getId());
+            conn = getConnection();         
             cstmt = conn.prepareCall(sql);
-            ResultSet rs = cstmt.executeQuery(sql);
+            cstmt.setInt(1, t.getId());
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 c.setId(rs.getInt("StaffId"));
                 c.setName(rs.getString("StaffName"));
