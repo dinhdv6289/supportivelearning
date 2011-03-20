@@ -45,9 +45,9 @@ public class SubjectDAO extends AbstractDAO<Subject>{
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            cstmt.setInt(1, t.getId());
             cstmt = conn.prepareCall(sql);
-            ResultSet rs = cstmt.executeQuery(sql);
+            cstmt.setInt(1, t.getId());           
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {             
                 s.setId(rs.getInt("StaffId"));
                 s.setName(rs.getString("StaffName"));

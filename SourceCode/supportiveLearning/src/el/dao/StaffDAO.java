@@ -148,16 +148,17 @@ public class StaffDAO extends AbstractDAO<Staff> {
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            cstmt.setInt(1, staff.getId());
+            
             cstmt = conn.prepareCall(sql);
-            ResultSet rs = cstmt.executeQuery(sql);
+            cstmt.setInt(1, staff.getId());
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 RoleDAO roleDAO = new RoleDAO();
                 Role roleSearch = new Role();
                 roleSearch.setId(rs.getInt("RoleId"));
                 Role role = roleDAO.getObject(roleSearch);
                 s.setId(rs.getInt("StaffId"));
-                s.setName(rs.getString("StaffName"));
+                s.setName(rs.getString("FullName"));
                 s.setUserName(rs.getString("UserName"));
                 s.setPassword(rs.getString("Password"));
                 s.setDateCreate(rs.getDate("DateCreation"));

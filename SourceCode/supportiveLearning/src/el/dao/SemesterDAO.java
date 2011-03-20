@@ -119,10 +119,10 @@ public class SemesterDAO extends AbstractDAO<Semester> {
         String sql = "{call Sel_CourseById (?)}";
         CallableStatement cstmt = null;
         try {
-            conn = getConnection();
-            cstmt.setInt(1, t.getId());
+            conn = getConnection();            
             cstmt = conn.prepareCall(sql);
-            ResultSet rs = cstmt.executeQuery(sql);
+            cstmt.setInt(1, t.getId());
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 semester.setId(rs.getInt("SemesterId"));
                 semester.setSemesterName(rs.getString("SemesterName"));
