@@ -32,7 +32,7 @@ public class StudentDAO extends AbstractDAO<Student> {
     }
 
     public int insertStudent(Student student, int accountId) throws Exception {
-        String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
@@ -49,9 +49,10 @@ public class StudentDAO extends AbstractDAO<Student> {
             stmt.setDate(9, (Date) student.getBirthDay());
             stmt.setBoolean(10, student.getGender());
             stmt.setDate(11, (Date) student.getDateCreate());
+            stmt.setString(12, student.getRollNumber());
 
             // Phai them trong store proc 1 truong la AccountId
-            stmt.setInt(12, accountId);
+            stmt.setInt(13, accountId);
             a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -65,7 +66,7 @@ public class StudentDAO extends AbstractDAO<Student> {
 
     @Override
     public boolean update(Student student) throws Exception {
-        String sql = "{call Udp_StudentById (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call Udp_StudentById (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
@@ -83,6 +84,8 @@ public class StudentDAO extends AbstractDAO<Student> {
             stmt.setDate(10, (Date) student.getBirthDay());
             stmt.setBoolean(11, student.getGender());
             stmt.setDate(12, (Date) student.getDateCreate());
+
+            stmt.setString(13, student.getRollNumber());
             a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -145,6 +148,7 @@ public class StudentDAO extends AbstractDAO<Student> {
                 student.setPhone(rsstudents.getString("Phone"));
                 student.setEmail(rsstudents.getString("Email"));
                 student.setAddress(rsstudents.getString("Address"));
+                student.setRollNumber(rsstudents.getString("RollNumber"));
                 students.add(student);
             }
         } finally {
@@ -188,6 +192,7 @@ public class StudentDAO extends AbstractDAO<Student> {
                 student.setPhone(rsstudents.getString("Phone"));
                 student.setEmail(rsstudents.getString("Email"));
                 student.setAddress(rsstudents.getString("Address"));
+                student.setRollNumber(rsstudents.getString("RollNumber"));
             }
         } finally {
             if (conn != null) {
