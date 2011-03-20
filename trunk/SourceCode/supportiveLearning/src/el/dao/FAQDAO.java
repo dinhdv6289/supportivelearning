@@ -32,6 +32,8 @@ public class FAQDAO extends AbstractDAO<FAQ> {
             cstmt.setString(1, t.getQuestion());
             cstmt.setString(2, t.getAnswer());
             cstmt.setDate(3, (Date) t.getDate());
+
+            a = cstmt.executeUpdate();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -102,7 +104,6 @@ public class FAQDAO extends AbstractDAO<FAQ> {
         try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
-
             cstmt.setInt(1, FAQId);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
