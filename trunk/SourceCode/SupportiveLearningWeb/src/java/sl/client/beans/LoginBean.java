@@ -34,7 +34,7 @@ public class LoginBean implements Serializable {
     private static boolean panelStaff = false;
     private AccountDAO accountDAO = new AccountDAO();
     private StudentDAO studentDAO = new StudentDAO();
-    @ManagedProperty(value = "#{param.page}")
+   // @ManagedProperty(value = "#{param.page}")
     private String pageRequest;
     //private
 
