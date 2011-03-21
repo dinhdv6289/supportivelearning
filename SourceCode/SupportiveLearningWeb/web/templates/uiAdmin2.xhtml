@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <f:view contentType="text/html">
+        <h:head>
+            <title><ui:insert name="title"></ui:insert></title>
+
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <link media="screen" type="text/css" href="#{request.contextPath}/css/style.css" rel="stylesheet"/>
+            <link type="text/css" rel="stylesheet" media="all" href="#{request.contextPath}/css/base.css" />
+            <link type="text/css" rel="stylesheet" media="all" href="#{request.contextPath}/css/jquery-ui.css" />
+            <link type="text/css" rel="stylesheet" media="all" href="#{request.contextPath}/css/grid.css" />
+            <link type="text/css" rel="stylesheet" media="all" href="#{request.contextPath}/css/visualize.css" />
+            <title>Admin Base</title>
+            <script type="text/javascript" src="#{request.contextPath}/js/excanvas.js"></script>
+            <script type="text/javascript" src="#{request.contextPath}/js/visualize.jQuery.js"></script>
+            <script type="text/javascript" src="#{request.contextPath}/js/functions.js"></script>
+            <ui:insert name="head"></ui:insert>
+        </h:head>
+        <h:body>
+
+            <div id="header">
+                <div class="header-middle">
+                    <!-- Start Nav -->
+                    <ul id="nav" class="fr ">
+                        <!-- Nav - Start Help -->
+                        <li class="help"><a class="help" href="#">Help</a>
+                            <ul>
+                                <li><a href="#">Documentation</a></li>
+                                <li><a href="#">Forums</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </li>
+                        <!-- Nav - End Help -->
+                        <!-- Nav - Start Settings -->
+                        <li class="settings"><a class="settings" href="#">Settings</a>
+                            <ul>
+                                <li><a href="#">System Settings</a></li>
+                                <li><a href="#">Server Setup</a></li>
+                            </ul>
+                        </li>
+                        <!-- Nav - End Settings -->
+                        <!-- Nav - Start Users -->
+                        <li class="users"><a class="users" href="#">Users</a>
+                            <ul>
+                                <li><a href="#">User Manager</a></li>
+                                <li><a href="#">Manage Users  &raquo;</a>
+                                    <ul>
+                                        <li><a href="#">Add User</a></li>
+                                        <li><a href="#">Edit User</a></li>
+                                        <li><a href="#">Delete User</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">User Reports</a></li>
+                                <li><a href="#">Usergoups</a></li>
+                            </ul>
+                        </li>
+                        <!-- Nav - End Users -->
+                        <!-- Nav - Start Content -->
+                        <li class="content"><a class="content" href="#">Content</a>
+                            <ul>
+                                <li><a href="#">Manage Pages  &raquo;</a>
+                                    <ul>
+                                        <li><a href="#">Add Page  &raquo;</a>
+                                            <ul>
+                                                <li><a href="#">HTML Page</a></li>
+                                                <li><a href="#">Widget Page</a></li>
+                                                <li><a href="#">Custom Page</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Edit Page</a></li>
+                                        <li><a href="#">Delete Page</a> </li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Page Statstics</a></li>
+                                <li><a href="#">Page Categories</a></li>
+                                <li><a href="#">Page Tags</a></li>
+                            </ul>
+                        </li>
+                        <!-- Nav - End Content -->
+                        <!-- Nav - Start Help -->
+                        <li class="dashboard"><a class="dashboard" href="#">Dashboard</a></li>
+                        <!-- Nav - End Dashboard -->
+                    </ul>
+                    <!-- End Nav -->
+                    <!-- Start Logo -->
+                    
+                    <!-- End Logo -->
+                    <br class="cl" />
+                </div>
+                <div class="header-bottom">
+                    <!-- Start Breadcrumbs -->
+                    <ul id="breadcrumbs">
+                        <li><a href="#">Base</a> &raquo;</li>
+                        <li><a href="#">Level One</a> &raquo;</li>
+                        <li><a href="#">Level Two</a></li>
+                    </ul>
+                    <!-- End Breadcrumbs -->
+                </div>
+            </div>
+            <div id="page-wrapper">
+                <div class="page">
+                    <!-- Start Sidebar -->
+                    <div id="sidebar">
+
+                        <!-- Start Live Search  -->
+                        <form class="searchform" action="#">
+                            <input id="livesearch" type="text" onblur="if (this.value == '') {this.value = 'Live Search...';}" onfocus="if (this.value == 'Live Search...') {this.value = '';}" value="Live Search..." class="searchfield" />
+                            <input type="button" value="Go" class="searchbutton" />
+                        </form>
+                        <!-- End Live Search  -->
+                        <!-- Start Content Nav  -->
+                        <span class="ul-header"><a id="toggle-pagesnav" href="#" class="toggle visible">Content</a></span>
+                        <ul id="pagesnav">
+                            <li><a class="icn_manage_pages" href="#">Manage Pages</a></li>
+                            <li><a class="icn_add_pages" href="#">Add Pages</a></li>
+                            <li><a class="icn_edit_pages" href="#">Edit Pages</a></li>
+                            <li><a class="icn_delete_pages" href="#">Delete Pages</a></li>
+                        </ul>
+                        <!-- End Content Nav  -->
+                        <!-- Start Comments Nav  -->
+                        <span class="ul-header"><a id="toggle-commentsnav" href="#" class="toggle visible">Comments</a></span>
+                        <ul id="commentsnav">
+                            <li><a class="icn_manage_comments" href="#">Manage Comments</a></li>
+                            <li><a class="icn_add_comments" href="#">Add Comments</a></li>
+                            <li><a class="icn_edit_comments" href="#">Edit Comments</a></li>
+                            <li><a class="icn_delete_comments" href="#">Delete Comments</a></li>
+                        </ul>
+                        <!-- End Comments Nav  -->
+                        <!-- Start Users Nav  -->
+                        <span class="ul-header"><a id="toggle-userssnav" href="#" class="toggle visible">Users</a></span>
+                        <ul id="userssnav">
+                            <li><a class="icn_manage_users" href="#">Manage Users</a></li>
+                            <li><a class="icn_add_users" href="#">Add Users</a></li>
+                            <li><a class="icn_edit_users" href="#">Edit Users</a></li>
+                            <li><a class="icn_delete_users" href="#">Delete Users</a></li>
+                        </ul>
+                        <!-- End Users Nav  -->
+                        <!-- Start Gallery Nav  -->
+                        <span class="ul-header"><a id="toggle-imagesnav" href="#" class="toggle visible">Gallery</a></span>
+                        <ul id="imagesnav">
+                            <li><a class="icn_manage_image" href="#">Manage Images</a></li>
+                            <li><a class="icn_add_image" href="#">Add Images</a></li>
+                            <li><a class="icn_edit_image" href="#">Edit Images</a></li>
+                            <li><a class="icn_delete_image" href="#">Delete Images</a></li>
+                        </ul>
+                        <!-- End Gallery Nav  -->
+                        <!-- Start Statistics Area  -->
+                        <span class="ul-header">Statistics</span>
+                        <ul>
+                            <li>Pages: 183</li>
+                            <li>Comments: 432</li>
+                            <li>Users: 1094</li>
+                            <!-- End Statistics Area  -->
+                        </ul>
+                    </div>
+                    <!-- End Sidebar  -->
+
+                    <!-- Star Page Content  -->
+                    <div id="page-content">
+
+                        <ui:insert name="content"></ui:insert>
+                    </div>
+                    <!-- End Page Content  -->
+                </div>
+            </div>
+            <!-- Start Footer -->
+            <div class="footer"> Copyright ©2010, A <a href="http://www.mudodesigns.com/">Mudo Design</a> for <a href="http://themeforest.net/?ref=maestrox">Theme Forest</a>. </div>
+            <!-- End Footer -->
+
+        </h:body>
+    </f:view>
+</html>
