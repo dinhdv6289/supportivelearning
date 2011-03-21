@@ -48,14 +48,29 @@ public class SemesterBean implements Serializable {
 
     private void loadSemesters() {
         try {
-            this.listSemesters = semesterDAO.list();
+            this.listSemesters = list();
         } catch (Exception ex) {
             Logger.getLogger(SemesterBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+//    private void loadSemesters() {
+//        try {
+//            this.listSemesters = semesterDAO.list();
+//        } catch (Exception ex) {
+//            Logger.getLogger(SemesterBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     public String viewDetailsSemester(Semester semester){
 
         return "";
+    }
+
+    private ArrayList<Semester> list(){
+        ArrayList<Semester> arrayList = new ArrayList<Semester>();
+        for (int i = 1; i <= 4; i++) {
+            arrayList.add(new Semester(i, "Semester "+ i, i));
+        }
+        return  arrayList;
     }
 }

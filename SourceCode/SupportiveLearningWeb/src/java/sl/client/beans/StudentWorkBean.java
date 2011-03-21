@@ -34,6 +34,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
+import sl.utils.beans.HttpServletService;
+import sl.utils.beans.SessionManager;
 
 /**
  *
@@ -51,6 +53,14 @@ public class StudentWorkBean implements Serializable {
 
     /** Creates a new instance of StudentWorkBean */
     public StudentWorkBean() {
+        if(SessionManager.getSession("accountId") == null){
+            try {
+                System.out.println("requestPath ======" + HttpServletService.getRequestContextPath());
+                HttpServletService.getHttpServletResponse().sendRedirect("../ui.client/login.jsf?page="+HttpServletService.getRequestContextPath());
+            } catch (IOException ex) {
+                Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         loadStudentWorks();
     }
 

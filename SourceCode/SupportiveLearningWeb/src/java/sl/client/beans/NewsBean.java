@@ -95,25 +95,22 @@ public class NewsBean implements Serializable {
         return null;
     }
 
-    public String loadListNewsByCategory() {
-        try {
-            if (newsCategory != null) {
-                this.listNewsByCategory = newsDAO.listNewsByCategoryId(newsCategory.getId());
-            } else {
-                return null;
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(NewsBean.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        return "news";
-    }
-
+//    public String loadListNewsByCategory() {
+//        try {
+//            if (newsCategory != null) {
+//                this.listNewsByCategory = newsDAO.listNewsByCategoryId(newsCategory.getId());
+//            } else {
+//                return null;
+//            }
+//        } catch (Exception ex) {
+//            Logger.getLogger(NewsBean.class.getName()).log(Level.SEVERE, null, ex);
+//            return null;
+//        }
+//        return "news";
+//    }
     private void loadTop3News() {
         try {
-            if (listNews.size() > 3) {
-                this.listTop3News = (ArrayList<News>) loadListNews().subList(0, 2);
-            }
+            this.listTop3News = newsDAO.listTop3New();
         } catch (Exception ex) {
             Logger.getLogger(NewsBean.class.getName()).log(Level.SEVERE, null, ex);
         }

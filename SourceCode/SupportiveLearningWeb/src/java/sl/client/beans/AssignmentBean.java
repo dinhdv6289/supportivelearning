@@ -29,17 +29,17 @@ public class AssignmentBean implements Serializable {
     private ArrayList<Assignment> listAssignmentsOfStaff = new ArrayList<Assignment>();
     private ArrayList<Assignment> listAssignmentsOfBatch = new ArrayList<Assignment>();
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
-    private Batch batchDetails;
+    private Batch batchDetails = new Batch();
 
     /** Creates a new instance of AssignmentBean */
     public AssignmentBean() {
         //loadAssignmentsOfStaff();
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        if (request.getAttribute("id") != null) {
-            batchDetails.setId(Integer.valueOf(request.getAttribute("id").toString()));
-            loadListAssignmentsOfBatch(batchDetails.getId());
-        }
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+//        if (request.getAttribute("id") != null) {
+//            batchDetails.setId(Integer.valueOf(request.getAttribute("id").toString()));
+//            loadListAssignmentsOfBatch(batchDetails.getId());
+        //}
     }
 
     public Batch getBatchDetails() {
@@ -91,11 +91,24 @@ public class AssignmentBean implements Serializable {
         return assignments;
     }
 
-    private void loadListAssignmentsOfBatch(int batchId) {
+//    private void loadListAssignmentsOfBatch(int batchId) {
+//        try {
+//            this.listAssignmentsOfBatch = assignmentDAO.getListAssignmentsByBatchId(batchDetails.getId());
+//        } catch (Exception ex) {
+//            Logger.getLogger(AssignmentBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+
+    private void loadListAssignmentsOfBatch() {
         try {
-            this.listAssignmentsOfBatch = assignmentDAO.getListAssignmentsByBatchId(batchId);
+            this.listAssignmentsOfBatch = assignmentDAO.getListAssignmentsByBatchId(batchDetails.getId());
         } catch (Exception ex) {
             Logger.getLogger(AssignmentBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String details(){
+        loadListAssignmentsOfBatch();
+        return "batchDetails.jsf?faces-redirect=true";
     }
 }

@@ -14,14 +14,16 @@
         <div class="content-block">
             <div class="content-block-top"></div>
             <div class="content-block-bottom">
-                <h:form>
+                <h:form prependId="false">
                     <p:panel header="Semesters">
                         <c:forEach var="semesterItem" items="#{semesterBean.listSemesters}" >
-                            <p:commandLink value="#{semesterItem.semesterName}"
-                                           action="#{batchBean.loadListBatchs(semesterItem.id)}">
-                            </p:commandLink>
+                            <p:commandLink ajax="false"
+                                           value="#{semesterItem.semesterName}"
+                                           action="#{batchBean.loadList}" >
+                                <f:setPropertyActionListener target="#{batchBean.batch.semester}" value="#{semesterItem}"/>
+                            </p:commandLink><br/>
                         </c:forEach>
-                        <a href="#{request.contextPath}/ui.client/semesters.jsf"></a>
+                        
                     </p:panel>
                 </h:form>
             </div>
