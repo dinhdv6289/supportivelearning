@@ -15,12 +15,11 @@
             <div class="content-block-bottom">
                 <h4>Upload</h4>
                 <h:form enctype="multipart/form-data">
-
                     <p:growl id="messages" showDetail="true"/>
-
                     <p:fileUpload fileUploadListener="#{studentWorkBean.handleFileUpload}"
-                                  update="messages" multiple="true" allowTypes="doc,txt" />
-
+                                  update="messages" 
+                                  multiple="true"
+                                  allowTypes="*.doc;*.txt;"  />
                 </h:form>
             </div>
         </div>
