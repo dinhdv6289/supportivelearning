@@ -116,7 +116,7 @@ public class SemesterDAO extends AbstractDAO<Semester> {
     public Semester getObject(Semester t) throws Exception {
         Semester semester = new Semester();
         Connection conn = null;
-        String sql = "{call Sel_CourseById (?)}";
+        String sql = "{call Sel_SemesterById (?)}";
         CallableStatement cstmt = null;
         try {
             conn = getConnection();            

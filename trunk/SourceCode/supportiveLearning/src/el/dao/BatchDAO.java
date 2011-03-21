@@ -23,7 +23,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
 
     @Override
     public int insert(Batch t) throws Exception {
-        String sql = "Ins_Clazz ?, ?, ?, ?";
+        String sql = "Ins_Batch ?, ?, ?, ?";
         Connection conn = null;
         int a = 0;
         try {
@@ -47,7 +47,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
 
     @Override
     public boolean update(Batch t) throws Exception {
-        String sql = "Udp_ClazzById ?, ?, ?, ?, ?";
+        String sql = "Udp_BatchById ?, ?, ?, ?, ?";
         Connection conn = null;
         int a = 0;
         try {
@@ -79,7 +79,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
     public ArrayList<Batch> list() throws Exception {
         Connection conn = null;
         ArrayList<Batch> batchs = new ArrayList<Batch>();
-        String sql = "Sel_AllClazz";
+        String sql = "Sel_AllBatch";
         try {
             conn = getConnection();
             Statement stmt = conn.createStatement();
@@ -89,7 +89,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
                 Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
                 SemesterDAO semesterDAO = new SemesterDAO();
                 Semester semester = semesterDAO.getSemesterById(rs.getInt("SemesterId"));
-                batchs.add(new Batch(rs.getInt("ClazzId"), rs.getString("ClazzName"), course, semester, rs.getDate("StartDate")));
+                batchs.add(new Batch(rs.getInt("BatchId"), rs.getString("BatchName"), course, semester, rs.getDate("StartDate")));
             }
         } finally {
             if (conn != null) {
@@ -97,34 +97,6 @@ public class BatchDAO extends AbstractDAO<Batch> {
             }
         }
         return batchs;
-    }
-
-    public Batch getClazzById(Batch batch) throws Exception {
-        Connection conn = null;
-        Batch clazz = null;
-
-        String sql = "{call Sel_ClazzById (?)}";
-        CallableStatement cstmt = null;
-
-        try {
-            conn = getConnection();
-            cstmt = conn.prepareCall(sql);
-
-            cstmt.setInt(1, batch.getId());
-            ResultSet rs = cstmt.executeQuery();
-            while (rs.next()) {
-                CourseDAO courseDAO = new CourseDAO();
-                Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
-                SemesterDAO semesterDAO = new SemesterDAO();
-                Semester semester = semesterDAO.getSemesterById(rs.getInt("SemesterId"));
-                clazz = new Batch(rs.getInt("ClazzId"), rs.getString("ClazzName"), course, semester, rs.getDate("StartDate"));
-            }
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return clazz;
     }
 
     @Override
@@ -150,7 +122,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
                 Semester semester = new Semester();
                 semester = semesterDAO.getObject(semester);
                 batch.setSemester(semester);
-                batch.setStartDate(rs.getDate(""));
+                batch.setStartDate(rs.getDate("StartDate"));
             }
         } finally {
             if (conn != null) {
