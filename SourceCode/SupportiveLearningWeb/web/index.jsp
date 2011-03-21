@@ -1,1 +1,1 @@
-<% response.sendRedirect("ui.admin/index.jsf"); %>
+<% response.sendRedirect("ui.client/index.jsf"); %>
