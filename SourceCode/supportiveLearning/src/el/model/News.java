@@ -18,7 +18,6 @@ public class News {
     private String subContent;
     private String newsContent;
     private Date dateCreate;
-    private NewsCategory newsCategory;
 
     public News() {
     }
@@ -78,13 +77,5 @@ public class News {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public NewsCategory getNewsCategory() {
-        return newsCategory;
-    }
-
-    public void setNewsCategory(NewsCategory newsCategory) {
-        this.newsCategory = newsCategory;
     }
 }
