@@ -151,15 +151,13 @@
                         <!-- Quick Search Ends Here -->
                     </div>
                     <div id="center-col">
-                        <ui:insert name="content"></ui:insert>
-                    </div>
-                    <div id="right-col">
-                        <h:panelGroup rendered="#{loginBean.panelLogin}" id="panelGroup_login" >
-                            <!-- Login Block Starts Here -->
-                            <div class="sblock">
-                                <div class="sblock-top">Login Form</div>
-                                <div class="sblock-content">
-                                    <h:form prependId="false" id="form_login"  >
+                        <!-- News Block Starts Here -->
+                        <div class="content-block">
+                            <div class="content-block-top"></div>
+                            <div class="content-block-bottom">
+                                <h4>Login</h4>
+                                <h:form prependId="false" id="form_login"  >
+                                    <h:panelGrid columns="2" cellpadding="4">
                                         <p>
 							Username<br/>
                                             <p:inputText  value="#{loginBean.account.userName}"  required="true" requiredMessage="UserName is not null!"/>
@@ -177,34 +175,13 @@
                                         <p class="clearfix normal">
                                             <span class="floatleft"><a href="#">Forgot  Password?</a></span>
                                         </p>
-                                    </h:form>
-                                </div>
+                                    </h:panelGrid>
+                                </h:form>
                             </div>
-                            <!-- Login Block Ends Here -->
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{loginBean.panelHi}" id="panelGroup_hi" >
-                            <!-- Login Block Starts Here -->
-                            <div class="sblock">
-                                <div class="sblock-top">Welcome!</div>
-                                <div class="sblock-content">
-                                    <h:form id="form_hi" prependId="false">
-                                        <p>
-
-                                            Hi<h:outputLabel value="#{loginBean.account.name}" />
-                                        </p>
-                                        <p>
-                                        </p>
-                                        <p>
-                                            <p:commandLink ajax="false"
-                                                           value="Logout"
-                                                           action="#{loginBean.logout}">
-                                            </p:commandLink>
-                                        </p>
-                                    </h:form>
-                                </div>
-                            </div>
-                            <!-- Login Block Ends Here -->
-                        </h:panelGroup>
+                        </div>
+                        <!-- News Block Ends Here -->
+                    </div>
+                    <div id="right-col">
                         <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_Messages" >
                             <!-- Messages Block Starts Here -->
                             <div class="sblock">

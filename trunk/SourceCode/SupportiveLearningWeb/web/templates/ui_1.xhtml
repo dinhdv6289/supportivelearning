@@ -42,18 +42,7 @@
                                         <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
-                                        <li>
-                                            <h:form prependId="false">
-                                                <p:commandLink ajax="false"
-                                                               value="Upload File"
-                                                               action="#{checkLoginToProcessBean.redirectToPage}">
-                                                    <f:setPropertyActionListener target="#{checkLoginToProcessBean.link}"
-                                                                                 value="uploadFile.jsf">
-                                                    </f:setPropertyActionListener>
-                                                </p:commandLink>
-                                            </h:form>
-
-                                        </li>
+                                        <li><a href="#{request.contextPath}/ui.client/uploadFile.jsf"> Upload File</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -93,18 +82,7 @@
                                         <li><a href="#{request.contextPath}/ui.staff/index.jsf">Home</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
                                         <li><a href="#{request.contextPath}/ui.staff/viewUploadedFilesStudent.jsf"> Mark View</a></li>
-                                        <li>
-                                            <h:form prependId="false">
-                                                <p:commandLink ajax="false"
-                                                               value="Upload File"
-                                                               action="#{checkLoginToProcessBean.redirectToPage}">
-                                                    <f:setPropertyActionListener target="#{checkLoginToProcessBean.link}"
-                                                                                 value="#{request.contextPath}/ui.staff/uploadFile.jsf">
-                                                    </f:setPropertyActionListener>
-                                                </p:commandLink>
-                                            </h:form>
-
-                                        </li>
+                                        <li><a href="#{request.contextPath}/ui.staff/uploadFile.jsf"> Upload File</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -263,9 +241,9 @@
                         <div class="sblock">
                             <div class="sblock-top">Online users</div>
                             <div class="sblock-content">
-                                <!--                                <c:forEach var="" items="">
+<!--                                <c:forEach var="" items="">
 
-                                                                </c:forEach>-->
+                                </c:forEach>-->
                             </div>
                         </div>
                         <!-- Online users Ends Here -->

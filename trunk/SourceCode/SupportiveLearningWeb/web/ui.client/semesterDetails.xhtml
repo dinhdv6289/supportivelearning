@@ -17,7 +17,11 @@
                 <h4>Site news!</h4>
                 <h:form>
                     <c:forEach var="batchItem" items="#{batchBean.listBatchs}">
-                        <a href="#{request.contextPath}/ui.client/batchDetails.jsf?id="#{batchItem.id}>#{batchItem.name}</a>
+                        <p:commandLink ajax="false"
+                                       value="#{batchItem.name}"
+                                       action="#{assignmentBean.details}">
+                            <f:setPropertyActionListener target="#{assignmentBean.batchDetails}" value="#{batchItem}"/>
+                        </p:commandLink>
                     </c:forEach>
                 </h:form>
             </div>

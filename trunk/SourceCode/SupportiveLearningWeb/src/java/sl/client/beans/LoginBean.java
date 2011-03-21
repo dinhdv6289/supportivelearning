@@ -12,7 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import sl.utils.beans.SessionManager;
 
 /**
@@ -30,11 +31,27 @@ public class LoginBean implements Serializable {
     private static boolean panelStaff = false;
     private AccountDAO accountDAO = new AccountDAO();
     private StudentDAO studentDAO = new StudentDAO();
+    private static String pageRequest = "";
     //private
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        if (request.getAttribute("page") != null) {
+            this.setPageRequest(request.getAttribute("page").toString());
+        }
     }
+
+    public String getPageRequest() {
+        return pageRequest;
+    }
+
+    public final void setPageRequest(String pageRequest) {
+        LoginBean.pageRequest = pageRequest;
+    }
+
+
 
     public Account getAccount() {
         return account;
@@ -77,6 +94,7 @@ public class LoginBean implements Serializable {
     }
 
     public String login() {
+        String result = "";
         if (account != null) {
             try {
                 Account accountLogin = accountDAO.getObject(account);
@@ -98,13 +116,14 @@ public class LoginBean implements Serializable {
                         setPanelStaff(false);
                         setPanelStudent(true);
                     }
+                    result = this.getPageRequest();
                 }
             } catch (Exception ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
-                return null;
+                result = "";
             }
         }
-        return null;
+        return result+"?faces-redirect=true";
     }
 
     public String logout() {
