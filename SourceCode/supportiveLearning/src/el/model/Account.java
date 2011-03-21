@@ -62,98 +62,87 @@ public class Account {
         return role;
     }
 
-    public Account setRole(Role role) {
+    public void setRole(Role role) {
         this.role = role;
-        return this;
     }
 
     public int getId() {
         return id;
     }
 
-    public Account setId(int id) {
+    public void setId(int id) {
         this.id = id;
-        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public Account setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
     public Date getDateCreate() {
         return dateCreate;
     }
 
-    public Account setDateCreate(Date dateCreate) {
+    public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
-        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public Account setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        return this;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public Account setUserName(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
-        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public Account setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
-        return this;
     }
 
     public Date getBirthDay() {
         return birthDay;
     }
 
-    public Account setBirthDay(Date birthDay) {
+    public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Account setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public Boolean getGender() {
         return gender;
     }
 
-    public Account setGender(Boolean gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
-        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public Account setPhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
-        return this;
     }
 }

@@ -26,26 +26,23 @@ public class Student extends Account {
         return batch;
     }
 
-    public Student setBatch(Batch batch) {
+    public void setBatch(Batch batch) {
         this.batch = batch;
-        return this;
     }
 
     public Course getCourse() {
         return course;
     }
 
-    public Student setCourse(Course course) {
+    public void setCourse(Course course) {
         this.course = course;
-        return this;
     }
 
     public String getRollNumber() {
         return rollNumber;
     }
 
-    public Student setRollNumber(String rollNumber) {
+    public void setRollNumber(String rollNumber) {
         this.rollNumber = rollNumber;
-        return this;
     }
 }
