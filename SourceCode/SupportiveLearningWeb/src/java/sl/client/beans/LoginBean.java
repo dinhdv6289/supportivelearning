@@ -36,6 +36,9 @@ public class LoginBean implements Serializable {
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
+    }
+
+    private void getRequestPage() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         if (request.getAttribute("page") != null) {
@@ -50,8 +53,6 @@ public class LoginBean implements Serializable {
     public final void setPageRequest(String pageRequest) {
         LoginBean.pageRequest = pageRequest;
     }
-
-
 
     public Account getAccount() {
         return account;
@@ -94,6 +95,7 @@ public class LoginBean implements Serializable {
     }
 
     public String login() {
+        getRequestPage();
         String result = "";
         if (account != null) {
             try {
@@ -123,7 +125,7 @@ public class LoginBean implements Serializable {
                 result = "";
             }
         }
-        return result+"?faces-redirect=true";
+        return result + "?faces-redirect=true";
     }
 
     public String logout() {
