@@ -34,26 +34,23 @@ public class LoginBean implements Serializable {
     private static boolean panelStaff = false;
     private AccountDAO accountDAO = new AccountDAO();
     private StudentDAO studentDAO = new StudentDAO();
-   // @ManagedProperty(value = "#{param.page}")
-    private String pageRequest;
-    //private
+    private static String pageRequest = "index.jsf";
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
+      // getRequestPage1();
     }
 
-    private void getRequestPage() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        if (request.getParameter("page") != null) {
-            this.setPageRequest(request.getParameter("page"));
-        }
-    }
+//    public String getRequestPage1() {
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+//        if (request.getParameter("page") != null) {
+//            //pageRequest = request.getParameter("page");
+//            return request.getParameter("page");
+//        }
+//        return "index.jsf";
+//    }
 
-    @PostConstruct
-    public void init() {
-        System.out.println(pageRequest); 
-    }
 
     public String getPageRequest() {
         return pageRequest;
@@ -104,7 +101,7 @@ public class LoginBean implements Serializable {
     }
 
     public String login() {
-        getRequestPage();
+      //  getRequestPage();
         String result = "";
         if (account != null) {
             try {
@@ -141,6 +138,6 @@ public class LoginBean implements Serializable {
         setPanelHi(false);
         setPanelLogin(true);
         SessionManager.invalidate("accountId");
-        return null;
+        return "index.jsf";
     }
 }
