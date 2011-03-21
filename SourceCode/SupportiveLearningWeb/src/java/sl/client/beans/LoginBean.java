@@ -11,7 +11,9 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,7 @@ public class LoginBean implements Serializable {
     private static boolean panelStaff = false;
     private AccountDAO accountDAO = new AccountDAO();
     private StudentDAO studentDAO = new StudentDAO();
+    @ManagedProperty(value = "#{param.page}")
     private String pageRequest;
     //private
 
@@ -45,6 +48,11 @@ public class LoginBean implements Serializable {
         if (request.getParameter("page") != null) {
             this.setPageRequest(request.getParameter("page"));
         }
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println(pageRequest); 
     }
 
     public String getPageRequest() {
