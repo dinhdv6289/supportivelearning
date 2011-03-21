@@ -128,6 +128,10 @@ public class LoginBean implements Serializable {
         return result + "?faces-redirect=true";
     }
 
+
+
+    
+
     public String logout() {
         setPanelHi(false);
         setPanelLogin(true);
