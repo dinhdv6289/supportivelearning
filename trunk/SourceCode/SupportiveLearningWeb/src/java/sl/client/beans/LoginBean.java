@@ -32,7 +32,7 @@ public class LoginBean implements Serializable {
     private static boolean panelStaff = false;
     private AccountDAO accountDAO = new AccountDAO();
     private StudentDAO studentDAO = new StudentDAO();
-    private static String pageRequest = "";
+    private String pageRequest;
     //private
 
     /** Creates a new instance of LoginBean */
@@ -40,23 +40,19 @@ public class LoginBean implements Serializable {
     }
 
     private void getRequestPage() {
-        Map<String, String> params =    FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String action = params.get("page");
-
-        //FacesContext context = FacesContext.getCurrentInstance();
-       // HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        System.out.println("request page" + action);
-//        if (request.getParameter("page") != null) {
-//            this.setPageRequest(request.getParameter("page"));
-//        }
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        if (request.getParameter("page") != null) {
+            this.setPageRequest(request.getParameter("page"));
+        }
     }
 
     public String getPageRequest() {
         return pageRequest;
     }
 
-    public final void setPageRequest(String pageRequest) {
-        LoginBean.pageRequest = pageRequest;
+    public void setPageRequest(String pageRequest) {
+        this.pageRequest = pageRequest;
     }
 
     public Account getAccount() {
