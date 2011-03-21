@@ -41,7 +41,7 @@ public class LoginBean implements Serializable {
     private void getRequestPage() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        if (request.getAttribute("page") != null) {
+        if (request.getParameter("page") != null) {
             this.setPageRequest(request.getParameter("page"));
         }
     }
