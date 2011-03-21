@@ -8,6 +8,7 @@ import el.dao.AccountDAO;
 import el.dao.StudentDAO;
 import el.model.Account;
 import java.io.Serializable;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -39,9 +40,12 @@ public class LoginBean implements Serializable {
     }
 
     private void getRequestPage() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        System.out.println("request page" + request.getParameter("page"));
+        Map<String, String> params =    FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String action = params.get("page");
+
+        //FacesContext context = FacesContext.getCurrentInstance();
+       // HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        System.out.println("request page" + action);
 //        if (request.getParameter("page") != null) {
 //            this.setPageRequest(request.getParameter("page"));
 //        }
@@ -128,10 +132,6 @@ public class LoginBean implements Serializable {
         }
         return result + "?faces-redirect=true";
     }
-
-
-
-    
 
     public String logout() {
         setPanelHi(false);
