@@ -35,10 +35,11 @@ public class LoginBean implements Serializable {
     private AccountDAO accountDAO = new AccountDAO();
     private StudentDAO studentDAO = new StudentDAO();
     private static String pageRequest = "index.jsf";
+    private String redirect = "?faces-redirect=true";
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
-      // getRequestPage1();
+        // getRequestPage1();
     }
 
 //    public String getRequestPage1() {
@@ -50,8 +51,6 @@ public class LoginBean implements Serializable {
 //        }
 //        return "index.jsf";
 //    }
-
-
     public String getPageRequest() {
         return pageRequest;
     }
@@ -101,7 +100,7 @@ public class LoginBean implements Serializable {
     }
 
     public String login() {
-      //  getRequestPage();
+        //  getRequestPage();
         String result = "";
         if (account != null) {
             try {
@@ -131,13 +130,13 @@ public class LoginBean implements Serializable {
                 result = "";
             }
         }
-        return result + "?faces-redirect=true";
+        return result + redirect;
     }
 
     public String logout() {
         setPanelHi(false);
         setPanelLogin(true);
         SessionManager.invalidate("accountId");
-        return "index.jsf";
+        return "index.jsf" + redirect;
     }
 }
