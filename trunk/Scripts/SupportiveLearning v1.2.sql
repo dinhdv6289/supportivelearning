@@ -3,20 +3,19 @@ GO
 
 use SupportiveLearning
 GO
-create table Newscategories
-(
-	NewsCategoryId   INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	NewsCategoryName NVARCHAR(100),
-	Description NVARCHAR(200)
-)
-GO
+--create table Newscategories
+--(
+--	NewsCategoryId   INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+--	NewsCategoryName NVARCHAR(100),
+--	Description NVARCHAR(200)
+--)
+--GO
 create table News
 (
 	NewsId           INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	NewsCategoryId	 INT REFERENCES Newscategories(NewsCategoryId) NOT NULL,	
-	Tittle			 NVARCHAR(100),
-	Picture			 NVARCHAR(100),
-	SubContent		 NVARCHAR(150),
+	Tittle			 NVARCHAR(255),
+	Picture			 NVARCHAR(255),
+	SubContent		 NVARCHAR(500),
 	NewsContent		 NTEXT,
 	DateCreation     DATETIME DEFAULT GETDATE()
 )
