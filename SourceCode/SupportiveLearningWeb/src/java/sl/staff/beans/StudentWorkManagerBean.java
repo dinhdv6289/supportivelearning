@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.SendMailService;
 
 /**
  *
@@ -61,7 +62,10 @@ public class StudentWorkManagerBean implements Serializable {
     public String updateMark() {
         try {
             studentWorkDAO.update(selectedStudentWork);
-
+            String subject = "You have mark!";
+            String content = "You have mark!";
+            String from = "2upportiveleaning@gmail.com";
+            SendMailService.postMail(new String[]{selectedStudentWork.getStudent().getEmail()}, subject, content, from);
         } catch (Exception ex) {
             Logger.getLogger(StudentWorkManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
