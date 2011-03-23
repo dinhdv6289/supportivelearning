@@ -4,11 +4,13 @@
  */
 package el.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DINHDV
  */
-public class NewsCategory {
+public class NewsCategory implements Serializable {
 
     private int id;
     private String newsCategoryName, descriptions;

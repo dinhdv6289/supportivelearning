@@ -5,11 +5,13 @@
 
 package el.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TuyenPV
  */
-public class Semester {
+public class Semester implements Serializable {
     private int id;
     private String semesterName;
     private int semesterTime;

@@ -4,11 +4,13 @@
  */
 package el.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TuyenPV
  */
-public class Role {
+public class Role implements Serializable  {
 
     private int id;
     private String name;

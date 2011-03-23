@@ -5,27 +5,18 @@
 
 package el.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author MrPham
  */
-public class FAQ {
+public class FAQ implements Serializable {
     private int id;
     private String question;
     private String answer;
     private Date date;
-    private ArrayList<FAQ> faq;
-
-    public ArrayList<FAQ> getFaq() {
-        return faq;
-    }
-
-    public void setFaq(ArrayList<FAQ> faq) {
-        this.faq = faq;
-    }
 
     public String getAnswer() {
         return answer;

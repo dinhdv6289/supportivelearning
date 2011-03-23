@@ -4,6 +4,7 @@
  */
 package el.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  *
  * @author DINHDV
  */
-public class Batch {
+public class Batch implements Serializable {
 
     private int id;
     private String name;

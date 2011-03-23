@@ -4,13 +4,14 @@
  */
 package el.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author DINHDV
  */
-public class FeedBackAnswer {
+public class FeedBackAnswer implements Serializable {
 
     private int id;
     private FeedBack feedBack;
