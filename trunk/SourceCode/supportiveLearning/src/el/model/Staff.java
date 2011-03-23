@@ -4,13 +4,14 @@
  */
 package el.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author DINHDV
  */
-public class Staff extends Account {
+public class Staff extends Account  implements Serializable {
 
     private int courseId;
 

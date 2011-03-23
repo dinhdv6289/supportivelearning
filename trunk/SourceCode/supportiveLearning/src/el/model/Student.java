@@ -4,11 +4,13 @@
  */
 package el.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DINHDV
  */
-public class Student extends Account {
+public class Student extends Account implements Serializable {
 
     private Batch batch;
     private Course course;

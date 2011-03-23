@@ -5,11 +5,13 @@
 
 package el.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DINHDV
  */
-public class Subject {
+public class Subject implements Serializable  {
 
     private int id;
     private String name;

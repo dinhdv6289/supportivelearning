@@ -30,19 +30,19 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
 
     @Override
     public ArrayList<StudentWork> list() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     public ArrayList<StudentWork> listStudentWorkByStudentId(int studentId) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public StudentWork getObject(StudentWork studentWork) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     public ArrayList<StudentWork> listStudentWorkByRollNumber(String rollNumber) throws Exception{
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 }

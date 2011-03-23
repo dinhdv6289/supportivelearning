@@ -4,14 +4,14 @@
  */
 package el.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author DINHDV
  */
-public class Course {
+public class Course implements Serializable {
 
     private int id;
     private String name;

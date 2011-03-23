@@ -5,13 +5,14 @@
 
 package el.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author DINHDV
  */
-public class StudentWork {
+public class StudentWork implements Serializable {
 
     private int id;
     private Student student;
