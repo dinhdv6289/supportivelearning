@@ -32,7 +32,7 @@ public abstract class AbstractDAO<T> {
     public final static String CONN_STRING = "conn.string";
 
     private static String jdbcDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static String connString = "jdbc:sqlserver://localhost:1433;databaseName=SupportiveLearning;user=sa;password=adminadmin";
+    private static String connString = "jdbc:sqlserver://localhost:1433;databaseName=SupportiveLearning;user=sa;password=12345";
     protected Connection getConnection() throws Exception {
         Class.forName(jdbcDriver);
         return DriverManager.getConnection(connString);
