@@ -35,7 +35,7 @@ public class CourseBean implements Serializable {
     public CourseBean() {
         //    root = new DefaultTreeNode("Root", null);
         //  addToTreeNode(root);
-        loadCourses();
+       // loadCourses();
     }
 
     public ArrayList<Course> getListCourses() {
