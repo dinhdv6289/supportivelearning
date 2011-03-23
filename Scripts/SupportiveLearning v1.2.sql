@@ -105,7 +105,7 @@ create table Assignment
 	BatchId			 INT REFERENCES Batch(BatchId) NOT NULL,
 	AssignmentName   NVARCHAR(100),
 	AssignmentFile   NVARCHAR(255),
-	StartData		datetime,
+	StartDate		datetime,
 	EndDate			datetime 
 )
 GO

@@ -127,3 +127,52 @@ AS BEGIN
 	 FROM News ORDER BY NewsId desc
 		 
   END 
+go
+
+CREATE PROCEDURE Sel_StudentWorkByRollNumber
+@RollNumber nvarchar(50)
+AS BEGIN
+SELECT     Student.StudentId, Student.RollNumber, Student.AccountId, Student.BatchId, StudentWork.StudentWorkId, StudentWork.AssignmentId, StudentWork.FileUpload, 
+                      StudentWork.Mark, StudentWork.DateUpload
+FROM         Student INNER JOIN
+                      StudentWork ON Student.StudentId = StudentWork.StudentId
+WHERE Student.RollNumber = @RollNumber
+END
+
+GO
+
+
+CREATE PROCEDURE Sel_AssignmentsById
+@AssignmentId		int 
+AS BEGIN 
+	 SELECT *
+	 FROM Assignment
+	 WHERE AssignmentId=@AssignmentId 
+  END 
+
+GO
+CREATE PROCEDURE Sel_StudentById 
+@StudentId		int
+AS BEGIN 
+SELECT     Account.AccountId, Account.RoleId, Account.UserName, Account.PassWord, Account.DateCreation, Account.FullName, Account.BirthDay, Account.Gender, 
+                      Account.Phone, Account.Email, Account.Address, Student.StudentId, Student.RollNumber, Student.BatchId
+FROM         Account INNER JOIN
+                      Student ON Account.AccountId = Student.AccountId
+	 WHERE StudentId=@StudentId 
+  END
+GO
+CREATE PROCEDURE Sel_CourseById
+@CourseId int
+AS BEGIN 
+SELECT * FROM Course
+Where CourseId = @CourseId
+END
+GO
+
+CREATE PROCEDURE Sel_SemesterById
+@SemesterId int
+AS BEGIN 
+SELECT * FROM Semester
+Where SemesterId = @SemesterId
+END
+exec Sel_StudentWorkByRollNumber 'aa034'
