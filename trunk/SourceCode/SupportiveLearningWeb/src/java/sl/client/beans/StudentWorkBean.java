@@ -53,15 +53,7 @@ public class StudentWorkBean implements Serializable {
 
     /** Creates a new instance of StudentWorkBean */
     public StudentWorkBean() {
-        if(SessionManager.getSession("accountId") == null){
-            try {
-                System.out.println("requestPath ======" + HttpServletService.getRequestContextPath());
-                HttpServletService.getHttpServletResponse().sendRedirect("../ui.client/login.jsf?page="+HttpServletService.getRequestContextPath());
-            } catch (IOException ex) {
-                Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        loadStudentWorks();
+
     }
 
     public ArrayList<StudentWork> getListStudentWorksOfStudent() {
