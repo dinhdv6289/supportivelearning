@@ -25,6 +25,52 @@
         </div>
         <!-- News Block Ends Here -->
 
+        <!-- Student Work of Student Block Starts Here -->
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <h4>Student Works</h4>
+                <h:form prependId="false">
+                    <p:dataTable id="tbl"
+                                 var="studentWorkItem"
+                                 value="#{studentWorkBean.listStudentWorksOfEachStudent}"
+                                 emptyMessage="Not have Works."
+                                 paginator="true"
+                                 rows="10">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Subject" />
+                            </f:facet>
+                            <h:outputText value="#{studentWorkItem.assignment.subject.name}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Mark"/>
+                            </f:facet>
+                            <h:outputText value="#{studentWorkItem.mark}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="File"/>
+                            </f:facet>
+                            <h:outputText value="#{studentWorkItem.fileUpload}" >
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date upload"/>
+                            </f:facet>
+                            <h:outputText value="#{studentWorkItem.dateUpload}" >
+                                <f:convertDateTime pattern="MM/dd/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </div>
+        <!-- Student Work of Student Block Ends Here -->
+
     </ui:define>
 </ui:composition>
 
