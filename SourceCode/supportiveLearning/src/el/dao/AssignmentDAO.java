@@ -64,6 +64,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
                 assignment.setStaff(s);
                 SubjectDAO subjectDAO = new SubjectDAO();
                 Subject subject = new Subject();
+                subject.setId(rs.getInt("SubjectId"));
                 subject = subjectDAO.getObject(subject);
                 assignment.setSubject(subject);
                 BatchDAO batchDAO = new BatchDAO();
