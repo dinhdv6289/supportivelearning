@@ -41,7 +41,43 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
 
     @Override
     public Assignment getObject(Assignment t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection conn = null;
+        String sql = "{call Sel_AssignmentsById (?)}";
+        Assignment assignment = new Assignment();
+        try {
+            conn = getConnection();
+            CallableStatement cstmt = null;
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, t.getId());
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+
+                assignment.setId(rs.getInt("AssignmentId"));
+                assignment.setName(rs.getString("AssignmentName"));
+                assignment.setFileUpload(rs.getString("AssignmentFile"));
+                assignment.setStartDate(sql2date(rs.getDate("StartDate")));
+                assignment.setEndDate(rs.getDate("EndDate"));
+                StaffDAO staffDAO = new StaffDAO();
+                Staff s = new Staff();
+                s.setId(rs.getInt("StaffId"));
+                s = staffDAO.getObject(s);
+                assignment.setStaff(s);
+                SubjectDAO subjectDAO = new SubjectDAO();
+                Subject subject = new Subject();
+                subject = subjectDAO.getObject(subject);
+                assignment.setSubject(subject);
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batch = new Batch();
+                batch = batchDAO.getObject(batch);
+                assignment.setBatch(batch);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return assignment;
     }
 
     public ArrayList<Assignment> getListAssignmentsByStaff(Staff staff) throws Exception {
@@ -104,7 +140,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
                 assignment.setId(rs.getInt("AssignmentId"));
                 assignment.setName(rs.getString("AssignmentName"));
                 assignment.setFileUpload(rs.getString("AssignmentFile"));
-                assignment.setStartDate(rs.getDate("StartData"));
+                assignment.setStartDate(rs.getDate("StartDate"));
                 assignment.setEndDate(rs.getDate("EndDate"));
                 StaffDAO staffDAO = new StaffDAO();
                 Staff s = new Staff();

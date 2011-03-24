@@ -23,7 +23,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
 
     @Override
     public int insert(Batch t) throws Exception {
-        String sql = "Ins_Batch ?, ?, ?, ?";
+        String sql = "{call Ins_Batch (?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
@@ -47,7 +47,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
 
     @Override
     public boolean update(Batch t) throws Exception {
-        String sql = "Udp_BatchById ?, ?, ?, ?, ?";
+        String sql = "{call Udp_BatchById (?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {

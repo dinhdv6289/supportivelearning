@@ -24,10 +24,10 @@ public abstract class AbstractDAO<T> {
     public abstract ArrayList<T> list() throws Exception;
 
     public abstract T getObject(T t) throws Exception;
-    public final static String JDBC_DRIVER = "jdbc.driver";
-    public final static String CONN_STRING = "conn.string";
+
     private static String jdbcDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String connString = "jdbc:sqlserver://localhost:1433;databaseName=SupportiveLearning;user=sa;password=12345";
+
 
     protected Connection getConnection() throws Exception {
         Class.forName(jdbcDriver);
@@ -38,7 +38,13 @@ public abstract class AbstractDAO<T> {
         if (date == null) {
             return null;
         }
-
         return new java.util.Date(date.getTime());
+    }
+
+    protected java.sql.Date date2sql(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return new java.sql.Date(date.getTime());
     }
 }
