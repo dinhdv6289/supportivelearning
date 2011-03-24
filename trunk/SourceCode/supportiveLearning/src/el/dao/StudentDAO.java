@@ -168,7 +168,7 @@ public class StudentDAO extends AbstractDAO<Student> {
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            
+
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, s.getId());
             ResultSet rsstudents = cstmt.executeQuery();
@@ -246,5 +246,46 @@ public class StudentDAO extends AbstractDAO<Student> {
         }
 
         return students;
+    }
+
+    public Student getStudentByAccountId(int accountId) throws Exception {
+        Student student = new Student();
+        Connection conn = null;
+        String sql = "{call Sel_StudentByAccountId (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, accountId);
+            ResultSet rsstudents = cstmt.executeQuery();
+            if (rsstudents.next()) {
+                RoleDAO roleDAO = new RoleDAO();
+                Role roleSearch = new Role();
+                roleSearch.setId(rsstudents.getInt("RoleId"));
+                Role role = roleDAO.getObject(roleSearch);
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batchSearch = new Batch();
+                batchSearch.setId(rsstudents.getInt("BatchId"));
+                Batch batch = batchDAO.getObject(batchSearch);
+                student.setId(rsstudents.getInt("StudentId"));
+                student.setName(rsstudents.getString("FullName"));
+                student.setUserName(rsstudents.getString("UserName"));
+                student.setPassword(rsstudents.getString("Password"));
+                student.setDateCreate(rsstudents.getDate("DateCreation"));
+                student.setRole(role);
+                student.setBatch(batch);
+                student.setBirthDay(rsstudents.getDate("BirthDay"));
+                student.setGender(rsstudents.getBoolean("Gender"));
+                student.setPhone(rsstudents.getString("Phone"));
+                student.setEmail(rsstudents.getString("Email"));
+                student.setAddress(rsstudents.getString("Address"));
+                student.setRollNumber(rsstudents.getString("RollNumber"));
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return student;
     }
 }
