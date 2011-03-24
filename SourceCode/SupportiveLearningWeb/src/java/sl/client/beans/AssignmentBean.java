@@ -8,14 +8,13 @@ import el.dao.AssignmentDAO;
 import el.model.Assignment;
 import el.model.Batch;
 import el.model.Staff;
+import el.model.Student;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import sl.utils.beans.EachSession;
 
 /**
@@ -33,13 +32,7 @@ public class AssignmentBean implements Serializable {
 
     /** Creates a new instance of AssignmentBean */
     public AssignmentBean() {
-        //loadAssignmentsOfStaff();
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-//        if (request.getAttribute("id") != null) {
-//            batchDetails.setId(Integer.valueOf(request.getAttribute("id").toString()));
-//            loadListAssignmentsOfBatch(batchDetails.getId());
-        //}
+        //loadListAssignmentsOfBatch();
     }
 
     public Batch getBatchDetails() {
@@ -98,16 +91,25 @@ public class AssignmentBean implements Serializable {
 //            Logger.getLogger(AssignmentBean.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
+    public void onRequestBatch(Batch batch) {
+        this.batchDetails = batch;
+    }
 
     private void loadListAssignmentsOfBatch() {
         try {
-            this.listAssignmentsOfBatch = assignmentDAO.getListAssignmentsByBatchId(batchDetails.getId());
+            Student student = (Student) EachSession.getObjectFromSession("accountId");
+            if (student != null) {
+                this.listAssignmentsOfBatch = assignmentDAO.getListAssignmentsByBatchId(student.getBatch().getId());
+            } else {
+                this.listAssignmentsOfBatch = null;
+            }
         } catch (Exception ex) {
             Logger.getLogger(AssignmentBean.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 
-    public String details(){
+    public String details() {
         loadListAssignmentsOfBatch();
         return "batchDetails.jsf?faces-redirect=true";
     }

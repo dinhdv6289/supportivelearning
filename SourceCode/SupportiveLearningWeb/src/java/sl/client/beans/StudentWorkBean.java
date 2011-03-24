@@ -34,8 +34,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
-import sl.utils.beans.HttpServletService;
-import sl.utils.beans.SessionManager;
+import sl.utils.beans.EachSession;
+import sl.utils.beans.MessagesService;
 
 /**
  *
@@ -48,12 +48,13 @@ public class StudentWorkBean implements Serializable {
     private Student student = new Student();
     private StudentWork studentWork = new StudentWork();
     private ArrayList<StudentWork> listStudentWorksOfStudent = new ArrayList<StudentWork>();
+    private ArrayList<StudentWork> listStudentWorksOfEachStudent = new ArrayList<StudentWork>();
     private ArrayList<StudentWork> listMarks;
     private StudentWorkDAO studentWorkDAO = new StudentWorkDAO();
 
     /** Creates a new instance of StudentWorkBean */
     public StudentWorkBean() {
-
+        loadStudentWorks();
     }
 
     public ArrayList<StudentWork> getListStudentWorksOfStudent() {
@@ -62,6 +63,14 @@ public class StudentWorkBean implements Serializable {
 
     public void setListStudentWorksOfStudent(ArrayList<StudentWork> listStudentWorksOfStudent) {
         this.listStudentWorksOfStudent = listStudentWorksOfStudent;
+    }
+
+    public ArrayList<StudentWork> getListStudentWorksOfEachStudent() {
+        return listStudentWorksOfEachStudent;
+    }
+
+    public void setListStudentWorksOfEachStudent(ArrayList<StudentWork> listStudentWorksOfEachStudent) {
+        this.listStudentWorksOfEachStudent = listStudentWorksOfEachStudent;
     }
 
     public StudentWork getStudentWork() {
@@ -97,12 +106,36 @@ public class StudentWorkBean implements Serializable {
         }
     }
 
-    public void loadMarks(ActionEvent event) {
+    private void loadStudentWorksOfEachStudent() {
         try {
-            this.listMarks = studentWorkDAO.listStudentWorkByRollNumber(student.getRollNumber());
+            Student std = (Student) EachSession.getObjectFromSession("accountId");
+            if (std != null) {
+                listStudentWorksOfEachStudent = studentWorkDAO.listStudentWorkByStudentId(std.getId());
+            }
+            listStudentWorksOfEachStudent = null;
         } catch (Exception ex) {
             Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
+            listStudentWorksOfEachStudent = null;
         }
+    }
+
+    public String loadMarks() {
+        try {
+            if (!student.getRollNumber().equals("") || student.getRollNumber() != null) {
+                ArrayList<StudentWork> listStudentWorkByRollNumber = studentWorkDAO.listStudentWorkByRollNumber(student.getRollNumber());
+                if (listStudentWorkByRollNumber.size() > 0) {
+                    this.listMarks = studentWorkDAO.listStudentWorkByRollNumber(student.getRollNumber());
+                } else {
+                    MessagesService.showMessage("Not have Student Rollnumber: " + student.getRollNumber());
+                }
+            } else {
+                MessagesService.showMessage("Roll number is not null!");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
+            MessagesService.showMessage(ex.getMessage());
+        }
+        return null;
     }
 
     public void postProcessXLS(Object document) {
@@ -116,7 +149,6 @@ public class StudentWorkBean implements Serializable {
 
         for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
             HSSFCell cell = header.getCell(i);
-
             cell.setCellStyle(cellStyle);
         }
     }
@@ -152,13 +184,11 @@ public class StudentWorkBean implements Serializable {
             }
             fileOutputStream.close();
             inputStream.close();
-            FacesMessage msg = new FacesMessage("Succesful",
-                    event.getFile().getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            MessagesService.showMessage("Succesful " + event.getFile().getFileName() + "is uploaded.");
         } catch (IOException e) {
+            MessagesService.showMessage("The files were not uploaded!");
             e.printStackTrace();
-            FacesMessage error = new FacesMessage("The files were not uploaded!");
-            FacesContext.getCurrentInstance().addMessage(null, error);
+
         }
     }
 }

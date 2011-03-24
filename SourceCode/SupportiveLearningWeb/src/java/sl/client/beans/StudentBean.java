@@ -6,6 +6,7 @@ package sl.client.beans;
 
 import el.dao.CourseDAO;
 import el.dao.StudentDAO;
+import el.model.Batch;
 import el.model.Course;
 import el.model.Student;
 import java.io.Serializable;
@@ -27,7 +28,7 @@ public class StudentBean implements Serializable {
     private Student student = new Student();
     private ArrayList<Course> listCourses = new ArrayList<Course>();
     private StudentDAO studentDAO = new StudentDAO();
-    private CourseDAO courseDAO = new CourseDAO();
+    private ArrayList<Student> listStudents = new ArrayList<Student>();
 
     /** Creates a new instance of StudentBean */
     public StudentBean() {
@@ -49,5 +50,23 @@ public class StudentBean implements Serializable {
         this.student = student;
     }
 
+    public ArrayList<Student> getListStudents() {
+        return listStudents;
+    }
 
+    public void setListStudents(ArrayList<Student> listStudents) {
+        this.listStudents = listStudents;
+    }
+
+    private void loadStudent() {
+        try {
+            Object object = EachSession.getObjectFromSession("accountId");
+            if (object != null) {
+                this.student = studentDAO.getObject((Student) object);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
