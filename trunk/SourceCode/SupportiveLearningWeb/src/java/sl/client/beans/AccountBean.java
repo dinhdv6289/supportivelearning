@@ -8,6 +8,8 @@ import el.dao.AccountDAO;
 import el.model.Account;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -19,13 +21,14 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class AccountBean implements Serializable {
 
-    private Account account;
+    private Account account = new Account();
     private ArrayList<Account> listAccounts;
     private ArrayList<Account> listAccountsOnline;
     private AccountDAO accountDAO = new AccountDAO();
 
     /** Creates a new instance of AccountBean */
     public AccountBean() {
+         loadListAccountsOnline();
     }
 
     public Account getAccount() {
@@ -52,7 +55,11 @@ public class AccountBean implements Serializable {
         this.listAccountsOnline = listAccountsOnline;
     }
 
-    private void loadListAccountsOnline(){
-        //this.listAccountsOnline = acc
+    private void loadListAccountsOnline() {
+        try {
+            this.listAccountsOnline = accountDAO.getObjectIsOnline();
+        } catch (Exception ex) {
+            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

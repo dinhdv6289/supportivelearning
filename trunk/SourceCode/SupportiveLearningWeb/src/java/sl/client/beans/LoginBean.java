@@ -7,16 +7,14 @@ package sl.client.beans;
 import el.dao.AccountDAO;
 import el.dao.StudentDAO;
 import el.model.Account;
+import el.model.Student;
 import java.io.Serializable;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import sl.utils.beans.SessionManager;
 
 /**
@@ -28,6 +26,7 @@ import sl.utils.beans.SessionManager;
 public class LoginBean implements Serializable {
 
     private Account account = new Account();
+    private Student student = new Student();
     private static boolean panelLogin = true;
     private static boolean panelHi = false;
     private static boolean panelStudent = true;
@@ -39,24 +38,14 @@ public class LoginBean implements Serializable {
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
-        // getRequestPage1();
     }
 
-//    public String getRequestPage1() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-//        if (request.getParameter("page") != null) {
-//            //pageRequest = request.getParameter("page");
-//            return request.getParameter("page");
-//        }
-//        return "index.jsf";
-//    }
     public String getPageRequest() {
         return pageRequest;
     }
 
     public void setPageRequest(String pageRequest) {
-        this.pageRequest = pageRequest;
+        LoginBean.pageRequest = pageRequest;
     }
 
     public Account getAccount() {
@@ -65,6 +54,14 @@ public class LoginBean implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public boolean isPanelHi() {
@@ -100,7 +97,8 @@ public class LoginBean implements Serializable {
     }
 
     public String login() {
-        //  getRequestPage();
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
         String result = "";
         if (account != null) {
             try {
@@ -109,19 +107,18 @@ public class LoginBean implements Serializable {
                     account = accountLogin;
                     setPanelHi(true);
                     setPanelLogin(false);
-                    // co nen check kieu nay??? lay ra ten hay id.
-                    // xem xet'
-                    //
-                    // cach khac. ko can check role. Cu' the de trang mac dinh.
                     SessionManager.setSession("accountId", accountLogin.getId());
+                    updateStatusOnline(true, account.getId());
                     if (accountLogin.getRole().getName().equals("Admin")) {
-                        // chuyen ra trang tuong
+                        response.sendRedirect("../ui.admin/index.jsf");
                     } else if (accountLogin.getRole().getName().equals("Staff")) {
                         setPanelStaff(true);
                         setPanelStudent(false);
+                        response.sendRedirect("../ui.staff/index.jsf");
                     } else {
                         setPanelStaff(false);
                         setPanelStudent(true);
+                        getStudentByAccount(accountLogin.getId());
                     }
                     result = this.getPageRequest();
                 }
@@ -136,7 +133,28 @@ public class LoginBean implements Serializable {
     public String logout() {
         setPanelHi(false);
         setPanelLogin(true);
+        setPanelStaff(false);
+        setPanelStudent(true);
+        this.setPageRequest("");
+        int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
+        updateStatusOnline(false, accountId);
         SessionManager.invalidate("accountId");
-        return "index.jsf" + redirect;
+        return "/ui.client/index.jsf" + redirect;
+    }
+
+    private void getStudentByAccount(int accountId) {
+        try {
+            this.student = studentDAO.getStudentByAccountId(accountId);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateStatusOnline(boolean status, int accountId) {
+        try {
+            accountDAO.setAccountOnline(accountId, status);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -21,12 +21,13 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class FAQsBean implements Serializable {
 
-    private FAQ faq;
+    private FAQ faq = new FAQ();
     private ArrayList<FAQ> listFAQs = new ArrayList<FAQ>();
     private FAQDAO faqDAO = new FAQDAO();
 
     /** Creates a new instance of FAQsBean */
     public FAQsBean() {
+        loadListFAQs();
     }
 
     public FAQ getFaq() {

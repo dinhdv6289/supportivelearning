@@ -26,7 +26,7 @@ import sl.utils.beans.EachSession;
 @SessionScoped
 public class CourseBean implements Serializable {
 
-    private Course course;
+    private Course course = new Course();
     private CourseDAO courseDAO = new CourseDAO();
     private ArrayList<Course> listCourses = new ArrayList<Course>();
     //   private TreeNode root;
