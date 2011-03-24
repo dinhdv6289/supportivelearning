@@ -115,7 +115,7 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
     public ArrayList<StudentWork> listStudentWorkByStudentId(int studentId) throws Exception {
         Connection conn = null;
         ArrayList<StudentWork> studentWorks = new ArrayList<StudentWork>();
-        String sql = "{call Sel_StudentWorkByByStudentId (?)}";
+        String sql = "{call Sel_StudentWorkByStudentId (?)}";
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
@@ -152,7 +152,7 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
     @Override
     public StudentWork getObject(StudentWork studentWork) throws Exception {
         Connection conn = null;
-        String sql = "{call Sel_StudentWorkByById (?)}";
+        String sql = "{call Sel_StudentWorkById (?)}";
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
