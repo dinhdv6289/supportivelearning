@@ -18,15 +18,16 @@
                     <h:form prependId="false">
                         <p:fieldset legend="Mark view"
                                     toggleable="true"
-                                    toggleSpeed="500"
-                                    >
-                            <h:panelGrid columns="3" cellpadding="4" >
+                                    toggleSpeed="500">
+                            <h:panelGrid columns="4" cellpadding="4"  style="height: 70px;">
                                 <h:outputLabel value="Roll number" />
-
                                 <p:inputText id="rollNumber" value="#{studentWorkBean.student.rollNumber}"
                                              required="true"
-                                             requiredMessage="RollNumber must format: Axxxxx . Example : A03829"/>
+                                             requiredMessage="RollNumber must format: Axxxxx . Example : A03829">
+                                    <!--                                    <f:validateRegex pattern="[A][a]{0-9}" />-->
+                                </p:inputText>
                                 <p:message for="rollNumber"/>
+                                <h:outputLabel value="Example: A03829"/>
                                 <p:commandButton ajax="false" value="Search"
                                                  action="#{studentWorkBean.loadMarks}">
                                 </p:commandButton>
@@ -36,14 +37,22 @@
                     </h:form>
                 </c:if>
                 <c:if test="#{studentWorkBean.listMarks != null}">
-                    <h:form>
+                    <h:form prependId="false">
+                        <p:commandLink ajax="false" value="Back To mark view" action="markView.jsf">
+                            <f:setPropertyActionListener target="#{studentWorkBean.listMarks}"
+                                                         value="#{null}"/>
+                        </p:commandLink>
+                        <br/>
+                        <br/>
                         <p:fieldset legend="Result Learning of Student"
                                     toggleable="true"
                                     toggleSpeed="500">
                             <p:dataTable id="tbl"
                                          var="markItem"
                                          value="#{studentWorkBean.listMarks}"
-                                         emptyMessage="Not have Student.">
+                                         emptyMessage="Not have Student."
+                                         paginator="true"
+                                         rows="10">
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Subject" />
@@ -57,7 +66,14 @@
                                     </f:facet>
                                     <h:outputText value="#{markItem.mark}" />
                                 </p:column>
-
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date upload"/>
+                                    </f:facet>
+                                    <h:outputText value="#{markItem.dateUpload}" >
+                                        <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
                             </p:dataTable>
                             <br />
 
@@ -65,7 +81,7 @@
                                 <p:panel header="Export All Data">
                                     <h:commandLink>
                                         <p:graphicImage value="/images/excel.png" />
-                                        <p:dataExporter type="xls" target="tbl" fileName="listMarks" />
+                                        <p:dataExporter type="xls" target="tbl" fileName="listMarks"  />
                                     </h:commandLink>
 
                                     <h:commandLink>

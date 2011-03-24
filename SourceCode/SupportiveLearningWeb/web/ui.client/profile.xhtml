@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/ui.xhtml">
+
+    <ui:define name="title">Home </ui:define>
+    <ui:define name="content">
+        <!-- News Block Starts Here -->
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <h:form>
+                    <h4 class="style9">
+                        <img width="315" height="70" src=""/>
+                    </h4>
+                    <h4 class="style9">
+                        Ten
+                        <span class="style7"></span>
+                    </h4>
+                    <p>
+                        <!--                                    <span class="style11">
+                                                            </span>
+                                                            <span class="style10"></span><br/>-->
+                        -Start date:<br/>
+                        -End date:  <br/>
+                        -File upload: <br/>
+                    </p>
+                    <p>
+                        <span class="style10"></span>
+                        <br/>
+                        <strong></strong>
+                    </p>
+                    <p>
+                        <br/>
+                        <em> </em>
+                    </p>
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="Send FeedBack"
+                                       action="feedBack.jsf">
+<!--                            <f:setPropertyActionListener target=""
+                                                         value="">
+
+                            </f:setPropertyActionListener>        -->
+                        </p:commandLink>
+                    </p>
+                </h:form>
+            </div>
+        </div>
+        <!-- News Block Ends Here -->
+
+    </ui:define>
+</ui:composition>
+
