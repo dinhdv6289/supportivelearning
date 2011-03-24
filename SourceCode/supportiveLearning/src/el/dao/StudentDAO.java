@@ -203,4 +203,48 @@ public class StudentDAO extends AbstractDAO<Student> {
 
         return student;
     }
+
+    public ArrayList<Student> getStudentsByBatch(Batch b) throws Exception {
+        ArrayList<Student> students = new ArrayList<Student>();
+        Connection conn = null;
+        String sql = "{call Sel_StudentsByBatchId (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, b.getId());
+            ResultSet rsstudents = cstmt.executeQuery();
+            while (rsstudents.next()) {
+                RoleDAO roleDAO = new RoleDAO();
+                Role roleSearch = new Role();
+                roleSearch.setId(rsstudents.getInt("RoleId"));
+                Role role = roleDAO.getObject(roleSearch);
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batchSearch = new Batch();
+                batchSearch.setId(rsstudents.getInt("BatchId"));
+                Batch batch = batchDAO.getObject(batchSearch);
+                Student student = new Student();
+                student.setId(rsstudents.getInt("StudentId"));
+                student.setName(rsstudents.getString("FullName"));
+                student.setUserName(rsstudents.getString("UserName"));
+                student.setPassword(rsstudents.getString("Password"));
+                student.setDateCreate(rsstudents.getDate("DateCreation"));
+                student.setRole(role);
+                student.setBatch(batch);
+                student.setBirthDay(rsstudents.getDate("BirthDay"));
+                student.setGender(rsstudents.getBoolean("Gender"));
+                student.setPhone(rsstudents.getString("Phone"));
+                student.setEmail(rsstudents.getString("Email"));
+                student.setAddress(rsstudents.getString("Address"));
+                student.setRollNumber(rsstudents.getString("RollNumber"));
+                students.add(student);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return students;
+    }
 }
