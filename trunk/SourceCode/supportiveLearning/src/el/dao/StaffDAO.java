@@ -6,7 +6,9 @@ package el.dao;
 
 import el.model.Account;
 import el.model.Batch;
+import el.model.Course;
 import el.model.Role;
+import el.model.Semester;
 import el.model.Staff;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -148,7 +150,7 @@ public class StaffDAO extends AbstractDAO<Staff> {
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            
+
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, staff.getId());
             ResultSet rs = cstmt.executeQuery();
@@ -179,7 +181,71 @@ public class StaffDAO extends AbstractDAO<Staff> {
         return s;
     }
 
-    public Staff getStaffByAccount(Account account) throws Exception {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public Staff getStaffByAccountId(int accountId) throws Exception {
+        Staff s = new Staff();
+        Connection conn = null;
+        String sql = "{call Sel_StaffByAccountId (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, accountId);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                RoleDAO roleDAO = new RoleDAO();
+                Role roleSearch = new Role();
+                roleSearch.setId(rs.getInt("RoleId"));
+                Role role = roleDAO.getObject(roleSearch);
+                s.setId(rs.getInt("StaffId"));
+                s.setName(rs.getString("FullName"));
+                s.setUserName(rs.getString("UserName"));
+                s.setPassword(rs.getString("Password"));
+                s.setDateCreate(rs.getDate("DateCreation"));
+                s.setRole(role);
+                s.setBirthDay(rs.getDate("BirthDay"));
+                s.setGender(rs.getBoolean("Gender"));
+                s.setPhone(rs.getString("Phone"));
+                s.setEmail(rs.getString("Email"));
+                s.setAddress(rs.getString("Address"));
+
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return s;
+    }
+
+    //Batch.BatchName, Batch.StartDate, Staff.AccountId,
+    //StaffAndBatch.StaffAndBatchId, StaffAndBatch.StaffId, StaffAndBatch.BatchId
+
+    public ArrayList<Batch> getListBatchsByStaffId(int staffId) throws Exception {
+        ArrayList<Batch> listBatchs = new ArrayList<Batch>();
+        Batch batch = new Batch();
+        Staff staff = new Staff();
+        Connection conn = null;
+        String sql = "{call Sel_BatchsOfStaff (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, staffId);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                batch.setId(rs.getInt("BatchId"));
+                batch.setName(rs.getString("BatchName"));
+                batch.setStartDate(rs.getDate("StartDate"));
+                staff.setId(rs.getInt("StaffId"));
+                listBatchs.add(batch);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listBatchs;
     }
 }

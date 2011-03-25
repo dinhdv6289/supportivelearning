@@ -103,18 +103,16 @@ public class RoleDAO extends AbstractDAO<Role> {
         Role roleObject = null;
         String sql = "{call Sel_RolesById (?)}";
         CallableStatement cstmt = null;
-
         try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
-
             cstmt.setInt(1, role.getId());
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 roleObject = new Role();
-                role.setId(rs.getInt("RoleId"));
-                role.setName(rs.getString("RoleName"));
-                role.setDescription(rs.getString("Description"));
+                roleObject.setId(rs.getInt("RoleId"));
+                roleObject.setName(rs.getString("RoleName"));
+                roleObject.setDescription(rs.getString("Description"));
             }
         } finally {
             if (conn != null) {
