@@ -54,6 +54,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
 
                 assignment.setId(rs.getInt("AssignmentId"));
                 assignment.setName(rs.getString("AssignmentName"));
+                assignment.setContent(rs.getString("AssignmentContent"));
                 assignment.setFileUpload(rs.getString("AssignmentFile"));
                 assignment.setStartDate(sql2date(rs.getDate("StartDate")));
                 assignment.setEndDate(rs.getDate("EndDate"));
@@ -97,6 +98,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
                 Assignment assignment = new Assignment();
                 assignment.setId(rs.getInt("AssignmentId"));
                 assignment.setName(rs.getString("AssignmentName"));
+                assignment.setContent(rs.getString("AssignmentContent"));
                 assignment.setFileUpload(rs.getString("AssignmentFile"));
                 assignment.setStartDate(rs.getDate("StartDate"));
                 assignment.setEndDate(rs.getDate("EndDate"));
@@ -140,6 +142,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
                 Assignment assignment = new Assignment();
                 assignment.setId(rs.getInt("AssignmentId"));
                 assignment.setName(rs.getString("AssignmentName"));
+                assignment.setContent(rs.getString("AssignmentContent"));
                 assignment.setFileUpload(rs.getString("AssignmentFile"));
                 assignment.setStartDate(rs.getDate("StartDate"));
                 assignment.setEndDate(rs.getDate("EndDate"));
