@@ -22,7 +22,7 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
     public int insert(StudentWork studentWork) throws Exception {
         int a = 0;
         Connection conn = null;
-        String sql = "{call Ins_StudentWork (?, ?, ?, ?, ?)}";
+        String sql = "{call Ins_StudentWork (?, ?, ?)}";
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
@@ -30,13 +30,8 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
             cstmt.setInt(1, studentWork.getStudent().getId());
             cstmt.setInt(2, studentWork.getAssignment().getId());
             cstmt.setString(3, studentWork.getFileUpload());
-            cstmt.setFloat(4, studentWork.getMark());
-            cstmt.setDate(5, date2sql(studentWork.getDateUpload()));
-
             a = cstmt.executeUpdate();
-
-             }
-        finally {
+        } finally {
             if (conn != null) {
                 conn.close();
             }
@@ -59,11 +54,10 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
             cstmt.setFloat(4, studentWork.getMark());
             cstmt.setDate(5, date2sql(studentWork.getDateUpload()));
             cstmt.setInt(6, studentWork.getId());
-            
+
             a = cstmt.executeUpdate();
 
-             }
-        finally {
+        } finally {
             if (conn != null) {
                 conn.close();
             }
@@ -185,7 +179,7 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
         return studentWork;
     }
 
-    public ArrayList<StudentWork> listStudentWorkByRollNumber(String rollNumber) throws Exception{
+    public ArrayList<StudentWork> listStudentWorkByRollNumber(String rollNumber) throws Exception {
         Connection conn = null;
         ArrayList<StudentWork> studentWorks = new ArrayList<StudentWork>();
         String sql = "{call Sel_StudentWorkByRollNumber (?)}";
