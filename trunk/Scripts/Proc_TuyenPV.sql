@@ -275,10 +275,12 @@ AS BEGIN
 CREATE  PROCEDURE Sel_BatchsOfStaff
 @StaffId int
 AS BEGIN
-SELECT     Staff.StaffId, Batch.BatchId, Batch.CourseId, Batch.SemesterId, Batch.BatchName, Batch.StartDate
-FROM         Batch CROSS JOIN
-                      Staff
-where Staff.StaffId = @StaffId
+SELECT     Batch.BatchName, Batch.StartDate, Staff.AccountId, StaffAndBatch.StaffAndBatchId, StaffAndBatch.StaffId, StaffAndBatch.BatchId
+FROM         Batch INNER JOIN
+                      StaffAndBatch ON Batch.BatchId = StaffAndBatch.BatchId INNER JOIN
+                      Staff ON StaffAndBatch.StaffId = Staff.StaffId
+
+where StaffAndBatch.StaffId = @StaffId
 END
 
 
