@@ -5,10 +5,14 @@
 package sl.client.beans;
 
 import el.dao.AccountDAO;
+import el.dao.StaffDAO;
 import el.dao.StudentDAO;
 import el.model.Account;
+import el.model.Batch;
+import el.model.Staff;
 import el.model.Student;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -33,6 +37,8 @@ public class LoginBean implements Serializable {
     private static boolean panelStaff = false;
     private AccountDAO accountDAO = new AccountDAO();
     private StudentDAO studentDAO = new StudentDAO();
+    private StaffDAO staffDAO = new StaffDAO();
+    private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
     private static String pageRequest = "index.jsf";
     private String redirect = "?faces-redirect=true";
 
@@ -96,6 +102,14 @@ public class LoginBean implements Serializable {
         LoginBean.panelStudent = panelStudent;
     }
 
+    public ArrayList<Batch> getListBatchs() {
+        return listBatchs;
+    }
+
+    public void setListBatchs(ArrayList<Batch> listBatchs) {
+        this.listBatchs = listBatchs;
+    }
+
     public String login() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
@@ -108,10 +122,11 @@ public class LoginBean implements Serializable {
                     setPanelHi(true);
                     setPanelLogin(false);
                     SessionManager.setSession("accountId", accountLogin.getId());
-                    updateStatusOnline(true, account.getId());
+                    updateStatusOnline(true, accountLogin.getId());
                     if (accountLogin.getRole().getName().equals("Admin")) {
                         response.sendRedirect("../ui.admin/index.jsf");
                     } else if (accountLogin.getRole().getName().equals("Staff")) {
+                        loadListBatchs(accountLogin.getId());
                         setPanelStaff(true);
                         setPanelStudent(false);
                         response.sendRedirect("../ui.staff/index.jsf");
@@ -145,6 +160,17 @@ public class LoginBean implements Serializable {
     private void getStudentByAccount(int accountId) {
         try {
             this.student = studentDAO.getStudentByAccountId(accountId);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadListBatchs(int accountId) {
+        try {
+            Staff staff = staffDAO.getStaffByAccountId(accountId);
+            if (staff.getId() != 0) {
+                this.listBatchs = staffDAO.getListBatchsByStaffId(staff.getId());
+            }
         } catch (Exception ex) {
             Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -90,27 +90,6 @@ public class BatchBean implements Serializable {
     }
 
     private ArrayList<Batch> list() {
-        ArrayList<Batch> list = new ArrayList<Batch>();
-        ArrayList<Student> listStudent = new ArrayList<Student>();
-
-        for (int i = 1; i <= 25; i++) {
-            Student s = new Student();
-            s.setAddress("hn");
-            s.setBirthDay(new Date());
-            s.setDateCreate(new Date());
-            s.setEmail("mail@gmail.com");
-            s.setGender(Boolean.TRUE);
-            s.setId(1);
-            s.setName("dinh");
-            s.setPassword("test");
-            s.setPhone("094343434");
-            s.setRole(new Role(3, "Student", "Student"));
-            s.setUserName("dinh");
-            listStudent.add(new Student());
-        }
-        for (int i = 1; i <= 10; i++) {
-            list.add(new Batch(i, "batch" + i, new Course(1, "course1", new Date(), new Date()), new Semester(1, "semester 1", 6), new Date(), listStudent));
-        }
-        return list;
+        return null;
     }
 }

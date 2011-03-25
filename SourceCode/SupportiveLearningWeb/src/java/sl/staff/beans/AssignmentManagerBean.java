@@ -6,17 +6,14 @@ package sl.staff.beans;
 
 import el.dao.AssignmentDAO;
 import el.dao.StaffDAO;
-import el.model.Account;
 import el.model.Assignment;
-import el.model.Role;
-import el.model.Staff;
+import el.model.Batch;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import sl.utils.beans.SessionManager;
 
 /**
  *
@@ -26,16 +23,42 @@ import sl.utils.beans.SessionManager;
 @SessionScoped
 public class AssignmentManagerBean implements Serializable {
 
-    private Assignment assignment;
-    private ArrayList<Assignment> listAssignmentsUploadByStaff;
+    private Assignment assignment = new Assignment();
+    private ArrayList<Assignment> listAssignmentsUploadByStaff = new ArrayList<Assignment>();
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
     private StaffDAO staffDAO = new StaffDAO();
+    private Batch batchDetailsToStaff = new Batch();
+    private String redirect = "?faces-redirect=true";
+    private static boolean haveAssignment = false;
+    private static boolean notHaveAssignment = false;
+    private Assignment assignmentDetails = new Assignment();
 
     /** Creates a new instance of AssignmentManagerBean */
     public AssignmentManagerBean() {
-        assignment = new Assignment();
-        loadListAssignmentsUpLoadByStaff();
+    }
 
+    public Assignment getAssignmentDetails() {
+        return assignmentDetails;
+    }
+
+    public void setAssignmentDetails(Assignment assignmentDetails) {
+        this.assignmentDetails = assignmentDetails;
+    }
+
+    public boolean isHaveAssignment() {
+        return haveAssignment;
+    }
+
+    public void setHaveAssignment(boolean haveAssignment) {
+        AssignmentManagerBean.haveAssignment = haveAssignment;
+    }
+
+    public boolean isNotHaveAssignment() {
+        return notHaveAssignment;
+    }
+
+    public void setNotHaveAssignment(boolean notHaveAssignment) {
+        AssignmentManagerBean.notHaveAssignment = notHaveAssignment;
     }
 
     public Assignment getAssignment() {
@@ -46,6 +69,14 @@ public class AssignmentManagerBean implements Serializable {
         this.assignment = assignment;
     }
 
+    public Batch getBatchDetailsToStaff() {
+        return batchDetailsToStaff;
+    }
+
+    public void setBatchDetailsToStaff(Batch batchDetailsToStaff) {
+        this.batchDetailsToStaff = batchDetailsToStaff;
+    }
+
     public ArrayList<Assignment> getListAssignmentsUploadByStaff() {
         return listAssignmentsUploadByStaff;
     }
@@ -54,19 +85,26 @@ public class AssignmentManagerBean implements Serializable {
         this.listAssignmentsUploadByStaff = listAssignmentsUploadByStaff;
     }
 
-    private void loadListAssignmentsUpLoadByStaff() {
+    public String onRequestAssignment(Assignment assignment) {
+        this.assignmentDetails = assignment;
+        return "assignmentDetails" + redirect;
+    }
+
+    public String onRequestBatchToStaff(Batch batch) {
         try {
-            if (SessionManager.getSession("accountLogon") != null) {
-                Account account = (Account) SessionManager.getSession("accountLogon");
-                Role role = account.getRole();
-                if (role.getName().equals("Staff")) {
-                    Staff staff = new Staff();
-                    staff = staffDAO.getStaffByAccount(account);
-                    this.listAssignmentsUploadByStaff = assignmentDAO.getListAssignmentsByStaff(staff);
-                }
+            listAssignmentsUploadByStaff = assignmentDAO.getListAssignmentsByBatchId(batch.getId());
+            if (listAssignmentsUploadByStaff.size() > 0) {
+                haveAssignment = true;
+                notHaveAssignment = false;
+            } else {
+                haveAssignment = false;
+                notHaveAssignment = true;
             }
+            return "batchDetails.jsf" + redirect;
         } catch (Exception ex) {
             Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
+
     }
 }

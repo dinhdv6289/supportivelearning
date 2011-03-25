@@ -10,8 +10,8 @@
 
     <ui:define name="title">Bach Details </ui:define>
     <ui:define name="content">
-        <h:panelGroup rendered="#{assignmentBean.haveAssignment}">
-            <c:forEach var="assignmentItem" items="#{assignmentBean.listAssignmentsOfBatch}">
+        <h:panelGroup rendered="#{assignmentManagerBean.haveAssignment}">
+            <c:forEach var="assignmentItem" items="#{assignmentManagerBean.listAssignmentsUploadByStaff}">
                 <!-- News Block Starts Here -->
                 <div class="content-block">
                     <div class="content-block-top"></div>
@@ -53,8 +53,8 @@
                                     <br/>
                                     <p:commandLink ajax="false"
                                                    value="more"
-                                                   action="#{assignmentBean.onRequestAssignment(assignmentItem)}">
-                                        <f:setPropertyActionListener target="#{studentWorkBean.assignment}"
+                                                   action="#{assignmentManagerBean.onRequestAssignment(assignmentItem)}">
+                                        <f:setPropertyActionListener target="#{studentWorkManagerBean.assignment}"
                                                                      value="#{assignmentItem}">
                                         </f:setPropertyActionListener>
                                     </p:commandLink>
@@ -66,7 +66,7 @@
                 </div>
             </c:forEach>
         </h:panelGroup>
-        <h:panelGroup rendered="#{assignmentBean.notHaveAssignment}">
+        <h:panelGroup rendered="#{assignmentManagerBean.notHaveAssignment}">
             <!-- News Block Starts Here -->
             <div class="content-block">
                 <div class="content-block-top"></div>
