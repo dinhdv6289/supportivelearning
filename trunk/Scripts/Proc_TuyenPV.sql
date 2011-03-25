@@ -269,3 +269,41 @@ AS BEGIN
      INSERT INTO StudentWork(StudentId,AssignmentId,FileUpload) 
      VALUES (@StudentId,@AssignmentId,@FileUpload) 
   END 
+
+
+
+CREATE  PROCEDURE Sel_BatchsOfStaff
+@StaffId int
+AS BEGIN
+SELECT     Staff.StaffId, Batch.BatchId, Batch.CourseId, Batch.SemesterId, Batch.BatchName, Batch.StartDate
+FROM         Batch CROSS JOIN
+                      Staff
+where Staff.StaffId = @StaffId
+END
+
+
+CREATE  PROCEDURE Sel_StaffByAccountId
+@AccountId	int 
+AS BEGIN 
+	 SELECT Staff.StaffId, Account.* 
+	 FROM Staff inner join Account on Staff.AccountId = Account.AccountId
+	 WHERE Account.AccountId=@AccountId 
+  END 
+
+
+CREATE PROCEDURE Sel_StudentByAssignmentId
+@AssignmentId int
+AS BEGIN
+SELECT     Student.StudentId, Student.RollNumber, Student.AccountId, Student.BatchId, StudentWork.StudentWorkId, StudentWork.AssignmentId, StudentWork.FileUpload, 
+                      StudentWork.Mark, StudentWork.DateUpload
+FROM         Student INNER JOIN
+                      StudentWork ON Student.StudentId = StudentWork.StudentId
+WHERE StudentWork.AssignmentId = @AssignmentId
+END
+
+
+select * from dbo.Staff
+
+select * from Account
+
+select * from Roles
