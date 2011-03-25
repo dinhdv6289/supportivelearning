@@ -18,6 +18,7 @@ public class Assignment implements Serializable {
     private Subject subject;
     private Batch batch;
     private String name;
+    private String content;
     private String fileUpload;
     private Date startDate;
     private Date endDate;
@@ -26,6 +27,14 @@ public class Assignment implements Serializable {
         return batch;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
     public void setBatch(Batch batch) {
         this.batch = batch;
     }
