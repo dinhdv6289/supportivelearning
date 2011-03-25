@@ -175,4 +175,62 @@ AS BEGIN
 SELECT * FROM Semester
 Where SemesterId = @SemesterId
 END
-exec Sel_StudentWorkByRollNumber 'aa034'
+GO
+CREATE PROCEDURE Sel_AccountIsOnline
+AS BEGIN
+SELECT * FROM Account
+WHERE IsOnline = 1 order by LastLogin desc
+END
+GO
+CREATE PROCEDURE SetAccountOnline
+@AccountId int,
+@IsOnline BIT
+AS BEGIN
+UPDATE Account SET 
+	IsOnline = @IsOnline,
+	LastLogin = GETDATE()
+WHERE AccountId = @AccountId
+END
+GO
+
+CREATE PROCEDURE Sel_StudentWorks
+AS BEGIN
+SELECT * FROM StudentWork
+END
+GO
+CREATE PROCEDURE Sel_StudentWorkByStudentId 
+@StudentId int
+AS BEGIN
+SELECT * FROM StudentWork
+ WHERE StudentId = @StudentId
+END
+
+GO
+
+CREATE PROCEDURE Sel_StudentWorkById 
+@StudentWorkId int
+AS BEGIN
+SELECT * FROM StudentWork
+ WHERE StudentWorkId = @StudentWorkId
+END
+GO
+
+CREATE PROCEDURE Sel_Students
+AS BEGIN 
+SELECT     Account.AccountId, Account.RoleId, Account.UserName, Account.PassWord, Account.DateCreation, Account.FullName, Account.BirthDay, Account.Gender, 
+                      Account.Phone, Account.Email, Account.Address, Student.StudentId, Student.RollNumber, Student.BatchId
+FROM         Account INNER JOIN
+                      Student ON Account.AccountId = Student.AccountId
+  END
+
+GO
+
+CREATE PROCEDURE Sel_StudentsByBatchId
+@BatchId int
+AS BEGIN 
+SELECT     Account.AccountId, Account.RoleId, Account.UserName, Account.PassWord, Account.DateCreation, Account.FullName, Account.BirthDay, Account.Gender, 
+                      Account.Phone, Account.Email, Account.Address, Student.StudentId, Student.RollNumber, Student.BatchId
+FROM         Account INNER JOIN
+                      Student ON Account.AccountId = Student.AccountId
+WHERE Student.BatchId = @BatchId
+  END

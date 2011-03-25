@@ -39,7 +39,9 @@ create table Account
 	Gender           BIT DEFAULT 1,
 	Phone            NVARCHAR(100),
 	Email            NVARCHAR(100) NOT NULL,
-	Address          NVARCHAR(255)
+	Address          NVARCHAR(255),
+	IsOnline         BIT DEFAULT 0,
+	LastLogin		 DATETIME DEFAULT GETDATE()
 )
 GO
 create table Course
@@ -84,8 +86,8 @@ GO
 create table Student
 (
 	StudentId        INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	RollNumber		 nvarchar(50) not null,
-	AccountId         INT REFERENCES Account(AccountId) NOT NULL,
+	RollNumber		 nvarchar(50) not null unique,
+	AccountId         INT REFERENCES Account(AccountId),
 	BatchId			 INT REFERENCES Batch(BatchId)
 )
 
@@ -105,6 +107,7 @@ create table Assignment
 	BatchId			 INT REFERENCES Batch(BatchId) NOT NULL,
 	AssignmentName   NVARCHAR(100),
 	AssignmentFile   NVARCHAR(255),
+	AssignmentContent ntext,
 	StartDate		datetime,
 	EndDate			datetime 
 )
@@ -161,8 +164,6 @@ create table FeedBackAnswer
 --	FeedBackId         INT REFERENCES FeedBack(FeedBackId) NOT NULL,
 --	CommentContent    ntext
 --)
-
-
 
 
 
