@@ -214,4 +214,40 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
         }
         return studentWorks;
     }
+
+    public ArrayList<StudentWork> getAllStudentByAssignmentId(int assignmentId) throws Exception {
+        Connection conn = null;
+        ArrayList<StudentWork> studentWorks = new ArrayList<StudentWork>();
+        String sql = "{call Sel_StudentByAssignmentId (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, assignmentId);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                StudentWork studentWork = new StudentWork();
+                studentWork.setId(rs.getInt("StudentWorkId"));
+                AssignmentDAO assignmentDAO = new AssignmentDAO();
+                Assignment assignment = new Assignment();
+                assignment.setId(rs.getInt("AssignmentId"));
+                assignment = assignmentDAO.getObject(assignment);
+                studentWork.setAssignment(assignment);
+                studentWork.setDateUpload(sql2date(rs.getDate("DateUpload")));
+                studentWork.setFileUpload(rs.getString("FileUpload"));
+                studentWork.setMark(rs.getFloat("Mark"));
+                StudentDAO studentDAO = new StudentDAO();
+                Student student = new Student();
+                student.setId(rs.getInt("StudentId"));
+                student = studentDAO.getObject(student);
+                studentWork.setStudent(student);
+                studentWorks.add(studentWork);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return studentWorks;
+    }
 }
