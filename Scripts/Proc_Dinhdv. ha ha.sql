@@ -29,4 +29,24 @@ AS BEGIN
      INSERT INTO StudentWork(StudentId,AssignmentId,FileUpload) 
      VALUES (@StudentId,@AssignmentId,@FileUpload) 
   END 
-select * from dbo.StudentWork
+
+
+
+
+CREATE  PROCEDURE Sel_BatchsOfStaff
+@StaffId int
+AS BEGIN
+SELECT     Staff.StaffId, Batch.BatchId, Batch.CourseId, Batch.SemesterId, Batch.BatchName, Batch.StartDate
+FROM         Batch CROSS JOIN
+                      Staff
+where Staff.StaffId = @StaffId
+END
+
+
+CREATE  PROCEDURE Sel_StaffByAccountId
+@AccountId	int 
+AS BEGIN 
+	 SELECT Staff.StaffId, Account.* 
+	 FROM Staff inner join Account on Staff.AccountId = Account.AccountId
+	 WHERE Account.AccountId=@AccountId 
+  END 
