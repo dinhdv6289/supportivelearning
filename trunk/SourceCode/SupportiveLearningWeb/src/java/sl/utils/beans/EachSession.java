@@ -26,15 +26,15 @@ public class EachSession {
         if (key.length() != 0 || key != null) {
             int accountId = Integer.valueOf(SessionManager.getSession(key).toString());
             if (accountId != 0) {
-                Account account = accountDAO.getObject(new Account(accountId));
+                Account account = accountDAO.getAccountById(accountId);
                 if (account != null) {
                     String role = account.getRole().getName();
                     if (role.equals("Admin")) {
                         // value = adminDAO.getAdminByAccountId(account);
                     } else if (role.equals("Staff")) {
-                         value = staffDAO.getStaffByAccount(account);
+                        value = staffDAO.getStaffByAccountId(account.getId());
                     } else {
-                        // value = studentDAO.getStudentByAccountId(account);
+                        value = studentDAO.getStudentByAccountId(account.getId());
                     }
                 }
 
