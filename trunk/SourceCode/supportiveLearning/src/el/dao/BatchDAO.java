@@ -10,7 +10,6 @@ import el.model.Semester;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -86,10 +85,20 @@ public class BatchDAO extends AbstractDAO<Batch> {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 CourseDAO courseDAO = new CourseDAO();
-                Course course = courseDAO.getCourseById(rs.getInt("CourseId"));
+                Course course = new Course();
+                course.setId(rs.getInt("CourseId"));
+                course =       courseDAO.getObject(course);
                 SemesterDAO semesterDAO = new SemesterDAO();
-                Semester semester = semesterDAO.getSemesterById(rs.getInt("SemesterId"));
-                batchs.add(new Batch(rs.getInt("BatchId"), rs.getString("BatchName"), course, semester, rs.getDate("StartDate")));
+                Semester semester = new Semester();
+                semester.setId(rs.getInt("SemesterId"));
+                semester = semesterDAO.getObject(semester);
+                Batch batch = new Batch();
+                batch.setId(rs.getInt("BatchId"));
+                batch.setName(rs.getString("BatchName"));
+                batch.setCourse(course);
+                batch.setSemester(semester);
+                batch.setStartDate(sql2date(rs.getDate("StartDate")));
+                batchs.add(batch);
             }
         } finally {
             if (conn != null) {

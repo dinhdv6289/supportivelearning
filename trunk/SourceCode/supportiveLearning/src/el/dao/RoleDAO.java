@@ -81,8 +81,11 @@ public class RoleDAO extends AbstractDAO<Role> {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                roles.add(new Role(
-                        rs.getInt("RoleId"), rs.getString("RoleName"), rs.getString("Description")));
+                Role role = new Role();
+                role.setId(rs.getInt("RoleId"));
+                role.setName(rs.getString("RoleName"));
+                role.setDescription(rs.getString("Description"));
+                roles.add(role);
 
             }
         } finally {
@@ -108,7 +111,10 @@ public class RoleDAO extends AbstractDAO<Role> {
             cstmt.setInt(1, role.getId());
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                roleObject = new Role(rs.getInt("RoleId"), rs.getString("RoleName"), rs.getString("Description"));
+                roleObject = new Role();
+                role.setId(rs.getInt("RoleId"));
+                role.setName(rs.getString("RoleName"));
+                role.setDescription(rs.getString("Description"));
             }
         } finally {
             if (conn != null) {

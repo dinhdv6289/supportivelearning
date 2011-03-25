@@ -44,10 +44,5 @@ public class Semester implements Serializable {
         this.semesterTime = semesterTime;
     }
 
-    public Semester(int id, String semesterName, int semesterTime) {
-        this.id = id;
-        this.semesterName = semesterName;
-        this.semesterTime = semesterTime;
-    }
     
 }

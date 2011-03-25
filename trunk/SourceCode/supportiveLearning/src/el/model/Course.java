@@ -4,6 +4,7 @@
  */
 package el.model;
 
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,12 +19,6 @@ public class Course implements Serializable {
     private Date dateStart;
     private Date dateEnd;
 
-    public Course(int id, String name, Date dateStart, Date dateEnd) {
-        this.id = id;
-        this.name = name;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-    }
 
     public Date getDateEnd() {
         return dateEnd;

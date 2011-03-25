@@ -22,13 +22,6 @@ public class FeedBack implements Serializable {
     public FeedBack() {
     }
 
-    public FeedBack(int id, Student student, String feedBackTitle, String feedBackContent, Date dateCreation) {
-        this.id = id;
-        this.student = student;
-        this.feedBackTitle = feedBackTitle;
-        this.feedBackContent = feedBackContent;
-        this.dateCreation = dateCreation;
-    }
 
     public Date getDateCreation() {
         return dateCreation;
