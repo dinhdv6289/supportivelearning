@@ -21,10 +21,6 @@ public class Batch implements Serializable {
     private Date startDate;
     private ArrayList<Student> students;
 
-    public Batch(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public Course getCourse() {
         return course;
@@ -49,24 +45,6 @@ public class Batch implements Serializable {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
-
-    public Batch(int id, String name, Course course, Semester semester, Date startDate, ArrayList<Student> students) {
-        this.id = id;
-        this.name = name;
-        this.course = course;
-        this.semester = semester;
-        this.startDate = startDate;
-        this.students = students;
-    }
-
-    public Batch(int id, String name, Course course, Semester semester, Date startDate ) {
-        this.id = id;
-        this.name = name;
-        this.course = course;
-        this.semester = semester;
-        this.startDate = startDate;
-    }
-    
 
     public int getId() {
         return id;
@@ -94,17 +72,5 @@ public class Batch implements Serializable {
 
     public Batch() {
     }
-
-    public Batch(String name, ArrayList<Student> students) {
-        this.name = name;
-        this.students = students;
-    }
-
-    public Batch(int id, String name, ArrayList<Student> students) {
-        this.id = id;
-        this.name = name;
-        this.students = students;
-    }
-    
     
 }

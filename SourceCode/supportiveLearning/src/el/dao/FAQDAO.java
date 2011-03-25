@@ -77,21 +77,26 @@ public class FAQDAO extends AbstractDAO<FAQ> {
     @Override
     public ArrayList<FAQ> list() throws Exception {
         Connection conn = null;
-        ArrayList<FAQ> faq = new ArrayList<FAQ>();
+        ArrayList<FAQ> faqs = new ArrayList<FAQ>();
         String sql = "Sel_AllFAQ";
         try {
             conn = getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                faq.add(new FAQ(rs.getInt("FAQId"), rs.getString("Question"), rs.getString("Answer"), rs.getDate("DateCreation")));
+                FAQ fAQ = new FAQ();
+                fAQ.setId(rs.getInt("FAQId"));
+                fAQ.setQuestion(rs.getString("Question"));
+                fAQ.setAnswer(rs.getString("Answer"));
+                fAQ.setDate(sql2date(rs.getDate("DateCreation")));
+                faqs.add(fAQ);
             }
         } finally {
             if (conn != null) {
                 conn.close();
             }
         }
-        return faq;
+        return faqs;
     }
 
     public FAQ getFAQById(int FAQId) throws Exception {
@@ -107,7 +112,11 @@ public class FAQDAO extends AbstractDAO<FAQ> {
             cstmt.setInt(1, FAQId);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                faq = new FAQ(rs.getInt("FAQId"), rs.getString("Question"), rs.getString("Answer"), rs.getDate("DateCreation"));
+                faq = new FAQ();
+                faq.setId(rs.getInt("FAQId"));
+                faq.setQuestion(rs.getString("Question"));
+                faq.setAnswer(rs.getString("Answer"));
+                faq.setDate(sql2date(rs.getDate("DateCreation")));
             }
         } finally {
             if (conn != null) {

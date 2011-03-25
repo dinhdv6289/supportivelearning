@@ -8,7 +8,6 @@ import el.model.Course;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -83,8 +82,12 @@ public class CourseDAO extends AbstractDAO<Course> {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                courses.add(new Course(
-                        rs.getInt("CourseId"), rs.getString("CourseName"), rs.getDate("DateStart"), rs.getDate("DateEnd")));
+                Course course = new Course();
+                course.setId(rs.getInt("CourseId"));
+                course.setName(rs.getString("CourseName"));
+                course.setDateStart(sql2date(rs.getDate("DateStart")));
+                course.setDateEnd(sql2date(rs.getDate("DateEnd")));
+                courses.add(course);
 
             }
         } finally {
@@ -94,28 +97,6 @@ public class CourseDAO extends AbstractDAO<Course> {
         }
 
         return courses;
-    }
-
-    public Course getCourseById(int courseId) throws Exception {
-        Connection conn = null;
-        Course course = null;
-        String sql = "{call Sel_CourseById (?)}";
-        CallableStatement cstmt = null;
-
-        try {
-            conn = getConnection();
-            cstmt = conn.prepareCall(sql);
-            cstmt.setInt(1, courseId);
-            ResultSet rs = cstmt.executeQuery();
-            while (rs.next()) {
-                course = new Course(rs.getInt("CourseId"), rs.getString("CourseName"), rs.getDate("DateStart"), rs.getDate("DateEnd"));
-            }
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return course;
     }
 
     @Override

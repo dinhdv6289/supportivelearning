@@ -5,7 +5,11 @@
 
 package el.dao;
 
+import el.model.Student;
+import el.model.StudentWork;
+import el.model.News;
 import el.model.Assignment;
+import el.model.Batch;
 import el.model.Staff;
 import java.util.ArrayList;
 import org.junit.After;
@@ -90,11 +94,20 @@ public class AssignmentDAOTest {
 //     */
     @Test
     public void testList() throws Exception {
-        System.out.println("list");
-        AssignmentDAO instance = new AssignmentDAO();
-        ArrayList<Assignment> result = instance.list();
-        for (Assignment assignment : result) {
-            System.out.println(assignment.getName());
+        System.out.println("TEST");
+        StudentWorkDAO studentWorkDAO = new StudentWorkDAO();
+        //        ArrayList<StudentWork> studentWorks = new ArrayList<StudentWork>();
+        //        studentWorks = studentWorkDAO.list();
+        //        for (StudentWork studentWork : studentWorks) {
+        //            System.out.println(studentWork.getAssignment().getSubject().getName());
+        //        }
+        StudentDAO studentDAO = new StudentDAO();
+        Batch b = new Batch();
+        b.setId(1);
+        ArrayList<Student> students = new ArrayList<Student>();
+        students = studentDAO.getStudentsByBatch(b);
+        for (Student student : students) {
+            System.out.println(student.getName());
         }
         
     }

@@ -79,8 +79,11 @@ public class SemesterDAO extends AbstractDAO<Semester> {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                semesters.add(new Semester(
-                        rs.getInt("SemesterId"), rs.getString("SemesterName"), rs.getInt("SemesterTime")));
+                Semester semester = new Semester();
+                semester.setId(rs.getInt("SemesterId"));
+                semester.setSemesterName(rs.getString("SemesterName"));
+                semester.setSemesterTime(rs.getInt("SemesterTime"));
+                semesters.add(semester);
 
             }
         } finally {
@@ -92,26 +95,6 @@ public class SemesterDAO extends AbstractDAO<Semester> {
         return semesters;
     }
 
-    public Semester getSemesterById(int semesterId) throws Exception {
-        Connection conn = null;
-        Semester semester = null;
-        String sql = "{call Sel_SemesterById (?)}";
-        CallableStatement cstmt = null;
-        try {
-            conn = getConnection();
-            cstmt = conn.prepareCall(sql);
-            cstmt.setInt(1, semesterId);
-            ResultSet rs = cstmt.executeQuery();
-            while (rs.next()) {
-                semester = new Semester(rs.getInt("SemesterId"), rs.getString("SemesterName"), rs.getInt("SemesterTime"));
-            }
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return semester;
-    }
     @Override
     public Semester getObject(Semester t) throws Exception {
         Semester semester = new Semester();
@@ -124,8 +107,10 @@ public class SemesterDAO extends AbstractDAO<Semester> {
             cstmt.setInt(1, t.getId());
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
+                semester = new Semester();
                 semester.setId(rs.getInt("SemesterId"));
                 semester.setSemesterName(rs.getString("SemesterName"));
+                semester.setSemesterTime(rs.getInt("SemesterTime"));
             }
         } finally {
             if (conn != null) {

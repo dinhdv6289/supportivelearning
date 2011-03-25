@@ -28,23 +28,6 @@ public class StudentWork implements Serializable {
         this.id = id;
     }
 
-    public StudentWork(Student student, Assignment assignment, String fileUpload, float mark, Date dateUpload) {
-        this.student = student;
-        this.assignment = assignment;
-        this.fileUpload = fileUpload;
-        this.mark = mark;
-        this.dateUpload = dateUpload;
-    }
-
-    public StudentWork(int id, Student student, Assignment assignment, String fileUpload, float mark, Date dateUpload) {
-        this.id = id;
-        this.student = student;
-        this.assignment = assignment;
-        this.fileUpload = fileUpload;
-        this.mark = mark;
-        this.dateUpload = dateUpload;
-    }
-
     public Assignment getAssignment() {
         return assignment;
     }

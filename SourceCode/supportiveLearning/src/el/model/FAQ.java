@@ -53,11 +53,4 @@ public class FAQ implements Serializable {
     public FAQ() {
     }
 
-    public FAQ(int id, String question, String answer, Date date) {
-        this.id = id;
-        this.question = question;
-        this.answer = answer;
-        this.date = date;
-    }
-
 }

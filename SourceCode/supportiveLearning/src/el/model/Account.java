@@ -32,33 +32,6 @@ public class Account implements Serializable{
         this.id = id;
     }
 
-    public Account(String name, String userName, String password, Date dateCreate, Role role, Date birthDay, Boolean gender, String phone, String email, String address) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.dateCreate = dateCreate;
-        this.role = role;
-        this.birthDay = birthDay;
-        this.gender = gender;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-    }
-
-    public Account(int id, String name, String userName, String password, Date dateCreate, Role role, Date birthDay, Boolean gender, String phone, String email, String address) {
-        this.id = id;
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.dateCreate = dateCreate;
-        this.role = role;
-        this.birthDay = birthDay;
-        this.gender = gender;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-    }
-
     public Role getRole() {
         return role;
     }

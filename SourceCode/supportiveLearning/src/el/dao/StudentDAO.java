@@ -23,7 +23,6 @@ public class StudentDAO extends AbstractDAO<Student> {
     //private SchoolData schoolData = new SchoolData();
     public StudentDAO() {
 
-        SchoolData.getListStudents();
     }
 
     @Override
