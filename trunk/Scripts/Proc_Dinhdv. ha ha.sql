@@ -19,3 +19,14 @@ AS BEGIN
 	WHERE AccountId = @AccountId
 END
 
+
+
+CREATE PROCEDURE Ins_StudentWork
+@StudentId int,
+@AssignmentId int ,
+@FileUpload	nvarchar(255)
+AS BEGIN 
+     INSERT INTO StudentWork(StudentId,AssignmentId,FileUpload) 
+     VALUES (@StudentId,@AssignmentId,@FileUpload) 
+  END 
+select * from dbo.StudentWork
