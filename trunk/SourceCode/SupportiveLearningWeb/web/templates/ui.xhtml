@@ -37,49 +37,38 @@
                                         <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
-                                        <li>
-                                            <h:form prependId="false">
-                                                <p:commandLink ajax="false"
-                                                               value="Upload File"
-                                                               action="#{checkLoginToProcessBean.redirectToPage}">
-                                                    <f:setPropertyActionListener target="#{checkLoginToProcessBean.link}"
-                                                                                 value="uploadFile.jsf">
-                                                    </f:setPropertyActionListener>
-                                                    <f:setPropertyActionListener target="#{loginBean.pageRequest}"
-                                                                                 value="uploadFile.jsf"/>
-                                                </p:commandLink>
-                                            </h:form>
 
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
                             <!-- Main menu Ends Here -->
-                            <!-- Navigation Block Starts Here -->
-                            <div class="sblock">
-                                <div class="sblock-top">Navigation</div>
-                                <div class="sblock-content">
-                                    <ul>
-                                        <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
-                                        <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
-                                        <li>
-                                            <ul>
-                                                <h:form>
-                                                    <c:forEach var="courseItem" items="#{courseBean.listCourses}">
-                                                        <li>
-                                                            <p:commandLink value="#{courseItem.name}"
-                                                                           action="#{courseBean.onRequestCourse(courseItem)}">
-                                                            </p:commandLink>
-                                                        </li>
-                                                    </c:forEach>
-                                                </h:form>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                            <h:panelGroup rendered="#{loginBean.panelHi}" id="panelGroup_Logon" >
+                                <!-- Navigation Block Starts Here -->
+                                <div class="sblock">
+                                    <div class="sblock-top">Navigation</div>
+                                    <div class="sblock-content">
+                                        <ul>
+
+                                            <h:form>
+                                                <li>
+                                                    <p:commandLink ajax="false"
+                                                                   value="File upload"
+                                                                   action="uploadFile.jsf">
+                                                    </p:commandLink>
+                                                </li>
+                                                <li>
+                                                    <p:commandLink ajax="false"
+                                                                   value="My documents"
+                                                                   action="#{studentWorkBean.myFiles}">
+                                                    </p:commandLink>
+                                                </li>
+                                            </h:form>
+
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Navigation Block Ends Here -->
+                                <!-- Navigation Block Ends Here -->
+                            </h:panelGroup>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_Staff" >
                             <!-- Main menu Block Starts Here -->
@@ -147,6 +136,21 @@
                                                 </div>-->
                         <!-- Quick Search Ends Here -->
 
+                        <!-- Navigation Block Starts Here -->
+                        <div class="sblock">
+                            <div class="sblock-top">Calendar</div>
+                            <div class="sblock-content">
+                                <h:form>
+                                    <p:calendar value="#{calendarBean.date1}" navigator="true" mode="inline" style="width: 150px" />
+                                </h:form>
+                            </div>
+                        </div>
+                        <style type="text/css" >
+                            .ui-widget{font-size: 0.9em;}
+                        </style>
+                        <!-- Navigation Block Ends Here -->
+
+
                         <!-- Online users Block Starts Here -->
                         <div class="sblock">
                             <div class="sblock-top">Online users</div>
@@ -212,13 +216,14 @@
                                 <div class="sblock-content">
                                     <h:form id="form_hi" prependId="false">
                                         <p>
-                                            Hi<h:outputLabel value="#{loginBean.account.name}" />
+                                            <h:outputLabel style="color: #008000;font-size: 14px" value="#{loginBean.account.name}" />
 
                                         </p>
                                         <p>
                                         </p>
                                         <p>
-                                            <p:commandLink ajax="false"
+                                            <p:commandLink style="color: red"
+                                                           ajax="false"
                                                            value="Logout"
                                                            action="#{loginBean.logout}">
                                             </p:commandLink>
@@ -227,23 +232,42 @@
                                 </div>
                             </div>
                             <!-- Login Block Ends Here -->
-
-                            <!-- Login Block Starts Here -->
-                            <div class="sblock">
-                                <div class="sblock-top">My Batch</div>
-                                <div class="sblock-content">
-                                    <h:form id="form_myBatch" prependId="false">
-                                        <p>
-
-                                        </p>
-                                        <p:commandLink ajax="false"
-                                                       value="#{loginBean.student.batch.name}"
-                                                       action="#{assignmentBean.details}">
-                                        </p:commandLink>
-                                    </h:form>
+                            <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_batch_staff" >
+                                <!-- Login Block Starts Here -->
+                                <div class="sblock">
+                                    <div class="sblock-top">My Batchs</div>
+                                    <div class="sblock-content">
+                                        <h:form id="form_batch_staff" prependId="false">
+                                            <c:forEach var="batchItem" items="#{loginBean.listBatchs}">
+                                                <p:commandLink style="color: #008000"
+                                                               ajax="false"
+                                                               value="#{batchItem.name}"
+                                                               action="#{assignmentManagerBean.onRequestBatchToStaff(batchItem)}">
+                                                </p:commandLink><br/>
+                                            </c:forEach>
+                                        </h:form>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Login Block Ends Here -->
+                                <!-- Login Block Ends Here -->
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{loginBean.panelStudent}" id="panelGroup_batch_student" >
+                                <!-- Login Block Starts Here -->
+                                <div class="sblock">
+                                    <div class="sblock-top">My Batch</div>
+                                    <div class="sblock-content">
+                                        <h:form id="form_batch_student" prependId="false">
+                                            <p>
+
+                                            </p>
+                                            <p:commandLink ajax="false"
+                                                           value="#{loginBean.student.batch.name}"
+                                                           action="#{assignmentBean.details}">
+                                            </p:commandLink>
+                                        </h:form>
+                                    </div>
+                                </div>
+                                <!-- Login Block Ends Here -->
+                            </h:panelGroup>
 
                         </h:panelGroup>
                         <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_Messages" >
@@ -256,7 +280,7 @@
                                             <p:commandLink ajax="false"
                                                            value="#{feedBackItem.feedBackTitle}"
                                                            action="#{feedBackAnswerManagerBean.onRequestFeedBack(feedBackItem)}">
-                                            </p:commandLink>
+                                            </p:commandLink><br/>
 
                                         </c:forEach>
                                     </h:form>
@@ -266,19 +290,7 @@
                         </h:panelGroup>
                         <!-- Messages Ends Here -->
 
-                        <!-- Navigation Block Starts Here -->
-                        <div class="sblock">
-                            <div class="sblock-top">Calendar</div>
-                            <div class="sblock-content">
-                                <h:form>
-                                    <p:calendar value="#{calendarBean.date1}" navigator="true" mode="inline" style="width: 150px" />
-                                </h:form>
-                            </div>
-                        </div>
-                        <style type="text/css" >
-                            .ui-widget{font-size: 0.9em;}
-                        </style>
-                        <!-- Navigation Block Ends Here -->
+
 
                         <!-- Latest News Block Starts Here -->
                         <div class="sblock">
@@ -305,8 +317,8 @@
                     </div>
                 </div>
                 <div id="footer">
-                    <p class="floatleft">Copyright&nbsp;&copy;&nbsp;2009 <a href="index.html">Greenlash Innovations</a>. All Rights Reserved. </p>
-                    <p class="floatright"><a href="#">Terms &amp; Condition</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Sitemap</a></p>
+                    <p class="floatleft"> <a href="index.html"></a>  </p>
+                    <p class="floatright"><a href="#"></a><a href="#"></a><a href="#"></a></p>
                 </div>
             </div>
 

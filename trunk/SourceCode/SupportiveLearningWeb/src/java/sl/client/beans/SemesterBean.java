@@ -47,11 +47,11 @@ public class SemesterBean implements Serializable {
     }
 
     private void loadSemesters() {
-        try {
-            this.listSemesters = list();
-        } catch (Exception ex) {
-            Logger.getLogger(SemesterBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            this.listSemesters = list();
+//        } catch (Exception ex) {
+//            Logger.getLogger(SemesterBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 //    private void loadSemesters() {
 //        try {
@@ -66,11 +66,5 @@ public class SemesterBean implements Serializable {
         return "";
     }
 
-    private ArrayList<Semester> list(){
-        ArrayList<Semester> arrayList = new ArrayList<Semester>();
-        for (int i = 1; i <= 4; i++) {
-            arrayList.add(new Semester(i, "Semester "+ i, i));
-        }
-        return  arrayList;
-    }
+
 }

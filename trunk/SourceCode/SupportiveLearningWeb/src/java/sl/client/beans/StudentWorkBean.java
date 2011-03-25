@@ -24,6 +24,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
+import el.model.Assignment;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,6 +52,8 @@ public class StudentWorkBean implements Serializable {
     private ArrayList<StudentWork> listStudentWorksOfEachStudent = new ArrayList<StudentWork>();
     private ArrayList<StudentWork> listMarks;
     private StudentWorkDAO studentWorkDAO = new StudentWorkDAO();
+    private Assignment assignment = new Assignment();
+    private String file;
 
     /** Creates a new instance of StudentWorkBean */
     public StudentWorkBean() {
@@ -97,6 +100,22 @@ public class StudentWorkBean implements Serializable {
         this.student = student;
     }
 
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
     private void loadStudentWorks() {
         try {
             listStudentWorksOfStudent = studentWorkDAO.list();
@@ -106,17 +125,21 @@ public class StudentWorkBean implements Serializable {
         }
     }
 
-    private void loadStudentWorksOfEachStudent() {
+    public void loadStudentWorksOfEachStudent() {
         try {
             Student std = (Student) EachSession.getObjectFromSession("accountId");
             if (std != null) {
                 listStudentWorksOfEachStudent = studentWorkDAO.listStudentWorkByStudentId(std.getId());
             }
-            listStudentWorksOfEachStudent = null;
         } catch (Exception ex) {
             Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
-            listStudentWorksOfEachStudent = null;
         }
+
+    }
+
+    public String myFiles() {
+        loadStudentWorksOfEachStudent();
+        return "myFiles";
     }
 
     public String loadMarks() {
@@ -184,11 +207,33 @@ public class StudentWorkBean implements Serializable {
             }
             fileOutputStream.close();
             inputStream.close();
-            MessagesService.showMessage("Succesful " + event.getFile().getFileName() + "is uploaded.");
+            int uploadFile = uploadFile("documents/assignmentFiles/" + event.getFile().getFileName());
+            if (uploadFile > 0) {
+                MessagesService.showMessage("Succesful " + event.getFile().getFileName() + "is uploaded.");
+            } else {
+                MessagesService.showMessage("Upload " + event.getFile().getFileName() + "is failure.");
+            }
         } catch (IOException e) {
             MessagesService.showMessage("The files were not uploaded!");
             e.printStackTrace();
 
         }
+    }
+
+    private int uploadFile(String file) {
+        int result = 0;
+        try {
+            Student std = (Student) EachSession.getObjectFromSession("accountId");
+            if (std != null) {
+                studentWork.setStudent(std);
+                studentWork.setFileUpload(file);
+                studentWork.setAssignment(assignment);
+                result = studentWorkDAO.insert(studentWork);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
+            result = 0;
+        }
+        return result;
     }
 }

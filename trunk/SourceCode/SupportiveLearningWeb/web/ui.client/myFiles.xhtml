@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ttt="http://java.sun.com/jsp/jstl/functions"
+                template="../templates/ui.xhtml">
+    <ui:define name="title">Home </ui:define>
+    <ui:define name="content">
+
+        <!-- Student Work of Student Block Starts Here -->
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <h4>Student Works</h4>
+                <h:form prependId="false">
+                    <p:dataTable id="tbl"
+                                 var="studentWorkItem"
+                                 value="#{studentWorkBean.listStudentWorksOfEachStudent}"
+                                 emptyMessage="Not have Works."
+                                 paginator="true"
+                                 rows="10"
+                                 style="color: #008000">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Subject" />
+                            </f:facet>
+                            <h:outputText value="#{studentWorkItem.assignment.subject.name}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Mark"/>
+                            </f:facet>
+                            <h:outputText value="#{studentWorkItem.mark}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="File"/>
+                            </f:facet>
+                            <a href="#{request.contextPath}/#{studentWorkItem.fileUpload}" style="color: red">File uploaded</a>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date upload"/>
+                            </f:facet>
+                            <h:outputText value="#{studentWorkItem.dateUpload}" >
+                                <f:convertDateTime pattern="MM/dd/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </div>
+        <!-- Student Work of Student Block Ends Here -->
+
+    </ui:define>
+</ui:composition>
+
