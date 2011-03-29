@@ -4,7 +4,9 @@
  */
 package el.dao;
 
+import el.model.Account;
 import el.model.Batch;
+import el.model.ChangeLearning;
 import el.model.Role;
 import el.model.Student;
 import java.sql.CallableStatement;
@@ -22,7 +24,6 @@ public class StudentDAO extends AbstractDAO<Student> {
 
     //private SchoolData schoolData = new SchoolData();
     public StudentDAO() {
-
     }
 
     @Override
@@ -286,5 +287,113 @@ public class StudentDAO extends AbstractDAO<Student> {
             }
         }
         return student;
+    }
+
+    public ArrayList<Student> getStudentsIsNotHaveBatch() throws Exception {
+        ArrayList<Student> students = new ArrayList<Student>();
+        Connection conn = null;
+        String sql = "{call Sel_StudentForAddToBatch}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            ResultSet rsstudents = cstmt.executeQuery();
+            while (rsstudents.next()) {
+                Student student = new Student();
+                student.setId(rsstudents.getInt("StudentId"));
+                student.setName(rsstudents.getString("FullName"));
+                student.setDateCreate(rsstudents.getDate("DateCreation"));
+                student.setBirthDay(rsstudents.getDate("BirthDay"));
+                student.setGender(rsstudents.getBoolean("Gender"));
+                student.setPhone(rsstudents.getString("Phone"));
+                student.setEmail(rsstudents.getString("Email"));
+                student.setAddress(rsstudents.getString("Address"));
+                student.setRollNumber(rsstudents.getString("RollNumber"));
+                students.add(student);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return students;
+    }
+
+    public boolean updateBatchToStudent(int studentId, int batchId) throws Exception {
+        String sql = "{call Upd_BatchToStudent (?, ?)}";
+        Connection conn = null;
+        int status = 0;
+        try {
+            conn = getConnection();
+            CallableStatement stmt = conn.prepareCall(sql);
+            stmt.setInt(1, studentId);
+            stmt.setInt(2, batchId);
+            status = stmt.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return status == 1 ? true : false;
+    }
+
+    public ArrayList<Student> getStudentsHaveBatch() throws Exception {
+        ArrayList<Student> students = new ArrayList<Student>();
+        Connection conn = null;
+        String sql = "{call Sel_AllStudentHaveBatch}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            ResultSet rsstudents = cstmt.executeQuery();
+            while (rsstudents.next()) {
+                Student student = new Student();
+                student.setId(rsstudents.getInt("StudentId"));
+                student.setName(rsstudents.getString("FullName"));
+                student.setDateCreate(rsstudents.getDate("DateCreation"));
+                student.setBirthDay(rsstudents.getDate("BirthDay"));
+                student.setGender(rsstudents.getBoolean("Gender"));
+                student.setPhone(rsstudents.getString("Phone"));
+                student.setEmail(rsstudents.getString("Email"));
+                student.setAddress(rsstudents.getString("Address"));
+                student.setRollNumber(rsstudents.getString("RollNumber"));
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batch = new Batch();
+                batch.setId(rsstudents.getInt("BatchId"));
+                batch = batchDAO.getObject(batch);
+                student.setBatch(batch);
+                students.add(student);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return students;
+    }
+
+    public int changeLearning(ChangeLearning changeLearning) throws Exception {
+        String sql = "{call Ins_ChangeLearning (?, ?, ?)}";
+        Connection conn = null;
+        int result = 0;
+        try {
+            conn = getConnection();
+            CallableStatement ps = conn.prepareCall(sql);
+            ps.setInt(1, changeLearning.getStudent().getId());
+            ps.setInt(2, changeLearning.getBatch().getId());
+            ps.setString(3, changeLearning.getReason());
+            result = ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
     }
 }
