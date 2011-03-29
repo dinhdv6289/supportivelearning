@@ -111,8 +111,10 @@ public class CourseDAO extends AbstractDAO<Course> {
             cstmt.setInt(1, t.getId());
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                c.setId(rs.getInt("StaffId"));
-                c.setName(rs.getString("StaffName"));
+                c.setId(rs.getInt("CourseId"));
+                c.setName(rs.getString("CourseName"));
+                c.setDateEnd(rs.getDate("DateEnd"));
+                c.setDateStart(rs.getDate("DateStart"));
             }
         } finally {
             if (conn != null) {
