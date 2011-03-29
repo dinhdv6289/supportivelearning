@@ -8,14 +8,17 @@ import el.dao.AccountDAO;
 import el.dao.StudentDAO;
 import el.model.Account;
 import el.model.Batch;
+import el.model.ChangeLearning;
 import el.model.Course;
 import el.model.Student;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import sl.utils.beans.MessagesService;
 
 /**
  *
@@ -30,9 +33,13 @@ public class StudentManagerBean implements Serializable {
     private Account account = new Account();
     private Batch batch = new Batch();
     private Course course = new Course();
-    
     private StudentDAO studentDAO = new StudentDAO();
     private AccountDAO accountDAO = new AccountDAO();
+    private Student[] selectedStudents;
+    private Batch selectedBatch;
+    private final String REDIRECT = "?faces-redirect=true";
+    private ArrayList<Student> listStudentsIsNotHaveBatch = new ArrayList<Student>();
+    private ArrayList<Student> listStudentsHaveBatch = new ArrayList<Student>();
 
     /** Creates a new instance of StudentManagerBean */
     public StudentManagerBean() {
@@ -78,7 +85,49 @@ public class StudentManagerBean implements Serializable {
         this.course = course;
     }
 
+    public Batch getSelectedBatch() {
+        return selectedBatch;
+    }
 
+    public void setSelectedBatch(Batch selectedBatch) {
+        this.selectedBatch = selectedBatch;
+    }
+
+    public Student[] getSelectedStudents() {
+        return selectedStudents;
+    }
+
+    public void setSelectedStudents(Student[] selectedStudents) {
+        this.selectedStudents = selectedStudents;
+    }
+
+    public ArrayList<Student> getListStudentsIsNotHaveBatch() {
+        try {
+            listStudentsIsNotHaveBatch = studentDAO.getStudentsIsNotHaveBatch();
+            return listStudentsIsNotHaveBatch;
+        } catch (Exception ex) {
+            Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public void setListStudentsIsNotHaveBatch(ArrayList<Student> listStudentsIsNotHaveBatch) {
+        this.listStudentsIsNotHaveBatch = listStudentsIsNotHaveBatch;
+    }
+
+    public ArrayList<Student> getListStudentsHaveBatch() {
+        try {
+            listStudentsHaveBatch = studentDAO.getStudentsHaveBatch();
+            return listStudentsHaveBatch;
+        } catch (Exception ex) {
+            Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public void setListStudentsHaveBatch(ArrayList<Student> listStudentsHaveBatch) {
+        this.listStudentsHaveBatch = listStudentsHaveBatch;
+    }
 
     public String insertStudent() {
         try {
@@ -120,5 +169,60 @@ public class StudentManagerBean implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String addStudentsToBatch() {
+        if (selectedStudents.length > 0) {
+            for (int i = 0; i < selectedStudents.length; i++) {
+                try {
+                    boolean result = studentDAO.updateBatchToStudent(selectedStudents[i].getId(), selectedBatch.getId());
+                    if (result) {
+                        MessagesService.showMessage("Success!");
+                    } else {
+                        MessagesService.showMessage("failure!");
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                    return "studentManager.jsf" + REDIRECT;
+                }
+            }
+            return "addStudentToBatch.jsf" + REDIRECT;
+        }
+        return "studentManager.jsf" + REDIRECT;
+    }
+
+    public String changeLearning() {
+        int result = 0;
+        if (selectedStudents.length > 0) {
+            ChangeLearning changeLearning = new ChangeLearning();
+            changeLearning.setBatch(selectedBatch);
+            changeLearning.setReason("busy");
+            for (int i = 0; i < selectedStudents.length; i++) {
+                try {
+                    boolean resultUpdate = studentDAO.updateBatchToStudent(selectedStudents[i].getId(), selectedBatch.getId());
+                    if (resultUpdate) {
+                        changeLearning.setStudent(selectedStudents[i]);
+                        result = studentDAO.changeLearning(changeLearning);
+                    } else {
+                        MessagesService.showMessage("Move to Batch failure!");
+                        return "studentManager.jsf" + REDIRECT;
+                    }
+
+                } catch (Exception ex) {
+                    Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                    return "studentManager.jsf" + REDIRECT;
+                }
+            }
+            if (result > 0) {
+                MessagesService.showMessage("changeLearning Success!");
+                return "addStudentToBatch.jsf" + REDIRECT;
+            } else {
+                MessagesService.showMessage("changeLearning  failure!");
+                return "studentManager.jsf" + REDIRECT;
+            }
+
+        }
+        return "studentManager.jsf" + REDIRECT;
+
     }
 }
