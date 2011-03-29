@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/uiAdmin.xhtml">
+
+    <ui:define name="title">Admin </ui:define>
+    <ui:define name="content">
+
+        <div class="column half fl">
+            <div class="box">
+                <h2 class="box-header">	form Add New Student </h2>
+                <div class="box-content">
+                    <h:form prependId="false" id="form_add_student">
+                        <label class="form-label required"> first name </label>
+                        <input id="form-firstname" class="form-field width60" name="firstname" type="text" value="" maxlength="100"/>
+
+                        <label class="form-label"> last name </label>
+                        <input id="form-lastname" class="form-field width60" name="lastname" type="text" value="" maxlength="100"/>
+
+                        <label class="form-label"> username </label>
+                        <input id="form-username" class="form-field width60" name="username" type="text" value="" maxlength="100"/>
+
+                        <label class="form-label"> password </label>
+                        <input id="form-password" class="form-field width60" name="password" type="password" value="" maxlength="100"/>
+
+                        <label class="form-label"> confirm password </label>
+                        <input id="form-confirmpassword" class="form-field width60" name="password_confirm" type="password" value="" maxlength="100"/>
+
+                        <label class="form-label"> email address </label>
+                        <input id="form-email" class="form-field width60" name="email" type="text" value="" maxlength="100"/>
+
+                        <label class="form-label"> confirm email address </label>
+                        <input id="form-confirmemail" class="form-field width60" name="email_confirm" type="text" value="" maxlength="100"/>
+
+                        <label class="form-label"> message </label>
+                        <textarea id="form-message" class="form-field width90" name="message" cols="" rows=""></textarea>
+
+                        <label class="form-label"> date format </label>
+                        <p class="radiocheck">
+                            <input id="dateformat_eu" type="radio" value="0" name="dateformat" />
+                            <label for="dateformat_eu">DD/MM/YYYY</label>
+
+                            <input id="dateformat_am" type="radio" value="0" name="dateformat" />
+                            <label for="dateformat_am">MM/DD/YYYY</label>
+                        </p>
+
+                        <label class="form-label"> Terms of Use </label>
+                        <p class="terms radiocheck" >
+                            <input class="checkbox" id="terms" type="checkbox" name="terms" />
+                            <label for="terms" id="lterms">I have read and accept the Terms of Use.</label>
+                        </p>
+
+                        <input id="reset" class="button red" type="button" value="Reset" name="reset" />
+                        <input id="validate" class="button themed" type="submit" value="Validate" name="signup" />
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </ui:define>
+</ui:composition>
+
