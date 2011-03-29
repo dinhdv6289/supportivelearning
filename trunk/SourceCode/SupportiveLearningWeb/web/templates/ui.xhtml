@@ -19,12 +19,38 @@
                     <div id="logo"><h1><a href="index.html"><span>Greenlash Innovations</span></a></h1></div>
                 </div>
                 <div id="menu">
-                    <ul>
-                        <li><a href="#{request.contextPath}/ui.client/index.jsf">home</a></li>
-                        <li><a href="#{request.contextPath}/ui.client/semesters.jsf">Semesters</a></li>
-                        <li><a href="#{request.contextPath}/ui.client/markView.jsf">Mark view</a></li>
-                        <li><a href="#{request.contextPath}/ui.client/faqs.jsf">FAQs</a></li>
-                    </ul>
+                    <h:form>
+                        <ul>
+                            <li><a href="#{request.contextPath}/ui.client/index.jsf">home</a></li>
+                            <li><a href="#{request.contextPath}/ui.client/semesters.jsf">Semesters</a></li>
+                            <li><a href="#{request.contextPath}/ui.client/markView.jsf">Mark view</a></li>
+                            <li><a href="#{request.contextPath}/ui.client/faqs.jsf">FAQs</a></li>
+
+                            <li>
+                                <p:commandLink id="themeButton"
+                                               value="Theme: #{guestPreferencesBean.theme}"
+                                               type="button" style="width:100%"/>
+                                <p:menu widgetVar="themeMenu"
+                                        my="left top"
+                                        at="left bottom"
+                                        trigger="themeButton"
+                                        position="dynamic">
+                                    <p:submenu label="Themes">
+                                        <p:menuitem value="Aristo" ajax="false" styleClass="ui-widget-header ui-corner-all">
+                                            <f:setPropertyActionListener value="aristo"
+                                                                         target="#{guestPreferencesBean.theme}" />
+                                        </p:menuitem>
+                                        <p:menuitem value="ui-lightness" ajax="false">
+                                            <f:setPropertyActionListener value="ui-lightness"
+                                                                         target="#{guestPreferencesBean.theme}" />
+                                        </p:menuitem>
+                                    </p:submenu>
+                                </p:menu>
+
+                            </li>
+
+                        </ul>
+                    </h:form>
                 </div>
                 <div id="container">
                     <div id="left-col">

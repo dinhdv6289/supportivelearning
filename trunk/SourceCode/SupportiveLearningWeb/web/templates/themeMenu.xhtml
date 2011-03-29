@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <h:form>
+        <p:commandLink id="themeButton"
+                       value="Theme: #{guestPreferencesBean.theme}"
+                       type="button" style="width:100%"/>
+        <p:menu widgetVar="themeMenu"
+                my="left top"
+                at="left bottom"
+                trigger="themeButton"
+                position="dynamic">
+            <p:submenu label="Themes">
+                <p:menuitem value="Aristo" ajax="false" styleClass="ui-widget-header ui-corner-all">
+                    <f:setPropertyActionListener value="aristo"
+                                                 target="#{guestPreferencesBean.theme}" />
+                </p:menuitem>
+                <p:menuitem value="ui-lightness" ajax="false">
+                    <f:setPropertyActionListener value="ui-lightness"
+                                                 target="#{guestPreferencesBean.theme}" />
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+    </h:form>
+</ui:composition>
