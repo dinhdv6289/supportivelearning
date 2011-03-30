@@ -71,7 +71,24 @@ public class FAQDAO extends AbstractDAO<FAQ> {
 
     @Override
     public boolean delete(FAQ t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection conn = null;
+        int a = 0;
+        String sql = "{call Del_FAQById  (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall (sql);
+            cstmt.setInt(1, t.getId());
+
+            a = cstmt.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return a == 1 ? true : false;
     }
 
     @Override
