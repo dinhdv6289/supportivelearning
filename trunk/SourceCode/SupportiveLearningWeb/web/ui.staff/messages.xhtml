@@ -45,7 +45,7 @@
                     </p:dataTable>
 
                     <p:dialog widgetVar="dialog_message_reply"
-                              header="Edit"
+                              header="Reply FeedBack"
                               resizable="false"
                               width="400"
                               modal="true">
@@ -54,6 +54,7 @@
                                 <h:panelGrid id="panelGridReply" columns="2" cellpadding="4">
                                     <h:outputLabel value="Title:"/>
                                     <p:inputText value="#{feedBackAnswerManagerBean.selectedFeedBack.feedBackTitle}"/>
+                                    <h:outputLabel value="Content:"/>
                                     <p:inputTextarea value="#{feedBackAnswerManagerBean.selectedFeedBack.feedBackContent}"/>
                                     <p:commandButton actionListener="#{feedBackAnswerManagerBean.insertFeedBackAnswer}"
                                                      value="Reply"
