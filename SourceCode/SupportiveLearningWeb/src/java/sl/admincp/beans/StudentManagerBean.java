@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -52,6 +53,12 @@ public class StudentManagerBean implements Serializable {
 
     /** Creates a new instance of StudentManagerBean */
     public StudentManagerBean() {
+    }
+
+    @PostConstruct
+    public void init() {
+        getListStudentsHaveBatch();
+        getListStudentsIsNotHaveBatch();
     }
 
     public int getBatchId() {
@@ -173,7 +180,9 @@ public class StudentManagerBean implements Serializable {
 
     public ArrayList<Student> getListStudentsIsNotHaveBatch() {
         try {
-            listStudentsIsNotHaveBatch = studentDAO.getStudentsIsNotHaveBatch();
+            if (listStudentsIsNotHaveBatch.isEmpty()) {
+                listStudentsIsNotHaveBatch = studentDAO.getStudentsIsNotHaveBatch();
+            }
             return listStudentsIsNotHaveBatch;
         } catch (Exception ex) {
             Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -187,7 +196,9 @@ public class StudentManagerBean implements Serializable {
 
     public ArrayList<Student> getListStudentsHaveBatch() {
         try {
-            listStudentsHaveBatch = studentDAO.getStudentsHaveBatch();
+            if (listStudentsHaveBatch.isEmpty()) {
+                listStudentsHaveBatch = studentDAO.getStudentsHaveBatch();
+            }
             return listStudentsHaveBatch;
         } catch (Exception ex) {
             Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -258,13 +269,14 @@ public class StudentManagerBean implements Serializable {
 //        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedStudent", event.getObject());
 //        return "changeLearning.jsf?faces-redirect=true";
 //    }
-
     public String addStudentsToBatch() {
         if (selectedStudents.length > 0) {
             for (int i = 0; i < selectedStudents.length; i++) {
                 try {
                     boolean result = studentDAO.updateBatchToStudent(selectedStudents[i].getId(), selectedBatch.getId());
                     if (result) {
+                        changeListStudentsHaveBatch();
+                        changeListStudentsIsNotHaveBatch();
                         MessagesService.showMessage("Success!");
                     } else {
                         MessagesService.showMessage("failure!");
@@ -324,6 +336,8 @@ public class StudentManagerBean implements Serializable {
                 changeLearning.setStudent(selectedStudent);
                 result = studentDAO.changeLearning(changeLearning);
                 if (result > 0) {
+                    changeListStudentsHaveBatch();
+                    changeListStudentsIsNotHaveBatch();
                     MessagesService.showMessage("changeLearning Success!");
                     this.setPanelGroupChangeLearning(false);
                     this.setPanelGroupHaveBatch(true);
@@ -342,5 +356,21 @@ public class StudentManagerBean implements Serializable {
             return "changeLearning.jsf" + REDIRECT;
         }
 
+    }
+
+    private void changeListStudentsHaveBatch() {
+        try {
+            listStudentsHaveBatch = studentDAO.getStudentsHaveBatch();
+        } catch (Exception ex) {
+            Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void changeListStudentsIsNotHaveBatch() {
+        try {
+            listStudentsIsNotHaveBatch = studentDAO.getStudentsIsNotHaveBatch();
+        } catch (Exception ex) {
+            Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
