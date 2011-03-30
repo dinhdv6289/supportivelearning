@@ -10,7 +10,7 @@
 
     <ui:define name="title">Admin </ui:define>
     <ui:define name="menuFunctions">
-
+        
     </ui:define>
     <ui:define name="content">
         <h2>Contact Us</h2>
@@ -20,8 +20,8 @@
                              value="#{studentManagerBean.listStudentsHaveBatch}"
                              paginator="true"
                              rows="10"
-                             selection="#{studentManagerBean.selectedStudents}">
-                    <p:column selectionMode="multiple" />
+                             selection="#{studentManagerBean.selectedStudent}"
+                             selectionMode="single">
                     <f:facet name="header">
                         List of Students  have Batch
                     </f:facet>
@@ -57,6 +57,11 @@
                     </p:column>
 
                     <f:facet name="footer">
+                        <p:commandButton
+                            value="Change Learning"
+                            update="form_change_learning:panelGrid_change_learning"
+                            oncomplete="dialog_change_learning.show()">
+                        </p:commandButton>
                         <p:commandButton id="btn_move_to_batch"
                                          value="Move to batch"
                                          type="button" >
@@ -79,6 +84,26 @@
                         </p:menu>
                     </f:facet>
                 </p:dataTable>
+                <p:dialog widgetVar="dialog_change_learning"
+                          header="change_learning"
+                          resizable="false"
+                          width="600"
+                          showEffect="clip"
+                          hideEffect="fold">
+
+                    <h:form id="form_change_learning">
+                        <h:panelGrid columns="2" id="panelGrid_change_learning">
+                            <p:outputPanel >
+                                <h:outputLabel value="Ten sinh vien:"></h:outputLabel>
+                                <p:inputText value="#{studentManagerBean.selectedStudent.name}"></p:inputText>
+                                <h:outputLabel value="Reason"></h:outputLabel>
+                                <p:inputText value="#{studentManagerBean.changeLearning.reason}"></p:inputText>
+                                <p:commandButton value="Test" action="tet" oncomplete="dialog_change_learning.hide()"/>
+                            </p:outputPanel>
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+
             </h:form>
         </h:body>
     </ui:define>
