@@ -6,8 +6,6 @@ package sl.admincp.beans;
 
 import el.dao.StaffDAO;
 import el.dao.StudentDAO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
