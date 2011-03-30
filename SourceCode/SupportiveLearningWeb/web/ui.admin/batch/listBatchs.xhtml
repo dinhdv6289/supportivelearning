@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <p:dataTable var="batch"
+                     value="#{batchManagerBean.listBatchs}"
+                     paginator="true"
+                     rows="10"
+                     selection="#{studentManagerBean.selectedBatch}"
+                     selectionMode="single"
+                     rowSelectListener="#{batchManagerBean.onRequestPanelGripStudentsInBatch(true)}">
+            <f:facet name="header">
+                Batchs
+            </f:facet>
+            <p:column headerText="Name">
+                <h:outputText value="#{batch.name}" />
+            </p:column>
+
+            <f:facet name="footer">
+                <p:commandButton id="btn_batch"
+                                 image="ui-icon ui-icon-search"
+                                 value="View"
+                                 type="button">
+                </p:commandButton>
+            </f:facet>
+        </p:dataTable>
+    </h:form>
+</ui:composition>
