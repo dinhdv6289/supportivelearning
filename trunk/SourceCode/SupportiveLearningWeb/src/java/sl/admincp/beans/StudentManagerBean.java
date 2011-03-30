@@ -39,12 +39,15 @@ public class StudentManagerBean implements Serializable {
     private AccountDAO accountDAO = new AccountDAO();
     private Student[] selectedStudents;
     private Batch selectedBatch;
-    private final String REDIRECT = "?faces-redirect=true";
+    private static final String REDIRECT = "?faces-redirect=true";
+    private static final String THISPAGE = "studentManager.jsf";
     private ArrayList<Student> listStudentsIsNotHaveBatch = new ArrayList<Student>();
     private ArrayList<Student> listStudentsHaveBatch = new ArrayList<Student>();
-    private ChangeLearning changeLearning;
+    private ArrayList<Student> listStudentsInBatch = new ArrayList<Student>();
+    private ChangeLearning changeLearning = new ChangeLearning();
     private static boolean panelGroupHaveNotBatch = true;
     private static boolean panelGroupHaveBatch = false;
+    private static boolean panelGroupChangeLearning = false;
     private int batchId;
 
     /** Creates a new instance of StudentManagerBean */
@@ -139,15 +142,33 @@ public class StudentManagerBean implements Serializable {
         StudentManagerBean.panelGroupHaveNotBatch = panelGroupHaveNotBatch;
     }
 
-    public void onRequestPanelGroupHaveNotBatch(boolean panelGroupHaveNotBatch) {
+    public String onRequestPanelGroupHaveNotBatch(boolean panelGroupHaveNotBatch) {
         StudentManagerBean.panelGroupHaveNotBatch = panelGroupHaveNotBatch;
         StudentManagerBean.panelGroupHaveBatch = false;
-
+        this.setPanelGroupChangeLearning(false);
+        return THISPAGE + REDIRECT;
     }
 
-    public void onRequestPanelGroupHaveBatch(boolean panelGroupHaveBatch) {
+    public String onRequestPanelGroupHaveBatch(boolean panelGroupHaveBatch) {
         StudentManagerBean.panelGroupHaveBatch = panelGroupHaveBatch;
         StudentManagerBean.panelGroupHaveNotBatch = false;
+        this.setPanelGroupChangeLearning(false);
+        return THISPAGE + REDIRECT;
+    }
+
+    public boolean isPanelGroupChangeLearning() {
+        return panelGroupChangeLearning;
+    }
+
+    public void setPanelGroupChangeLearning(boolean panelGroupChangeLearning) {
+        StudentManagerBean.panelGroupChangeLearning = panelGroupChangeLearning;
+    }
+
+    public String onRequestPanelGroupChangeLearning(boolean flag) {
+        this.setPanelGroupChangeLearning(flag);
+        this.setPanelGroupHaveBatch(false);
+        this.setPanelGroupHaveNotBatch(false);
+        return THISPAGE + REDIRECT;
     }
 
     public ArrayList<Student> getListStudentsIsNotHaveBatch() {
@@ -176,6 +197,19 @@ public class StudentManagerBean implements Serializable {
 
     public void setListStudentsHaveBatch(ArrayList<Student> listStudentsHaveBatch) {
         this.listStudentsHaveBatch = listStudentsHaveBatch;
+    }
+
+    public ArrayList<Student> getListStudentsInBatch() {
+        try {
+            return listStudentsInBatch = studentDAO.getStudentsByBatch(selectedBatch);
+        } catch (Exception ex) {
+            Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public void setListStudentsInBatch(ArrayList<Student> listStudentsInBatch) {
+        this.listStudentsInBatch = listStudentsInBatch;
     }
 
     public String insertStudent() {
@@ -220,10 +254,10 @@ public class StudentManagerBean implements Serializable {
         }
     }
 
-    public String onRowSelectNavigate(SelectEvent event) {
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedStudent", event.getObject());
-        return "changeLearning?faces-redirect=true";
-    }
+//    public String onRowSelectNavigate(SelectEvent event) {
+//        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedStudent", event.getObject());
+//        return "changeLearning.jsf?faces-redirect=true";
+//    }
 
     public String addStudentsToBatch() {
         if (selectedStudents.length > 0) {
@@ -281,16 +315,18 @@ public class StudentManagerBean implements Serializable {
 //    }
     public String changeLearningForStudent() {
         int result = 0;
-        Batch bat = new Batch();
-        bat.setId(batchId);
-        changeLearning.setBatch(bat);
+//        Batch bat = new Batch();
+//        bat.setId(batchId);
+        changeLearning.setBatch(selectedBatch);
         try {
-            boolean resultUpdate = studentDAO.updateBatchToStudent(selectedStudent.getId(), batchId);
+            boolean resultUpdate = studentDAO.updateBatchToStudent(selectedStudent.getId(), selectedBatch.getId());
             if (resultUpdate) {
                 changeLearning.setStudent(selectedStudent);
                 result = studentDAO.changeLearning(changeLearning);
                 if (result > 0) {
                     MessagesService.showMessage("changeLearning Success!");
+                    this.setPanelGroupChangeLearning(false);
+                    this.setPanelGroupHaveBatch(true);
                     return "studentManager.jsf" + REDIRECT;
                 } else {
                     MessagesService.showMessage("changeLearning  failure!");
