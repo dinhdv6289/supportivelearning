@@ -16,33 +16,36 @@
                 <h:form>
                     <p>
                         <p:commandLink ajax="false"
-                                       value="Students Have not Batch"
-                                       action="#{studentManagerBean.onRequestPanelGroupHaveNotBatch(true)}"
-                                       update="panelGroupHaveNotBatch">
-                        </p:commandLink>
-                    </p>
-                    <p>
-                        <p:commandLink ajax="false"
-                                       value="Students Have Batch"
-                                       action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}"
-                                       update="panelGroupHaveBatch">
+                                       value="New batch"
+                                       action="#{batchManagerBean.onRequestPanelGripNewBatch(true)}">
                         </p:commandLink>
                     </p>
                 </h:form>
             </div>
         </div>
+        <!-- Login Block Ends -->
+        <!-- Payment Mode Block Starts -->
+        <div class="sblock1">
+            <div class="sblock1-top">Payment Mode</div>
+            <div class="sblock1-bottom">
+                <p class="center"><a href="#"><img width="153" height="78" alt="Paypal" src="images/paypal.jpg"/></a></p>
+            </div>
+        </div>
+        <!-- Payment Mode Block Ends -->
     </ui:define>
     <ui:define name="content">
-        <h:panelGroup rendered="#{studentManagerBean.panelGroupHaveNotBatch}" id="panelGroupHaveNotBatch" >
-            <ui:include src="student/studentsIsHaveNotBatch.xhtml"/>
+        
+        <h:panelGroup rendered="#{batchManagerBean.panelGroupBatchs}" id="panelGroupBatchs" >
+            <ui:include src="batch/listBatchs.xhtml"/>
         </h:panelGroup>
 
-        <h:panelGroup rendered="#{studentManagerBean.panelGroupHaveBatch}" id="panelGroupHaveBatch" >
-            <ui:include src="student/studentsHaveBatch.xhtml"/>
+
+        <h:panelGroup rendered="#{batchManagerBean.panelGroupStudentInBatch}" id="panelGroupStudentInBatch" >
+            <ui:include src="batch/listStudentsInBatch.xhtml"/>
         </h:panelGroup>
 
-        <h:panelGroup rendered="#{studentManagerBean.panelGroupChangeLearning}" id="panelGroupChangeLearning">
-            <ui:include src="student/changeLearning.xhtml"/>
+        <h:panelGroup rendered="#{batchManagerBean.panelGroupNewBatch}" id="panelGroupNewBatch" >
+            <ui:include src="batch/newBatch.xhtml"/>
         </h:panelGroup>
     </ui:define>
 </ui:composition>

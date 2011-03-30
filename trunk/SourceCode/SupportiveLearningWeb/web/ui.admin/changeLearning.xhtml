@@ -49,13 +49,26 @@
                     </f:facet>
                     <h:panelGrid id="display" columns="2" cellpadding="4">
                         <h:outputLabel value="Batch:"></h:outputLabel>
-                        <h:selectOneMenu value="#{studentManagerBean.batchId}"
-                                         title="select any one in this menu">
-                            <c:forEach var="batchItem" items="${batchManagerBean.listBatchs}" >
-                                <f:selectItem itemLabel="${batchItem.name}" itemValue="${batchItem.id}" />
-                            </c:forEach>
-                        </h:selectOneMenu>
-
+                        <p:commandButton id="btn_batch"
+                                         value="Move to batch"
+                                         type="button" >
+                        </p:commandButton>
+                        <p:menu widgetVar="themeMenu"
+                                my="left top"
+                                at="left bottom"
+                                trigger="btn_batch"
+                                position="dynamic"
+                                styleClass="themeMenu">
+                            <p:submenu label="Batchs">
+                                <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
+                                    <p:menuitem value="#{item.name}" ajax="false">
+                                        <f:setPropertyActionListener value="#{item}"
+                                                                     target="#{studentManagerBean.selectedBatch}">
+                                        </f:setPropertyActionListener>
+                                    </p:menuitem>
+                                </c:forEach>
+                            </p:submenu>
+                        </p:menu>
                         <h:outputText value="Reason:" />
                         <p:inputTextarea value="#{studentManagerBean.changeLearning.reason}"></p:inputTextarea>
                         <p:commandButton ajax="false"

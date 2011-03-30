@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <p:commandLink value="Back to Batchs"
+                       action="#{batchManagerBean.onRequestPanelGroupNewBatch(true)}" >
+        </p:commandLink>
+        <p:panel header="New Batch Form">
+            <p:ajaxStatus style="width:16px;height:16px;">
+                <f:facet name="start">
+                    <h:graphicImage value="../images/ajaxloading.gif" />
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+            <p:messages />
+            <h:panelGrid columns="3">
+                <h:outputLabel for="batchName" value="Batch name: *"/>
+                <p:inputText id="batchName"
+                             value="#{batchManagerBean.batch.name}"
+                             required="true" label="Batch name">
+                    <f:validateLength minimum="2" />
+                </p:inputText>
+                <p:message for="batchName" />
+                <h:outputLabel for="semester" value="Semester: *"/>
+                <h:selectOneMenu id="semester" value="#{semesterManagerBean.semester}">
+                    <f:selectItem itemLabel="Select Semester" itemValue="" />
+                    <f:selectItems value="#{semesterManagerBean.listSemesters}" />
+                </h:selectOneMenu>
+                <p:message for="semester" />
+                <p:commandButton  ajax="false"
+                                  action="Test"
+                                  value="Save">
+                </p:commandButton>
+
+            </h:panelGrid>
+        </p:panel>
+    </h:form>
+</ui:composition>
