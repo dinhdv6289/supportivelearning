@@ -37,7 +37,40 @@
         <!-- Payment Mode Block Ends -->
     </ui:define>
     <ui:define name="content">
-        Thong ke
+        <div class="clearfix">
+            <!-- Basic Plan Starts -->
+            <div class="mblock1">
+                <h2>Students Statistics </h2>
+                <ul>
+                    <li>Total students: #{statisticsBean.totalStudent}</li>
+                    <li>Students haven't Batch: #{statisticsBean.studentNotBatch}</li>
+                    <li>Students have Batch: #{statisticsBean.studentInBatch}</li>
+                    <li>Students are Lock: #{statisticsBean.studentisDrop}</li>
+                </ul>
+            </div>
+            <!-- Basic Plan Ends -->
+            <!-- Pro Plan Starts -->
+            <div class="mblock1 orange">
+                <h2>Staff Statistics </h2>
+                <ul>
+                    <li>Total Staff: #{statisticsBean.totalStaff}</li>
+                    <li>Staff haven't Batch: #{statisticsBean.staffNotBatch}</li>
+                    <li>Staff have Batch: #{statisticsBean.staffInBatch}</li>
+                </ul>
+            </div>
+            <!-- Pro Plan Ends -->
+            <!-- Pro Plus Plan Starts -->
+            <div class="mblock1 nomargin">
+                <h2>PRO PLUS PLAN</h2>
+                <ul>
+                    <li>250 MB SPACE</li>
+                    <li>5 GB DATA TRANSFER</li>
+                    <li>5 POP - MAILS</li>
+                    <li>C - CONTROL PANEL</li>
+                </ul>
+            </div>
+            <!-- Pro Plus Plan Ends -->
+        </div>
     </ui:define>
 </ui:composition>
 
