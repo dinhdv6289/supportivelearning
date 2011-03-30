@@ -11,19 +11,22 @@
     <ui:define name="title">Admin </ui:define>
     <ui:define name="menuFunctions">
         <div class="sblock1">
-            <div class="sblock1-top">Clients Login Panel</div>
+            <div class="sblock1-top">Functions</div>
             <div class="sblock1-bottom">
-                <!-- Login Form Starts -->
-                <form method="get" action="#">
+                <h:form>
                     <p>
-								Client Id<br/><input type="text" class="login-input"/>
+                        <p:commandLink ajax="false"
+                                       value="Students Have not Batch"
+                                       action="#{studentManagerBean.onRequestPanelGroupHaveNotBatch(true)}">
+                        </p:commandLink>
                     </p>
                     <p>
-								Password<br/><input type="text" class="login-input"/>
+                        <p:commandLink ajax="false"
+                                       value="Students Have Batch"
+                                       action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}">
+                        </p:commandLink>
                     </p>
-                    <input type="button" class="login-btn" value=""/>
-                </form>
-                <!-- Login Form Ends -->
+                </h:form>
             </div>
         </div>
         <!-- Login Block Ends -->
@@ -37,79 +40,145 @@
         <!-- Payment Mode Block Ends -->
     </ui:define>
     <ui:define name="content">
-        <h:form>
-            <p:dataTable var="student"
-                         value="#{studentManagerBean.listStudentsIsNotHaveBatch}"
-                         paginator="true"
-                         rows="10"
-                         selection="#{studentManagerBean.selectedStudents}">
-                <f:facet name="header">
-                    <p:commandButton  ajax="false"
-                                      value="Test"
-                                      action="Test">
+        <h:panelGroup rendered="#{studentManagerBean.panelGroupHaveNotBatch}" id="panelGroupHaveNotBatch" >
+            <h:form>
+                <p:dataTable var="student"
+                             value="#{studentManagerBean.listStudentsIsNotHaveBatch}"
+                             paginator="true"
+                             rows="10"
+                             selection="#{studentManagerBean.selectedStudents}">
+                    <p:column selectionMode="multiple" />
+                    <f:facet name="header">
+                        List of Students not have Batch
+                    </f:facet>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{student.name}" />
+                    </p:column>
 
-                    </p:commandButton>
-                    <p:commandButton ajax="false" value="Test" action="Test"></p:commandButton>
-                    <p:commandButton ajax="false" value="Test" action="Test"></p:commandButton>
-                    <p:commandButton ajax="false" value="Test" action="Test"></p:commandButton>
-                    <p:commandButton ajax="false" value="Test" action="Test"></p:commandButton>
-                </f:facet>
+                    <p:column headerText="BirthDay">
+                        <h:outputText value="#{student.birthDay}" />
+                    </p:column>
 
-                <p:column selectionMode="multiple" />
+                    <p:column headerText="Gender">
+                        <h:outputText value="#{student.gender}" />
+                    </p:column>
 
-                <p:column headerText="Name">
-                    <h:outputText value="#{student.name}" />
-                </p:column>
+                    <p:column headerText="Phone">
+                        <h:outputText value="#{student.phone}" />
+                    </p:column>
 
-                <p:column headerText="BirthDay">
-                    <h:outputText value="#{student.birthDay}" />
-                </p:column>
+                    <p:column headerText="Email">
+                        <h:outputText value="#{student.email}" />
+                    </p:column>
 
-                <p:column headerText="Gender">
-                    <h:outputText value="#{student.gender}" />
-                </p:column>
+                    <p:column headerText="Address">
+                        <h:outputText value="#{student.address}" />
+                    </p:column>
+                    <p:column headerText="Date">
+                        <h:outputText value="#{student.dateCreate}" />
+                    </p:column>
 
-                <p:column headerText="Phone">
-                    <h:outputText value="#{student.phone}" />
-                </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="btn_move_to_batch"
+                                         value="Move to batch"
+                                         type="button" >
+                        </p:commandButton>
+                        <p:menu widgetVar="themeMenu"
+                                my="left top"
+                                at="left bottom"
+                                trigger="btn_move_to_batch"
+                                position="dynamic"
+                                styleClass="themeMenu">
+                            <p:submenu label="Batchs">
+                                <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
+                                    <p:menuitem value="#{item.name}" ajax="false" action="#{studentManagerBean.addStudentsToBatch}">
+                                        <f:setPropertyActionListener value="#{item}"
+                                                                     target="#{studentManagerBean.selectedBatch}">
+                                        </f:setPropertyActionListener>
+                                    </p:menuitem>
+                                </c:forEach>
+                            </p:submenu>
+                        </p:menu>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </h:panelGroup>
 
-                <p:column headerText="Email">
-                    <h:outputText value="#{student.email}" />
-                </p:column>
+        <h:panelGroup rendered="#{studentManagerBean.panelGroupHaveBatch}" id="panelGroupHaveBatch" >
+            <h:form>
+                <p:dataTable var="student"
+                             value="#{studentManagerBean.listStudentsHaveBatch}"
+                             paginator="true"
+                             rows="10"
+                             selection="#{studentManagerBean.selectedStudent}"
+                             selectionMode="single"
+                             rowSelectListener="#{studentManagerBean.onRowSelectNavigate}"
+                             style="margin-top:25px"
+                             dblClickSelect="true">
+                    <f:facet name="header">
+                        List of Students  have Batch
+                    </f:facet>
+                    <p:column headerText="Batch">
+                        <h:outputText value="#{student.batch.name}" />
+                    </p:column>
 
-                <p:column headerText="Address">
-                    <h:outputText value="#{student.address}" />
-                </p:column>
-                <p:column headerText="Date">
-                    <h:outputText value="#{student.dateCreate}" />
-                </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{student.name}" />
+                    </p:column>
 
-                <f:facet name="footer">
-                    <p:commandButton id="btn_move_to_batch"
-                                     value="Move to batch"
-                                     type="button" >
-                    </p:commandButton>
-                    <p:menu widgetVar="themeMenu"
-                            my="left top"
-                            at="left bottom"
-                            trigger="btn_move_to_batch"
-                            position="dynamic"
-                            styleClass="themeMenu">
-                        <p:submenu label="Batchs">
-                            <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
-                                <p:menuitem value="#{item.name}" ajax="false">
-                                    <f:setPropertyActionListener value="#{item}"
-                                                                 target="#{batchManagerBean.selectedBatch}">
-                                    </f:setPropertyActionListener>
-                                </p:menuitem>
-                            </c:forEach>
-                        </p:submenu>
-                    </p:menu>
-                    <p:commandButton ajax="false" value="Add " image="ui-icon ui-icon-search"
-                                     action="addStudent.jsf?faces-redirect=true"/>
-                </f:facet>
-            </p:dataTable>
-        </h:form>
+                    <p:column headerText="BirthDay">
+                        <h:outputText value="#{student.birthDay}" />
+                    </p:column>
+
+                    <p:column headerText="Gender">
+                        <h:outputText value="#{student.gender}" />
+                    </p:column>
+
+                    <p:column headerText="Phone">
+                        <h:outputText value="#{student.phone}" />
+                    </p:column>
+
+                    <p:column headerText="Email">
+                        <h:outputText value="#{student.email}" />
+                    </p:column>
+
+                    <p:column headerText="Address">
+                        <h:outputText value="#{student.address}" />
+                    </p:column>
+                    <p:column headerText="Date">
+                        <h:outputText value="#{student.dateCreate}" />
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <p:commandButton
+                            value="Change Learning"
+                            update="form_change_learning:panelGrid_change_learning"
+                            oncomplete="dialog_change_learning.show()">
+                        </p:commandButton>
+                        <p:commandButton id="btn_move_to_batch"
+                                         value="Move to batch"
+                                         type="button" >
+                        </p:commandButton>
+                        <p:menu widgetVar="themeMenu"
+                                my="left top"
+                                at="left bottom"
+                                trigger="btn_move_to_batch"
+                                position="dynamic"
+                                styleClass="themeMenu">
+                            <p:submenu label="Batchs">
+                                <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
+                                    <p:menuitem value="#{item.name}" ajax="false" action="#{studentManagerBean.changeLearning}">
+                                        <f:setPropertyActionListener value="#{item}"
+                                                                     target="#{studentManagerBean.selectedBatch}">
+                                        </f:setPropertyActionListener>
+                                    </p:menuitem>
+                                </c:forEach>
+                            </p:submenu>
+                        </p:menu>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </h:panelGroup>
     </ui:define>
 </ui:composition>
 
