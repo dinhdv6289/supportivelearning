@@ -13,7 +13,7 @@
         <h2>Contact Us</h2>
         <h:body>
             <h:form>
-                <c:forEach items="${}" var="items">
+                <c:forEach items="${fAQManagerBean.listFAQ}" var="items">
                     <h:panelGrid id="panelGrid_add">
                         <h:outputLabel value="Question:"></h:outputLabel>
                         <p:inputText id="question" value="#{items.fag.question}"></p:inputText>
