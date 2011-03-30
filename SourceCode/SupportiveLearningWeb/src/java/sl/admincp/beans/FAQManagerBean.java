@@ -4,10 +4,15 @@
  */
 package sl.admincp.beans;
 
+import el.dao.FAQDAO;
 import el.model.FAQ;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -17,33 +22,70 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class FAQManagerBean implements Serializable {
 
-    private FAQ fag;
+    private ArrayList<FAQ> listFAQ;
+    private FAQ faq;
+    private FAQDAO faqDAO = new FAQDAO();   
+    private FAQ selectedFAQ = new FAQ();
 
     /** Creates a new instance of FAQManagerBean */
     public FAQManagerBean() {
-        fag = new FAQ();
+        faq = new FAQ();
     }
 
-    public FAQ getFag() {
-        return fag;
+    public FAQ getFaq() {
+        return faq;
     }
 
-    public void setFag(FAQ fag) {
-        this.fag = fag;
+    public void setFaq(FAQ faq) {
+        this.faq = faq;
     }
 
-    public String insert() {
-        //trycatch
-        return null;
+    public String insert() throws Exception {
+        try{
+            faqDAO.insert(faq);
+                return "listFAQs";
+        }catch(Exception ex){
+            Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     public String update() {
-        //trycatch
-        return null;
+        try {
+            if (faqDAO.update(selectedFAQ)) {
+                return "listStudent";
+            }
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
-    public String delete() {
+    public void delete(ActionEvent event) {
+        try {
+            faqDAO.delete(faq);
+        } catch (Exception ex) {
+            Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-        return null;
+    /**
+     * @return the listFAQ
+     */
+    public ArrayList<FAQ> getListFAQ() {
+        try {
+            return listFAQ = faqDAO.list();
+        } catch (Exception ex) {
+            Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    /**
+     * @param listFAQ the listFAQ to set
+     */
+    public void setListFAQ(ArrayList<FAQ> listFAQ) {
+        this.listFAQ = listFAQ;
     }
 }
