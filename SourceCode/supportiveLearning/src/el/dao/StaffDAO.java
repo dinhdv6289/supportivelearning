@@ -121,7 +121,7 @@ public class StaffDAO extends AbstractDAO<Staff> {
                 Role role = roleDAO.getObject(roleSearch);
                 Staff staff = new Staff();
                 staff.setId(rsstudents.getInt("StaffId"));
-                staff.setName(rsstudents.getString("StaffName"));
+                staff.setName(rsstudents.getString("FullName"));
                 staff.setUserName(rsstudents.getString("UserName"));
                 staff.setPassword(rsstudents.getString("Password"));
                 staff.setDateCreate(rsstudents.getDate("DateCreation"));
