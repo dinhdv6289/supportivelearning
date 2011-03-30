@@ -258,7 +258,7 @@ AS BEGIN
 	SELECT * FROM Account
 	WHERE AccountId = @AccountId
 END
-
+go
 
 
 CREATE PROCEDURE Ins_StudentWork
@@ -270,7 +270,7 @@ AS BEGIN
      VALUES (@StudentId,@AssignmentId,@FileUpload) 
   END 
 
-
+go
 
 CREATE  PROCEDURE Sel_BatchsOfStaff
 @StaffId int
@@ -282,7 +282,7 @@ FROM         Batch INNER JOIN
 
 where StaffAndBatch.StaffId = @StaffId
 END
-
+go
 
 CREATE  PROCEDURE Sel_StaffByAccountId
 @AccountId	int 
@@ -291,7 +291,7 @@ AS BEGIN
 	 FROM Staff inner join Account on Staff.AccountId = Account.AccountId
 	 WHERE Account.AccountId=@AccountId 
   END 
-
+go
 
 CREATE PROCEDURE Sel_StudentByAssignmentId
 @AssignmentId int
@@ -300,11 +300,61 @@ SELECT     Student.StudentId, Student.RollNumber, Student.AccountId, Student.Bat
                       StudentWork.Mark, StudentWork.DateUpload
 FROM         Student INNER JOIN
                       StudentWork ON Student.StudentId = StudentWork.StudentId
-WHERE StudentWork.AssignmentId = @AssignmentId
+WHERE StudentWork.AssignmentId @AssignmentId
 END
 
 
-select * from dbo.Staff
+---------------------------------------Proc Batch
+go
+CREATE PROCEDURE Sel_StudentForAddToBatch
+AS BEGIN
+SELECT     Account.AccountId, Account.RoleId, Account.FullName, Account.BirthDay, Account.Gender, Account.Phone, Account.Email, Account.Address, Student.StudentId, 
+                      Student.RollNumber,  Account.DateCreation,Student.BatchId
+FROM         Account INNER JOIN
+                      Student ON Account.AccountId = Student.AccountId
+
+where Student.BatchId IS NULL
+order by Account.DateCreation desc
+end
+go
+
+
+CREATE PROCEDURE Sel_AllBatch
+AS BEGIN
+select * from Batch
+END
+
+go
+CREATE PROCEDURE Sel_AllStudentHaveBatch
+AS BEGIN
+SELECT     Account.AccountId, Account.RoleId, Account.FullName, Account.BirthDay, Account.Gender, Account.Phone, Account.Email, Account.Address, Student.StudentId, 
+                      Student.RollNumber,  Account.DateCreation,Student.BatchId
+FROM         Account INNER JOIN
+                      Student ON Account.AccountId = Student.AccountId
+
+where Student.BatchId is not NULL
+order by Account.DateCreation desc
+end
+
+go
+
+CREATE PROCEDURE Upd_BatchToStudent
+@StudentId int,
+@BatchId int
+AS BEGIN 
+     UPDATE Student SET 
+	BatchId 	 = @BatchId
+    WHERE StudentId=@StudentId 
+  END 
+GO
+
+---------------------------------------Proc Batch
+
+
+
+
+
+select * from StudentWork
 
 select * from Account
 
