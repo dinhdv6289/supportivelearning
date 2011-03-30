@@ -156,6 +156,18 @@ create table FeedBackAnswer
 	FeedBackAnswer ntext,
 	DateCreation datetime default(getdate())
 )
+GO
+create table Changeleaning
+(
+	ChangeleaningId INT IDENTITY(1,1) PRIMARY KEY,
+	StudentId INT REFERENCES Student(StudentId) NOT NULL,
+	BatchId   INT REFERENCES Batch(BatchId) NOT NULL,
+	Reason    ntext,
+    DateChangeLearning datetime default(getdate())
+)
+
+
+
 --GO
 --create table Comment
 --(
