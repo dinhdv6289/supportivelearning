@@ -237,7 +237,7 @@ WHERE Student.BatchId = @BatchId
 
 
 
-
+GO
 
 CREATE PROCEDURE Sel_StudentByAccountId
 @AccountId		int
