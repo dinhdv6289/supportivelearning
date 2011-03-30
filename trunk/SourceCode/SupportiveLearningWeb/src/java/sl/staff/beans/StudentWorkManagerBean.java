@@ -25,15 +25,15 @@ public class StudentWorkManagerBean implements Serializable {
 
     private StudentWork studentWork = new StudentWork();
     private StudentWork selectedStudentWork = new StudentWork();
-    private ArrayList<StudentWork> listStudentWorks = new  ArrayList<StudentWork>();
+    private ArrayList<StudentWork> listStudentWorks = new ArrayList<StudentWork>();
     private StudentWorkDAO studentWorkDAO = new StudentWorkDAO();
-    private  Assignment assignment = new Assignment();
+    private static Assignment assignment;
     private static boolean haveStudentWork = false;
     private static boolean notHaveStudentWork = false;
 
     /** Creates a new instance of StudentWorkManagerBean */
     public StudentWorkManagerBean() {
-        loadListStudentWorks();
+        //loadListStudentWorks();
     }
 
     public boolean isHaveStudentWork() {
@@ -53,6 +53,21 @@ public class StudentWorkManagerBean implements Serializable {
     }
 
     public ArrayList<StudentWork> getListStudentWorks() {
+        if (assignment.getId() > 0) {
+            try {
+                this.listStudentWorks = studentWorkDAO.getAllStudentByAssignmentId(assignment.getId());
+                if (listStudentWorks.size() > 0) {
+                    haveStudentWork = true;
+                    notHaveStudentWork = false;
+                } else {
+                    haveStudentWork = false;
+                    notHaveStudentWork = true;
+                }
+
+            } catch (Exception ex) {
+                Logger.getLogger(StudentWorkManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return listStudentWorks;
     }
 
@@ -81,26 +96,10 @@ public class StudentWorkManagerBean implements Serializable {
     }
 
     public void setAssignment(Assignment assignment) {
-        this.assignment = assignment;
+        StudentWorkManagerBean.assignment = assignment;
     }
 
-    private void loadListStudentWorks() {
-        if (assignment.getId() > 0) {
-            try {
-                this.listStudentWorks = studentWorkDAO.getAllStudentByAssignmentId(assignment.getId());
-                if (listStudentWorks.size() > 0) {
-                    haveStudentWork = true;
-                    notHaveStudentWork = false;
-                } else {
-                    haveStudentWork = false;
-                    notHaveStudentWork = true;
-                }
 
-            } catch (Exception ex) {
-                Logger.getLogger(StudentWorkManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
 
     public String updateMark() {
         try {
