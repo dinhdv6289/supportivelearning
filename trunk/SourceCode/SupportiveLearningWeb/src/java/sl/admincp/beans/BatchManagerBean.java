@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -24,7 +25,7 @@ import org.primefaces.event.SelectEvent;
 public class BatchManagerBean implements Serializable {
 
     private Batch batch = new Batch();
-    private ArrayList<Batch> listBatchs;
+    private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
     private BatchDAO batchDAO = new BatchDAO();
     private Batch selectedBatch;
     private static boolean panelGripNewBatch;
@@ -33,13 +34,16 @@ public class BatchManagerBean implements Serializable {
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "batchManager.jsf";
 
-    
-
     /** Creates a new instance of BatchManagerBean */
     public BatchManagerBean() {
         panelGripNewBatch = false;
         panelGripBatchs = true;
         panelGripStudentInBatch = false;
+    }
+
+    @PostConstruct
+    public void init() {
+        getListBatchs();
     }
 
     public Batch getBatch() {
@@ -105,7 +109,10 @@ public class BatchManagerBean implements Serializable {
 
     public ArrayList<Batch> getListBatchs() {
         try {
-            return listBatchs = batchDAO.list();
+            if (listBatchs.isEmpty()) {
+                listBatchs = batchDAO.list();
+            }
+            return listBatchs;
         } catch (Exception ex) {
             Logger.getLogger(BatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
