@@ -31,7 +31,7 @@ public class AssignmentManagerBean implements Serializable {
     private String redirect = "?faces-redirect=true";
     private static boolean haveAssignment = false;
     private static boolean notHaveAssignment = false;
-    private Assignment assignmentDetails = new Assignment();
+    private static Assignment assignmentDetails = new Assignment();
 
     /** Creates a new instance of AssignmentManagerBean */
     public AssignmentManagerBean() {
@@ -42,7 +42,7 @@ public class AssignmentManagerBean implements Serializable {
     }
 
     public void setAssignmentDetails(Assignment assignmentDetails) {
-        this.assignmentDetails = assignmentDetails;
+        AssignmentManagerBean.assignmentDetails = assignmentDetails;
     }
 
     public boolean isHaveAssignment() {
@@ -73,8 +73,8 @@ public class AssignmentManagerBean implements Serializable {
         return batchDetailsToStaff;
     }
 
-    public void setBatchDetailsToStaff(Batch batchDetailsToStaff) {
-        this.batchDetailsToStaff = batchDetailsToStaff;
+    public void setBatchDetailsToStaff(Batch baatchDetailsToStaff) {
+        this.batchDetailsToStaff = baatchDetailsToStaff;
     }
 
     public ArrayList<Assignment> getListAssignmentsUploadByStaff() {
@@ -86,7 +86,7 @@ public class AssignmentManagerBean implements Serializable {
     }
 
     public String onRequestAssignment(Assignment assignment) {
-        this.assignmentDetails = assignment;
+        AssignmentManagerBean.assignmentDetails = assignment;
         return "assignmentDetails" + redirect;
     }
 

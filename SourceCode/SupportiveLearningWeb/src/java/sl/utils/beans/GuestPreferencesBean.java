@@ -21,7 +21,7 @@ public class GuestPreferencesBean implements Serializable {
     /** Creates a new instance of GuestPreferencesBean */
     public GuestPreferencesBean() {
     }
-    private String theme = "aristo"; //default
+    private String theme = "ui-lightness"; //default
 
     public String getTheme() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
