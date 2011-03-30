@@ -52,7 +52,7 @@ public class FAQManagerBean implements Serializable {
 
     public String update() {
         try {
-            if (faqDAO.update(selectedFAQ)) {
+            if (faqDAO.update(getSelectedFAQ())) {
                 return "listStudent";
             }
             return null;
@@ -87,5 +87,19 @@ public class FAQManagerBean implements Serializable {
      */
     public void setListFAQ(ArrayList<FAQ> listFAQ) {
         this.listFAQ = listFAQ;
+    }
+
+    /**
+     * @return the selectedFAQ
+     */
+    public FAQ getSelectedFAQ() {
+        return selectedFAQ;
+    }
+
+    /**
+     * @param selectedFAQ the selectedFAQ to set
+     */
+    public void setSelectedFAQ(FAQ selectedFAQ) {
+        this.selectedFAQ = selectedFAQ;
     }
 }
