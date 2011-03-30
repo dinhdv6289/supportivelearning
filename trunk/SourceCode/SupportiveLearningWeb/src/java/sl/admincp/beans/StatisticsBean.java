@@ -22,6 +22,7 @@ public class StatisticsBean {
     }
     private StudentDAO studentDAO = new StudentDAO();
     private StaffDAO staffDAO = new StaffDAO();
+    
     private int totalStudent;
     private int studentNotBatch;
     private int studentInBatch;
