@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import sl.utils.beans.EachSession;
@@ -34,6 +35,10 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     /** Creates a new instance of FeedBackAnswerManagerBean */
     public FeedBackAnswerManagerBean() {
+    }
+
+    @PostConstruct
+    public void init() {
         loadListFeedBacks();
     }
 
@@ -75,7 +80,9 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     private void loadListFeedBacks() {
         try {
-            this.listFeedBacks = feedBackDAO.list();
+            if (listFeedBacks.isEmpty()) {
+                this.listFeedBacks = feedBackDAO.list();
+            }
         } catch (Exception ex) {
             Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
