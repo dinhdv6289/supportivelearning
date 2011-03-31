@@ -1,4 +1,4 @@
-<<<<<<< .mine
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -8,27 +8,6 @@ package sl.admincp.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-
-/**
- *
- * @author MrPham
- */
-@ManagedBean
-@RequestScoped
-public class NewsManagedBean {
-
-    /** Creates a new instance of NewsManagedBean */
-    public NewsManagedBean() {
-    }
-
-}
-=======
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package sl.admincp.beans;
-
 import el.dao.NewsDAO;
 import el.model.News;
 import el.model.Student;
@@ -162,7 +141,7 @@ public class NewsManagedBean implements Serializable {
 
     public void handleFileUpload(FileUploadEvent event) {
         ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
-        File result = new File(extContext.getRealPath("/images") + "//" + event.getFile().getFileName());
+        File result = new File(extContext.getRealPath("/images/news") + "//" + event.getFile().getFileName());
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(result);
             byte[] buffer = new byte[BUFFER_SIZE];
@@ -203,4 +182,4 @@ public class NewsManagedBean implements Serializable {
 //        return result;
 //    }
 }
->>>>>>> .r280
+

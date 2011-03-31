@@ -44,13 +44,13 @@ public class StudentManagerBean implements Serializable {
     private static final String THISPAGE = "studentManager.jsf";
     private ArrayList<Student> listStudentsIsNotHaveBatch = new ArrayList<Student>();
     private ArrayList<Student> listStudentsHaveBatch = new ArrayList<Student>();
+    private ArrayList<Student> listStudent = new ArrayList<Student>();
     private ArrayList<Student> listStudentsInBatch = new ArrayList<Student>();
     private ChangeLearning changeLearning = new ChangeLearning();
     private static boolean panelGroupHaveNotBatch = true;
     private static boolean panelGroupHaveBatch = false;
     private static boolean panelGroupChangeLearning = false;
     private int batchId;
-
     /** Creates a new instance of StudentManagerBean */
     public StudentManagerBean() {
     }
@@ -356,6 +356,26 @@ public class StudentManagerBean implements Serializable {
             return "changeLearning.jsf" + REDIRECT;
         }
 
+    }
+
+    /**
+     * @return the listStudent
+     */
+    public ArrayList<Student> getListStudent() {
+        try {
+            listStudent = studentDAO.list();
+            return listStudent;
+        } catch (Exception ex) {
+            Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    /**
+     * @param listStudent the listStudent to set
+     */
+    public void setListStudent(ArrayList<Student> listStudent) {
+        this.listStudent = listStudent;
     }
 
     private void changeListStudentsHaveBatch() {
