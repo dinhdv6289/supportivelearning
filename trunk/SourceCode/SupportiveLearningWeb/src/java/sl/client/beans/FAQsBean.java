@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -27,6 +28,10 @@ public class FAQsBean implements Serializable {
 
     /** Creates a new instance of FAQsBean */
     public FAQsBean() {
+    }
+
+    @PostConstruct
+    public void init() {
         loadListFAQs();
     }
 

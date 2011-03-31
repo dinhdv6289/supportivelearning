@@ -3,7 +3,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sl.admincp.beans;
 
 import javax.faces.bean.ManagedBean;
@@ -37,23 +36,9 @@ import sl.utils.beans.MessagesService;
 @RequestScoped
 public class NewsManagedBean implements Serializable {
 
-    /**
-     * @return the pathImage
-     */
-    public static String getPathImage() {
-        return pathImage;
-    }
-
-    /**
-     * @param aPathImage the pathImage to set
-     */
-    public static void setPathImage(String aPathImage) {
-        pathImage = aPathImage;
-    }
-
     private ArrayList<News> listNews;
     private News selectedNews = new News();
-    private News news;
+    private News news = new News();
     private NewsDAO newsDAO = new NewsDAO();
     private static final int BUFFER_SIZE = 1024;
     private static String pathImage = "";
@@ -88,6 +73,14 @@ public class NewsManagedBean implements Serializable {
         return news;
     }
 
+    public static String getPathImage() {
+        return pathImage;
+    }
+
+    public static void setPathImage(String pathImage) {
+        NewsManagedBean.pathImage = pathImage;
+    }
+
     /**
      * @param news the news to set
      */
@@ -97,6 +90,7 @@ public class NewsManagedBean implements Serializable {
 
     public String insertNews() {
         try {
+            news.setPicture(pathImage);
             newsDAO.insert(news);
             return "listNews";
         } catch (Exception ex) {
@@ -119,7 +113,7 @@ public class NewsManagedBean implements Serializable {
 
     public void deleteNews() {
         try {
-            newsDAO.delete(news);
+            newsDAO.delete(selectedNews);
         } catch (Exception ex) {
             Logger.getLogger(NewsManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -139,6 +133,33 @@ public class NewsManagedBean implements Serializable {
         this.selectedNews = selectedNews;
     }
 
+//    public void handleFileUpload(FileUploadEvent event) {
+//        ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+//        File result = new File(extContext.getRealPath("/images/news") + "//" + event.getFile().getFileName());
+//        try {
+//            FileOutputStream fileOutputStream = new FileOutputStream(result);
+//            byte[] buffer = new byte[BUFFER_SIZE];
+//            int bulk;
+//            InputStream inputStream = event.getFile().getInputstream();
+//            while (true) {
+//                bulk = inputStream.read(buffer);
+//                if (bulk < 0) {
+//                    break;
+//                }
+//                fileOutputStream.write(buffer, 0, bulk);
+//                fileOutputStream.flush();
+//            }
+//            fileOutputStream.close();
+//            inputStream.close();
+//            FacesMessage sescess = new FacesMessage("suscess", event.getFile().getFileName() + "is Upload");
+//            FacesContext.getCurrentInstance().addMessage(null, sescess);
+//            pathImage = "images/news/" + event.getFile().getFileName();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            FacesMessage error = new FacesMessage("The files were not uploaded!");
+//            FacesContext.getCurrentInstance().addMessage(null, error);
+//        }
+//    }
     public void handleFileUpload(FileUploadEvent event) {
         ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
         File result = new File(extContext.getRealPath("/images/news") + "//" + event.getFile().getFileName());
@@ -157,29 +178,16 @@ public class NewsManagedBean implements Serializable {
             }
             fileOutputStream.close();
             inputStream.close();
-            FacesMessage sescess = new FacesMessage("suscess", event.getFile().getFileName() + "is Upload");
-            FacesContext.getCurrentInstance().addMessage(null, sescess);
-            setPathImage("images/" + event.getFile().getFileName());
+            pathImage = "documents/assignmentFiles/" + event.getFile().getFileName();
+//            if (uploadFile > 0) {
+//                MessagesService.showMessage("Succesful " + event.getFile().getFileName() + "is uploaded.");
+//            } else {
+//                MessagesService.showMessage("Upload " + event.getFile().getFileName() + "is failure.");
+//            }
         } catch (IOException e) {
             MessagesService.showMessage("The files were not uploaded!");
             e.printStackTrace();
+
         }
     }
-//    private int uploadFile(String file) {
-//        int result = 0;
-//        try {
-//            News std = (News) EachSession.getObjectFromSession("accountId");
-//            if (std != null) {
-//                news.setStudent(std);
-//                studentWork.setFileUpload(file);
-//                studentWork.setAssignment(assignment);
-//                result = studentWorkDAO.insert(studentWork);
-//            }
-//        } catch (Exception ex) {
-//            Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
-//            result = 0;
-//        }
-//        return result;
-//    }
 }
-
