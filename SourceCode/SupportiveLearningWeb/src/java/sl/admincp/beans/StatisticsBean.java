@@ -109,3 +109,4 @@ public class StatisticsBean {
         this.totalStudent = totalStudent;
     }
 }
+
