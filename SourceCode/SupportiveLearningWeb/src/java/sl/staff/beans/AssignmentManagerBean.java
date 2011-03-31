@@ -28,7 +28,7 @@ public class AssignmentManagerBean implements Serializable {
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
     private StaffDAO staffDAO = new StaffDAO();
     private Batch batchDetailsToStaff = new Batch();
-    private String redirect = "?faces-redirect=true";
+    private static final String REDIRECT = "?faces-redirect=true";
     private static boolean haveAssignment = false;
     private static boolean notHaveAssignment = false;
     private static Assignment assignmentDetails = new Assignment();
@@ -87,7 +87,7 @@ public class AssignmentManagerBean implements Serializable {
 
     public String onRequestAssignment(Assignment assignment) {
         AssignmentManagerBean.assignmentDetails = assignment;
-        return "assignmentDetails" + redirect;
+        return "assignmentDetails.jsf" + REDIRECT;
     }
 
     public String onRequestBatchToStaff(Batch batch) {
@@ -100,7 +100,7 @@ public class AssignmentManagerBean implements Serializable {
                 haveAssignment = false;
                 notHaveAssignment = true;
             }
-            return "batchDetails.jsf" + redirect;
+            return "batchDetails.jsf" + REDIRECT;
         } catch (Exception ex) {
             Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;

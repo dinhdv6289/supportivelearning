@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -30,6 +31,11 @@ public class FeedBackManagerBean implements Serializable {
 
     /** Creates a new instance of FeedBackManagerBean */
     public FeedBackManagerBean() {
+    }
+
+    @PostConstruct
+    public void init() {
+        loadListFeedBacks();
     }
 
     public FeedBackAnswer getFeedBackAnswer() {
@@ -64,10 +70,11 @@ public class FeedBackManagerBean implements Serializable {
         this.listFeedBacks = listFeedBacks;
     }
 
-
     private void loadListFeedBacks() {
         try {
-            this.listFeedBacks = feedBackDAO.list();
+            if (listFeedBacks.isEmpty()) {
+                this.listFeedBacks = feedBackDAO.list();
+            }
         } catch (Exception ex) {
             Logger.getLogger(FeedBackManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,6 +89,4 @@ public class FeedBackManagerBean implements Serializable {
         }
         return null;
     }
-
-
 }
