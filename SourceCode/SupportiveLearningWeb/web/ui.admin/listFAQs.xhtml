@@ -30,43 +30,17 @@
                         <p:commandButton value="View" image="ui-icon ui-icon-search"
                                          update="form:display" oncomplete="confirmation.show()"/>
                     </f:facet>
+
                 </p:dataTable>
-
-                <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false"
-                          width="200" showEffect="explode" hideEffect="explode">
-
-                    <h:panelGrid id="display" columns="2" cellpadding="4">
-
-                        <f:facet name="header">
-                            <h:outputText value="Update FAQs"/>
-                        </f:facet>
-
-                        <h:outputText value="Question:" />
-                        <h:inputTextarea value="#{fAQManagerBean.faq.question}" />
-
-                        <p:commandButton value="Update" update="messages" action="#{fAQManagerBean.update}"/>
-
+                <p:confirmDialog message="Are you sure want to delete?"
+                                 showEffect="bounce" hideEffect="explode"
+                                 header="Initiating destroy process" severity="alert" widgetVar="confirmation">
+                    <h:panelGrid id="display">
+                        <p:commandButton value="Yes Sure" update="messages" oncomplete="confirmation.hide()"
+                                         action="#{fAQManagerBean.delete}" />
+                        <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
                     </h:panelGrid>
-
-
-<!--                    Click vao View hien thi Update-->
-<!--                    <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false"
-                          width="200" showEffect="clip" hideEffect="fold">
-
-                    <h:panelGrid id="display" columns="2" cellpadding="4">
-
-                        <f:facet name="header">
-                            <h:outputLabel value="Update FAQs"/>
-                        </f:facet>
-
-                        <h:outputText value="Question:" />
-                        <h:outputText value="#{fAQManagerBean.faq.question}" />
-
-                    </h:panelGrid>
-                </p:dialog>-->
-
-
-                </p:dialog>
+                </p:confirmDialog>
             </h:form>
         </h:body>
     </ui:define>

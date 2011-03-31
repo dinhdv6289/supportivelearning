@@ -31,7 +31,7 @@ import sl.utils.beans.MessagesService;
 @SessionScoped
 public class StudentManagerBean implements Serializable {
 
-    private Student student;
+    private Student student = new Student();
     private Student selectedStudent;
     private Account account = new Account();
     private Batch batch;

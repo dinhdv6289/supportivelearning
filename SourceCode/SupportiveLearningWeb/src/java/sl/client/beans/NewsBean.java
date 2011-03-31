@@ -26,6 +26,7 @@ public class NewsBean implements Serializable {
     private ArrayList<News> listNewsByCategory = new ArrayList<News>();
     private ArrayList<News> listTop3News = new ArrayList<News>();
     private NewsDAO newsDAO = new NewsDAO();
+    private static final String REDIRECT = "?faces-redirect=true";
 
     /** Creates a new instance of NewsBean */
     public NewsBean() {
@@ -83,7 +84,7 @@ public class NewsBean implements Serializable {
             Logger.getLogger(NewsBean.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-        return null;
+        return "moreNews" + REDIRECT;
     }
 
 //    public String loadListNewsByCategory() {

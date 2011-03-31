@@ -62,9 +62,9 @@ public class FAQManagerBean implements Serializable {
         }
     }
 
-    public void delete(ActionEvent event) {
+    public void delete() {
         try {
-            faqDAO.delete(faq);
+            faqDAO.delete(selectedFAQ);
         } catch (Exception ex) {
             Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,7 +74,7 @@ public class FAQManagerBean implements Serializable {
      * @return the listFAQ
      */
     public ArrayList<FAQ> getListFAQ() {
-        try {
+        try {            
             return listFAQ = faqDAO.list();
         } catch (Exception ex) {
             Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
