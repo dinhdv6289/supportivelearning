@@ -59,6 +59,7 @@ public class StudentManagerBean implements Serializable {
     public void init() {
         getListStudentsHaveBatch();
         getListStudentsIsNotHaveBatch();
+        //selectedStudent = new Student();
     }
 
     public int getBatchId() {
