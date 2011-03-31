@@ -13,8 +13,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -28,22 +26,22 @@ public class BatchManagerBean implements Serializable {
     private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
     private BatchDAO batchDAO = new BatchDAO();
     private Batch selectedBatch;
-    private static boolean panelGripNewBatch;
-    private static boolean panelGripBatchs;
-    private static boolean panelGripStudentInBatch;
+    private static boolean panelGroupNewBatch;
+    private static boolean panelGroupBatchs;
+    private static boolean panelGroupStudentInBatch;
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "batchManager.jsf";
 
     /** Creates a new instance of BatchManagerBean */
     public BatchManagerBean() {
-        panelGripNewBatch = false;
-        panelGripBatchs = true;
-        panelGripStudentInBatch = false;
     }
 
     @PostConstruct
     public void init() {
         getListBatchs();
+        panelGroupNewBatch = false;
+        panelGroupBatchs = true;
+        panelGroupStudentInBatch = false;
     }
 
     public Batch getBatch() {
@@ -62,48 +60,48 @@ public class BatchManagerBean implements Serializable {
         this.selectedBatch = selectedBatch;
     }
 
-    public boolean isPanelGripBatchs() {
-        return panelGripBatchs;
+    public boolean isPanelGroupBatchs() {
+        return panelGroupBatchs;
     }
 
-    public void setPanelGripBatchs(boolean panelGripBatchs) {
-        BatchManagerBean.panelGripBatchs = panelGripBatchs;
+    public void setPanelGroupBatchs(boolean panelGripBatchs) {
+        BatchManagerBean.panelGroupBatchs = panelGripBatchs;
     }
 
-    public boolean isPanelGripNewBatch() {
-        return panelGripNewBatch;
+    public boolean isPanelGroupNewBatch() {
+        return panelGroupNewBatch;
     }
 
-    public void setPanelGripNewBatch(boolean panelGripNewBatch) {
-        BatchManagerBean.panelGripNewBatch = panelGripNewBatch;
+    public void setPanelGroupNewBatch(boolean panelGripNewBatch) {
+        BatchManagerBean.panelGroupNewBatch = panelGripNewBatch;
     }
 
-    public boolean isPanelGripStudentInBatch() {
-        return panelGripStudentInBatch;
+    public boolean isPanelGroupStudentInBatch() {
+        return panelGroupStudentInBatch;
     }
 
-    public void setPanelGripStudentInBatch(boolean panelGripStudentInBatch) {
-        BatchManagerBean.panelGripStudentInBatch = panelGripStudentInBatch;
+    public void setPanelGroupStudentInBatch(boolean panelGripStudentInBatch) {
+        BatchManagerBean.panelGroupStudentInBatch = panelGripStudentInBatch;
     }
 
-    public String onRequestPanelGripNewBatch(boolean newBatch) {
-        this.setPanelGripNewBatch(newBatch);
-        this.setPanelGripBatchs(false);
-        this.setPanelGripStudentInBatch(false);
+    public String onRequestPanelGroupNewBatch(boolean newBatch) {
+        this.setPanelGroupNewBatch(newBatch);
+        this.setPanelGroupBatchs(false);
+        this.setPanelGroupStudentInBatch(false);
         return THISPAGE + REDIRECT;
     }
 
-    public String onRequestPanelGripStudentsInBatch(boolean flag) {
-        this.setPanelGripStudentInBatch(flag);
-        this.setPanelGripNewBatch(false);
-        this.setPanelGripBatchs(false);
+    public String onRequestPanelGroupStudentsInBatch(boolean flag) {
+        this.setPanelGroupStudentInBatch(flag);
+        this.setPanelGroupNewBatch(false);
+        this.setPanelGroupBatchs(false);
         return THISPAGE + REDIRECT;
     }
 
-    public String onRequestPanelGripBatchs(boolean flag) {
-        this.setPanelGripBatchs(flag);
-        this.setPanelGripNewBatch(false);
-        this.setPanelGripStudentInBatch(false);
+    public String onRequestPanelGroupBatchs(boolean flag) {
+        this.setPanelGroupBatchs(flag);
+        this.setPanelGroupNewBatch(false);
+        this.setPanelGroupStudentInBatch(false);
         return THISPAGE + REDIRECT;
     }
 
@@ -121,10 +119,5 @@ public class BatchManagerBean implements Serializable {
 
     public void setListBatchs(ArrayList<Batch> listBatchs) {
         this.listBatchs = listBatchs;
-    }
-
-    public String onRowSelectNavigate(SelectEvent event) {
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedStudent", event.getObject());
-        return "changeLearning?faces-redirect=true";
     }
 }
