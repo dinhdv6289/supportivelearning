@@ -12,26 +12,66 @@
 
 
 
-    
+
     <ui:define name="title">Admin </ui:define>
     <ui:define name="content">
         <h2>Contact Us</h2>
         <h:body>
             <h:form>
-                <c:forEach items="${fAQManagerBean.listFAQ}" var="items">
-                    <h:panelGrid id="panelGrid_add">
-                        <h:outputLabel value="Question:"></h:outputLabel>
-                        <p:inputText id="question" value="#{items.fag.question}"></p:inputText>
-                        <p:message for="question"/>
+                <p:dataTable var="faq" value="#{fAQManagerBean.listFAQ}"
+                             selection="#{fAQManagerBean.selectedFAQ}" selectionMode="single">
+                    <f:facet name="header">
+                        Click "View" button after selecting a row to see details
+                    </f:facet>
 
-                        <h:outputLabel value="Answer:"></h:outputLabel>
-                        <p:inputText id="answer" value="#{items.fag.answer}"></p:inputText>
-                        <p:message for="answer"></p:message>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Question" />
+                        </f:facet>
+                        <h:outputText value="#{faq.question}" />
+                    </p:column>
 
-                        <p:commandButton value="Update" action="#{items.update}">
-                        </p:commandButton>
+                    <f:facet name="footer">
+                        <p:commandButton value="View" image="ui-icon ui-icon-search"
+                                         update="form:display" oncomplete="confirmation.show()"/>
+                    </f:facet>
+                </p:dataTable>
+
+                <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false"
+                          width="200" showEffect="explode" hideEffect="explode">
+
+                    <h:panelGrid id="display" columns="2" cellpadding="4">
+
+                        <f:facet name="header">
+                            <h:outputText value="Update FAQs"/>
+                        </f:facet>
+
+                        <h:outputText value="Question:" />
+                        <h:inputTextarea value="#{fAQManagerBean.faq.question}" />
+
+                        <p:commandButton value="Update" update="messages" action="#{fAQManagerBean.update}"/>
+
                     </h:panelGrid>
-                </c:forEach>
+
+
+<!--                    Click vao View hien thi Update-->
+<!--                    <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false"
+                          width="200" showEffect="clip" hideEffect="fold">
+
+                    <h:panelGrid id="display" columns="2" cellpadding="4">
+
+                        <f:facet name="header">
+                            <h:outputLabel value="Update FAQs"/>
+                        </f:facet>
+
+                        <h:outputText value="Question:" />
+                        <h:outputText value="#{fAQManagerBean.faq.question}" />
+
+                    </h:panelGrid>
+                </p:dialog>-->
+
+
+                </p:dialog>
             </h:form>
         </h:body>
     </ui:define>
