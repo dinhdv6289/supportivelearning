@@ -1,3 +1,28 @@
+<<<<<<< .mine
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package sl.admincp.beans;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+/**
+ *
+ * @author MrPham
+ */
+@ManagedBean
+@RequestScoped
+public class NewsManagedBean {
+
+    /** Creates a new instance of NewsManagedBean */
+    public NewsManagedBean() {
+    }
+
+}
+=======
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -178,3 +203,4 @@ public class NewsManagedBean implements Serializable {
 //        return result;
 //    }
 }
+>>>>>>> .r280
