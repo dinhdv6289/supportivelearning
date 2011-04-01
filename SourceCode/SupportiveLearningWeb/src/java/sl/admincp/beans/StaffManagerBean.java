@@ -153,7 +153,7 @@ public class StaffManagerBean implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(StaffManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "";
+        return null;
     }
 
     public String details(SelectEvent event) {
