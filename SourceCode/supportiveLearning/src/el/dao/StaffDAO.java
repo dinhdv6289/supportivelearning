@@ -248,4 +248,46 @@ public class StaffDAO extends AbstractDAO<Staff> {
         }
         return listBatchs;
     }
+
+    public boolean deleteBatchByStaff(Staff s, Batch b) throws Exception{
+        String sql = "{call Del_BatchByStaff (?, ?)}";
+        Connection conn = null;
+        int a = 0;
+        try {
+            conn = getConnection();
+            CallableStatement stmt = conn.prepareCall(sql);
+            stmt.setInt(1, s.getId());
+            stmt.setInt(2, b.getId());
+            a = stmt.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return a == 1 ? true : false;
+    }
+
+    public int insertStaffAndBatch(Staff staff, Batch batch) throws Exception {
+        Connection conn = null;
+        int a = 0;
+        String sql = "{call Ins_StaffAndBatch (?, ?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, staff.getId());
+            cstmt.setInt(2, batch.getId());
+
+            a = cstmt.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return a;
+    }
 }
