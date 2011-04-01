@@ -21,14 +21,16 @@
                     </c:if>
                     <c:if test="#{newsBean.listNews != null}">
                         <c:forEach var="newsItem" items="#{newsBean.listNews}" varStatus="newsStatus">
-                            <p:fieldset legend="#{newsItem.title}"
-                                        toggleable="true"
-                                        toggleSpeed="500">
-                                <h:panelGrid columns="2" cellpadding="10">
-                                    <p:graphicImage value="/images/news/#{newsItem.picture}" />
+                            <p:fieldset legend="#{newsItem.title}">
+                                <h:panelGrid columns="3" cellpadding="10">
+                                    <p:graphicImage value="../#{newsItem.picture}" width="100px" height="100px" />
                                     <h:outputText value="#{newsItem.subContent}"/>
+                                    <p:commandLink value="more" ajax="false"
+                                                   action="#{newsBean.moreNews(newsItem)}">
+                                    </p:commandLink>
                                 </h:panelGrid>
                             </p:fieldset>
+                            <br/>
                         </c:forEach>
                     </c:if>
                 </h:form>

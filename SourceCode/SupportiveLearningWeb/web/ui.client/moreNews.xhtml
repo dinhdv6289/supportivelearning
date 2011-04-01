@@ -16,9 +16,8 @@
                 <h:form>
                     <p:fieldset legend="#{newsBean.news.title}"
                                     toggleable="true"
-                                    toggleSpeed="500"
-                                    >
-                        <p:graphicImage value="#{newsBean.news.picture }"/>
+                                    toggleSpeed="500">
+                        <p:graphicImage value="../#{newsBean.news.picture }" width="150px" /><br/><br/>
                         #{newsBean.news.newsContent}
                     </p:fieldset>
                 </h:form>
