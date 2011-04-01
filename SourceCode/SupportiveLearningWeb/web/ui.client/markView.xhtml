@@ -14,13 +14,14 @@
             <div class="content-block-top"></div>
             <div class="content-block-bottom">
                 <h4>Mark view</h4>
-                <c:if test="#{studentWorkBean.listMarks == null}">
+                <h:panelGroup rendered="#{studentWorkBean.panelGroupFormMarkView}">
                     <h:form prependId="false">
                         <p:fieldset legend="Mark view"
                                     toggleable="true"
                                     toggleSpeed="500">
-                            <h:panelGrid columns="4" cellpadding="4"  style="height: 70px;">
-                                <h:outputLabel value="Roll number" />
+                            <h:panelGrid columns="5" cellpadding="4"  style="height: 70px;">
+                                <p:messages/>
+                                <h:outputLabel for="rollNumber" value="Roll number" />
                                 <p:inputText id="rollNumber" value="#{studentWorkBean.student.rollNumber}"
                                              required="true"
                                              requiredMessage="RollNumber must format: Axxxxx . Example : A03829">
@@ -28,19 +29,22 @@
                                 </p:inputText>
                                 <p:message for="rollNumber"/>
                                 <h:outputLabel value="Example: A03829"/>
-                                <p:commandButton ajax="false" value="Search"
+                                <p:commandButton ajax="false"
+                                                 value="Search"
                                                  action="#{studentWorkBean.loadMarks}">
                                 </p:commandButton>
                             </h:panelGrid>
                         </p:fieldset>
                         <br/>
                     </h:form>
-                </c:if>
-                <c:if test="#{studentWorkBean.listMarks != null}">
+                </h:panelGroup>
+                <h:panelGroup rendered="#{studentWorkBean.panelGroupFormDisplayResult}">
                     <h:form prependId="false">
                         <p:commandLink ajax="false" value="Back To mark view" action="markView.jsf">
-                            <f:setPropertyActionListener target="#{studentWorkBean.listMarks}"
-                                                         value="#{null}"/>
+                            <f:setPropertyActionListener target="#{studentWorkBean.panelGroupFormDisplayResult}"
+                                                         value="#{false}"/>
+                            <f:setPropertyActionListener target="#{studentWorkBean.panelGroupFormMarkView}"
+                                                         value="#{true}"/>
                         </p:commandLink>
                         <br/>
                         <br/>
@@ -93,11 +97,12 @@
                             </h:panelGrid>
                         </p:fieldset>
                     </h:form>
-                </c:if>
+                </h:panelGroup>
             </div>
         </div>
         <!-- News Block Ends Here -->
 
     </ui:define>
 </ui:composition>
+
 
