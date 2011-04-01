@@ -47,19 +47,22 @@ public class StudentManagerBean implements Serializable {
     private ArrayList<Student> listStudent = new ArrayList<Student>();
     private ArrayList<Student> listStudentsInBatch = new ArrayList<Student>();
     private ChangeLearning changeLearning = new ChangeLearning();
-    private static boolean panelGroupHaveNotBatch = true;
-    private static boolean panelGroupHaveBatch = false;
-    private static boolean panelGroupChangeLearning = false;
+    private static boolean panelGroupHaveNotBatch;
+    private static boolean panelGroupHaveBatch;
+    private static boolean panelGroupChangeLearning;
     private int batchId;
+
     /** Creates a new instance of StudentManagerBean */
     public StudentManagerBean() {
+        panelGroupHaveBatch = false;
+        panelGroupChangeLearning = false;
+        panelGroupHaveNotBatch = true;
     }
 
     @PostConstruct
     public void init() {
         getListStudentsHaveBatch();
         getListStudentsIsNotHaveBatch();
-        //selectedStudent = new Student();
     }
 
     public int getBatchId() {
