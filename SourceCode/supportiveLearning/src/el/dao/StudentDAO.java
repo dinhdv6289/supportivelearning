@@ -9,6 +9,7 @@ import el.model.Batch;
 import el.model.ChangeLearning;
 import el.model.Role;
 import el.model.Student;
+import el.ultility.Ultility;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -31,28 +32,21 @@ public class StudentDAO extends AbstractDAO<Student> {
         return 0;
     }
 
-    public int insertStudent(Student student, int accountId) throws Exception {
-        String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+    public int insertStudent(Student student) throws Exception {
+        String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
             conn = getConnection();
             CallableStatement stmt = conn.prepareCall(sql);
-            stmt.setInt(1, student.getBatch().getId());
-            stmt.setInt(2, student.getCourse().getId());
-            stmt.setString(3, student.getName());
-            stmt.setString(4, student.getAddress());
-            stmt.setString(5, student.getEmail());
-            stmt.setString(6, student.getPhone());
-            stmt.setString(7, student.getUserName());
-            stmt.setString(8, student.getPassword());
-            stmt.setDate(9, (Date) student.getBirthDay());
-            stmt.setBoolean(10, student.getGender());
-            stmt.setDate(11, (Date) student.getDateCreate());
-            stmt.setString(12, student.getRollNumber());
-
-            // Phai them trong store proc 1 truong la AccountId
-            stmt.setInt(13, accountId);
+            stmt.setString(1, student.getUserName());
+            stmt.setString(2, student.getName());
+            stmt.setDate(3, Ultility.date2sql(student.getBirthDay()));
+            stmt.setBoolean(4, student.getGender());
+            stmt.setString(5, student.getPhone());
+            stmt.setString(6, student.getEmail());
+            stmt.setString(7, student.getAddress());
+            
             a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();

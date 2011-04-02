@@ -5,6 +5,7 @@
 package el.dao;
 
 import el.model.Course;
+import el.ultility.Ultility;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -85,8 +86,8 @@ public class CourseDAO extends AbstractDAO<Course> {
                 Course course = new Course();
                 course.setId(rs.getInt("CourseId"));
                 course.setName(rs.getString("CourseName"));
-                course.setDateStart(sql2date(rs.getDate("DateStart")));
-                course.setDateEnd(sql2date(rs.getDate("DateEnd")));
+                course.setDateStart(Ultility.sql2date(rs.getDate("DateStart")));
+                course.setDateEnd(Ultility.sql2date(rs.getDate("DateEnd")));
                 courses.add(course);
 
             }
