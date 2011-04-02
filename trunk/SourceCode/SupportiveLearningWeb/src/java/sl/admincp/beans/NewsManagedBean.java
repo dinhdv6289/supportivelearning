@@ -25,6 +25,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.print.attribute.standard.OutputDeviceAssigned;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.SelectEvent;
 import sl.utils.beans.EachSession;
 import sl.utils.beans.MessagesService;
 
@@ -42,6 +43,8 @@ public class NewsManagedBean implements Serializable {
     private NewsDAO newsDAO = new NewsDAO();
     private static final int BUFFER_SIZE = 1024;
     private static String pathImage = "";
+    private static final String REDIRECT = "?faces-redirect=true";
+    private static final String THISPAGE = "studentManager.jsf";
 
     /** Creates a new instance of NewsManagedBean */
     public NewsManagedBean() {
@@ -102,7 +105,7 @@ public class NewsManagedBean implements Serializable {
     public String updateNews() {
         try {
             if (newsDAO.update(getSelectedNews())) {
-                return "listNews";
+                return "updateNews";
             }
             return null;
         } catch (Exception ex) {
@@ -178,7 +181,7 @@ public class NewsManagedBean implements Serializable {
             }
             fileOutputStream.close();
             inputStream.close();
-            pathImage = "documents/assignmentFiles/" + event.getFile().getFileName();
+            pathImage = "images/news/" + event.getFile().getFileName();
 //            if (uploadFile > 0) {
 //                MessagesService.showMessage("Succesful " + event.getFile().getFileName() + "is uploaded.");
 //            } else {
@@ -189,5 +192,14 @@ public class NewsManagedBean implements Serializable {
             e.printStackTrace();
 
         }
+    }
+
+//    public String onRowSelectNavigate(SelectEvent event) {
+//        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedNews", event.getObject());
+//        return "DetailNewUpdate?faces-redirect=true";
+//    }
+
+    public String details(SelectEvent event){
+        return "detailNewsToUpdate" + REDIRECT;
     }
 }
