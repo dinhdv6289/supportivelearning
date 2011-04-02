@@ -462,7 +462,8 @@ CREATE PROCEDURE Ins_Student
 @Gender BIT,
 @Phone  nvarchar(50),
 @Email  nvarchar(100),
-@Address nvarchar(200)
+@Address nvarchar(200),
+@Output  int
 AS BEGIN
 	DECLARE @RollNumber VARCHAR(6)
 	DECLARE @NewUserName NVARCHAR(50)
@@ -471,14 +472,14 @@ AS BEGIN
 			DECLARE @AccountId	INT
 			DECLARE @IdentityId	nvarchar(10)
 			EXEC SelectLatestAccountId @AccountId OUTPUT
-			SET @IdentityId =(SELECT 'a'+RIGHT('00000'+CONVERT(NVARCHAR(5),@AccountId),5))
+			SET @IdentityId =(SELECT 'a'+RIGHT('00000'+CONVERT(NVARCHAR(5),(@AccountId +1)),5))
 			SET @NewUserName = (@UserName + '_' + @IdentityId)
 			INSERT INTO Account(RoleId,UserName,[Password],FullName,BirthDay,Gender,Phone,Email,Address)
 			VALUES	(2,@NewUserName,@NewUserName,@FullName,@BirthDay,@Gender,@Phone,@Email,@Address)
 
 			INSERT INTO Student(RollNumber, AccountId)
 			VALUES	(@IdentityId,@AccountId)
-			select SCOPE_IDENTITY()
+			SET @Output = (SELECT ISNULL(MAX(StudentId),0) FROM Student)
 		END
 	END
 GO
@@ -489,6 +490,17 @@ AS BEGIN
 END
 
 GO
+
+CREATE PROCEDURE  Ins_FeedBack
+@StudentId int, 
+@StaffId int,
+@FeedBackTitle nvarchar(100),
+@FeedBackContent ntext
+AS BEGIN
+insert into FeedBack(StudentId, StaffId, FeedBackTitle, FeedBackContent) values(@StudentId,@StaffId,@FeedBackTitle,@FeedBackContent)
+END
+
+select * from accoun
 
 CREATE PROCEDURE Sel_StudentWorksMarkUpdate
 AS BEGIN
