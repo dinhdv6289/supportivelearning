@@ -11,6 +11,7 @@ import el.model.Batch;
 import el.model.ChangeLearning;
 import el.model.Course;
 import el.model.Student;
+import el.ultility.Ultility;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -50,6 +51,15 @@ public class StudentManagerBean implements Serializable {
     private static boolean panelGroupHaveNotBatch;
     private static boolean panelGroupHaveBatch;
     private static boolean panelGroupChangeLearning;
+    private static boolean panelGroupNewStudent;
+
+    public boolean isPanelGroupNewStudent() {
+        return panelGroupNewStudent;
+    }
+
+    public void setPanelGroupNewStudent(boolean panelGroupNewStudent) {
+        StudentManagerBean.panelGroupNewStudent = panelGroupNewStudent;
+    }
     private int batchId;
 
     /** Creates a new instance of StudentManagerBean */
@@ -57,6 +67,7 @@ public class StudentManagerBean implements Serializable {
         panelGroupHaveBatch = false;
         panelGroupChangeLearning = false;
         panelGroupHaveNotBatch = true;
+        panelGroupNewStudent = false;
     }
 
     @PostConstruct
@@ -182,6 +193,13 @@ public class StudentManagerBean implements Serializable {
         return THISPAGE + REDIRECT;
     }
 
+    public String onRequestPanelGroupNewStudent(boolean newstudent){
+        this.setPanelGroupChangeLearning(false);
+        this.setPanelGroupHaveBatch(false);
+        this.setPanelGroupHaveNotBatch(false);
+        this.setPanelGroupNewStudent(newstudent);
+        return THISPAGE + REDIRECT;
+    }
     public ArrayList<Student> getListStudentsIsNotHaveBatch() {
         try {
             if (listStudentsIsNotHaveBatch.isEmpty()) {
@@ -229,19 +247,12 @@ public class StudentManagerBean implements Serializable {
 
     public String insertStudent() {
         try {
-            if (account != null) {
-                int accountId = accountDAO.insert(account);
-                if (accountId != 0) {
-                    //student.setBatch(batch);
-                    //student.setCourse(course);
-                    // cho them sinh vien nay.
-                    // course va batch se dc cap nhat vao sau.
-                    // thong qua viec cho sv vao lop'.
-                    if (studentDAO.insertStudent(student, accountId) > 0) {
-                        return "studentList";
-                    }
-                }
-            }
+            String username = student.getName();
+            username = Ultility.GenerateUserName(username);         
+            student.setUserName(username);
+            int newid = studentDAO.insertStudent(student);
+            selectedStudent.setId(newid);
+            selectedStudent = studentDAO.getObject(selectedStudent);
             return null;
         } catch (Exception ex) {
             Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
