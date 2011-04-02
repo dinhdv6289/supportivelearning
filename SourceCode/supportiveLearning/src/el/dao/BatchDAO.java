@@ -8,7 +8,7 @@ import el.model.Batch;
 import el.model.Course;
 import el.model.Semester;
 import el.model.Staff;
-import el.ultility.Ultility;
+import el.utility.Utility;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -99,7 +99,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
                 batch.setName(rs.getString("BatchName"));
                 batch.setCourse(course);
                 batch.setSemester(semester);
-                batch.setStartDate(Ultility.sql2date(rs.getDate("StartDate")));
+                batch.setStartDate(Utility.sql2date(rs.getDate("StartDate")));
                 batchs.add(batch);
             }
         } finally {
@@ -172,7 +172,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
                 batch.setName(rs.getString("BatchName"));
                 batch.setCourse(course);
                 batch.setSemester(semester);
-                batch.setStartDate(Ultility.sql2date(rs.getDate("StartDate")));
+                batch.setStartDate(Utility.sql2date(rs.getDate("StartDate")));
                 batchs.add(batch);
             }
         } finally {
