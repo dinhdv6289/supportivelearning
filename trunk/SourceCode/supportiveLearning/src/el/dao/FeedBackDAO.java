@@ -7,6 +7,7 @@ package el.dao;
 
 import el.model.FeedBack;
 import el.model.Student;
+import el.utility.Utility;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -30,9 +31,9 @@ public class FeedBackDAO extends AbstractDAO<FeedBack>{
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getStudent().getId());
-            cstmt.setString(2, t.getFeedBackTitle());
-            cstmt.setString(3, t.getFeedBackContent());
-            cstmt.setDate(4, (Date) t.getDateCreation());
+            cstmt.setInt(2, t.getStaff().getId());
+            cstmt.setString(3, t.getFeedBackTitle());
+            cstmt.setString(4, t.getFeedBackContent());
              a = cstmt.executeUpdate();
         }catch(Exception ex){
             ex.printStackTrace();

@@ -15,6 +15,7 @@ public class FeedBack implements Serializable {
 
     private int id;
     private Student student;
+    private Staff staff;
     private String feedBackTitle;
     private String feedBackContent;
     private Date dateCreation;
@@ -22,7 +23,15 @@ public class FeedBack implements Serializable {
     public FeedBack() {
     }
 
+    public Staff getStaff() {
+        return staff;
+    }
 
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    
     public Date getDateCreation() {
         return dateCreation;
     }
