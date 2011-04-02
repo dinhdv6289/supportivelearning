@@ -29,13 +29,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.faces.application.FacesMessage;
+import java.util.Date;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import sl.utils.beans.EachSession;
+import sl.utils.beans.LoginService;
 import sl.utils.beans.MessagesService;
 
 /**
@@ -54,10 +54,30 @@ public class StudentWorkBean implements Serializable {
     private StudentWorkDAO studentWorkDAO = new StudentWorkDAO();
     private Assignment assignment = new Assignment();
     private String file;
+    private static boolean panelGroupFormMarkView = true;
+    private static boolean panelGroupFormDisplayResult = false;
+    private static final String REDIRECT = "?faces-redirect=true";
+    private static final int BUFFER_SIZE = 1024;
 
     /** Creates a new instance of StudentWorkBean */
     public StudentWorkBean() {
         loadStudentWorks();
+    }
+
+    public boolean isPanelGroupFormDisplayResult() {
+        return panelGroupFormDisplayResult;
+    }
+
+    public void setPanelGroupFormDisplayResult(boolean panelGroupFormDisplayResult) {
+        StudentWorkBean.panelGroupFormDisplayResult = panelGroupFormDisplayResult;
+    }
+
+    public boolean isPanelGroupFormMarkView() {
+        return panelGroupFormMarkView;
+    }
+
+    public void setPanelGroupFormMarkView(boolean panelGroupFormMarkView) {
+        StudentWorkBean.panelGroupFormMarkView = panelGroupFormMarkView;
     }
 
     public ArrayList<StudentWork> getListStudentWorksOfStudent() {
@@ -118,7 +138,7 @@ public class StudentWorkBean implements Serializable {
 
     private void loadStudentWorks() {
         try {
-            listStudentWorksOfStudent = studentWorkDAO.list();
+            listStudentWorksOfStudent = studentWorkDAO.listMarkUpdate();
         } catch (Exception ex) {
             Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
             listStudentWorksOfStudent = null;
@@ -130,6 +150,8 @@ public class StudentWorkBean implements Serializable {
             Student std = (Student) EachSession.getObjectFromSession("accountId");
             if (std != null) {
                 listStudentWorksOfEachStudent = studentWorkDAO.listStudentWorkByStudentId(std.getId());
+            } else {
+                LoginService.loginService(null);
             }
         } catch (Exception ex) {
             Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,7 +161,7 @@ public class StudentWorkBean implements Serializable {
 
     public String myFiles() {
         loadStudentWorksOfEachStudent();
-        return "myFiles";
+        return "myFiles" + REDIRECT;
     }
 
     public String loadMarks() {
@@ -148,6 +170,8 @@ public class StudentWorkBean implements Serializable {
                 ArrayList<StudentWork> listStudentWorkByRollNumber = studentWorkDAO.listStudentWorkByRollNumber(student.getRollNumber());
                 if (listStudentWorkByRollNumber.size() > 0) {
                     this.listMarks = studentWorkDAO.listStudentWorkByRollNumber(student.getRollNumber());
+                    this.setPanelGroupFormMarkView(false);
+                    this.setPanelGroupFormDisplayResult(true);
                 } else {
                     MessagesService.showMessage("Not have Student Rollnumber: " + student.getRollNumber());
                 }
@@ -186,7 +210,6 @@ public class StudentWorkBean implements Serializable {
 
         pdf.add(Image.getInstance(logo));
     }
-    private static final int BUFFER_SIZE = 1024;
 
     /** Creates a new instance of FileUploadController */
     public void handleFileUpload(FileUploadEvent event) {
@@ -228,7 +251,13 @@ public class StudentWorkBean implements Serializable {
                 studentWork.setStudent(std);
                 studentWork.setFileUpload(file);
                 studentWork.setAssignment(assignment);
-                result = studentWorkDAO.insert(studentWork);
+                studentWork.setDateUpload(new Date());
+                StudentWork myAssignment = studentWorkDAO.getMyAssignment(studentWork);
+                if (myAssignment == null) {
+                    result = studentWorkDAO.insert(studentWork);
+                } else {
+                    result = studentWorkDAO.updateAssignmentWork(studentWork);
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);

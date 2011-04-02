@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 import sl.utils.beans.EachSession;
 
 /**
@@ -29,7 +31,7 @@ public class FeedBackAnswerManagerBean implements Serializable {
     private FeedBack selectedFeedBack;
     private FeedBackAnswer feedBackAnswer;
     private FeedBackAnswerDAO feedBackAnswerDAO = new FeedBackAnswerDAO();
-    private ArrayList<FeedBack> listFeedBacks;
+    private ArrayList<FeedBack> listFeedBacks = new ArrayList<FeedBack>();
     private FeedBackDAO feedBackDAO = new FeedBackDAO();
     private Staff currentStaff;
 
@@ -116,5 +118,11 @@ public class FeedBackAnswerManagerBean implements Serializable {
             Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+
+    public String onRowSelectNavigate(SelectEvent event) {
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedFeedBack", event.getObject());
+        return "messageDetails.jsf?faces-redirect=true";
     }
 }

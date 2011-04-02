@@ -33,7 +33,7 @@ public class AssignmentBean implements Serializable {
     private Assignment assignmentDetails = new Assignment();
     private static boolean haveAssignment = false;
     private static boolean notHaveAssignment = false;
-    private String redirect = "?faces-redirect=true";
+    private static final String REDIRECT = "?faces-redirect=true";
 
     private static boolean dueDate = false;
 
@@ -104,7 +104,7 @@ public class AssignmentBean implements Serializable {
     public String onRequestAssignment(Assignment assignment) {
         this.assignmentDetails = assignment;
         checkDueDate(assignment);
-        return "assignmentDetails" + redirect;
+        return "assignmentDetails" + REDIRECT;
     }
 
     private void loadListAssignmentsOfBatch() {
@@ -127,7 +127,7 @@ public class AssignmentBean implements Serializable {
 
     public String details() {
         loadListAssignmentsOfBatch();
-        return "batchDetails.jsf" + redirect;
+        return "batchDetails.jsf" + REDIRECT;
 
     }
 
@@ -141,5 +141,9 @@ public class AssignmentBean implements Serializable {
         } else {
             dueDate = false;
         }
+    }
+
+    public String sendFeedBack(){
+        return "feedBack.jsf"+REDIRECT;
     }
 }
