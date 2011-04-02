@@ -9,7 +9,7 @@ import el.model.Batch;
 import el.model.ChangeLearning;
 import el.model.Role;
 import el.model.Student;
-import el.ultility.Ultility;
+import el.utility.Utility;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -41,7 +41,7 @@ public class StudentDAO extends AbstractDAO<Student> {
             CallableStatement stmt = conn.prepareCall(sql);
             stmt.setString(1, student.getUserName());
             stmt.setString(2, student.getName());
-            stmt.setDate(3, Ultility.date2sql(student.getBirthDay()));
+            stmt.setDate(3, Utility.date2sql(student.getBirthDay()));
             stmt.setBoolean(4, student.getGender());
             stmt.setString(5, student.getPhone());
             stmt.setString(6, student.getEmail());

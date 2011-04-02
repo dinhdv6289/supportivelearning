@@ -8,7 +8,7 @@ import el.model.Assignment;
 import el.model.Batch;
 import el.model.Staff;
 import el.model.Subject;
-import el.ultility.Ultility;
+import el.utility.Utility;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -57,7 +57,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
                 assignment.setName(rs.getString("AssignmentName"));
                 assignment.setContent(rs.getString("AssignmentContent"));
                 assignment.setFileUpload(rs.getString("AssignmentFile"));
-                assignment.setStartDate(Ultility.sql2date(rs.getDate("StartDate")));
+                assignment.setStartDate(Utility.sql2date(rs.getDate("StartDate")));
                 assignment.setEndDate(rs.getDate("EndDate"));
                 StaffDAO staffDAO = new StaffDAO();
                 Staff s = new Staff();
