@@ -394,7 +394,7 @@ END
 GO
 CREATE PROCEDURE Sel_AllFAQ
 AS BEGIN
-select * from StaffAndBatch
+select * from FAQ
 END
 GO
 
