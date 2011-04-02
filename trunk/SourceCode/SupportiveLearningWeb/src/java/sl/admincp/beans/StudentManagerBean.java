@@ -11,7 +11,7 @@ import el.model.Batch;
 import el.model.ChangeLearning;
 import el.model.Course;
 import el.model.Student;
-import el.ultility.Ultility;
+import el.utility.Utility;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -248,7 +248,7 @@ public class StudentManagerBean implements Serializable {
     public String insertStudent() {
         try {
             String username = student.getName();
-            username = Ultility.GenerateUserName(username);         
+            username = Utility.GenerateUserName(username);
             student.setUserName(username);
             int newid = studentDAO.insertStudent(student);
             selectedStudent.setId(newid);
