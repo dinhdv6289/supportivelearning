@@ -32,9 +32,10 @@
                                 at="left bottom"
                                 trigger="btn_insert_staff_and_batch"
                                 position="dynamic"
-                                styleClass="themeMenu">
+                                styleClass="themeMenu"
+                                id="menu_batch">
                             <p:submenu label="Batchs">
-                                <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
+                                <c:forEach var="item" items="#{staffManagerBean.listBatchs}" >
                                     <p:menuitem value="#{item.name}" ajax="false" action="#{staffManagerBean.insertStaffAndBatch}" update="batchofstaff">
                                         <f:setPropertyActionListener value="#{item}"
                                                                      target="#{staffManagerBean.batch}">
@@ -44,12 +45,10 @@
                             </p:submenu>
                         </p:menu>
                     </f:facet>
-                    <p:column headerText="Name">
+                    <p:column headerText="Batch Name">
                         <h:outputText value="#{item.name}" />
                     </p:column>
-                    <p:column headerText="Have Batch">
-                        <h:outputText value="aa" />
-                    </p:column>
+                    
 
                 </p:dataTable>
                 <p:confirmDialog message="Are you sure want to delete?"
@@ -58,7 +57,7 @@
                     <h:panelGrid id="display">
                         <p:commandButton value="Yes Sure" oncomplete="confirmation.hide()"
                                          action="#{staffManagerBean.deleteBatchByStaff}"
-                                         update="batchofstaff"/>
+                                         update="batchofstaff, themeMenu"/>
                         <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
                     </h:panelGrid>
                 </p:confirmDialog>
