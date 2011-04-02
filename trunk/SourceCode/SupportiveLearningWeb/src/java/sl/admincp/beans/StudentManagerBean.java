@@ -52,6 +52,15 @@ public class StudentManagerBean implements Serializable {
     private static boolean panelGroupHaveBatch;
     private static boolean panelGroupChangeLearning;
     private static boolean panelGroupNewStudent;
+    private static boolean panelStudentDetails;
+
+    public boolean isPanelStudentDetails() {
+        return panelStudentDetails;
+    }
+
+    public void setPanelStudentDetails(boolean panelStudentDetails) {
+        StudentManagerBean.panelStudentDetails = panelStudentDetails;
+    }
 
     public boolean isPanelGroupNewStudent() {
         return panelGroupNewStudent;
@@ -68,6 +77,7 @@ public class StudentManagerBean implements Serializable {
         panelGroupChangeLearning = false;
         panelGroupHaveNotBatch = true;
         panelGroupNewStudent = false;
+        panelStudentDetails = false;
     }
 
     @PostConstruct
@@ -168,13 +178,17 @@ public class StudentManagerBean implements Serializable {
         StudentManagerBean.panelGroupHaveNotBatch = panelGroupHaveNotBatch;
         StudentManagerBean.panelGroupHaveBatch = false;
         this.setPanelGroupChangeLearning(false);
+        this.setPanelStudentDetails(false);
+        this.setPanelGroupNewStudent(false);
         return THISPAGE + REDIRECT;
     }
 
     public String onRequestPanelGroupHaveBatch(boolean panelGroupHaveBatch) {
         StudentManagerBean.panelGroupHaveBatch = panelGroupHaveBatch;
         StudentManagerBean.panelGroupHaveNotBatch = false;
+        this.setPanelStudentDetails(false);
         this.setPanelGroupChangeLearning(false);
+        this.setPanelGroupNewStudent(false);
         return THISPAGE + REDIRECT;
     }
 
@@ -190,16 +204,20 @@ public class StudentManagerBean implements Serializable {
         this.setPanelGroupChangeLearning(flag);
         this.setPanelGroupHaveBatch(false);
         this.setPanelGroupHaveNotBatch(false);
+        this.setPanelStudentDetails(false);
+        this.setPanelGroupNewStudent(false);
         return THISPAGE + REDIRECT;
     }
 
-    public String onRequestPanelGroupNewStudent(boolean newstudent){
+    public String onRequestPanelGroupNewStudent(boolean newstudent) {
         this.setPanelGroupChangeLearning(false);
         this.setPanelGroupHaveBatch(false);
         this.setPanelGroupHaveNotBatch(false);
         this.setPanelGroupNewStudent(newstudent);
+        this.setPanelStudentDetails(false);
         return THISPAGE + REDIRECT;
     }
+
     public ArrayList<Student> getListStudentsIsNotHaveBatch() {
         try {
             if (listStudentsIsNotHaveBatch.isEmpty()) {
@@ -251,9 +269,15 @@ public class StudentManagerBean implements Serializable {
             username = Utility.GenerateUserName(username);
             student.setUserName(username);
             int newid = studentDAO.insertStudent(student);
-            selectedStudent.setId(newid);
-            selectedStudent = studentDAO.getObject(selectedStudent);
-            return null;
+            Student s = new Student();
+            s.setId(newid);
+            selectedStudent = studentDAO.getObject(s);
+            this.setPanelGroupChangeLearning(false);
+            this.setPanelGroupHaveBatch(false);
+            this.setPanelGroupHaveNotBatch(false);
+            this.setPanelGroupNewStudent(false);
+            this.setPanelStudentDetails(true);
+            return THISPAGE + REDIRECT;
         } catch (Exception ex) {
             Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;

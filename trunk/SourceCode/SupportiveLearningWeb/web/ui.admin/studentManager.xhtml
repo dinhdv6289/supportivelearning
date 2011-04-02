@@ -54,6 +54,9 @@
         <h:panelGroup rendered="#{studentManagerBean.panelGroupNewStudent}" id="panelGroupNewStudent">
             <ui:include src="student/insertStudent.xhtml"/>
         </h:panelGroup>
+        <h:panelGroup rendered="#{studentManagerBean.panelStudentDetails}" id="panelStudentDetails">
+            <ui:include src="student/studentdetails.xhtml"/>
+        </h:panelGroup>
     </ui:define>
 </ui:composition>
 

@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <p:fieldset legend="#{studentManagerBean.selectedStudent.name}">
+                                <h:panelGrid columns="3" cellpadding="10">
+
+                                    username <h:outputText value="#{studentManagerBean.selectedStudent.userName}"/>
+                                    pass <h:outputText value="#{studentManagerBean.selectedStudent.password}"/>
+                                    rollnumber <h:outputText value="#{studentManagerBean.selectedStudent.rollNumber}"/>
+                                    email <h:outputText value="#{studentManagerBean.selectedStudent.email}"/>
+                                    address <h:outputText value="#{studentManagerBean.selectedStudent.address}"/>
+
+                                </h:panelGrid>
+                            </p:fieldset>
+    </h:form>
+</ui:composition>
