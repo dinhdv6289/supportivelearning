@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -26,6 +27,7 @@ public class FAQManagerBean implements Serializable {
     private FAQ faq;
     private FAQDAO faqDAO = new FAQDAO();   
     private FAQ selectedFAQ = new FAQ();
+    private static final String REDIRECT = "?faces-redirect=true";
 
     /** Creates a new instance of FAQManagerBean */
     public FAQManagerBean() {
@@ -52,8 +54,8 @@ public class FAQManagerBean implements Serializable {
 
     public String update() {
         try {
-            if (faqDAO.update(getSelectedFAQ())) {
-                return "listStudent";
+            if (faqDAO.update(selectedFAQ)) {
+                return "updateFAQs";
             }
             return null;
         } catch (Exception ex) {
@@ -101,5 +103,9 @@ public class FAQManagerBean implements Serializable {
      */
     public void setSelectedFAQ(FAQ selectedFAQ) {
         this.selectedFAQ = selectedFAQ;
+    }
+
+    public String detailsFAQ(SelectEvent event){
+        return "detailFAQToUpdate" + REDIRECT;
     }
 }
