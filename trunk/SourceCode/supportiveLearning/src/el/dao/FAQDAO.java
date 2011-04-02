@@ -6,6 +6,7 @@
 package el.dao;
 
 import el.model.FAQ;
+import el.ultility.Ultility;
 import java.sql.CallableStatement;
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -105,7 +106,7 @@ public class FAQDAO extends AbstractDAO<FAQ> {
                 fAQ.setId(rs.getInt("FAQId"));
                 fAQ.setQuestion(rs.getString("Question"));
                 fAQ.setAnswer(rs.getString("Answer"));
-                fAQ.setDate(sql2date(rs.getDate("DateCreation")));
+                fAQ.setDate(Ultility.sql2date(rs.getDate("DateCreation")));
                 faqs.add(fAQ);
             }
         } finally {
@@ -133,7 +134,7 @@ public class FAQDAO extends AbstractDAO<FAQ> {
                 faq.setId(rs.getInt("FAQId"));
                 faq.setQuestion(rs.getString("Question"));
                 faq.setAnswer(rs.getString("Answer"));
-                faq.setDate(sql2date(rs.getDate("DateCreation")));
+                faq.setDate(Ultility.sql2date(rs.getDate("DateCreation")));
             }
         } finally {
             if (conn != null) {

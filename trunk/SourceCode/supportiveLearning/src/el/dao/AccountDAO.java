@@ -111,6 +111,40 @@ public class AccountDAO extends AbstractDAO<Account> {
         return account1;
     }
 
+    public Account getLatestAccount() throws Exception {
+        Connection conn = null;
+        Account account = new Account();
+        String sql = "SelectLatestAccount";
+        try {
+            conn = getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+
+                account.setAddress(rs.getString("Address"));
+                account.setBirthDay(rs.getDate("BirthDay"));
+                account.setDateCreate(rs.getDate("DateCreation"));
+                account.setEmail(rs.getString("Email"));
+                account.setGender(rs.getBoolean("Gender"));
+                account.setId(rs.getInt("AccountId"));
+                account.setName(rs.getString("FullName"));
+                account.setPassword(rs.getString("PassWord"));
+                account.setPhone(rs.getString("Phone"));
+                Role role = new Role();
+                role.setId(rs.getInt("RoleId"));
+                RoleDAO roleDAO = new RoleDAO();
+                role = roleDAO.getObject(role);
+                account.setRole(role);
+                account.setUserName(rs.getString("UserName"));
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return account;
+    }
+
     public ArrayList<Account> getObjectIsOnline() throws Exception {
         ArrayList<Account> accounts = new ArrayList<Account>();
         Connection conn = null;

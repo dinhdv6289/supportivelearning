@@ -34,17 +34,4 @@ public abstract class AbstractDAO<T> {
         return DriverManager.getConnection(connString);
     }
 
-    protected Date sql2date(java.sql.Date date) {
-        if (date == null) {
-            return null;
-        }
-        return new java.util.Date(date.getTime());
-    }
-
-    protected java.sql.Date date2sql(Date date) {
-        if (date == null) {
-            return null;
-        }
-        return new java.sql.Date(date.getTime());
-    }
 }
