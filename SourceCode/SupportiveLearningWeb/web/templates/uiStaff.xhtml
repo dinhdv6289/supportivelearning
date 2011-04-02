@@ -151,21 +151,23 @@
                             <!-- Navigation Block Ends Here -->
 
                             <!-- Latest News Block Starts Here -->
-                            <div class="sblock">
-                                <div class="sblock-top">Latest News</div>
-                                <div class="sblock-content">
+                        <div class="sblock">
+                            <div class="sblock-top">Latest News</div>
+                            <div class="sblock-content">
+                                <h:form>
                                     <c:forEach var="latestNewsItem" items="#{newsBean.listTop3News}">
                                         <p> #{latestNewsItem.dateCreate }</p>
                                         <p>
                                             #{latestNewsItem.title }
                                         </p>
-                                        <p:commandLink value="more"
+                                        <p:commandLink value="more" ajax="false"
                                                        action="#{newsBean.moreNews(latestNewsItem)}">
                                         </p:commandLink>
                                     </c:forEach>
-                                    <a href="#{request.contextPath}/ui.client/siteNews.jsf">Older news</a>
-                                </div>
+                                </h:form>
+                                <a href="#{request.contextPath}/ui.client/siteNews.jsf">Older news</a>
                             </div>
+                        </div>
                             <!-- Latest News Ends Here -->
 
                             <!-- Online users Block Starts Here -->
