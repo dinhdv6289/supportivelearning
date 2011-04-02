@@ -4,6 +4,7 @@
  */
 package sl.admincp.beans;
 
+import el.dao.BatchDAO;
 import el.dao.StaffDAO;
 import el.model.Batch;
 import el.model.Staff;
@@ -34,7 +35,22 @@ public class StaffManagerBean implements Serializable {
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "staffManager.jsf";
     private Batch batch = new Batch();
+    private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
 
+    public ArrayList<Batch> getListBatchs() {
+        ArrayList<Batch> result = new ArrayList<Batch>();
+        try {
+            BatchDAO batchDAO = new BatchDAO();
+            result = batchDAO.listBatchNoStaff(selectedstaff);
+        } catch (Exception ex) {
+            Logger.getLogger(StaffManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public void setListBatchs(ArrayList<Batch> listBatchs) {
+        this.listBatchs = listBatchs;
+    }
     public Batch getBatch() {
         return batch;
     }
