@@ -19,7 +19,8 @@
                         <img width="315" height="70" src=""/>
                     </h4>
                     <h4 class="style9">
-                        Ten
+                        <h:outputText value="Tearcher:"/>
+                        <h:outputText value="#{staffBean.staff.name}"/>
                         <span class="style7"></span>
                     </h4>
                     <p>
@@ -42,7 +43,7 @@
                     <p>
                         <p:commandLink ajax="false"
                                        value="Send FeedBack"
-                                       action="feedBack.jsf">
+                                       action="#{feedBackBean.onRequestStaffToSendFeedBack(staffBean.staff)}">
 <!--                            <f:setPropertyActionListener target=""
                                                          value="">
 
