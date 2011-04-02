@@ -51,7 +51,7 @@ GO
 
 CREATE PROCEDURE Sel_Feedbacks
 AS BEGIN 
-	 SELECT FeedBackId,StudentId,FeedBackTitle,FeedBackContent,DateCreation 
+	 SELECT *
 	 FROM FeedBack
   END
 go
@@ -397,7 +397,7 @@ SELECT     Account.*, Staff.StaffId
 FROM         Account INNER JOIN
                       Staff ON Account.AccountId = Staff.AccountId
 END
-drop PROCEDURE StaffStatistics
+GO
 
 CREATE PROCEDURE StaffStatistics
 AS BEGIN 
@@ -437,3 +437,52 @@ AS BEGIN
 insert into StaffAndBatch(StaffId,BatchId) values(@StaffId, @BatchId)
 select SCOPE_IDENTITY()
 END
+GO
+CREATE PROCEDURE Sel_BatchNoStaff
+@StaffId int
+AS BEGIN
+SELECT   Batch.*
+FROM         Batch WHERE BatchId NOT IN( select BatchId From StaffAndBatch where StaffId = @StaffId)
+END
+
+GO
+CREATE PROCEDURE SelectLatestAccountId
+@AccountId	INT OUTPUT
+AS BEGIN
+   		SELECT 	@AccountId=ISNULL(MAX(AccountId),0) FROM Account
+   END
+GO
+CREATE PROCEDURE Ins_Student
+@UserName nvarchar(100),
+@FullName nvarchar(100),
+@BirthDay datetime,
+@Gender BIT,
+@Phone  nvarchar(50),
+@Email  nvarchar(100),
+@Address nvarchar(200)
+AS BEGIN
+	DECLARE @RollNumber VARCHAR(6)
+	DECLARE @NewUserName NVARCHAR(50)
+	IF(NOT EXISTS(SELECT Email FROM Account WHERE Email=@Email))
+		BEGIN	
+			DECLARE @AccountId	INT
+			DECLARE @IdentityId	nvarchar(10)
+			EXEC SelectLatestAccountId @AccountId OUTPUT
+			SET @IdentityId =(SELECT 'a'+RIGHT('00000'+CONVERT(NVARCHAR(5),@AccountId),5))
+			SET @NewUserName = (@UserName + '_' + @IdentityId)
+			INSERT INTO Account(RoleId,UserName,[Password],FullName,BirthDay,Gender,Phone,Email,Address)
+			VALUES	(2,@NewUserName,@NewUserName,@FullName,@BirthDay,@Gender,@Phone,@Email,@Address)
+
+			INSERT INTO Student(RollNumber, AccountId)
+			VALUES	(@IdentityId,@AccountId)
+			select SCOPE_IDENTITY()
+		END
+	END
+GO
+
+CREATE PROCEDURE SelectLatestAccount
+AS BEGIN 
+	select top(1) *  from Account order by AccountId desc
+END
+
+GO

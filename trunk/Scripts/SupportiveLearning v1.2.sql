@@ -1,3 +1,4 @@
+--drop database SupportiveLearning
 create database SupportiveLearning
 GO
 
@@ -41,7 +42,8 @@ create table Account
 	Email            NVARCHAR(100) NOT NULL,
 	Address          NVARCHAR(255),
 	IsOnline         BIT DEFAULT 0,
-	LastLogin		 DATETIME DEFAULT GETDATE()
+	LastLogin		 DATETIME DEFAULT GETDATE(),
+	AlowLogin        BIT DEFAULT 1
 )
 GO
 create table Course
@@ -142,6 +144,7 @@ create table FeedBack
 (
 	FeedBackId		 INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	StudentId        INT REFERENCES Student(StudentId) NOT NULL,
+	StaffId        INT REFERENCES Staff(StaffId) NOT NULL,
 	FeedBackTitle	 nvarchar(100),
 	FeedBackContent ntext,
 	DateCreation datetime default(getdate())
@@ -152,7 +155,6 @@ create table FeedBackAnswer
 (
 	FeedBackAnswerId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	FeedBackId         INT REFERENCES FeedBack(FeedBackId) NOT NULL,
-	StaffId        INT REFERENCES Staff(StaffId) NOT NULL,
 	FeedBackAnswer ntext,
 	DateCreation datetime default(getdate())
 )
