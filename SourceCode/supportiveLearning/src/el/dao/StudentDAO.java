@@ -33,12 +33,13 @@ public class StudentDAO extends AbstractDAO<Student> {
     }
 
     public int insertStudent(Student student) throws Exception {
-        String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call Ins_Student (?, ?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
             conn = getConnection();
             CallableStatement stmt = conn.prepareCall(sql);
+            stmt.registerOutParameter(8, java.sql.Types.INTEGER);
             stmt.setString(1, student.getUserName());
             stmt.setString(2, student.getName());
             stmt.setDate(3, Utility.date2sql(student.getBirthDay()));
@@ -47,7 +48,8 @@ public class StudentDAO extends AbstractDAO<Student> {
             stmt.setString(6, student.getEmail());
             stmt.setString(7, student.getAddress());
             
-            a = stmt.executeUpdate();
+            stmt.execute();
+            a= stmt.getInt(8);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
