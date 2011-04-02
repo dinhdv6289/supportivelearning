@@ -78,6 +78,7 @@ public class StudentManagerBean implements Serializable {
         panelGroupHaveNotBatch = true;
         panelGroupNewStudent = false;
         panelStudentDetails = false;
+        student = new Student();// reset Form
     }
 
     @PostConstruct
@@ -269,21 +270,26 @@ public class StudentManagerBean implements Serializable {
             username = Utility.GenerateUserName(username);
             student.setUserName(username);
             int newid = studentDAO.insertStudent(student);
-            Student s = new Student();
-            s.setId(newid);
-            selectedStudent = studentDAO.getObject(s);
-            this.setPanelGroupChangeLearning(false);
-            this.setPanelGroupHaveBatch(false);
-            this.setPanelGroupHaveNotBatch(false);
-            this.setPanelGroupNewStudent(false);
-            this.setPanelStudentDetails(true);
-            return THISPAGE + REDIRECT;
+            if (newid > 0) {
+                Student s = new Student();
+                s.setId(newid);
+                selectedStudent = studentDAO.getObject(s);
+                this.setPanelGroupChangeLearning(false);
+                this.setPanelGroupHaveBatch(false);
+                this.setPanelGroupHaveNotBatch(false);
+                this.setPanelGroupNewStudent(false);
+                this.setPanelStudentDetails(true);
+                changeListStudentsHaveBatch();
+                changeListStudentsIsNotHaveBatch();
+                return THISPAGE + REDIRECT;
+            } else {
+                return null;
+            }
         } catch (Exception ex) {
             Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
-
 
     public String updateStudent() {
         try {
