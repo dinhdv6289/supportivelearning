@@ -65,18 +65,6 @@
                                         <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
-                                        <li>
-                                            <h:form prependId="false">
-                                                <p:commandLink ajax="false"
-                                                               value="Upload File"
-                                                               action="#{checkLoginToProcessBean.redirectToPage}">
-                                                    <f:setPropertyActionListener target="#{checkLoginToProcessBean.link}"
-                                                                                 value="uploadFile.jsf">
-                                                    </f:setPropertyActionListener>
-                                                </p:commandLink>
-                                            </h:form>
-
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
