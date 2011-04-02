@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/uiAdmin.xhtml">
+
+    <ui:define name="title">Admin </ui:define>
+    <ui:define name="content">
+        <h2>Contact Us</h2>
+        <h:body>
+            <h:form>
+                <p:column>
+                    <h:outputText value="Name:"/>
+                    <p:inputText value="#{studentManagerBean.selectedStudent.name}"></p:inputText>
+                </p:column>
+
+                <p:column>
+                    <h:outputText value="BirthDay:" />
+                    <p:inputText value="#{studentManagerBean.selectedStudent.birthDay}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy"/>
+                    </p:inputText>
+                </p:column>
+
+                <h:outputText value="Phone:"/>
+                <p:inputText value="#{studentManagerBean.selectedStudent.phone}"></p:inputText>
+
+                <h:outputText value="Gender:"/>                
+                <h:selectOneMenu value="#{studentManagerBean.selectedStudent.gender}">
+                    <f:selectItem itemLabel="Male" itemValue="#{true}"></f:selectItem>
+                    <f:selectItem itemLabel="FeMale" itemValue="#{false}"></f:selectItem>
+                </h:selectOneMenu>
+
+                <h:outputText value="Email:"/>
+                <p:inputText value="#{studentManagerBean.selectedStudent.email}"></p:inputText>
+
+                <h:outputText value="Address:"/>
+                <p:inputText value="#{studentManagerBean.selectedStudent.address}"></p:inputText>
+
+                <p:commandButton ajax="false"
+                                 value="Change"
+                                 action="#{studentManagerBean.updateStudent}">
+                </p:commandButton>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
+
