@@ -9,6 +9,33 @@
                 template="../templates/uiAdmin.xhtml">
 
     <ui:define name="title">Admin </ui:define>
+    <ui:define name="menuFunctions">
+        <div class="sblock1">
+            <div class="sblock1-top">Functions</div>
+            <div class="sblock1-bottom">
+                <h:form>
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="Insert Student"
+                                       action="insertStudent">
+                        </p:commandLink>
+                    </p>
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="Update Student"
+                                       action="updateStudent">
+                        </p:commandLink>
+                    </p>
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="Update Student"
+                                       action="listStudent">
+                        </p:commandLink>
+                    </p>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
     <ui:define name="content">
         <h2>Contact Us</h2>
         <h:body>
