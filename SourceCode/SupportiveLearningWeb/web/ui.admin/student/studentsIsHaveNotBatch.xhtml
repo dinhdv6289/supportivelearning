@@ -9,7 +9,8 @@
                      value="#{studentManagerBean.listStudentsIsNotHaveBatch}"
                      paginator="true"
                      rows="10"
-                     selection="#{studentManagerBean.selectedStudents}">
+                     selection="#{studentManagerBean.selectedStudents}"
+                     id="table_student_is_have_not_batch">
             <p:column selectionMode="multiple" />
             <f:facet name="header">
                 List of Students not have Batch
@@ -50,7 +51,10 @@
                         styleClass="themeMenu">
                     <p:submenu label="Batchs">
                         <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
-                            <p:menuitem value="#{item.name}" ajax="false" action="#{studentManagerBean.addStudentsToBatch}">
+                            <p:menuitem value="#{item.name}"
+                                        ajax="false"
+                                        action="#{studentManagerBean.addStudentsToBatch}"
+                                        update="table_student_is_have_not_batch">
                                 <f:setPropertyActionListener value="#{item}"
                                                              target="#{studentManagerBean.selectedBatch}">
                                 </f:setPropertyActionListener>
