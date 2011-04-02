@@ -5,42 +5,56 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
-        <p:commandLink value="Back Students"
-                       action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}">
-        </p:commandLink>
-        <p:fieldset >
-            <f:facet name="legend">
-                <p:graphicImage value="/images/download.gif"/>
-            </f:facet>
-            <h:panelGrid id="display" columns="3" cellpadding="4">
-                <h:outputLabel value="Batch:"></h:outputLabel>
-                <p:commandButton id="btn_batch"
-                                 value="#{studentManagerBean.selectedStudent.batch.name}"
-                                 type="button" >
-                </p:commandButton>
-                <p:menu widgetVar="themeMenu"
-                        my="left top"
-                        at="left bottom"
-                        trigger="btn_batch"
-                        position="dynamic"
-                        styleClass="themeMenu">
-                    <p:submenu label="#{studentManagerBean.selectedStudent.batch.name}">
-                        <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
-                            <p:menuitem value="#{item.name}" ajax="false">
-                                <f:setPropertyActionListener value="#{item}"
-                                                             target="#{studentManagerBean.selectedBatch}">
-                                </f:setPropertyActionListener>
-                            </p:menuitem>
-                        </c:forEach>
-                    </p:submenu>
-                </p:menu>
-                <h:outputText value="Reason:" />
-                <p:inputTextarea value="#{studentManagerBean.changeLearning.reason}"></p:inputTextarea>
-                <p:commandButton ajax="false"
-                                 value="Change"
-                                 action="#{studentManagerBean.changeLearningForStudent}">
-                </p:commandButton>
-            </h:panelGrid>
-        </p:fieldset>
+        <p:panel header="Change learning">
+            <p:commandLink value="Back Students"
+                           action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}"
+                           ajax="false">
+            </p:commandLink>
+            <p:fieldset >
+                <f:facet name="legend">
+                    <p:graphicImage value="/images/download.gif"/>
+                </f:facet>
+                <h:panelGrid id="display" >
+                    <h:outputLabel value="Student Name:  " for="txt_studentName"/>
+                    <h:outputText id="txt_studentName" value="#{studentManagerBean.selectedStudent.name}"/>
+                    <h:outputLabel value="Batch:" for="btn_batch"></h:outputLabel>
+                    <p:commandButton id="btn_batch"
+                                     value="#{studentManagerBean.selectedStudent.batch.name}"
+                                     type="button"
+                                     title="Choice batch">
+                    </p:commandButton>
+                    <p:menu widgetVar="themeMenu"
+                            my="left top"
+                            at="left bottom"
+                            trigger="btn_batch"
+                            position="dynamic"
+                            styleClass="themeMenu">
+                        <p:submenu label="#{studentManagerBean.selectedStudent.batch.name}">
+                            <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
+                                <p:menuitem value="#{item.name}" ajax="false">
+                                    <f:setPropertyActionListener value="#{item}"
+                                                                 target="#{studentManagerBean.selectedBatch}">
+                                    </f:setPropertyActionListener>
+                                </p:menuitem>
+                            </c:forEach>
+                        </p:submenu>
+                    </p:menu>
+                    <h:outputLabel value="Reason:" for="textArea_reason"  />
+                    <p:inputTextarea  id="textArea_reason"
+                                      value="#{studentManagerBean.changeLearning.reason}"
+                                      style="width:300px;height:100px;"
+                                      effectDuration="400"
+                                      title="Enter reason change learning."
+                                      required="true"
+                                      requiredMessage="Enter reason change learning">
+                    </p:inputTextarea>
+                    <p:message for="textArea_reason"/>
+                    <p:commandButton ajax="false"
+                                     value="Change"
+                                     action="#{studentManagerBean.changeLearningForStudent}">
+                    </p:commandButton>
+                </h:panelGrid>
+            </p:fieldset>
+        </p:panel>
     </h:form>
 </ui:composition>
