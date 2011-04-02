@@ -382,6 +382,8 @@ GO
 
 ---------------------------------------Proc Batch
 
+<<<<<<< .mine
+=======
 CREATE PROCEDURE Ins_ChangeLearning
 @StudentId int,
 @BatchId int ,
@@ -429,6 +431,7 @@ AS BEGIN
 delete StaffAndBatch where StaffId = @StaffId and BatchId = @BatchId
 END
 
+>>>>>>> .r334
 GO
 CREATE PROCEDURE Ins_StaffAndBatch
 @StaffId int,
