@@ -45,7 +45,15 @@
                                     -File upload: <a href="#{request.contextPath}/#{assignmentItem.fileUpload}">#{assignmentItem.name}</a><br/>
                                 </p>
                                 <p>
-                                    <span class="style10"></span>
+                                    <span class="style10">
+                                        <p:commandLink ajax="false"
+                                                       value="Send message"
+                                                       action="#{assignmentBean.sendFeedBack}">
+                                            <f:setPropertyActionListener target="#{feedBackBean.assignment}"
+                                                                         value="#{assignmentItem}">
+                                            </f:setPropertyActionListener>
+                                        </p:commandLink>
+                                    </span>
                                     <br/>
                                     <strong></strong>
                                 </p>
