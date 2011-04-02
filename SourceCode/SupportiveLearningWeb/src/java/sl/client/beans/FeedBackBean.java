@@ -5,6 +5,7 @@
 package sl.client.beans;
 
 import el.dao.FeedBackDAO;
+import el.model.Assignment;
 import el.model.FeedBack;
 import el.model.Staff;
 import el.model.Student;
@@ -28,6 +29,7 @@ public class FeedBackBean implements Serializable {
     private ArrayList<FeedBack> listFeedBacks;
     private FeedBackDAO feedBackDAO = new FeedBackDAO();
     private static final String REDIRECT = "?faces-redirect=true";
+    private Assignment assignment;
     private Staff staff;
 
     /** Creates a new instance of FeedBackBean */
@@ -58,6 +60,9 @@ public class FeedBackBean implements Serializable {
         this.listFeedBacks = listFeedBacks;
     }
 
+    public Assignment getAssignment() {
+        return assignment;
+    }
     
     public String insertFeedback() {
         try {
@@ -75,6 +80,14 @@ public class FeedBackBean implements Serializable {
         }
     }
 
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
+    }
+
+    public String onRequestFeedback(Assignment assignment) {
+        this.assignment = assignment;
+        return "messageDetails.jsf" + REDIRECT;
+    }
     public String onRequestStaffToSendFeedBack(Staff staff) {
         this.staff = staff;
         return "feedBack" + REDIRECT;

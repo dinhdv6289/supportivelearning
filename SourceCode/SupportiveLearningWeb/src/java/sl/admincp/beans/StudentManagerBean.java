@@ -284,6 +284,7 @@ public class StudentManagerBean implements Serializable {
         }
     }
 
+
     public String updateStudent() {
         try {
             if (studentDAO.update(selectedStudent)) {
@@ -325,7 +326,7 @@ public class StudentManagerBean implements Serializable {
                     return "studentManager.jsf" + REDIRECT;
                 }
             }
-            return "addStudentToBatch.jsf" + REDIRECT;
+            return "studentManager.jsf" + REDIRECT;
         }
         return "studentManager.jsf" + REDIRECT;
     }

@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -31,19 +32,32 @@ public class LoginBean implements Serializable {
 
     private Account account = new Account();
     private Student student = new Student();
-    private static boolean panelLogin = true;
-    private static boolean panelHi = false;
-    private static boolean panelStudent = true;
-    private static boolean panelStaff = false;
     private AccountDAO accountDAO = new AccountDAO();
     private StudentDAO studentDAO = new StudentDAO();
     private StaffDAO staffDAO = new StaffDAO();
     private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
     private static String pageRequest = "index.jsf";
-    private String redirect = "?faces-redirect=true";
+    private static final String REDIRECT = "?faces-redirect=true";
+    private static boolean panelLogin = true;
+    private static boolean panelHi = false;
+    private static boolean panelStudent = true;
+    private static boolean panelStaff = false;
+    private Staff staff;
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
+    }
+
+    @PostConstruct
+    public void init() {
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
     public String getPageRequest() {
@@ -142,7 +156,7 @@ public class LoginBean implements Serializable {
                 result = "";
             }
         }
-        return result + redirect;
+        return result + REDIRECT;
     }
 
     public String logout() {
@@ -154,7 +168,7 @@ public class LoginBean implements Serializable {
         int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
         updateStatusOnline(false, accountId);
         SessionManager.invalidate("accountId");
-        return "/ui.client/index.jsf" + redirect;
+        return "/ui.client/index.jsf" + REDIRECT;
     }
 
     private void getStudentByAccount(int accountId) {
@@ -167,7 +181,7 @@ public class LoginBean implements Serializable {
 
     private void loadListBatchs(int accountId) {
         try {
-            Staff staff = staffDAO.getStaffByAccountId(accountId);
+            staff = staffDAO.getStaffByAccountId(accountId);
             if (staff.getId() != 0) {
                 this.listBatchs = staffDAO.getListBatchsByStaffId(staff.getId());
             }
