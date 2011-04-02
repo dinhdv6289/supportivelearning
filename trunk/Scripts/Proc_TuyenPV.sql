@@ -280,6 +280,30 @@ AS BEGIN
 
 go
 
+CREATE PROCEDURE updateAssignmentWork
+@StudentId int,
+@AssignmentId int ,
+@FileUpload	nvarchar(255),
+@DateUpload datetime
+AS BEGIN 
+     update StudentWork set FileUpload = @FileUpload ,DateUpload =@DateUpload 
+     where StudentId = @StudentId and AssignmentId =@AssignmentId
+  END 
+
+go
+
+CREATE PROCEDURE Sel_MyAssignment
+@StudentId int,
+@AssignmentId int
+AS BEGIN
+	SELECT * FROM StudentWork
+	WHERE StudentId = @StudentId and AssignmentId = @AssignmentId
+END
+go
+
+
+go
+
 CREATE  PROCEDURE Sel_BatchsOfStaff
 @StaffId int
 AS BEGIN
