@@ -250,7 +250,15 @@ FROM         Account INNER JOIN
   END
 GO
 
-
+CREATE PROCEDURE Sel_StudentsIsLock
+AS BEGIN 
+SELECT     Account.AccountId, Account.RoleId, Account.UserName, Account.PassWord, Account.DateCreation, Account.FullName, Account.BirthDay, Account.Gender, 
+                      Account.Phone, Account.Email, Account.Address, Student.StudentId, Student.RollNumber, Student.BatchId
+FROM         Account INNER JOIN
+                      Student ON Account.AccountId = Student.AccountId
+	 WHERE Account.AlowLogin=0 
+  END
+GO
 
 CREATE PROCEDURE Sel_AccountById
 @AccountId int
@@ -300,7 +308,7 @@ SELECT     Student.StudentId, Student.RollNumber, Student.AccountId, Student.Bat
                       StudentWork.Mark, StudentWork.DateUpload
 FROM         Student INNER JOIN
                       StudentWork ON Student.StudentId = StudentWork.StudentId
-WHERE StudentWork.AssignmentId @AssignmentId
+WHERE StudentWork.AssignmentId = @AssignmentId
 END
 
 
@@ -350,12 +358,58 @@ GO
 
 ---------------------------------------Proc Batch
 
+CREATE PROCEDURE Ins_ChangeLearning
+@StudentId int,
+@BatchId int ,
+@Reason	ntext
+AS BEGIN 
+     INSERT INTO Changeleaning(StudentId,BatchId,Reason) 
+     VALUES (@StudentId,@BatchId,@Reason) 
+  END 
+go
+CREATE PROCEDURE Sel_Staffs
+AS BEGIN 
+SELECT     Account.*, Staff.StaffId
+FROM         Account INNER JOIN
+                      Staff ON Account.AccountId = Staff.AccountId
+END
+drop PROCEDURE StaffStatistics
 
+CREATE PROCEDURE StaffStatistics
+AS BEGIN 
+DECLARE
+	@TotalStaff int,
+	@StaffHaveBatch int,
+	@StaffHaveNotBatch int
+		SET @TotalStaff = (select count(*) from Staff)
+		SET @StaffHaveBatch = (select count(DISTINCT StaffId) from StaffAndBatch)
+		SET @StaffHaveNotBatch = @TotalStaff - @StaffHaveBatch
+		select 
+			@TotalStaff as TotalStaff ,
+			@StaffHaveBatch as StaffHaveBatch, 
+			@StaffHaveNotBatch as StaffHaveNotBatch
+END
 
+--exec StaffStatistics
+GO
+CREATE PROCEDURE Sel_AllFAQ
+AS BEGIN
+select * from StaffAndBatch
+END
+GO
 
+CREATE PROCEDURE Del_BatchByStaff
+@StaffId int,
+@BatchId int
+AS BEGIN
+delete StaffAndBatch where StaffId = @StaffId and BatchId = @BatchId
+END
 
-select * from StudentWork
-
-select * from Account
-
-select * from Roles
+GO
+CREATE PROCEDURE Ins_StaffAndBatch
+@StaffId int,
+@BatchId int
+AS BEGIN
+insert into StaffAndBatch(StaffId,BatchId) values(@StaffId, @BatchId)
+select SCOPE_IDENTITY()
+END
