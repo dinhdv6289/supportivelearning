@@ -302,7 +302,7 @@ END
 go
 
 
-go
+
 
 CREATE  PROCEDURE Sel_BatchsOfStaff
 @StaffId int
@@ -382,8 +382,8 @@ GO
 
 ---------------------------------------Proc Batch
 
-<<<<<<< .mine
-=======
+
+
 CREATE PROCEDURE Ins_ChangeLearning
 @StudentId int,
 @BatchId int ,
@@ -431,7 +431,7 @@ AS BEGIN
 delete StaffAndBatch where StaffId = @StaffId and BatchId = @BatchId
 END
 
->>>>>>> .r334
+
 GO
 CREATE PROCEDURE Ins_StaffAndBatch
 @StaffId int,
@@ -489,3 +489,12 @@ AS BEGIN
 END
 
 GO
+
+CREATE PROCEDURE Sel_StudentWorksMarkUpdate
+AS BEGIN
+SELECT * FROM StudentWork
+WHERE  Mark >0
+ORDER BY DateUpload DESC
+END
+
+go
