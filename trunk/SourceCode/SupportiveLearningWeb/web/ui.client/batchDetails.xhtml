@@ -28,6 +28,7 @@
                                     <span class="style7"></span>
                                 </h4>
                                 <p>
+
                                     <!--                                    <span class="style11">
                                                                         </span>
                                                                         <span class="style10"></span><br/>-->
@@ -47,11 +48,8 @@
                                 <p>
                                     <span class="style10">
                                         <p:commandLink ajax="false"
-                                                       value="Send message"
-                                                       action="#{assignmentBean.sendFeedBack}">
-                                            <f:setPropertyActionListener target="#{feedBackBean.assignment}"
-                                                                         value="#{assignmentItem}">
-                                            </f:setPropertyActionListener>
+                                                       value="#{assignmentItem.staff.name}"
+                                                       action="#{staffBean.onRequestStaffProfile(assignmentItem.staff)}">
                                         </p:commandLink>
                                     </span>
                                     <br/>
