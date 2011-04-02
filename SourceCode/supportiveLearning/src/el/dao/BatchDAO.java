@@ -7,6 +7,7 @@ package el.dao;
 import el.model.Batch;
 import el.model.Course;
 import el.model.Semester;
+import el.model.Staff;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -144,5 +145,40 @@ public class BatchDAO extends AbstractDAO<Batch> {
 
     public ArrayList<Batch> listBatchOfSemester(int id) {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public ArrayList<Batch> listBatchNoStaff(Staff staff) throws Exception{
+        Connection conn = null;
+        ArrayList<Batch> batchs = new ArrayList<Batch>();
+        String sql = "{call Sel_BatchNoStaff (?)}";
+         CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, staff.getId());
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                CourseDAO courseDAO = new CourseDAO();
+                Course course = new Course();
+                course.setId(rs.getInt("CourseId"));
+                course =       courseDAO.getObject(course);
+                SemesterDAO semesterDAO = new SemesterDAO();
+                Semester semester = new Semester();
+                semester.setId(rs.getInt("SemesterId"));
+                semester = semesterDAO.getObject(semester);
+                Batch batch = new Batch();
+                batch.setId(rs.getInt("BatchId"));
+                batch.setName(rs.getString("BatchName"));
+                batch.setCourse(course);
+                batch.setSemester(semester);
+                batch.setStartDate(sql2date(rs.getDate("StartDate")));
+                batchs.add(batch);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return batchs;
     }
 }
