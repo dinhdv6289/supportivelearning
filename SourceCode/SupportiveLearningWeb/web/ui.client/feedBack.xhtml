@@ -16,6 +16,16 @@
             <div class="content-block-bottom">
                 <h4>Send feedBack</h4>
                 <h:form>
+                    <h:panelGrid>
+                    <h:outputLabel value="Title:"/>
+                    <p:inputText value="#{feedBackBean.feedBack.feedBackTitle}"/>
+                    <h:outputLabel value="Contents:"/>
+                    <p:inputTextarea value="#{feedBackBean.feedBack.feedBackContent}"/>
+                    <p:commandButton ajax="false"
+                                     value="Send"
+                                     action="#{feedBackBean.insertFeedback}">
+                    </p:commandButton>
+                    </h:panelGrid>
                 </h:form>
             </div>
         </div>
