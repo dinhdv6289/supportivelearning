@@ -38,7 +38,7 @@ import sl.utils.beans.MessagesService;
 public class NewsManagedBean implements Serializable {
 
     private ArrayList<News> listNews;
-    private News selectedNews = new News();
+    private static News selectedNews ;
     private News news = new News();
     private NewsDAO newsDAO = new NewsDAO();
     private static final int BUFFER_SIZE = 1024;
