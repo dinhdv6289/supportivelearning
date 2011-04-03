@@ -20,18 +20,22 @@
                     <p:messages />
                     <h:panelGrid id="panel_grid_insert" columns="2" cellpadding="9" cellspacing="9">
                         <h:outputLabel value="For batch: *" for="batchNN"></h:outputLabel>
-                        <h:selectOneMenu id="batchNN" value="#{assignmentManagerBean.batch}" required="true" requiredMessage="Must choice batch" >
+                        <h:selectOneMenu id="batchNN" value="#{assignmentManagerBean.batch.id}" required="true" requiredMessage="Must choice batch" >
                             <f:selectItem noSelectionOption="true" itemLabel="Select Batch" itemValue=""/>
-                            <c:forEach var="batchItem" items="#{staffBatchManagerBean.listBatchs}">
-                                <f:selectItem itemLabel="#{batchItem.name}" itemValue="#{batchItem}"></f:selectItem>
-                            </c:forEach>
+                            <f:selectItems  var="b"
+                                            value="#{staffBatchManagerBean.listBatchs}"
+                                            itemLabel="#{b.name}"
+                                            itemValue="#{b.id}">
+                            </f:selectItems>
                         </h:selectOneMenu>
                         <h:outputLabel value="For Subject: *" for="subject"></h:outputLabel>
-                        <h:selectOneMenu id="subject" value="#{assignmentManagerBean.subject}" required="true" requiredMessage="Must choice subject">
+                        <h:selectOneMenu id="subject" value="#{assignmentManagerBean.subject.id}" required="true" requiredMessage="Must choice subject">
                             <f:selectItem noSelectionOption="true" itemLabel="Select Subject" itemValue=""/>
-                            <c:forEach var="subjectItem" items="#{subjectManagerBean.listSubjects}">
-                                <f:selectItem itemLabel="#{subjectItem.name}" itemValue="#{subjectItem}"></f:selectItem>
-                            </c:forEach>
+                            <f:selectItems var="s"
+                                           value="#{subjectManagerBean.listSubjects}"
+                                           itemLabel="#{s.name}"
+                                           itemValue="#{s.id}">
+                            </f:selectItems>
                         </h:selectOneMenu>
                         <h:outputLabel value="Assignment Name: *" for="assignmentName"></h:outputLabel>
                         <p:inputText id="assignmentName"
