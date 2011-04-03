@@ -98,48 +98,23 @@
                                     <ul>
                                         <li><a href="#{request.contextPath}/ui.staff/index.jsf">Home</a></li>
                                         <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                        <li><a href="#{request.contextPath}/ui.staff/viewUploadedFilesStudent.jsf"> Mark View</a></li>
-                                        <li>
-                                            <h:form prependId="false">
-                                                <p:commandLink ajax="false"
-                                                               value="Upload File"
-                                                               action="#{checkLoginToProcessBean.redirectToPage}">
-                                                    <f:setPropertyActionListener target="#{checkLoginToProcessBean.link}"
-                                                                                 value="#{request.contextPath}/ui.staff/uploadFile.jsf">
-                                                    </f:setPropertyActionListener>
-                                                </p:commandLink>
-                                            </h:form>
-
-                                        </li>
+                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
                                     </ul>
                                 </div>
                             </div>
                             <!-- Main menu Ends Here -->
-                            <!-- Navigation Block Starts Here -->
+                            <!-- Main menu Block Starts Here -->
                             <div class="sblock">
                                 <div class="sblock-top">Navigation</div>
                                 <div class="sblock-content">
                                     <ul>
-                                        <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
-                                        <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
-                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
-                                        <li>
-                                            <ul>
-                                                <h:form>
-                                                    <c:forEach var="courseItem" items="#{courseBean.listCourses}">
-                                                        <li>
-                                                            <p:commandLink value="#{courseItem.name}"
-                                                                           action="#{courseBean.onRequestCourse(courseItem)}">
-                                                            </p:commandLink>
-                                                        </li>
-                                                    </c:forEach>
-                                                </h:form>
-                                            </ul>
-                                        </li>
+                                        <li><a href="#{request.contextPath}/ui.staff/insertAssignment.jsf">Insert Assignment</a></li>
+                                        <li><a href="#{request.contextPath}/ui.staff/managerAssignment.jsf">Assignment Manager</a></li>
                                     </ul>
                                 </div>
                             </div>
-                            <!-- Navigation Block Ends Here -->
+                            <!-- Main menu Ends Here -->   
+
                         </h:panelGroup>
 
                         <!-- Quick Search Starts Here -->
