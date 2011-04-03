@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import el.utility.Utility;
 
 /**
  *
@@ -31,7 +32,7 @@ public class NewsDAO extends AbstractDAO<News> {
             cstmt.setString(2, t.getPicture());
             cstmt.setString(3, t.getSubContent());
             cstmt.setString(4, t.getNewsContent());
-            cstmt.setDate(5, (Date) t.getDateCreate());
+            cstmt.setDate(5, Utility.date2sql(t.getDateCreate()));
 
             a = cstmt.executeUpdate();
         } catch (Exception ex) {
@@ -57,7 +58,7 @@ public class NewsDAO extends AbstractDAO<News> {
             cstmt.setString(2, t.getPicture());
             cstmt.setString(3, t.getSubContent());
             cstmt.setString(4, t.getNewsContent());
-            cstmt.setDate(5, (Date) t.getDateCreate());
+            cstmt.setDate(5, Utility.date2sql(t.getDateCreate()));
             cstmt.setInt(6, t.getId());
 
             a = cstmt.executeUpdate();
