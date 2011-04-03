@@ -29,11 +29,14 @@ import sl.utils.beans.SessionManager;
 @SessionScoped
 public class StaffBatchManagerBean implements Serializable {
 
-    private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
+    private ArrayList<Batch> listBatchs;
     //private static String pageRequest = "index.jsf";
     private static final String REDIRECT = "?faces-redirect=true";
     private Staff staff;
     private StaffDAO staffDAO = new StaffDAO();
+    private static boolean panelGroupHaveBatchs;
+    private static boolean panelGroupHaveNotBatchs;
+    private static boolean panelGroupManagerAssignment;
 
     /** Creates a new instance of StaffBatchManagerBean */
     public StaffBatchManagerBean() {
@@ -56,6 +59,32 @@ public class StaffBatchManagerBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        panelGroupHaveBatchs = true;
+        panelGroupHaveNotBatchs = false;
+    }
+
+    public boolean isPanelGroupManagerAssignment() {
+        return panelGroupManagerAssignment;
+    }
+
+    public void setPanelGroupManagerAssignment(boolean panelGroupManagerAssignment) {
+        StaffBatchManagerBean.panelGroupManagerAssignment = panelGroupManagerAssignment;
+    }
+
+    public boolean isPanelGroupHaveBatchs() {
+        return panelGroupHaveBatchs;
+    }
+
+    public void setPanelGroupHaveBatchs(boolean panelGroupHaveBatchs) {
+        StaffBatchManagerBean.panelGroupHaveBatchs = panelGroupHaveBatchs;
+    }
+
+    public boolean isPanelGroupHaveNotBatchs() {
+        return panelGroupHaveNotBatchs;
+    }
+
+    public void setPanelGroupHaveNotBatchs(boolean panelGroupHaveNotBatchs) {
+        StaffBatchManagerBean.panelGroupHaveNotBatchs = panelGroupHaveNotBatchs;
     }
 
     public ArrayList<Batch> getListBatchs() {
@@ -78,6 +107,13 @@ public class StaffBatchManagerBean implements Serializable {
         try {
             if (staff.getId() != 0) {
                 this.listBatchs = staffDAO.getListBatchsByStaffId(staff.getId());
+                if (listBatchs.isEmpty()) {
+                    this.setPanelGroupHaveNotBatchs(true);
+                    this.setPanelGroupHaveBatchs(false);
+                } else {
+                    this.setPanelGroupHaveNotBatchs(false);
+                    this.setPanelGroupHaveBatchs(true);
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(StaffBatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
