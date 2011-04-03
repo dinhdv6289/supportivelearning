@@ -33,7 +33,7 @@ public class BatchDAO extends AbstractDAO<Batch> {
             ps.setInt(1, t.getCourse().getId());
             ps.setInt(2, t.getSemester().getId());
             ps.setString(3, t.getName());
-            ps.setDate(4, (Date) t.getStartDate());
+            ps.setDate(4, Utility.date2sql(t.getStartDate()));
 
             a = ps.executeUpdate();
         } catch (Exception ex) {

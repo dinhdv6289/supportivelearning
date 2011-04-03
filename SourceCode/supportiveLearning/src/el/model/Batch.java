@@ -16,8 +16,8 @@ public class Batch implements Serializable {
 
     private int id;
     private String name;
-    private Course course;
-    private Semester semester;
+    private Course course = new Course();
+    private Semester semester = new Semester();
     private Date startDate;
     private ArrayList<Student> students;
 
