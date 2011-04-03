@@ -97,7 +97,7 @@ GO
 create table Subject
 (
 	SubjectId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	SubjectName NVARCHAR(100),
+	SubjectName NVARCHAR(100)
 	
 )
 GO

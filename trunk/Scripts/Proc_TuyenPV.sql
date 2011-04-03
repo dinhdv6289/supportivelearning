@@ -419,6 +419,27 @@ DECLARE
 END
 
 --exec StaffStatistics
+
+create PROCEDURE Sel_Statistics
+AS BEGIN
+	DECLARE
+	@TotalStaff int,
+	@StaffHaveBatch int,
+	@StaffHaveNotBatch int,
+	@AccountOnline  int,
+	@TotalBatch     int
+		SET @TotalStaff = (select count(*) from Staff)
+		SET @StaffHaveBatch = (select count(DISTINCT StaffId) from StaffAndBatch)
+		SET @StaffHaveNotBatch = @TotalStaff - @StaffHaveBatch
+		SET @AccountOnline = (select count(*) from Account where isOnline = 1)
+		SET @TotalBatch   = (select count(*) from batch)
+		select 
+			@TotalStaff as TotalStaff ,
+			@StaffHaveBatch as StaffHaveBatch,
+			@StaffHaveNotBatch as StaffHaveNotBatch,
+			@AccountOnline as AccountOnline,
+			@TotalBatch as TotalBatch
+END
 GO
 CREATE PROCEDURE Sel_AllFAQ
 AS BEGIN
@@ -451,9 +472,6 @@ SELECT * FROM StudentWork
 WHERE  Mark >0
 ORDER BY DateUpload DESC
 END
-go
-
-select * from dbo.StaffAndBatch where StaffId = 1
 
 
 GO
@@ -479,7 +497,8 @@ CREATE PROCEDURE Ins_Student
 @Phone  nvarchar(50),
 @Email  nvarchar(100),
 @Address nvarchar(200),
-@Output  int
+@Output  int output,
+@Result  int output
 AS BEGIN
 	DECLARE @RollNumber VARCHAR(6)
 	DECLARE @NewUserName NVARCHAR(50)
@@ -494,12 +513,18 @@ AS BEGIN
 			VALUES	(2,@NewUserName,@NewUserName,@FullName,@BirthDay,@Gender,@Phone,@Email,@Address)
 
 			INSERT INTO Student(RollNumber, AccountId)
-			VALUES	(@IdentityId,@AccountId)
+			VALUES	(@IdentityId,@AccountId +1)
 			SET @Output = (SELECT ISNULL(MAX(StudentId),0) FROM Student)
+			SET @Result = 1 --ok
 		END
+	ELSE
+		BEGIN
+			SET @Result = 2 -- Email da su dung
+		END 
 	END
 GO
-
+select * from account
+select * from student
 CREATE PROCEDURE SelectLatestAccount
 AS BEGIN 
 	select top(1) *  from Account order by AccountId desc
@@ -517,9 +542,6 @@ insert into FeedBack(StudentId, StaffId, FeedBackTitle, FeedBackContent) values(
 END
 
 go
-select * from accoun
-
-go
 create proc Sel_AssignmentsByStaffId
 @StaffId int
 as
@@ -529,3 +551,82 @@ end
 
 go
 
+CREATE PROCEDURE Ins_Batch
+@CourseId int,
+@SemesterId int,
+@BatchName NVARCHAR(100),
+@StartDate datetime
+AS BEGIN
+insert into Batch(CourseId,SemesterId,BatchName,StartDate)
+values (@CourseId,@SemesterId,@BatchName,@StartDate)
+END
+GO
+CREATE PROCEDURE Sel_AllCourse
+AS BEGIN
+select * from Course
+END
+GO
+CREATE PROCEDURE Sel_AllSemester
+AS BEGIN
+select * from Semester
+END
+GO
+
+CREATE PROCEDURE Ins_Assignment
+@SubjectId		 INT,
+@StaffId			 INT,
+@BatchId			 INT,
+@AssignmentName   NVARCHAR(100),
+@AssignmentFile   NVARCHAR(255),
+@AssignmentContent ntext,
+@StartDate		datetime,
+@EndDate		datetime
+AS BEGIN
+	insert into Assignment(SubjectId,StaffId,BatchId,AssignmentName,AssignmentFile,AssignmentContent,StartDate,EndDate)
+	values(@SubjectId,@StaffId,@BatchId,@AssignmentName,@AssignmentFile,@AssignmentContent,@StartDate,@EndDate)
+END
+GO
+CREATE PROCEDURE Upd_Assignment
+@SubjectId		 INT,
+@StaffId			 INT,
+@BatchId			 INT,
+@AssignmentName   NVARCHAR(100),
+@AssignmentFile   NVARCHAR(255),
+@AssignmentContent ntext,
+@StartDate		datetime,
+@EndDate		datetime,
+@AssignmentId int
+AS BEGIN
+	Update Assignment 
+SET SubjectId = @SubjectId,
+StaffId = @StaffId,
+BatchId = @BatchId,
+AssignmentName = @AssignmentName,
+AssignmentFile = @AssignmentFile,
+AssignmentContent = @AssignmentContent,
+StartDate = @StartDate,
+EndDate = @EndDate
+where AssignmentId = @AssignmentId
+END
+GO
+CREATE PROCEDURE Del_Assignment
+@AssignmentId int, 
+@Result int output
+AS BEGIN
+	IF(NOT EXISTS(SELECT AssignmentId FROM StudentWork WHERE AssignmentId=@AssignmentId))
+	BEGIN
+		delete Assignment where AssignmentId = @AssignmentId
+		SET @Result = 1 -- ok
+	END
+	ELSE
+	BEGIN
+		SET @Result = 2 -- ton tai StudentWork
+	END
+END
+GO
+CREATE PROCEDURE Ins_Subject
+@Subjectname NVARCHAR(100)
+AS BEGIN
+	insert into Subject(Subjectname) values (@Subjectname)
+END
+GO
