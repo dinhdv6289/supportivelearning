@@ -53,23 +53,13 @@ public class StudentWorkManagerBean implements Serializable {
     }
 
     public ArrayList<StudentWork> getListStudentWorks() {
-        assert assignment.getId() > 0;
-        //if (assignment.getId() > 0) {
         try {
             this.listStudentWorks = studentWorkDAO.getAllStudentByAssignmentId(assignment.getId());
-            if (listStudentWorks.size() > 0) {
-                haveStudentWork = true;
-                notHaveStudentWork = false;
-            } else {
-                haveStudentWork = false;
-                notHaveStudentWork = true;
-            }
-
         } catch (Exception ex) {
             Logger.getLogger(StudentWorkManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        //   }
-        return listStudentWorks;
+        return this.listStudentWorks;
     }
 
     public void setListStudentWorks(ArrayList<StudentWork> listStudentWorks) {
