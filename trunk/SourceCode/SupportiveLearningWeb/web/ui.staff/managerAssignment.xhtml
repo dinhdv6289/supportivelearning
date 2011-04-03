@@ -53,6 +53,9 @@
                                 </p:commandButton>
                                 <p:commandButton value="Delete" image="ui-icon ui-icon-search"
                                                  update="form:display" oncomplete="confirmation.show()">
+                                    <f:setPropertyActionListener target="#{assignmentManagerBean.selectedAssignment}"
+                                                                 value="#{assignmentItem}">
+                                    </f:setPropertyActionListener>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
@@ -60,8 +63,9 @@
                                          showEffect="bounce" hideEffect="explode"
                                          header="Initiating destroy process" severity="alert" widgetVar="confirmation">
                             <h:panelGrid id="display">
-                                <p:commandButton value="Yes Sure" update="messages" oncomplete="confirmation.hide()"
-                                                 action="#{assignmentManagerBean.deleteAssignment(assignmentItem)}"/>
+                                <p:commandButton value="Yes Sure" update="tbl" oncomplete="confirmation.hide()"
+                                                 action="#{assignmentManagerBean.deleteAssignment}">
+                                </p:commandButton>
                                 <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
                             </h:panelGrid>
                         </p:confirmDialog>
