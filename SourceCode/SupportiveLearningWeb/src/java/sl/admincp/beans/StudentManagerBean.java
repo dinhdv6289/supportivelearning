@@ -269,10 +269,10 @@ public class StudentManagerBean implements Serializable {
             String username = student.getName();
             username = Utility.GenerateUserName(username);
             student.setUserName(username);
-            int newid = studentDAO.insertStudent(student);
-            if (newid > 0) {
+            int[] result = studentDAO.insertStudent(student);
+            if (result[0] > 0 && result[0] != 2 ) {
                 Student s = new Student();
-                s.setId(newid);
+                s.setId(result[0]);
                 selectedStudent = studentDAO.getObject(s);
                 this.setPanelGroupChangeLearning(false);
                 this.setPanelGroupHaveBatch(false);
@@ -281,6 +281,7 @@ public class StudentManagerBean implements Serializable {
                 this.setPanelStudentDetails(true);
                 changeListStudentsHaveBatch();
                 changeListStudentsIsNotHaveBatch();
+                student = new Student();
                 return THISPAGE + REDIRECT;
             } else {
                 return null;
