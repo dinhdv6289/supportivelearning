@@ -38,7 +38,7 @@ import sl.utils.beans.MessagesService;
 public class NewsManagedBean implements Serializable {
 
     private ArrayList<News> listNews;
-    private static News selectedNews ;
+    private static News selectedNews;
     private News news = new News();
     private NewsDAO newsDAO = new NewsDAO();
     private static final int BUFFER_SIZE = 1024;
@@ -104,10 +104,9 @@ public class NewsManagedBean implements Serializable {
 
     public String updateNews() {
         try {
-            if (newsDAO.update(getSelectedNews())) {
-                return "updateNews";
-            }
-            return null;
+            selectedNews.setPicture(pathImage);
+            newsDAO.update(getSelectedNews());
+            return "updateNews";
         } catch (Exception ex) {
             Logger.getLogger(NewsManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -198,8 +197,7 @@ public class NewsManagedBean implements Serializable {
 //        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedNews", event.getObject());
 //        return "DetailNewUpdate?faces-redirect=true";
 //    }
-
-    public String details(SelectEvent event){
+    public String details(SelectEvent event) {
         return "detailNewsToUpdate" + REDIRECT;
     }
 }
