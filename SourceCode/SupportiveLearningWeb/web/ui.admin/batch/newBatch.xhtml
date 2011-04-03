@@ -27,14 +27,29 @@
                     <f:validateLength minimum="2" />
                 </p:inputText>
                 <p:message for="batchName" />
+                <h:outputLabel for="course" value="Course: *"/>
+                <h:selectOneMenu id="course" value="#{batchManagerBean.batch.course.id}">
+                    <f:selectItem itemLabel="Select Course" itemValue="0" noSelectionOption="true"/>
+                    <f:selectItems value="#{courseManagerBean.listCourses}"
+                                   var="c"
+                                   itemLabel="#{c.name}"
+                                   itemValue="#{c.id}"></f:selectItems>
+                </h:selectOneMenu>
+                <p:message for="course" />
                 <h:outputLabel for="semester" value="Semester: *"/>
-                <h:selectOneMenu id="semester" value="#{semesterManagerBean.semester}">
-                    <f:selectItem itemLabel="Select Semester" itemValue="" />
-                    <f:selectItems value="#{semesterManagerBean.listSemesters}" />
+                <h:selectOneMenu id="semester" value="#{batchManagerBean.batch.semester.id}">
+                    <f:selectItem itemLabel="Select Semester" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{semesterManagerBean.listSemesters}"
+                                   var="sem"
+                                   itemLabel="#{sem.semesterName}"
+                                   itemValue="#{sem.id}"></f:selectItems>
                 </h:selectOneMenu>
                 <p:message for="semester" />
+                <h:outputLabel for="startdate" value="Start date: *"></h:outputLabel>
+                <p:calendar id="startdate" value="#{batchManagerBean.batch.startDate}"></p:calendar>
+                <p:message for="startdate" />
                 <p:commandButton  ajax="false"
-                                  action="Test"
+                                  action="#{batchManagerBean.insertBatch}"
                                   value="Save">
                 </p:commandButton>
 
