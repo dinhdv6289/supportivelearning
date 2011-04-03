@@ -30,6 +30,8 @@ public class CalendarBean implements Serializable {
     /** Creates a new instance of CalendarBean */
     public CalendarBean() {
     }
+    private Date startDate;
+    private Date endDate;
     private Date date1;
     private Date date2;
     private Date date3;
@@ -92,6 +94,22 @@ public class CalendarBean implements Serializable {
 
     public void setDates(Date[] dates) {
         this.dates = dates;
+    }
+
+    public Date getEndDate() {
+        return endDate = new Date();
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate = new Date();
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public List<Date> getSelectedDates() {
