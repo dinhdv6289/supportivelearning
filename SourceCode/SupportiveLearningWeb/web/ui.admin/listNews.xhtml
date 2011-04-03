@@ -33,7 +33,7 @@
                     </p>
                     <p>
                         <p:commandLink ajax="false"
-                                       value="Update News"
+                                       value="Delete News"
                                        action="listNews">
                         </p:commandLink>
                     </p>
@@ -70,6 +70,13 @@
                             <h:outputText value="subContent:" />
                         </f:facet>
                         <h:outputText value="#{news.subContent}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="DateCreate:" />
+                        </f:facet>
+                        <h:outputText value="#{news.dateCreate}" />
                     </p:column>
 
                     <f:facet name="footer">
