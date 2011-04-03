@@ -38,8 +38,8 @@ public class AssignmentManagerBean implements Serializable {
     private Assignment assignment = new Assignment();
     private static Assignment selectedAssignment;
     private Staff staff;
-    private Batch batch;
-    private Subject subject;
+    private Batch batch = new Batch();
+    private Subject subject = new Subject();
     private Batch batchDetailsToStaff;
     private static Assignment assignmentDetails;
     private ArrayList<Assignment> listAssignmentsUploadByStaff = new ArrayList<Assignment>();
@@ -316,9 +316,9 @@ public class AssignmentManagerBean implements Serializable {
         return "managerAssignment.jsf" + REDIRECT;
     }
 
-    public String deleteAssignment(Assignment assignment) {
+    public String deleteAssignment() {
         try {
-            if(assignmentDAO.delete(assignment)){
+            if(assignmentDAO.delete(selectedAssignment)){
                 MessagesService.showMessage("Ok.");
             }else{
                 MessagesService.showMessage("Ok.");
