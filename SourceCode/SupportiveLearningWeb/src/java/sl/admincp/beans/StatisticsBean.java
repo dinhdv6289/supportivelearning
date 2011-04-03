@@ -5,7 +5,11 @@
 package sl.admincp.beans;
 
 import el.dao.StaffDAO;
+import el.dao.StatisticsDAO;
 import el.dao.StudentDAO;
+import el.model.Statistics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -22,7 +26,7 @@ public class StatisticsBean {
     }
     private StudentDAO studentDAO = new StudentDAO();
     private StaffDAO staffDAO = new StaffDAO();
-    
+    private Statistics statistics = new Statistics();
     private int totalStudent;
     private int studentNotBatch;
     private int studentInBatch;
@@ -107,6 +111,26 @@ public class StatisticsBean {
 
     public void setTotalStudent(int totalStudent) {
         this.totalStudent = totalStudent;
+    }
+
+    /**
+     * @return the statistics
+     */
+    public Statistics getStatistics() {
+        StatisticsDAO statisticsDAO = new StatisticsDAO();
+        try {
+            return statisticsDAO.getStatistics();
+        } catch (Exception ex) {
+            Logger.getLogger(StatisticsBean.class.getName()).log(Level.SEVERE, null, ex);
+            return new Statistics();
+        }
+    }
+
+    /**
+     * @param statistics the statistics to set
+     */
+    public void setStatistics(Statistics statistics) {
+        this.statistics = statistics;
     }
 }
 
