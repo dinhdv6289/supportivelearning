@@ -1,6 +1,8 @@
 use SupportiveLearning
 go
-
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'INSERT_USER' AND TYPE = 'P')
+DROP PROC INSERT_USER
+GO
 create proc Sel_AssignmentsByBacthId
 @BatchId int
 as
@@ -440,6 +442,20 @@ AS BEGIN
 insert into StaffAndBatch(StaffId,BatchId) values(@StaffId, @BatchId)
 select SCOPE_IDENTITY()
 END
+
+
+GO
+CREATE PROCEDURE Sel_StudentWorksMarkUpdate
+AS BEGIN
+SELECT * FROM StudentWork
+WHERE  Mark >0
+ORDER BY DateUpload DESC
+END
+go
+
+select * from dbo.StaffAndBatch where StaffId = 1
+
+
 GO
 CREATE PROCEDURE Sel_BatchNoStaff
 @StaffId int
@@ -502,11 +518,6 @@ END
 
 select * from accoun
 
-CREATE PROCEDURE Sel_StudentWorksMarkUpdate
-AS BEGIN
-SELECT * FROM StudentWork
-WHERE  Mark >0
-ORDER BY DateUpload DESC
-END
 
 go
+
