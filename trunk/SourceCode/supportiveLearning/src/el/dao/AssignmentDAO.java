@@ -22,17 +22,84 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
 
     @Override
     public int insert(Assignment t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        Connection conn = null;
+        int a = 0;
+        String sql = "{call Ins_Assignment (?, ?, ?, ?, ?, ?, ?, ?)}";
+        CallableStatement cstmt = null;
+        try{
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, t.getSubject().getId());
+            cstmt.setInt(2, t.getStaff().getId());
+            cstmt.setInt(3, t.getBatch().getId());
+            cstmt.setString(4, t.getName());
+            cstmt.setString(5, t.getFileUpload());
+            cstmt.setString(6, t.getContent());
+            cstmt.setDate(7, Utility.date2sql(t.getStartDate()));
+            cstmt.setDate(8, Utility.date2sql(t.getEndDate()));
+
+            a = cstmt.executeUpdate();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            if(conn!=null){
+                conn.close();
+            }
+        }
+        return a;
     }
 
     @Override
     public boolean update(Assignment t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection conn = null;
+        int a = 0;
+        String sql = "{call Upd_Assignment (?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        CallableStatement cstmt = null;
+        try{
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, t.getSubject().getId());
+            cstmt.setInt(2, t.getStaff().getId());
+            cstmt.setInt(3, t.getBatch().getId());
+            cstmt.setString(4, t.getName());
+            cstmt.setString(5, t.getFileUpload());
+            cstmt.setString(6, t.getContent());
+            cstmt.setDate(7, Utility.date2sql(t.getStartDate()));
+            cstmt.setDate(8, Utility.date2sql(t.getEndDate()));
+            cstmt.setInt(9, t.getId());
+            a = cstmt.executeUpdate();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            if(conn!=null){
+                conn.close();
+            }
+        }
+        return a == 1 ? true : false;
     }
 
     @Override
     public boolean delete(Assignment t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection conn = null;
+        int a = 0;
+        String sql = "{call Del_Assignment  (?, ?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall (sql);
+            cstmt.setInt(1, t.getId());
+            cstmt.registerOutParameter(2, java.sql.Types.INTEGER);
+            cstmt.execute();
+            a = cstmt.getInt(2);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return a == 1 ? true : false;
     }
 
     @Override
