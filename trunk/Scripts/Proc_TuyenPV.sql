@@ -516,8 +516,16 @@ AS BEGIN
 insert into FeedBack(StudentId, StaffId, FeedBackTitle, FeedBackContent) values(@StudentId,@StaffId,@FeedBackTitle,@FeedBackContent)
 END
 
+go
 select * from accoun
 
+go
+create proc Sel_AssignmentsByStaffId
+@StaffId int
+as
+begin
+	select * from Assignment where StaffId = @StaffId
+end
 
 go
 
