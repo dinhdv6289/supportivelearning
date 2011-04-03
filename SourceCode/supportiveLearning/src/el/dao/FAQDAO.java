@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package el.dao;
 
 import el.model.FAQ;
@@ -13,7 +12,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 
 /**
  *
@@ -27,18 +25,18 @@ public class FAQDAO extends AbstractDAO<FAQ> {
         int a = 0;
         String sql = "{call Ins_FAQ (?, ?, ?)}";
         CallableStatement cstmt = null;
-        try{
+        try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setString(1, t.getQuestion());
             cstmt.setString(2, t.getAnswer());
-            cstmt.setDate(3, (Date) t.getDate());
+            cstmt.setDate(3, Utility.date2sql(t.getDate()));
 
             a = cstmt.executeUpdate();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            if(conn!=null){
+        } finally {
+            if (conn != null) {
                 conn.close();
             }
         }
@@ -53,11 +51,11 @@ public class FAQDAO extends AbstractDAO<FAQ> {
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall (sql);
+            cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getId());
             cstmt.setString(2, t.getQuestion());
             cstmt.setString(3, t.getAnswer());
-            cstmt.setDate(4, (Date) t.getDate());
+            cstmt.setDate(4, Utility.date2sql(t.getDate()));
 
             a = cstmt.executeUpdate();
         } catch (Exception ex) {
@@ -78,7 +76,7 @@ public class FAQDAO extends AbstractDAO<FAQ> {
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall (sql);
+            cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getId());
 
             a = cstmt.executeUpdate();
@@ -104,7 +102,7 @@ public class FAQDAO extends AbstractDAO<FAQ> {
             while (rs.next()) {
                 FAQ fAQ = new FAQ();
                 fAQ.setId(rs.getInt("FAQId"));
-                fAQ.setQuestion(rs.getString("Question"));
+                fAQ.setQuestion(rs.getString("Quesion"));
                 fAQ.setAnswer(rs.getString("Answer"));
                 fAQ.setDate(Utility.sql2date(rs.getDate("DateCreation")));
                 faqs.add(fAQ);
@@ -148,5 +146,4 @@ public class FAQDAO extends AbstractDAO<FAQ> {
     public FAQ getObject(FAQ t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }
