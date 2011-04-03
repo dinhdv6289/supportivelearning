@@ -14,6 +14,7 @@
         <div class="content-block">
             <div class="content-block-top"></div>
             <div class="content-block-bottom">
+                <h4>#{assignmentManagerBean.assignmentDetails.batch.name}</h4>
                 <p:fieldset legend="Assignment #{assignmentManagerBean.assignmentDetails.subject.name}"
                             toggleable="true"
                             toggleSpeed="500">
@@ -57,7 +58,6 @@
             </div>
         </div>
         <!-- Assignment Block Ends Here -->
-
         
             <!-- In due Date Block Starts Here -->
             <div class="content-block">
@@ -72,13 +72,10 @@
                                      paginator="true"
                                      rows="10"
                                      widgetVar="studentWorkTable">
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Search all fields:" style="font-size: 15px" />
-                                    <p:inputText id="globalFilter" onkeyup="studentWorkTable.filter()" style="width:150px" />
-                                </p:outputPanel>
-                            </f:facet>
-                            <p:column filterBy="#{studentWorkItem.student.name}" headerText="Student Name" footerText="contains" filterMatchMode="contains">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name" />
+                                </f:facet>
                                 <h:outputText value="#{studentWorkItem.student.name}" />
                             </p:column>
                             <p:column>
@@ -104,23 +101,17 @@
                                 </h:outputText>
                             </p:column>
 
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="File"/>
+                                </f:facet>
+                                <a href="documents/assignmentFiles/#{studentWorkItem.fileUpload}">#{studentWorkItem.fileUpload}</a>
+                            </p:column>
                         </p:dataTable>
                     </h:form>
                 </div>
             </div>
             <!-- In due Date Block Ends Here -->
-        
-
-        <h:panelGroup rendered="#{studentWorkManagerBean.notHaveStudentWork}">
-            <!-- In due Date Block Starts Here -->
-            <div class="content-block">
-                <div class="content-block-top"></div>
-                <div class="content-block-bottom">
-                    <h4>Not have Student work</h4>
-                </div>
-            </div>
-            <!-- In due Date Block Ends Here -->
-        </h:panelGroup>
 
     </ui:define>
 </ui:composition>

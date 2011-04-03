@@ -48,8 +48,35 @@
                                 <h:outputText value="Delete"/>
                             </f:facet>
                         </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="reply"
+                                             value="Reply"
+                                             update="form_message_reply:outputPanel_message_reply"
+                                             oncomplete="dialog_message_reply.show()">
+                            </p:commandButton>
+                        </f:facet>
                     </p:dataTable>
 
+                    <p:dialog widgetVar="dialog_message_reply"
+                              header="Reply FeedBack"
+                              resizable="false"
+                              width="400"
+                              modal="true">
+                        <h:form id="form_message_reply">
+                            <p:outputPanel id="outputPanel_message_reply">
+                                <h:panelGrid id="panelGridReply" columns="2" cellpadding="4">
+                                    <h:outputLabel value="Title:"/>
+                                    <p:inputText value="#{feedBackAnswerManagerBean.selectedFeedBack.feedBackTitle}"/>
+                                    <h:outputLabel value="Content:"/>
+                                    <p:inputTextarea value="#{feedBackAnswerManagerBean.selectedFeedBack.feedBackContent}"/>
+                                    <p:commandButton actionListener="#{feedBackAnswerManagerBean.insertFeedBackAnswer}"
+                                                     value="Reply"
+                                                     oncomplete="dialog_message_reply.hide()">
+                                    </p:commandButton>
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </h:form>
+                    </p:dialog>
                 </h:form>
             </div>
         </div>

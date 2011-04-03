@@ -14,8 +14,23 @@
         <div class="content-block">
             <div class="content-block-top"></div>
             <div class="content-block-bottom">
+                tren nay la cac message da gui.
                 <h:form>
-
+                    <p:fieldset >
+                        <f:facet name="legend">
+                            <p:graphicImage value="/images/download.gif"/>
+                        </f:facet>
+                        <h:panelGrid id="display" columns="3" cellpadding="4">
+                            <p:messages/>
+                            <h:outputLabel for="feedBackAnswer" value="Messges content:"></h:outputLabel>
+                            <p:inputTextarea id="feedBackAnswer" value="#{feedBackAnswerManagerBean.feedBackAnswer.feedBackAnswer}"></p:inputTextarea>
+                            <p:message for="feedBackAnswer"/>
+                            <p:commandButton ajax="false"
+                                             value="Send"
+                                             action="#{feedBackAnswerManagerBean.insertFeedBackAnswer}">
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </p:fieldset>
                 </h:form>
             </div>
         </div>

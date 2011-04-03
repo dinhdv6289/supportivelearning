@@ -10,32 +10,80 @@
 
     <ui:define name="title">Home </ui:define>
     <ui:define name="content">
-        <!-- News Block Starts Here -->
-        <div class="content-block">
-            <div class="content-block-top"></div>
-            <div class="content-block-bottom">
-                <h4>Site news!</h4>
-                <h:form>
-                    <c:if test="#{newsBean.listNews == null}">
-                        Not have news
-                    </c:if>
-                    <c:if test="#{newsBean.listNews != null}">
-                        <c:forEach var="newsItem" items="#{newsBean.listNews}" varStatus="newsStatus">
-                            <p:fieldset legend="#{newsItem.title}"
-                                        toggleable="true"
-                                        toggleSpeed="500">
-                                <h:panelGrid columns="2" cellpadding="10">
-                                    <p:graphicImage value="/images/news/#{newsItem.picture}" />
-                                    <h:outputText value="#{newsItem.subContent}"/>
-                                </h:panelGrid>
-                            </p:fieldset>
-                        </c:forEach>
-                    </c:if>
-                </h:form>
-            </div>
-        </div>
-        <!-- News Block Ends Here -->
+        <h:form>
+            <h:panelGroup rendered="#{staffBatchManagerBean.panelGroupHaveBatchs}">
+                <h4>My batchs</h4>
+                <c:forEach var="batchItem" items="#{staffBatchManagerBean.listBatchs}" >
+                    <!-- News Block Starts Here -->
+                    <div class="content-block">
+                        <div class="content-block-top"></div>
+                        <div class="content-block-bottom">
 
+                            <h4>Batch: #{batchItem.name} </h4>
+                            <c:forEach var="assignmentItem" items="#{assignmentManagerBean.listAssignmentsStaff}">
+                                <p:fieldset legend="Assignment #{assignmentItem.subject.name}"
+                                            toggleable="true"
+                                            toggleSpeed="500">
+                                    <h4 class="style9">
+                                        <img width="315" height="70" src=""/>
+                                    </h4>
+                                    <h4 class="style9">
+
+                                        <span class="style7"></span>
+                                    </h4>
+                                    <p>
+                                        <!--                                    <span class="style11">
+                                                                            </span>
+                                                                            <span class="style10"></span><br/>-->
+                                        <strong>Assignment Name:
+                                            <h:outputText style="color: red;font-style: italic;font-size: 16px "  value="#{assignmentItem.name}"/>
+                                        </strong><br/>
+                                        -Start date:
+                                        <h:outputText value="#{assignmentItem.startDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        </h:outputText><br/>
+                                        -End date:
+                                        <h:outputText style="color: red" value="#{assignmentItem.endDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        </h:outputText><br/>
+                                        -File upload: <a href="#{request.contextPath}/#{assignmentItem.fileUpload}">#{assignmentItem.name}</a><br/>
+                                    </p>
+                                    <p>
+                                        <span class="style10">
+
+                                        </span>
+                                        <br/>
+                                        <strong></strong>
+                                    </p>
+                                    <p>
+                                        <br/>
+                                        <p:commandLink ajax="false"
+                                                       value="more"
+                                                       action="#{assignmentManagerBean.onRequestAssignment(assignmentItem)}">
+                                            <f:setPropertyActionListener target="#{studentWorkManagerBean.assignment}"
+                                                                         value="#{assignmentItem}">
+                                            </f:setPropertyActionListener>
+                                        </p:commandLink>
+                                    </p>
+
+                                </p:fieldset>
+                                <br/>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <!-- News Block Ends Here -->
+                </c:forEach>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{staffBatchManagerBean.panelGroupHaveNotBatchs}">
+                <div class="content-block">
+                    <div class="content-block-top"></div>
+                    <div class="content-block-bottom">
+                        Have not Batchs.
+                    </div>
+                </div>
+            </h:panelGroup>
+        </h:form>
     </ui:define>
 </ui:composition>
 

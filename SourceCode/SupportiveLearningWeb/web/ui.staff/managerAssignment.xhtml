@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/ui.xhtml">
+
+    <ui:define name="title">Manager Assignment </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <c:forEach var="batchItem" items="#{staffBatchManagerBean.listBatchs}" >
+                <!-- News Block Starts Here -->
+                <div class="content-block">
+                    <div class="content-block-top"></div>
+                    <div class="content-block-bottom">
+
+                        <h4>Batch: #{batchItem.name} </h4>
+                        <p:dataTable id="tbl"
+                                     var="assignmentItem"
+                                     value="#{assignmentManagerBean.listAssignmentsOfBatch(batchItem)}"
+                                     emptyMessage="Not have assignments."
+                                     paginator="true"
+                                     rows="10">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Subject" />
+                                </f:facet>
+                                <h:outputText value="#{assignmentItem.subject.name}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Assignment Name"/>
+                                </f:facet>
+                                <h:outputText value="#{assignmentItem.name}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="File upload"/>
+                                </f:facet>
+                                <a href="#{request.contextPath}/#{assignmentItem.fileUpload}">#{assignmentItem.name}</a>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Functions"/>
+                                </f:facet>
+                                <p:commandButton ajax="false"
+                                                 value="Edit"
+                                                 action="#{assignmentManagerBean.onRequestAssignmentToEdit(assignmentItem)}">
+                                </p:commandButton>
+                                <p:commandButton value="Delete" image="ui-icon ui-icon-search"
+                                                 update="form:display" oncomplete="confirmation.show()">
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                        <p:confirmDialog message="Are you sure want to delete?"
+                                         showEffect="bounce" hideEffect="explode"
+                                         header="Initiating destroy process" severity="alert" widgetVar="confirmation">
+                            <h:panelGrid id="display">
+                                <p:commandButton value="Yes Sure" update="messages" oncomplete="confirmation.hide()"
+                                                 action="#{assignmentManagerBean.deleteAssignment(assignmentItem)}"/>
+                                <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
+                            </h:panelGrid>
+                        </p:confirmDialog>
+                    </div>
+                </div>
+                <!-- News Block Ends Here -->
+            </c:forEach>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

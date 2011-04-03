@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/ui.xhtml">
+
+    <ui:define name="title">Assignment </ui:define>
+    <ui:define name="content">
+        <!-- Assignment Block Starts Here -->
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <h3>Edit Assignment</h3>
+                <h:form prependId="false">
+                    <h4>Batch:  #{assignmentManagerBean.selectedAssignment.batch.name}</h4>
+                    <h4>Subject: #{assignmentManagerBean.selectedAssignment.subject.name}</h4>
+                    <p:growl id="errorr" showDetail="true"/>
+                    <p:messages/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Assignment Name:" for="assignmentName"></h:outputLabel>
+                        <p:inputText id="assignmentName"
+                                     value="#{assignmentManagerBean.selectedAssignment.name}"
+                                     required="true"
+                                     requiredMessage="Enter assignment name">
+                        </p:inputText>
+
+                        <h:outputLabel value=" -Start date:" for="startDate"/>
+                        <p:calendar id="startDate"
+                                    value="#{assignmentManagerBean.selectedAssignment.startDate}"
+                                    mindate="#{calendarBean.startDate}"
+                                    pattern="MM/dd/yyyy"
+                                    required="true"
+                                    requiredMessage="Choice start date">
+                        </p:calendar>
+                        <h:outputLabel value=" -End date:" for="endDate"/>
+                        <p:calendar id="endDate"
+                                    value="#{assignmentManagerBean.selectedAssignment.endDate}"
+                                    mindate="#{calendarBean.endDate}"
+                                    pattern="MM/dd/yyyy"
+                                    required="true"
+                                    requiredMessage="Choice end date">
+                        </p:calendar>
+
+                        <h:outputLabel value="-File upload: " ></h:outputLabel>
+                        <p:fileUpload fileUploadListener="#{assignmentManagerBean.handleFileUpload}"
+                                      update="errorr"
+                                      allowTypes="*.doc;*.txt;"  />
+                    </h:panelGrid>
+                    <h:outputLabel value="Content" for="content"></h:outputLabel>
+                    <p:editor value="#{assignmentManagerBean.selectedAssignment.content}"
+                              id="content"
+                              width="475">
+                    </p:editor>
+                    <p:commandButton ajax="false"
+                                     value="Update"
+                                     action="#{assignmentManagerBean.updateAssignment}"
+                                     update="errorr">
+                    </p:commandButton>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+
