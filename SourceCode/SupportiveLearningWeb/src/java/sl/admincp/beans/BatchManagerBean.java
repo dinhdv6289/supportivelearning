@@ -6,6 +6,7 @@ package sl.admincp.beans;
 
 import el.dao.BatchDAO;
 import el.model.Batch;
+import el.model.Course;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -26,6 +27,7 @@ public class BatchManagerBean implements Serializable {
     private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
     private BatchDAO batchDAO = new BatchDAO();
     private Batch selectedBatch;
+    private Course selectedCourse;
     private static boolean panelGroupNewBatch;
     private static boolean panelGroupBatchs;
     private static boolean panelGroupStudentInBatch;
@@ -44,6 +46,15 @@ public class BatchManagerBean implements Serializable {
         panelGroupStudentInBatch = false;
     }
 
+    public Course getSelectedCourse() {
+        return selectedCourse;
+    }
+
+    public void setSelectedCourse(Course selectedCourse) {
+        this.selectedCourse = selectedCourse;
+    }
+
+    
     public Batch getBatch() {
         return batch;
     }
@@ -119,5 +130,29 @@ public class BatchManagerBean implements Serializable {
 
     public void setListBatchs(ArrayList<Batch> listBatchs) {
         this.listBatchs = listBatchs;
+    }
+
+
+    public ArrayList<Batch> loadBatchs() {
+        try {
+                listBatchs = batchDAO.list();
+            return listBatchs;
+        } catch (Exception ex) {
+            Logger.getLogger(BatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    public String insertBatch(){
+        try {
+            batchDAO.insert(batch);
+            this.setPanelGroupBatchs(true);
+            this.setPanelGroupNewBatch(false);
+            this.setPanelGroupStudentInBatch(false);
+            loadBatchs();
+            return THISPAGE + REDIRECT;
+        } catch (Exception ex) {
+            Logger.getLogger(BatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }
