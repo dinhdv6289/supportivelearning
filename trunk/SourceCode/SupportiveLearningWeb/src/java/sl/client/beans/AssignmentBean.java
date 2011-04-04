@@ -29,12 +29,10 @@ public class AssignmentBean implements Serializable {
     private ArrayList<Assignment> listAssignmentsOfBatch = new ArrayList<Assignment>();
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
     private Batch batchDetails = new Batch();
-    
     private Assignment assignmentDetails = new Assignment();
     private static boolean haveAssignment = false;
     private static boolean notHaveAssignment = false;
     private static final String REDIRECT = "?faces-redirect=true";
-
     private static boolean dueDate = false;
 
     /** Creates a new instance of AssignmentBean */
@@ -103,7 +101,7 @@ public class AssignmentBean implements Serializable {
 
     public String onRequestAssignment(Assignment assignment) {
         this.assignmentDetails = assignment;
-        checkDueDate(assignment);
+        this.checkDueDate(assignment);
         return "assignmentDetails" + REDIRECT;
     }
 
@@ -131,19 +129,16 @@ public class AssignmentBean implements Serializable {
 
     }
 
-
     private void checkDueDate(Assignment assignment) {
-        long endDate = assignment.getEndDate().getTime();
-        long date = new Date().getTime();
-        long day = endDate - date;
-        if (day > 0 || day <= 5) {
+        Date date = new Date();
+        if (date.before(assignment.getEndDate())) {
             dueDate = true;
         } else {
             dueDate = false;
         }
     }
 
-    public String sendFeedBack(){
-        return "feedBack.jsf"+REDIRECT;
+    public String sendFeedBack() {
+        return "feedBack.jsf" + REDIRECT;
     }
 }
