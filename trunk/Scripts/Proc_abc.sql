@@ -756,9 +756,6 @@ IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Upd_Assignment' AND TYPE = 'P'
 DROP PROC Upd_Assignment
 GO
 CREATE PROCEDURE Upd_Assignment
-@SubjectId		 INT,
-@StaffId			 INT,
-@BatchId			 INT,
 @AssignmentName   NVARCHAR(100),
 @AssignmentFile   NVARCHAR(255),
 @AssignmentContent ntext,
@@ -767,10 +764,7 @@ CREATE PROCEDURE Upd_Assignment
 @AssignmentId int
 AS BEGIN
 	Update Assignment 
-SET SubjectId = @SubjectId,
-StaffId = @StaffId,
-BatchId = @BatchId,
-AssignmentName = @AssignmentName,
+SET AssignmentName = @AssignmentName,
 AssignmentFile = @AssignmentFile,
 AssignmentContent = @AssignmentContent,
 StartDate = @StartDate,
@@ -805,5 +799,19 @@ CREATE PROCEDURE Ins_Subject
 @Subjectname NVARCHAR(100)
 AS BEGIN
 	insert into Subject(Subjectname) values (@Subjectname)
+END
+GO
+
+
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Upd_Mark' AND TYPE = 'P')
+DROP PROC Upd_Mark
+GO
+CREATE PROCEDURE Upd_Mark
+@StudentWorkId		 INT,
+@Mark             float
+AS BEGIN
+	Update StudentWork 
+SET Mark = @Mark
+where @StudentWorkId = StudentWorkId
 END
 GO
