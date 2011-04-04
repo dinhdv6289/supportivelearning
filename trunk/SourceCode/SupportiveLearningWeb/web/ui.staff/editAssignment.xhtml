@@ -44,7 +44,8 @@
                                     required="true"
                                     requiredMessage="Choice end date">
                         </p:calendar>
-
+                        <h:outputLabel value="-Old File upload: " ></h:outputLabel>
+                        <a href="#{request.contextPath}/#{assignmentManagerBean.selectedAssignment.fileUpload}">#{assignmentManagerBean.selectedAssignment.name}</a>
                         <h:outputLabel value="-File upload: " ></h:outputLabel>
                         <p:fileUpload fileUploadListener="#{assignmentManagerBean.handleFileUpload}"
                                       update="errorr"
