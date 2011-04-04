@@ -4,6 +4,7 @@
  */
 package el.utility;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -37,6 +38,13 @@ public class Utility {
             return null;
         }
         return new java.sql.Date(date.getTime());
+    }
+
+    public static Date sql2date(Timestamp timestamp) {
+        if(timestamp == null){
+            return null;
+        }
+        return new java.util.Date(timestamp.getTime());
     }
  
 }
