@@ -24,14 +24,20 @@ import org.primefaces.event.SelectEvent;
 public class FAQManagerBean implements Serializable {
 
     private ArrayList<FAQ> listFAQ;
-    private FAQ faq;
-    private FAQDAO faqDAO = new FAQDAO();   
+    private FAQ faq = new FAQ();
+    private FAQDAO faqDAO = new FAQDAO();
     private FAQ selectedFAQ = new FAQ();
     private static final String REDIRECT = "?faces-redirect=true";
+    private static final String THISPAGE = "faqManger.jsf";
+    private static boolean panelGroupListFAQ;
+    private static boolean panelGroupCreateFAQ;
+    private static boolean panelGroupUpdateFAQ;
 
     /** Creates a new instance of FAQManagerBean */
     public FAQManagerBean() {
-        faq = new FAQ();
+        panelGroupListFAQ = true;
+        panelGroupCreateFAQ = false;
+        panelGroupUpdateFAQ = false;
     }
 
     public FAQ getFaq() {
@@ -43,10 +49,16 @@ public class FAQManagerBean implements Serializable {
     }
 
     public String insert() throws Exception {
-        try{
-            faqDAO.insert(faq);
-                return "listFAQs";
-        }catch(Exception ex){
+        try {
+            int insert = faqDAO.insert(faq);
+            if (insert > 0) {
+                panelGroupListFAQ = true;
+                panelGroupCreateFAQ = false;
+                return THISPAGE + REDIRECT;
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
             Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
@@ -54,10 +66,14 @@ public class FAQManagerBean implements Serializable {
 
     public String update() {
         try {
-            if (faqDAO.update(selectedFAQ)) {
-                return "updateFAQs";
+            boolean update = faqDAO.update(selectedFAQ);
+            if (update) {
+                panelGroupListFAQ = true;
+                panelGroupUpdateFAQ = false;
+                return THISPAGE + REDIRECT;
+            } else {
+                return null;
             }
-            return null;
         } catch (Exception ex) {
             Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -76,7 +92,7 @@ public class FAQManagerBean implements Serializable {
      * @return the listFAQ
      */
     public ArrayList<FAQ> getListFAQ() {
-        try {            
+        try {
             return listFAQ = faqDAO.list();
         } catch (Exception ex) {
             Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,7 +121,45 @@ public class FAQManagerBean implements Serializable {
         this.selectedFAQ = selectedFAQ;
     }
 
-    public String detailsFAQ(SelectEvent event){
+    public String detailsFAQ(SelectEvent event) {
         return "detailFAQToUpdate" + REDIRECT;
+    }
+
+    public boolean isPanelGroupCreateFAQ() {
+        return panelGroupCreateFAQ;
+    }
+
+    public void setPanelGroupCreateFAQ(boolean panelGroupCreateFAQ) {
+        FAQManagerBean.panelGroupCreateFAQ = panelGroupCreateFAQ;
+    }
+
+    public boolean isPanelGroupListFAQ() {
+        return panelGroupListFAQ;
+    }
+
+    public void setPanelGroupListFAQ(boolean panelGroupListFAQ) {
+        FAQManagerBean.panelGroupListFAQ = panelGroupListFAQ;
+    }
+
+    public boolean isPanelGroupUpdateFAQ() {
+        return panelGroupUpdateFAQ;
+    }
+
+    public void setPanelGroupUpdateFAQ(boolean apanelGroupUpdateFAQ) {
+        panelGroupUpdateFAQ = apanelGroupUpdateFAQ;
+    }
+
+    public String onRequestCreateFAQs(boolean flag) {
+        this.setPanelGroupCreateFAQ(flag);
+        this.setPanelGroupListFAQ(false);
+        this.setPanelGroupUpdateFAQ(false);
+        return THISPAGE + REDIRECT;
+    }
+
+    public String onRequestUpdateFAQs(boolean flag) {
+        this.setPanelGroupCreateFAQ(false);
+        this.setPanelGroupListFAQ(false);
+        this.setPanelGroupUpdateFAQ(flag);
+        return THISPAGE + REDIRECT;
     }
 }
