@@ -32,6 +32,7 @@ public class FeedBackAnswerManagerBean implements Serializable {
     private FeedBackAnswer feedBackAnswer;
     private FeedBackAnswerDAO feedBackAnswerDAO = new FeedBackAnswerDAO();
     private ArrayList<FeedBack> listFeedBacks = new ArrayList<FeedBack>();
+    private ArrayList<FeedBack> listTopFeedBacks = new ArrayList<FeedBack>();
     private FeedBackDAO feedBackDAO = new FeedBackDAO();
     private Staff currentStaff;
 
@@ -42,6 +43,15 @@ public class FeedBackAnswerManagerBean implements Serializable {
     @PostConstruct
     public void init() {
         loadListFeedBacks();
+    }
+
+    public ArrayList<FeedBack> getListTopFeedBacks() {
+        try {
+            this.listTopFeedBacks = feedBackDAO.listTopFeedbackForStaff(getStaff());
+        } catch (Exception ex) {
+            Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listTopFeedBacks;
     }
 
     public FeedBackAnswer getFeedBackAnswer() {
