@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <p:dataTable id="datatable_faqs" var="faq"
+                     value="#{fAQManagerBean.listFAQ}"
+                     selection="#{fAQManagerBean.selectedFAQ}"
+                     selectionMode="single">
+            <f:facet name="header">
+                <p:commandButton ajax="false"
+                                 value="Update"
+                                 action="#{fAQManagerBean.onRequestUpdateFAQs(true)}"   >
+                </p:commandButton>
+                <p:commandButton value="Delete" image="ui-icon ui-icon-search"
+                                 update="form:display" oncomplete="confirmation.show()">
+                </p:commandButton>
+            </f:facet>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Question" />
+                </f:facet>
+                <h:outputText value="#{faq.question}" />
+            </p:column>
+        </p:dataTable>
+        <p:confirmDialog message="Are you sure want to delete?"
+                         showEffect="bounce" hideEffect="explode"
+                         header="Initiating destroy process" severity="alert" widgetVar="confirmation">
+            <h:panelGrid id="display">
+                <p:commandButton value="Yes Sure" update="messages,datatable_faqs" oncomplete="confirmation.hide()"
+                                 action="#{fAQManagerBean.delete}" />
+                <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
+            </h:panelGrid>
+        </p:confirmDialog>
+    </h:form>
+</ui:composition>
