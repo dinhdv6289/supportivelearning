@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package el.dao;
 
 import el.model.FeedBack;
+import el.model.Staff;
 import el.model.Student;
+import el.utility.Utility;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author DINHDV
  */
-public class FeedBackDAO extends AbstractDAO<FeedBack>{
+public class FeedBackDAO extends AbstractDAO<FeedBack> {
 
     @Override
     public int insert(FeedBack t) throws Exception {
@@ -26,18 +27,18 @@ public class FeedBackDAO extends AbstractDAO<FeedBack>{
         int a = 0;
         String sql = "{call Ins_FeedBack (?, ?, ?, ?)}";
         CallableStatement cstmt = null;
-        try{
+        try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getStudent().getId());
             cstmt.setInt(2, t.getStaff().getId());
             cstmt.setString(3, t.getFeedBackTitle());
             cstmt.setString(4, t.getFeedBackContent());
-             a = cstmt.executeUpdate();
-        }catch(Exception ex){
+            a = cstmt.executeUpdate();
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            if(conn!=null){
+        } finally {
+            if (conn != null) {
                 conn.close();
             }
         }
@@ -51,7 +52,7 @@ public class FeedBackDAO extends AbstractDAO<FeedBack>{
         //tham so thu 5 la feedbackId
         String sql = "{call Upd_FeedBack (?, ?, ?, ?, ?)}";
         CallableStatement cstmt = null;
-        try{
+        try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getStudent().getId());
@@ -60,37 +61,37 @@ public class FeedBackDAO extends AbstractDAO<FeedBack>{
             cstmt.setDate(4, (Date) t.getDateCreation());
             cstmt.setInt(5, t.getId());
 
-             a = cstmt.executeUpdate();
-        }catch(Exception ex){
+            a = cstmt.executeUpdate();
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            if(conn!=null){
+        } finally {
+            if (conn != null) {
                 conn.close();
             }
         }
-        return a == 1? true:false;
+        return a == 1 ? true : false;
     }
 
     @Override
     public boolean delete(FeedBack t) throws Exception {
-         Connection conn = null;
+        Connection conn = null;
         int a = 0;
         String sql = "{call Del_FeedBack (?)}";
         CallableStatement cstmt = null;
-        try{
+        try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getId());
 
-             a = cstmt.executeUpdate();
-        }catch(Exception ex){
+            a = cstmt.executeUpdate();
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            if(conn!=null){
+        } finally {
+            if (conn != null) {
                 conn.close();
             }
         }
-        return a == 1? true:false;
+        return a == 1 ? true : false;
     }
 
     @Override
@@ -129,7 +130,7 @@ public class FeedBackDAO extends AbstractDAO<FeedBack>{
         FeedBack feedBack = new FeedBack();
         String sql = "{call Sel_FeedBackById (?)}";
         try {
-             CallableStatement cstmt = null;
+            CallableStatement cstmt = null;
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getId());
@@ -153,4 +154,66 @@ public class FeedBackDAO extends AbstractDAO<FeedBack>{
         return feedBack;
     }
 
+    public ArrayList<FeedBack> listFeedbackForStudent(Student student, Staff staff) throws Exception {
+        Connection conn = null;
+        ArrayList<FeedBack> feedBacks = new ArrayList<FeedBack>();
+        String sql = "{call Sel_FeedbacksForStudent (?,?)}";
+        try {
+            CallableStatement cstmt = null;
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, student.getId());
+            cstmt.setInt(2, staff.getId());
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                FeedBack feedBack = new FeedBack();
+                feedBack.setDateCreation(Utility.sql2date(rs.getTimestamp("DateCreation")));
+                feedBack.setFeedBackContent(rs.getString("FeedBackContent"));
+                feedBack.setFeedBackTitle(rs.getString("FeedBackTitle"));
+                feedBack.setId(rs.getInt("FeedBackId"));
+                Student s = new Student();
+                StudentDAO studentDAO = new StudentDAO();
+                s.setId(rs.getInt("StudentId"));
+                s = studentDAO.getObject(s);
+                feedBack.setStudent(s);
+                feedBacks.add(feedBack);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return feedBacks;
+    }
+
+    public ArrayList<FeedBack> listTopFeedbackForStaff(Staff staff) throws Exception {
+        Connection conn = null;
+        ArrayList<FeedBack> feedBacks = new ArrayList<FeedBack>();
+        String sql = "{call Sel_TopFeedbacksForStaff (?)}";
+        try {
+            CallableStatement cstmt = null;
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, staff.getId());
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                FeedBack feedBack = new FeedBack();
+                feedBack.setDateCreation(Utility.sql2date(rs.getTimestamp("DateCreation")));
+                feedBack.setFeedBackContent(rs.getString("FeedBackContent"));
+                feedBack.setFeedBackTitle(rs.getString("FeedBackTitle"));
+                feedBack.setId(rs.getInt("FeedBackId"));
+                Student s = new Student();
+                StudentDAO studentDAO = new StudentDAO();
+                s.setId(rs.getInt("StudentId"));
+                s = studentDAO.getObject(s);
+                feedBack.setStudent(s);
+                feedBacks.add(feedBack);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return feedBacks;
+    }
 }

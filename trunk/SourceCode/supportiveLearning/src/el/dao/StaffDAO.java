@@ -10,6 +10,7 @@ import el.model.Course;
 import el.model.Role;
 import el.model.Semester;
 import el.model.Staff;
+import el.model.Student;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -113,24 +114,24 @@ public class StaffDAO extends AbstractDAO<Staff> {
         try {
             conn = getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rsstudents = stmt.executeQuery(sql);
-            while (rsstudents.next()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
                 RoleDAO roleDAO = new RoleDAO();
                 Role roleSearch = new Role();
-                roleSearch.setId(rsstudents.getInt("RoleId"));
+                roleSearch.setId(rs.getInt("RoleId"));
                 Role role = roleDAO.getObject(roleSearch);
                 Staff staff = new Staff();
-                staff.setId(rsstudents.getInt("StaffId"));
-                staff.setName(rsstudents.getString("FullName"));
-                staff.setUserName(rsstudents.getString("UserName"));
-                staff.setPassword(rsstudents.getString("Password"));
-                staff.setDateCreate(rsstudents.getDate("DateCreation"));
+                staff.setId(rs.getInt("StaffId"));
+                staff.setName(rs.getString("FullName"));
+                staff.setUserName(rs.getString("UserName"));
+                staff.setPassword(rs.getString("Password"));
+                staff.setDateCreate(rs.getDate("DateCreation"));
                 staff.setRole(role);
-                staff.setBirthDay(rsstudents.getDate("BirthDay"));
-                staff.setGender(rsstudents.getBoolean("Gender"));
-                staff.setPhone(rsstudents.getString("Phone"));
-                staff.setEmail(rsstudents.getString("Email"));
-                staff.setAddress(rsstudents.getString("Address"));
+                staff.setBirthDay(rs.getDate("BirthDay"));
+                staff.setGender(rs.getBoolean("Gender"));
+                staff.setPhone(rs.getString("Phone"));
+                staff.setEmail(rs.getString("Email"));
+                staff.setAddress(rs.getString("Address"));
                 staffs.add(staff);
             }
         } finally {
@@ -289,5 +290,29 @@ public class StaffDAO extends AbstractDAO<Staff> {
             }
         }
         return a;
+    }
+
+    public ArrayList<Staff> listContactForStudent(Student s) throws Exception {
+        ArrayList<Staff> staffs = new ArrayList<Staff>();
+        Connection conn = null;
+        String sql = "{call Sel_ContactFeedbackForStudent (?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, s.getId());
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                Staff staff = new Staff();
+                staff.setId(rs.getInt("StaffId"));
+                staffs.add(getObject(staff));
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return staffs;
     }
 }

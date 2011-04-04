@@ -14,7 +14,7 @@ import java.util.Date;
 public class FeedBack implements Serializable {
 
     private int id;
-    private Student student;
+    private Student student = new Student();
     private Staff staff;
     private String feedBackTitle;
     private String feedBackContent;
