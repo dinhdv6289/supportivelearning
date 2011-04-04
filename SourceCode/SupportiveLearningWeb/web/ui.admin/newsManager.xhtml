@@ -9,92 +9,33 @@
                 template="../templates/uiAdmin.xhtml">
 
     <ui:define name="title">Admin </ui:define>
-    <ui:define name="content">
-        <div class="clear"></div>
-        <h:form>
-            <div class="column full fl">
-                <div class="box">
-                    <h2 class="box-header">	box table
-                    </h2>
-                    <div class="box-content box-table">
-                        
-                        <p:dataTable var="student"
-                                     value="#{studentManagerBean.listStudentsIsNotHaveBatch}"
-                                     paginator="true"
-                                     rows="10"
-                                     selection="#{studentManagerBean.selectedStudents}">
-                            <f:facet name="header">
-                                <p:commandButton  ajax="false"
-                                                  value="Test"
-                                                  action="Test">
-
-                                </p:commandButton>
-                                <p:commandButton ajax="false" value="Test" action="Test"></p:commandButton>
-                                <p:commandButton ajax="false" value="Test" action="Test"></p:commandButton>
-                                <p:commandButton ajax="false" value="Test" action="Test"></p:commandButton>
-                                <p:commandButton ajax="false" value="Test" action="Test"></p:commandButton>
-                            </f:facet>
-
-                            <p:column selectionMode="multiple" />
-
-                            <p:column headerText="Name">
-                                <h:outputText value="#{student.name}" />
-                            </p:column>
-
-                            <p:column headerText="BirthDay">
-                                <h:outputText value="#{student.birthDay}" />
-                            </p:column>
-
-                            <p:column headerText="Gender">
-                                <h:outputText value="#{student.gender}" />
-                            </p:column>
-
-                            <p:column headerText="Phone">
-                                <h:outputText value="#{student.phone}" />
-                            </p:column>
-
-                            <p:column headerText="Email">
-                                <h:outputText value="#{student.email}" />
-                            </p:column>
-
-                            <p:column headerText="Address">
-                                <h:outputText value="#{student.address}" />
-                            </p:column>
-                            <p:column headerText="Date">
-                                <h:outputText value="#{student.dateCreate}" />
-                            </p:column>
-
-                            <f:facet name="footer">
-                                <p:commandButton id="btn_move_to_batch"
-                                                 value="Move to batch"
-                                                 type="button" >
-                                </p:commandButton>
-                                <p:menu widgetVar="themeMenu"
-                                        my="left top" 
-                                        at="left bottom"
-                                        trigger="btn_move_to_batch"
-                                        position="dynamic"
-                                        styleClass="themeMenu">
-                                    <p:submenu label="Batchs">
-                                        <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
-                                            <p:menuitem value="#{item.name}" ajax="false">
-                                                <f:setPropertyActionListener value="#{item}"
-                                                                             target="#{batchManagerBean.selectedBatch}">
-                                                </f:setPropertyActionListener>
-                                            </p:menuitem>
-                                        </c:forEach>
-                                    </p:submenu>
-                                </p:menu>
-                                <p:commandButton ajax="false" value="Add " image="ui-icon ui-icon-search"
-                                                 action="addStudent.jsf?faces-redirect=true"/>
-                            </f:facet>
-                        </p:dataTable>
-                    </div>
-                </div>
-
+    <ui:define name="menuFunctions">
+        <div class="sblock1">
+            <div class="sblock1-top">Functions</div>
+            <div class="sblock1-bottom">
+                <h:form>                    
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="Create News"
+                                       action="#{newsManagedBean.onRequestCreateNews(true)}">
+                        </p:commandLink>
+                    </p>
+                </h:form>
             </div>
-        </h:form>
-        <div class="clear"></div>
+        </div>
+    </ui:define>
+    <ui:define name="content">
+        <h:panelGroup rendered="#{newsManagedBean.panelGroupListNews}" >
+            <ui:include src="news/listNews.xhtml"/>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{newsManagedBean.panelGroupCreateNews}" >
+            <ui:include src="news/insertNews.xhtml"/>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{newsManagedBean.panelGroupUpdateNews}">
+            <ui:include src="news/updateNews.xhtml"/>
+        </h:panelGroup>
     </ui:define>
 </ui:composition>
 
