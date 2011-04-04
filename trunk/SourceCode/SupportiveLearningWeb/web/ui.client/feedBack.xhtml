@@ -14,18 +14,48 @@
         <div class="content-block">
             <div class="content-block-top"></div>
             <div class="content-block-bottom">
-                <h4>Send feedBack</h4>
+                <h4>#{loginBean.student.name} &lt;-------&gt; #{feedBackBean.staff.name}</h4>
                 <h:form>
-                    <h:panelGrid>
-                    <h:outputLabel value="Title:"/>
-                    <p:inputText value="#{feedBackBean.feedBack.feedBackTitle}"/>
-                    <h:outputLabel value="Contents:"/>
-                    <p:inputTextarea value="#{feedBackBean.feedBack.feedBackContent}"/>
-                    <p:commandButton ajax="false"
-                                     value="Send"
-                                     action="#{feedBackBean.insertFeedback}">
-                    </p:commandButton>
-                    </h:panelGrid>
+                    <p:panel header="My Contact">                   
+                        <h:panelGrid>
+                            <c:forEach items="#{feedBackBean.loadListContact(loginBean.student)}" var="staff">
+                                <h:commandLink action="#{feedBackBean.setStaff(staff)}" value="#{staff.name}"></h:commandLink>
+                            </c:forEach>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel header="Message">
+                        <p:treeTable value="#{feedBackBean.feedbackRoot}" var="item">
+                            <p:column>
+                                <f:facet name="header">
+                                    Content
+                                </f:facet>
+                                <h:outputText value="#{item.feedBackContent}" >
+
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    Date
+                                </f:facet>
+                                <h:outputText value="#{item.dateCreation}" >
+                                    <f:convertDateTime pattern="HH:mm  MM.dd.yyyy"
+                                                       locale="#{converterBean.strLocale}"
+                                                       timeZone="#{converterBean.timezone}"
+                                                       ></f:convertDateTime>
+                                </h:outputText>
+                            </p:column>
+                        </p:treeTable>
+                        <h:panelGrid>
+                            <h:outputLabel value="Contents:"/>
+                            <p:inputTextarea value="#{feedBackBean.feedBack.feedBackContent}" style="width:455px;"/>
+                            <p:commandButton ajax="false"
+                                             value="Send"
+                                             action="#{feedBackBean.insertFeedback}">
+                            </p:commandButton>
+                        </h:panelGrid>
+
+                    </p:panel>
                 </h:form>
             </div>
         </div>

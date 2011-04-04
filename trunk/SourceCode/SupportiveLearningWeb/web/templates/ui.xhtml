@@ -271,9 +271,9 @@
                                 <div class="sblock-top">Messages</div>
                                 <div class="sblock-content">
                                     <h:form>
-                                        <c:forEach var="feedBackItem" items="#{feedBackAnswerManagerBean.listFeedBacks}">
+                                        <c:forEach var="feedBackItem" items="#{feedBackAnswerManagerBean.listTopFeedBacks}">
                                             <p:commandLink ajax="false"
-                                                           value="#{feedBackItem.feedBackTitle}"
+                                                           value="#{feedBackItem.student.name}"
                                                            action="#{feedBackAnswerManagerBean.onRequestFeedBack(feedBackItem)}">
                                             </p:commandLink><br/>
 
