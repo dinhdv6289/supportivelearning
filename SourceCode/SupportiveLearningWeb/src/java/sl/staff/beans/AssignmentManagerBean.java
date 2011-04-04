@@ -298,7 +298,9 @@ public class AssignmentManagerBean implements Serializable {
                 int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
                 Staff staffSearch = staffDAO.getStaffByAccountId(accountId);
                 if (staffSearch != null) {
-                    selectedAssignment.setFileUpload(this.getFileUpload());
+                    if (!this.getFileUpload().isEmpty()) {
+                        selectedAssignment.setFileUpload(this.getFileUpload());
+                    }
                     selectedAssignment.setSubject(subject);
                     selectedAssignment.setBatch(batch);
                     selectedAssignment.setStaff(staffSearch);
@@ -318,9 +320,9 @@ public class AssignmentManagerBean implements Serializable {
 
     public String deleteAssignment() {
         try {
-            if(assignmentDAO.delete(selectedAssignment)){
+            if (assignmentDAO.delete(selectedAssignment)) {
                 MessagesService.showMessage("Ok.");
-            }else{
+            } else {
                 MessagesService.showMessage("Ok.");
             }
         } catch (Exception ex) {

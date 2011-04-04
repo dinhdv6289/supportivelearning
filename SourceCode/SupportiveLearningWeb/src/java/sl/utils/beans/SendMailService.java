@@ -16,7 +16,7 @@ import java.io.*;
 public class SendMailService {
 
     private static String SMTP_HOST_NAME = "smtp.gmail.com"; //Has your SMTP Host Name
-    private static String SMTP_AUTH_USER = "2upportiveleaning"; // Has your SMTP Authentication UserName
+    private static String SMTP_AUTH_USER = "sleaning99"; // Has your SMTP Authentication UserName
     private static String SMTP_AUTH_PWD = "supperman"; // Has your SMTP Authentication Password
 
     public static void postMail(String recipients[], String subject, String message, String from) throws MessagingException {
