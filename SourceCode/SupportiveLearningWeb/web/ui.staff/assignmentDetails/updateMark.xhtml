@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <h4>Update Mark for Student: #{studentWorkManagerBean.selectedStudentWork.student.name}}</h4>
+                <p:growl id="messages"  showDetail="true"/>
+                <p:messages />
+                <h:panelGrid columns="2" cellpadding="9" cellspacing="9">
+                    <h:outputLabel value="Assignment Name: "></h:outputLabel>
+                    <h:outputText value="#{studentWorkManagerBean.selectedStudentWork.assignment.name}">
+                    </h:outputText>
+                    <h:outputLabel value="Mark:" for="mark"/>
+                    <p:inputText id="mark"
+                                 value="#{studentWorkManagerBean.selectedStudentWork.mark}"
+                                 required="true"
+                                 requiredMessage="Must enter mark." >
+                        <f:convertNumber type="number"></f:convertNumber>
+                    </p:inputText>
+                    <p:commandButton ajax="false"
+                                     value="Update"
+                                     action="#{studentWorkManagerBean.updateMark}"
+                                     update="messages">
+                    </p:commandButton>
+                </h:panelGrid>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>
