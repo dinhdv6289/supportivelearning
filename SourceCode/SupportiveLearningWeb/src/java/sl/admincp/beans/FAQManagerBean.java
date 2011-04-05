@@ -54,6 +54,11 @@ public class FAQManagerBean implements Serializable {
             if (insert > 0) {
                 panelGroupListFAQ = true;
                 panelGroupCreateFAQ = false;
+                try {
+                    listFAQ = faqDAO.list();
+                } catch (Exception ex) {
+                    Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 return THISPAGE + REDIRECT;
             } else {
                 return null;
@@ -70,6 +75,11 @@ public class FAQManagerBean implements Serializable {
             if (update) {
                 panelGroupListFAQ = true;
                 panelGroupUpdateFAQ = false;
+                try {
+                    listFAQ = faqDAO.list();
+                } catch (Exception ex) {
+                    Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 return THISPAGE + REDIRECT;
             } else {
                 return null;
@@ -83,6 +93,11 @@ public class FAQManagerBean implements Serializable {
     public void delete() {
         try {
             faqDAO.delete(selectedFAQ);
+            try {
+                    listFAQ = faqDAO.list();
+                } catch (Exception ex) {
+                    Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
         } catch (Exception ex) {
             Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -160,6 +175,18 @@ public class FAQManagerBean implements Serializable {
         this.setPanelGroupCreateFAQ(false);
         this.setPanelGroupListFAQ(false);
         this.setPanelGroupUpdateFAQ(flag);
+        return THISPAGE + REDIRECT;
+    }
+
+    public String onRequestListFAQs(boolean flag) {
+        this.setPanelGroupCreateFAQ(false);
+        this.setPanelGroupListFAQ(flag);
+        this.setPanelGroupUpdateFAQ(false);
+        try {
+            listFAQ = faqDAO.list();
+        } catch (Exception ex) {
+            Logger.getLogger(FAQManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return THISPAGE + REDIRECT;
     }
 }
