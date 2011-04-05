@@ -16,15 +16,15 @@
                 <h:form>
                     <p>
                         <p:commandLink ajax="false"
-                                       value="Students Have not Batch"
-                                       action="#{studentManagerBean.onRequestPanelGroupHaveNotBatch(true)}"
+                                       value="All Staff"
+                                       action="#{staffManagerBean.onRequestGroupListStaffs(true)}"
                                        update="panelGroupHaveNotBatch">
                         </p:commandLink>
                     </p>
                     <p>
                         <p:commandLink ajax="false"
-                                       value="Students Have Batch"
-                                       action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}"
+                                       value="New Staff"
+                                       action="#{staffManagerBean.onRequestPanelGroupNewStaff(true)}"
                                        update="panelGroupHaveBatch">
                         </p:commandLink>
                     </p>
@@ -35,6 +35,9 @@
     <ui:define name="content">
         <h:panelGroup rendered="#{staffManagerBean.panelGroupListStaffs}" id="panelGroupListStaffs" >
             <ui:include src="staff/listStaffs.xhtml"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{staffManagerBean.panelGroupNewStaff}" id="panelGroupNewStaff" >
+            <ui:include src="staff/newstaff.xhtml"/>
         </h:panelGroup>
     </ui:define>
 </ui:composition>

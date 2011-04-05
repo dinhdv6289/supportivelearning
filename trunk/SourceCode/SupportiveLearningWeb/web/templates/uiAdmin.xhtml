@@ -18,7 +18,7 @@
                 <!-- Header Top Starts -->
                 <div id="header-top">
                     <!-- Logo Starts -->
-                    <div id="logo"><h1><a href="index.html"><span>Hosting Provider</span></a></h1></div>
+                    <div id="logo"><h1><a href=""><span></span></a></h1></div>
                     <!-- Logo Ends -->
                     <!-- Menu Starts -->
                     <div id="menu">
@@ -29,10 +29,7 @@
                             <li><a href="#{request.contextPath}/ui.admin/batchManager.jsf"><span>Batch</span></a></li>
                             <li><a href="#{request.contextPath}/ui.admin/faqManager.jsf"><span>FAQ</span></a></li>
                             <li><a href="#{request.contextPath}/ui.admin/newsManager.jsf"><span>NEWs</span></a></li>
-                            <li><a href="#{request.contextPath}/ui.admin/assignmentManager.jsf"><span>NEWs</span></a></li>
-                            <li>
-                                <ui:include src="themeMenu.xhtml"/>
-                            </li>
+                            <li><a href="#{request.contextPath}/ui.admin/assignmentManager.jsf"><span>Assignment</span></a></li>
                         </ul>
                     </div>
                     <!-- Menu Ends -->
@@ -43,7 +40,45 @@
                     <!-- Sidearea Starts -->
                     <div id="sidearea">
                         <!-- Login Block Starts -->
+                        <div class="sblock1">
+
+                            <h:panelGroup rendered="#{loginBean.panelHi}" id="panelGroup_hi" >
+                                <!-- Login Block Starts Here -->
+                                <div class="sblock">
+                                    <div class="sblock1-top">Welcome!</div>
+                                    <div class="sblock-content">
+                                        <h:form id="form_hi" prependId="false">
+                                            <p>
+                                                <h:outputLabel style=" padding-left: 15px; color: #008000;font-size: 14px" value="#{loginBean.account.name}" />
+
+                                            </p>
+                                            <p>
+                                            </p>
+                                            <p>
+                                                <p:commandLink style="color: red; padding-left: 15px;"
+                                                               ajax="false"
+                                                               value="Logout"
+                                                               action="#{loginBean.logout}">
+                                                </p:commandLink>
+                                            </p>
+                                        </h:form>
+                                    </div>
+                                </div>
+                                <!-- Login Block Ends Here -->
+                            </h:panelGroup>
+                        </div>
+                        <!-- Login Block Ends -->
                         <ui:insert name="menuFunctions"></ui:insert>
+                        <div class="sblock1">
+                            <div class="sblock1-top">Theme</div>
+                            <div class="sblock1-bottom">
+                                <h:form>
+                                    <p>
+                                        <ui:include src="themeMenu.xhtml"/>
+                                    </p>
+                                </h:form>
+                            </div>
+                        </div>
                     </div>
                     <!-- Sidearea Ends -->
                     <!-- Mainarea Starts -->
@@ -59,8 +94,8 @@
             <div id="footer-outer">
                 <!-- Footer Starts -->
                 <div id="footer">
-                    <p class="floatleft">Copyright &copy; 2009 Hosting.Pro. <a href="">Designed by santosh setty</a></p>
-                    <p class="floatright"><a href="#">Terms &amp; Condition</a>  |  <a href="#">Privacy Policy</a>  |  <a href="#">Sitemap</a></p>
+                    <p class="floatleft"> <a href=""></a></p>
+                    <p class="floatright"><a href="#"></a>    <a href="#"></a>    <a href="#"></a></p>
                 </div>
                 <!-- Footer Ends -->
             </div>
