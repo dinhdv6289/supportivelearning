@@ -5,6 +5,7 @@
 package el.dao;
 
 import el.model.Assignment;
+import el.model.Batch;
 import el.model.Student;
 import el.model.StudentWork;
 import el.utility.Utility;
@@ -345,4 +346,67 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
         return studentWorks;
     }
     //
+
+    public boolean updateMark(StudentWork studentWork) throws Exception {
+        int a = 0;
+        Connection conn = null;
+        String sql = "{call Upd_Mark (?,?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, studentWork.getId());
+            cstmt.setFloat(2, studentWork.getMark());
+            a = cstmt.executeUpdate();
+
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return a == 1 ? true : false;
+    }
+
+
+
+    public ArrayList<StudentWork> listStudentsWorkByStaffId(int staffId) throws Exception {
+        Connection conn = null;
+        ArrayList<StudentWork> studentWorks = new ArrayList<StudentWork>();
+        String sql = "{call Sel_AllStudentOfMyBatchs(?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, staffId);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                StudentWork studentWork = new StudentWork();
+                studentWork.setId(rs.getInt("StudentWorkId"));
+                AssignmentDAO assignmentDAO = new AssignmentDAO();
+                Assignment assignment = new Assignment();
+                assignment.setId(rs.getInt("AssignmentId"));
+                assignment = assignmentDAO.getObject(assignment);
+                studentWork.setAssignment(assignment);
+                studentWork.setDateUpload(Utility.sql2date(rs.getDate("DateUpload")));
+                studentWork.setFileUpload(rs.getString("FileUpload"));
+                studentWork.setMark(rs.getFloat("Mark"));
+                StudentDAO studentDAO = new StudentDAO();
+                Student student = new Student();
+                student.setId(rs.getInt("StudentId"));
+                student = studentDAO.getObject(student);
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batchSearch = new Batch();
+                batchSearch.setId(rs.getInt("BatchId"));
+                Batch batch = batchDAO.getObject(batchSearch);
+                student.setBatch(batch);
+                studentWork.setStudent(student);
+                studentWorks.add(studentWork);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return studentWorks;
+    }
 }

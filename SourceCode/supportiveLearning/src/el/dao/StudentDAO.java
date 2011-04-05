@@ -49,7 +49,7 @@ public class StudentDAO extends AbstractDAO<Student> {
             stmt.setString(5, student.getPhone());
             stmt.setString(6, student.getEmail());
             stmt.setString(7, student.getAddress());
-            
+
             stmt.execute();
             result[0] = stmt.getInt(8);
             result[1] = stmt.getInt(9);
@@ -246,8 +246,6 @@ public class StudentDAO extends AbstractDAO<Student> {
 
         return students;
     }
-
-    
 
     public ArrayList<Student> getStudentsIsLock() throws Exception {
         ArrayList<Student> students = new ArrayList<Student>();

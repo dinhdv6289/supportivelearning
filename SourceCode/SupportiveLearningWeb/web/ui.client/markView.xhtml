@@ -60,11 +60,28 @@
                                          rows="10">
                                 <p:column>
                                     <f:facet name="header">
+                                        <h:outputText value="Student Name" />
+                                    </f:facet>
+                                    <h:outputText value="#{markItem.student.name}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="RollNumer" />
+                                    </f:facet>
+                                    <h:outputText value="#{markItem.student.rollNumber}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
                                         <h:outputText value="Subject" />
                                     </f:facet>
                                     <h:outputText value="#{markItem.assignment.subject.name}" />
                                 </p:column>
-
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Assignment Name" />
+                                    </f:facet>
+                                    <h:outputText value="#{markItem.assignment.name}" />
+                                </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Mark"/>

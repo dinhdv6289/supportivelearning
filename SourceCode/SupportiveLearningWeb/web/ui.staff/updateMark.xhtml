@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/ui.xhtml">
+    <ui:define name="title">Update Mark </ui:define>
+    <ui:define name="content">
+        <!-- News Block Starts Here -->
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <h4>Update Mark by RollNumber</h4>
+                <h:form prependId="false">
+                    <br/>
+                    <br/>
+                    <p:fieldset legend="List Students uploaded Assignment"
+                                toggleable="true"
+                                toggleSpeed="500">
+                        <p:dataTable id="tbl"
+                                     var="studentWorkItem"
+                                     value="#{studentWorkManagerBean.listAllStudentWorks}"
+                                     emptyMessage="Not have Student."
+                                     paginator="true"
+                                     rows="10"
+                                     widgetVar="studentWorkTable">
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Search RollNumber fields:" />
+                                    <p:inputText id="globalFilter" onkeyup="studentWorkTable.filter()" style="width:150px" />
+                                </p:outputPanel>
+                            </f:facet>
+                            <p:column filterBy="#{studentWorkItem.student.rollNumber}" headerText="RollNumber" footerText="contains" filterMatchMode="contains">
+                                <h:outputText value="#{studentWorkItem.student.rollNumber}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name" />
+                                </f:facet>
+                                <h:outputText value="#{studentWorkItem.student.name}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Subject" />
+                                </f:facet>
+                                <h:outputText value="#{studentWorkItem.assignment.subject.name}" />
+                            </p:column>
+
+                            <p:column headerText="Mark" style="color: red">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{studentWorkItem.mark}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{studentWorkItem.mark}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Date"/>
+                                </f:facet>
+                                <h:outputText value="#{studentWorkItem.dateUpload}" >
+                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="File"/>
+                                </f:facet>
+                                <a href="documents/assignmentFiles/#{studentWorkItem.fileUpload}">#{studentWorkItem.fileUpload}</a>
+                            </p:column>
+                            <p:column headerText="Options">
+                                <p:rowEditor />
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+            </div>
+        </div>
+        <!-- News Block Ends Here -->
+
+    </ui:define>
+</ui:composition>
+
+
