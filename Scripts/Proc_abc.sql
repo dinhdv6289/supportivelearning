@@ -815,3 +815,30 @@ SET Mark = @Mark
 where @StudentWorkId = StudentWorkId
 END
 GO
+
+
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AllStudentOfMyBatchs' AND TYPE = 'P')
+DROP PROC Sel_AllStudentOfMyBatchs
+GO
+CREATE PROCEDURE Sel_AllStudentOfMyBatchs
+@StaffId INT
+AS BEGIN
+SELECT     StaffAndBatch.*,StudentWork.*
+FROM         Batch INNER JOIN
+                      StaffAndBatch ON Batch.BatchId = StaffAndBatch.BatchId INNER JOIN
+                      Student ON Batch.BatchId = Student.BatchId INNER JOIN
+                      StudentWork ON Student.StudentId = StudentWork.StudentId
+where StaffAndBatch.StaffId = @StaffId
+end
+go
+
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AllAssignments' AND TYPE = 'P')
+DROP PROC Sel_AllAssignments
+GO
+create proc Sel_AllAssignments
+as
+begin
+	select * from Assignment
+end
+
+GO
