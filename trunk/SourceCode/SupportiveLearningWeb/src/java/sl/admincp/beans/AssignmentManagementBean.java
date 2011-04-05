@@ -22,11 +22,14 @@ import javax.faces.bean.SessionScoped;
 public class AssignmentManagementBean implements Serializable {
 
     private Assignment assignment;
+    private Assignment selectedAssignment;
     private ArrayList<Assignment> listAssignments;
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
+    private static boolean panelGroupListAssignment;
 
     /** Creates a new instance of AssignmentManagementBean */
     public AssignmentManagementBean() {
+        panelGroupListAssignment = true;
     }
 
     public Assignment getAssignment() {
@@ -49,4 +52,21 @@ public class AssignmentManagementBean implements Serializable {
     public void setListAssignments(ArrayList<Assignment> listAssignments) {
         this.listAssignments = listAssignments;
     }
+
+    public Assignment getSelectedAssignment() {
+        return selectedAssignment;
+    }
+
+    public void setSelectedAssignment(Assignment selectedAssignment) {
+        this.selectedAssignment = selectedAssignment;
+    }
+
+    public boolean isPanelGroupListAssignment() {
+        return panelGroupListAssignment;
+    }
+
+    public void setPanelGroupListAssignment(boolean panelGroupListAssignment) {
+        AssignmentManagementBean.panelGroupListAssignment = panelGroupListAssignment;
+    }
+
 }
