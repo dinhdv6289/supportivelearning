@@ -16,7 +16,13 @@
                 <h:form>
                     <p>
                         <p:commandLink ajax="false"
-                                       value="Create News"
+                                       value="All FAQ"
+                                       action="#{fAQManagerBean.onRequestListFAQs(true)}">
+                        </p:commandLink>
+                    </p>
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="New FAQ"
                                        action="#{fAQManagerBean.onRequestCreateFAQs(true)}">
                         </p:commandLink>
                     </p>

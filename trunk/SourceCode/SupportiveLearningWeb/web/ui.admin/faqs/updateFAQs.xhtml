@@ -5,24 +5,24 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
+        <p:panel header="Update FAQs">
         <h:panelGrid id="panelGrid_update">
-            <p:column>
-                <h:outputText value="Question:"/>
-                <p:inputTextarea value="#{fAQManagerBean.selectedFAQ.question}"></p:inputTextarea>
-            </p:column>
+            <h:outputLabel value="Question:"></h:outputLabel>
+                <p:inputTextarea id="question" value="#{fAQManagerBean.selectedFAQ.question}" style="width: 450px;"
+                                 required="true"
+                                 requiredMessage="Question is not null !"></p:inputTextarea>
+                <p:message for="question"/>
 
-            <!--                <p:column>
-                                <h:outputText value="Answer:" />
-                                <p:inputText value="#{fAQManagerBean.selectedFAQ.answer}"/>
-                            </p:column>-->
-
-            <h:outputText value="DateCreate:"/>
-            <p:calendar value="#{fAQManagerBean.selectedFAQ.date}"></p:calendar>
-
+                <h:outputLabel value="Answer:"></h:outputLabel>
+                <p:editor id="answer" value="#{fAQManagerBean.selectedFAQ.answer}" width="670"
+                          required="true"
+                          requiredMessage="Answer is not null !"></p:editor>
+                <p:message for="answer"></p:message>
             <p:commandButton ajax="false"
                              value="Change"
                              action="#{fAQManagerBean.update}">
             </p:commandButton>
         </h:panelGrid>
+            </p:panel>
     </h:form>
 </ui:composition>
