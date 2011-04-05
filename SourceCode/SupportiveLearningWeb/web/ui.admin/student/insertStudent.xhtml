@@ -7,7 +7,9 @@
     <h:form>
         <h:panelGrid id="panelGrid_add">
             <h:outputLabel value="FullName:"></h:outputLabel>
-            <p:inputText id="name" value="#{studentManagerBean.student.name}"></p:inputText>
+            <p:inputText id="name" value="#{studentManagerBean.student.name}"
+                         required="true"
+                         requiredMessage="Fullname is not null!"></p:inputText>
             <p:message for="name"/>
 
             <h:outputLabel value="BirhDay:"></h:outputLabel>
@@ -25,7 +27,10 @@
             <p:message for="gender"></p:message>
 
             <h:outputLabel value="Email:"></h:outputLabel>
-            <p:inputText id="email" value="#{studentManagerBean.student.email}"></p:inputText>
+            <p:inputText id="email" value="#{studentManagerBean.student.email}"
+                         required="true"
+                         requiredMessage="Email is not null !"
+                         validator="#{validation.validateEmail}"></p:inputText>
             <p:message for="email"></p:message>
 
             <h:outputLabel value="Address:"></h:outputLabel>
