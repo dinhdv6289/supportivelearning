@@ -40,7 +40,7 @@ public class FeedBackAnswerManagerBean implements Serializable {
     private ArrayList<FeedBack> listFeedBacks = new ArrayList<FeedBack>();
     private ArrayList<FeedBack> listTopFeedBacks = new ArrayList<FeedBack>();
     private FeedBackDAO feedBackDAO = new FeedBackDAO();
-    private Staff currentStaff;
+    private Staff currentStaff = new Staff();
     private StaffDAO staffDAO = new StaffDAO();
     private static boolean panelGroupMessageDetails;
     private static boolean panelGroupMessage;
@@ -130,7 +130,7 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        loadListFeedBacks();
+       // loadListFeedBacks();
     }
 
     public String onRequestpanelGroupMessageDetails(boolean flag) {
