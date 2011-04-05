@@ -27,7 +27,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
         int a = 0;
         String sql = "{call Ins_Assignment (?, ?, ?, ?, ?, ?, ?, ?)}";
         CallableStatement cstmt = null;
-        try{
+        try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getSubject().getId());
@@ -40,10 +40,10 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
             cstmt.setDate(8, Utility.date2sql(t.getEndDate()));
 
             a = cstmt.executeUpdate();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            if(conn!=null){
+        } finally {
+            if (conn != null) {
                 conn.close();
             }
         }
@@ -56,7 +56,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
         int a = 0;
         String sql = "{call Upd_Assignment (?, ?, ?, ?, ?, ?)}";
         CallableStatement cstmt = null;
-        try{
+        try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setString(1, t.getName());
@@ -66,10 +66,10 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
             cstmt.setDate(5, Utility.date2sql(t.getEndDate()));
             cstmt.setInt(6, t.getId());
             a = cstmt.executeUpdate();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            if(conn!=null){
+        } finally {
+            if (conn != null) {
                 conn.close();
             }
         }
@@ -84,7 +84,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall (sql);
+            cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getId());
             cstmt.registerOutParameter(2, java.sql.Types.INTEGER);
             cstmt.execute();
@@ -101,7 +101,46 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
 
     @Override
     public ArrayList<Assignment> list() throws Exception {
-        return null;
+        ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+
+        Connection conn = null;
+        String sql = "{call Sel_AllAssignments}";
+        try {
+            conn = getConnection();
+            CallableStatement cstmt = null;
+            cstmt = conn.prepareCall(sql);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                Assignment assignment = new Assignment();
+                assignment.setId(rs.getInt("AssignmentId"));
+                assignment.setName(rs.getString("AssignmentName"));
+                assignment.setContent(rs.getString("AssignmentContent"));
+                assignment.setFileUpload(rs.getString("AssignmentFile"));
+                assignment.setStartDate(rs.getDate("StartDate"));
+                assignment.setEndDate(rs.getDate("EndDate"));
+                StaffDAO staffDAO = new StaffDAO();
+                Staff s = new Staff();
+                s.setId(rs.getInt("StaffId"));
+                s = staffDAO.getObject(s);
+                assignment.setStaff(s);
+                SubjectDAO subjectDAO = new SubjectDAO();
+                Subject subject = new Subject();
+                subject.setId(rs.getInt("SubjectId"));
+                subject = subjectDAO.getObject(subject);
+                assignment.setSubject(subject);
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batch = new Batch();
+                batch.setId(rs.getInt("BatchId"));
+                batch = batchDAO.getObject(batch);
+                assignment.setBatch(batch);
+                assignments.add(assignment);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return assignments;
     }
 
     @Override
