@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <p:dataTable id="datatable_news"
+                     var="assignment"
+                     value="#{assignmentManagementBean.listAssignments}"
+                     selection="#{assignmentManagementBean.selectedAssignment}"
+                     selectionMode="single"
+                     paginator="true"
+                     rows="6">
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Staff" />
+                </f:facet>
+                <h:outputText value="#{assignment.staff.name}" />
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Batch:" />
+                </f:facet>
+                <h:outputText value="#{assignment.batch.name}" />
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Subject:" />
+                </f:facet>
+                <h:outputText value="#{assignment.subject.name}" />
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Assignment Name:" />
+                </f:facet>
+                <h:outputText value="#{assignment.name}" />
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="File Uploaded:" />
+                </f:facet>
+                <a href="#{request.contextPath}/#{assignment.fileUpload}">
+                    <p:graphicImage value="/images/download.gif"/>
+                </a>
+            </p:column>
+
+        </p:dataTable>
+    </h:form>
+</ui:composition>
