@@ -23,14 +23,13 @@ public class FAQDAO extends AbstractDAO<FAQ> {
     public int insert(FAQ t) throws Exception {
         Connection conn = null;
         int a = 0;
-        String sql = "{call Ins_FAQ (?, ?, ?)}";
+        String sql = "{call Ins_FAQ (?, ?)}";
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setString(1, t.getQuestion());
             cstmt.setString(2, t.getAnswer());
-            cstmt.setDate(3, Utility.date2sql(t.getDate()));
 
             a = cstmt.executeUpdate();
         } catch (Exception ex) {
@@ -47,7 +46,7 @@ public class FAQDAO extends AbstractDAO<FAQ> {
     public boolean update(FAQ t) throws Exception {
         Connection conn = null;
         int a = 0;
-        String sql = "{call Udp_FAQById  (?, ?, ?, ?)}";
+        String sql = "{call Udp_FAQById  (?, ?, ?)}";
         CallableStatement cstmt = null;
         try {
             conn = getConnection();
@@ -55,7 +54,6 @@ public class FAQDAO extends AbstractDAO<FAQ> {
             cstmt.setInt(1, t.getId());
             cstmt.setString(2, t.getQuestion());
             cstmt.setString(3, t.getAnswer());
-            cstmt.setDate(4, Utility.date2sql(t.getDate()));
 
             a = cstmt.executeUpdate();
         } catch (Exception ex) {
