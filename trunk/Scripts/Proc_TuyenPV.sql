@@ -630,3 +630,122 @@ AS BEGIN
 	insert into Subject(Subjectname) values (@Subjectname)
 END
 GO
+CREATE PROCEDURE Sel_AllSubject
+AS BEGIN
+	select * from Subject
+END
+GO
+CREATE PROCEDURE Sel_ContactFeedbackForStudent
+@StudentId int
+AS BEGIN
+	select DISTINCT StaffId from Feedback where StudentId = @StudentId
+END
+
+GO
+CREATE PROCEDURE Sel_FeedbacksForStudent
+@StudentId int,
+@StaffId int
+AS BEGIN
+	select * from Feedback where StudentId = @StudentId and StaffId = @StaffId
+END
+GO
+
+CREATE PROCEDURE Sel_FeedbackAnswerByFeedbackId
+@FeedbackId int
+AS BEGIN
+	select * from FeedbackAnswer where FeedbackId = @FeedbackId
+END
+GO
+CREATE PROCEDURE Sel_FeedBackById
+@FeedbackId int
+AS BEGIN
+	select * from Feedback where FeedbackId = @FeedbackId
+END
+GO
+
+CREATE PROCEDURE Sel_TopFeedbacksForStaff
+@StaffId int
+AS BEGIN
+select top(5) * from Feedback where StaffId = @StaffId and
+	FeedbackId NOT IN( select FeedbackId From FeedbackAnswer)
+ order by FeedbackId desc
+END
+GO
+
+CREATE PROCEDURE Sel_FeedbacksForStaff
+@StaffId int
+AS BEGIN
+select * from Feedback where StaffId = @StaffId order by FeedbackId desc
+END
+
+GO
+
+
+CREATE PROCEDURE Ins_FeedBackAnswer
+@FeedBackId int,
+@FeedBackAnswer ntext
+AS BEGIN
+insert into FeedBackAnswer(FeedBackId,FeedBackAnswer)
+values (@FeedBackId,@FeedBackAnswer)
+END
+
+GO
+CREATE PROCEDURE Ins_Staff
+@UserName nvarchar(100),
+@Password nvarchar(100),
+@FullName nvarchar(100),
+@BirthDay datetime,
+@Gender BIT,
+@Phone  nvarchar(50),
+@Email  nvarchar(100),
+@Address nvarchar(200),
+@Result  int output
+AS BEGIN
+	IF(NOT EXISTS(SELECT Email FROM Account WHERE Email=@Email))
+	BEGIN
+		IF(NOT EXISTS(SELECT UserName FROM Account WHERE UserName=@UserName))
+		BEGIN	
+			DECLARE @AccountId	INT
+			DECLARE @IdentityId	nvarchar(10)
+			INSERT INTO Account(RoleId,UserName,[Password],FullName,BirthDay,Gender,Phone,Email,Address)
+			VALUES	(3,@UserName,@Password,@FullName,@BirthDay,@Gender,@Phone,@Email,@Address)
+			EXEC SelectLatestAccountId @AccountId OUTPUT
+
+			INSERT INTO Staff(AccountId)
+			VALUES	(@AccountId)
+			SET @Result = 1 --ok
+		END
+		ELSE
+		BEGIN
+			SET @Result = 3 -- Username da su dung
+		END 
+	END
+	ELSE
+		BEGIN
+			SET @Result = 2 -- Email da su dung
+		END 
+	END
+GO
+
+CREATE PROCEDURE Ins_FAQ
+@Quesion ntext,
+@Answer ntext
+AS BEGIN
+insert into FAQ(Quesion,Answer) values(@Quesion,@Answer)
+END
+
+GO
+CREATE PROCEDURE Udp_FAQById
+@FAQId int,
+@Quesion ntext,
+@Answer ntext
+AS BEGIN
+Update FAQ SET Quesion = @Quesion, Answer = @Answer
+WHERE FAQId = @FAQId
+END
+GO
+CREATE PROCEDURE Del_FAQById
+@FAQId int
+AS BEGIN
+delete FAQ WHERE FAQId = @FAQId
+END 
