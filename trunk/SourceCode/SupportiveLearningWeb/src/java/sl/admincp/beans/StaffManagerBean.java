@@ -194,7 +194,7 @@ public class StaffManagerBean implements Serializable {
         return "staffdetails" + REDIRECT;
     }
 
-    private String strError;
+    private String strError ="";
 
     public String getStrError() {
         return strError;
