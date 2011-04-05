@@ -216,4 +216,34 @@ public class FeedBackDAO extends AbstractDAO<FeedBack> {
         }
         return feedBacks;
     }
+     public ArrayList<FeedBack> listFeedbackForStaff(Staff staff) throws Exception {
+        Connection conn = null;
+        ArrayList<FeedBack> feedBacks = new ArrayList<FeedBack>();
+        String sql = "{call Sel_FeedbacksForStaff (?)}";
+        try {
+            CallableStatement cstmt = null;
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, staff.getId());
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                FeedBack feedBack = new FeedBack();
+                feedBack.setDateCreation(Utility.sql2date(rs.getTimestamp("DateCreation")));
+                feedBack.setFeedBackContent(rs.getString("FeedBackContent"));
+                feedBack.setFeedBackTitle(rs.getString("FeedBackTitle"));
+                feedBack.setId(rs.getInt("FeedBackId"));
+                Student s = new Student();
+                StudentDAO studentDAO = new StudentDAO();
+                s.setId(rs.getInt("StudentId"));
+                s = studentDAO.getObject(s);
+                feedBack.setStudent(s);
+                feedBacks.add(feedBack);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return feedBacks;
+    }
 }

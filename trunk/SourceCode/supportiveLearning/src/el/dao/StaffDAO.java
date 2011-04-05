@@ -11,6 +11,7 @@ import el.model.Role;
 import el.model.Semester;
 import el.model.Staff;
 import el.model.Student;
+import el.utility.Utility;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -30,23 +31,26 @@ public class StaffDAO extends AbstractDAO<Staff> {
         return 0;
     }
 
-    public int insertStaff(Staff staff, int accountId) throws Exception {
+
+    public int insertStaff(Staff staff) throws Exception {
+        int result = 0;
+        String sql = "{call Ins_Staff (?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
-        int a = 0;
-        String sql = "{call Ins_Staff (?, ?, ?, ?, ?, ?, ?)}";
-        CallableStatement cstmt = null;
         try {
             conn = getConnection();
-            cstmt = conn.prepareCall(sql);
-            cstmt.setInt(1, accountId);
-            cstmt.setString(2, staff.getName());
-            cstmt.setDate(3, (Date) staff.getBirthDay());
-            cstmt.setBoolean(4, staff.getGender());
-            cstmt.setString(5, staff.getPhone());
-            cstmt.setString(6, staff.getEmail());
-            cstmt.setString(7, staff.getAddress());
+            CallableStatement stmt = conn.prepareCall(sql);
+            stmt.registerOutParameter(9, java.sql.Types.INTEGER);
+            stmt.setString(1, staff.getUserName());
+            stmt.setString(2, staff.getPassword());
+            stmt.setString(3, staff.getName());
+            stmt.setDate(4, Utility.date2sql(staff.getBirthDay()));
+            stmt.setBoolean(5, staff.getGender());
+            stmt.setString(6, staff.getPhone());
+            stmt.setString(7, staff.getEmail());
+            stmt.setString(8, staff.getAddress());
 
-            a = cstmt.executeUpdate();
+            stmt.execute();
+            result = stmt.getInt(9);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -54,9 +58,8 @@ public class StaffDAO extends AbstractDAO<Staff> {
                 conn.close();
             }
         }
-        return a;
+        return result;
     }
-
     @Override
     public boolean update(Staff staff) throws Exception {
         Connection conn = null;

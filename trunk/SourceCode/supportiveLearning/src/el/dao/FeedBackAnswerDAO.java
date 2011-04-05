@@ -24,15 +24,13 @@ public class FeedBackAnswerDAO extends AbstractDAO<FeedBackAnswer> {
     public int insert(FeedBackAnswer t) throws Exception {
         Connection conn = null;
         int a = 0;
-        String sql = "{call Ins_FeedBackAnswer (?, ?, ?, ?)}";
+        String sql = "{call Ins_FeedBackAnswer (?, ?)}";
         CallableStatement cstmt = null;
         try{
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
             cstmt.setInt(1, t.getFeedBack().getId());
-            cstmt.setInt(2, t.getStaff().getId());
-            cstmt.setString(3, t.getFeedBackAnswer());
-            cstmt.setDate(4, Utility.date2sql(t.getDateCreate()));
+            cstmt.setString(2, t.getFeedBackAnswer());
              a = cstmt.executeUpdate();
         }catch(Exception ex){
             ex.printStackTrace();
