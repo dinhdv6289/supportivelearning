@@ -54,20 +54,17 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
     public boolean update(Assignment t) throws Exception {
         Connection conn = null;
         int a = 0;
-        String sql = "{call Upd_Assignment (?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call Upd_Assignment (?, ?, ?, ?, ?, ?)}";
         CallableStatement cstmt = null;
         try{
             conn = getConnection();
             cstmt = conn.prepareCall(sql);
-            cstmt.setInt(1, t.getSubject().getId());
-            cstmt.setInt(2, t.getStaff().getId());
-            cstmt.setInt(3, t.getBatch().getId());
-            cstmt.setString(4, t.getName());
-            cstmt.setString(5, t.getFileUpload());
-            cstmt.setString(6, t.getContent());
-            cstmt.setDate(7, Utility.date2sql(t.getStartDate()));
-            cstmt.setDate(8, Utility.date2sql(t.getEndDate()));
-            cstmt.setInt(9, t.getId());
+            cstmt.setString(1, t.getName());
+            cstmt.setString(2, t.getFileUpload());
+            cstmt.setString(3, t.getContent());
+            cstmt.setDate(4, Utility.date2sql(t.getStartDate()));
+            cstmt.setDate(5, Utility.date2sql(t.getEndDate()));
+            cstmt.setInt(6, t.getId());
             a = cstmt.executeUpdate();
         }catch(Exception ex){
             ex.printStackTrace();

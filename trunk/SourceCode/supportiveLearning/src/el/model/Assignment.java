@@ -15,8 +15,8 @@ public class Assignment implements Serializable {
 
     private int id;
     private Staff staff;
-    private Subject subject;
-    private Batch batch;
+    private Subject subject = new Subject();
+    private Batch batch =  new Batch();
     private String name;
     private String content;
     private String fileUpload;

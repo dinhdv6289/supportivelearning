@@ -19,6 +19,9 @@
                              selectionMode="single"
                              rowSelectListener="#{studentWorkManagerBean.onRequestUpdateMark(true)}"
                              dblClickSelect="true">
+                    <f:facet name="header">
+                        Double click  a row to update mark for student.
+                    </f:facet>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Name" />
