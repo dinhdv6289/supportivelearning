@@ -19,17 +19,14 @@
                         <img width="315" height="70" src=""/>
                     </h4>
                     <h4 class="style9">
-                        <h:outputText value="Tearcher:"/>
+                        <h:outputText value="Fullname: "/>
                         <h:outputText value="#{staffBean.staff.name}"/>
                         <span class="style7"></span>
                     </h4>
                     <p>
-                        <!--                                    <span class="style11">
-                                                            </span>
-                                                            <span class="style10"></span><br/>-->
-                        -Start date:<br/>
-                        -End date:  <br/>
-                        -File upload: <br/>
+                        -Phone: #{staffBean.staff.phone}<br/>
+                        -Email:  #{staffBean.staff.email}<br/>
+                        -Address: #{staffBean.staff.address}<br/>
                     </p>
                     <p>
                         <span class="style10"></span>
@@ -44,17 +41,11 @@
                         <p:commandLink ajax="false"
                                        value="Send FeedBack"
                                        action="#{feedBackBean.onRequestStaffToSendFeedBack(staffBean.staff)}">
-<!--                            <f:setPropertyActionListener target=""
-                                                         value="">
-
-                            </f:setPropertyActionListener>        -->
                         </p:commandLink>
                     </p>
                 </h:form>
             </div>
         </div>
-        <!-- News Block Ends Here -->
-
     </ui:define>
 </ui:composition>
 
