@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sl.utils.beans;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.TimeZone;
 import javax.faces.bean.ManagedBean;
@@ -16,12 +16,11 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class ConverterBean {
+public class ConverterBean implements Serializable {
 
     /** Creates a new instance of ConverterBean */
     public ConverterBean() {
     }
-
     private String strLocale;
     private TimeZone timezone;
 
@@ -35,7 +34,4 @@ public class ConverterBean {
 
         return strLocale;
     }
-
-
-
 }
