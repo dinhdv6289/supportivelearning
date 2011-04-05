@@ -198,7 +198,7 @@
                                             </p>
                                             <p class="clearfix normal">
                                                 <span class="floatleft">
-                                                <a href="#{request.contextPath}/ui.client/forgotpassword.jsf">Forgot  Password?</a>
+                                                    <a href="#{request.contextPath}/ui.client/forgotpassword.jsf">Forgot  Password?</a>
                                                 </span>
                                             </p>
                                         </h:panelGrid>
@@ -277,7 +277,9 @@
                                         <c:forEach var="feedBackItem" items="#{feedBackAnswerManagerBean.listTopFeedBacks}">
                                             <p:commandLink ajax="false"
                                                            value="#{feedBackItem.student.name}"
-                                                           action="#{feedBackAnswerManagerBean.onRequestFeedBack(feedBackItem)}">
+                                                           action="#{feedBackAnswerManagerBean.onRequestpanelAnswer(true)}">
+                                                <f:setPropertyActionListener target="#{feedBackAnswerManagerBean.selectedFeedBack}" value="#{feedBackItem}">
+                                                </f:setPropertyActionListener>
                                             </p:commandLink><br/>
 
                                         </c:forEach>
