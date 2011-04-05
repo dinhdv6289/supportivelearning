@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
@@ -44,6 +45,24 @@ public class Validation {
             message.setSummary("Email not valid");
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(message);
+        }
+    }
+
+     private String password1;
+    private String password2;
+    private boolean input1Set;
+
+    public void validateFieldPassword(FacesContext context, UIComponent component, Object value) {
+        if (input1Set) {
+            password2 = (String) value;
+            if (password1 == null || password1.length() < 6 || (!password1.equals(password2))) {
+                ((EditableValueHolder) component).setValid(false);
+                context.addMessage(component.getClientId(context), new FacesMessage(
+                        "Password must be 6 chars & both fields identical"));
+            }
+        } else {
+            input1Set = true;
+            password1 = (String) value;
         }
     }
 }

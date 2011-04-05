@@ -201,6 +201,7 @@ public class StaffManagerBean implements Serializable {
     }
 
     public String insertStaff() {
+        strError = "";
         try {
             int a = staffDAO.insertStaff(staff);
             if (a == 1) {
