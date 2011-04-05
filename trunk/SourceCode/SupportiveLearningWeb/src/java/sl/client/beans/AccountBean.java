@@ -62,4 +62,9 @@ public class AccountBean implements Serializable {
             Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public String forGotPassword(){
+
+        return null;
+    }
 }
