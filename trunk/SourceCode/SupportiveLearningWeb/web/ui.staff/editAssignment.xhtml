@@ -49,7 +49,8 @@
                         <h:outputLabel value="-File upload: " ></h:outputLabel>
                         <p:fileUpload fileUploadListener="#{assignmentManagerBean.handleFileUpload}"
                                       update="errorr"
-                                      allowTypes="*.doc;*.txt;"  />
+                                      allowTypes="*.txt;*.doc;*.pdf;"
+                                      description="Text Documents"  />
                     </h:panelGrid>
                     <h:outputLabel value="Content" for="content"></h:outputLabel>
                     <p:editor value="#{assignmentManagerBean.selectedAssignment.content}"

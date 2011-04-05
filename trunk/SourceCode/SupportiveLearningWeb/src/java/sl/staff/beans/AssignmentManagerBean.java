@@ -187,6 +187,7 @@ public class AssignmentManagerBean implements Serializable {
 
     public String onRequestAssignmentToEdit(Assignment assignment) {
         this.selectedAssignment = assignment;
+        this.fileUpload = assignment.getFileUpload();
         return "editAssignment.jsf" + REDIRECT;
     }
 
@@ -233,6 +234,7 @@ public class AssignmentManagerBean implements Serializable {
 
     /** Creates a new instance of FileUploadController */
     public void handleFileUpload(FileUploadEvent event) {
+        this.setFileUpload("");
         ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
         File result = new File(extContext.getRealPath("/documents/assignmentFiles") + "//" + event.getFile().getFileName());
         try {
@@ -298,9 +300,8 @@ public class AssignmentManagerBean implements Serializable {
                 int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
                 Staff staffSearch = staffDAO.getStaffByAccountId(accountId);
                 if (staffSearch != null) {
-                    if (!this.getFileUpload().isEmpty()) {
-                        selectedAssignment.setFileUpload(this.getFileUpload());
-                    }
+                   // assert this.getFileUpload().length() > 0;
+                    selectedAssignment.setFileUpload(this.getFileUpload());
                     selectedAssignment.setSubject(subject);
                     selectedAssignment.setBatch(batch);
                     selectedAssignment.setStaff(staffSearch);
