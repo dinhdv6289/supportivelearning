@@ -45,15 +45,15 @@ public class NewsManagedBean implements Serializable {
     private static String pathImage = "";
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "newsManager.jsf";
-    private static boolean panelGroupCreateNews;
-    private static boolean panelGroupListNews;
-    private static boolean panelGroupUpdateNews;
+    private static boolean panelGroupCreateNews=false;
+    private static boolean panelGroupListNews = true;
+    private static boolean panelGroupUpdateNews = false;
 
     /** Creates a new instance of NewsManagedBean */
     public NewsManagedBean() {
-        panelGroupListNews = true;
-        panelGroupCreateNews = false;
-        panelGroupUpdateNews = false;
+//        panelGroupListNews = true;
+//        panelGroupCreateNews = false;
+//        panelGroupUpdateNews = false;
     }
 
     /**
@@ -102,7 +102,8 @@ public class NewsManagedBean implements Serializable {
             news.setPicture(pathImage);
             int insert = newsDAO.insert(news);
             if (insert > 0) {
-
+                this.setPanelGroupCreateNews(false);
+                this.setPanelGroupListNews(true);
                 return THISPAGE + REDIRECT;
             } else {
                 return null;
@@ -118,6 +119,8 @@ public class NewsManagedBean implements Serializable {
             selectedNews.setPicture(pathImage);
             boolean update = newsDAO.update(getSelectedNews());
             if (update) {
+                this.setPanelGroupUpdateNews(false);
+                this.setPanelGroupListNews(true);
                 return THISPAGE + REDIRECT;
             } else {
                 return null;
@@ -212,9 +215,9 @@ public class NewsManagedBean implements Serializable {
 //        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedNews", event.getObject());
 //        return "DetailNewUpdate?faces-redirect=true";
 //    }
-    public String details(SelectEvent event) {
-        return "detailNewsToUpdate" + REDIRECT;
-    }
+//    public String details(SelectEvent event) {
+//        return "detailNewsToUpdate" + REDIRECT;
+//    }
 
     /**
      * @return the panelGroupCreateNews
@@ -266,9 +269,15 @@ public class NewsManagedBean implements Serializable {
     }
 
     public String onRequestUpdateNews(boolean flag) {
-        this.setPanelGroupCreateNews(false);
-        this.setPanelGroupListNews(false);
         this.setPanelGroupUpdateNews(flag);
+        this.setPanelGroupListNews(false);
+        this.setPanelGroupCreateNews(false);
+        return THISPAGE + REDIRECT;
+    }
+    public String onRequestListNews(boolean flag) {
+        this.setPanelGroupListNews(flag);
+        this.setPanelGroupUpdateNews(false);
+        this.setPanelGroupCreateNews(false);
         return THISPAGE + REDIRECT;
     }
 }

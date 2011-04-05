@@ -6,6 +6,7 @@ package sl.staff.beans;
 
 import el.dao.FeedBackAnswerDAO;
 import el.dao.FeedBackDAO;
+import el.dao.StaffDAO;
 import el.model.FeedBack;
 import el.model.FeedBackAnswer;
 import el.model.Staff;
@@ -17,10 +18,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
-import sl.utils.beans.EachSession;
+import sl.utils.beans.SessionManager;
 
 /**
  *
@@ -39,6 +41,7 @@ public class FeedBackAnswerManagerBean implements Serializable {
     private ArrayList<FeedBack> listTopFeedBacks = new ArrayList<FeedBack>();
     private FeedBackDAO feedBackDAO = new FeedBackDAO();
     private Staff currentStaff;
+    private StaffDAO staffDAO = new StaffDAO();
     private static boolean panelGroupMessageDetails;
     private static boolean panelGroupMessage;
     private static boolean panelAnswer;
@@ -65,7 +68,7 @@ public class FeedBackAnswerManagerBean implements Serializable {
         try {
             feedbackRoot = new DefaultTreeNode("feedbackRoot", null);
 
-            ArrayList<FeedBack> listFB = feedBackDAO.listFeedbackForStudent(selectedFeedBack.getStudent(), getStaff());
+            ArrayList<FeedBack> listFB = feedBackDAO.listFeedbackForStudent(selectedFeedBack.getStudent(), currentStaff);
             for (FeedBack fb : listFB) {
                 TreeNode tn = new DefaultTreeNode(fb, feedbackRoot);
                 ArrayList<FeedBackAnswer> feedBackAnswers = feedBackAnswerDAO.getFeedbackAnswerByFeedbackId(fb.getId());
@@ -83,8 +86,8 @@ public class FeedBackAnswerManagerBean implements Serializable {
         return feedbackRoot;
     }
 
-    public boolean checkFeedBack(FeedBack fb){
-        if(fb.getId() > 0){
+    public boolean checkFeedBack(FeedBack fb) {
+        if (fb.getId() > 0) {
             return true;
         }
         return false;
@@ -111,6 +114,18 @@ public class FeedBackAnswerManagerBean implements Serializable {
         this.panelGroupMessage = true;
         this.panelGroupMessageDetails = false;
         this.panelAnswer = false;
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        if (SessionManager.getSession("accountId") == null) {
+            // LoginService.loginService(request.getRequestURI());
+        } else {
+            try {
+                int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
+                currentStaff = staffDAO.getStaffByAccountId(accountId);
+            } catch (Exception ex) {
+                Logger.getLogger(StaffBatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @PostConstruct
@@ -139,7 +154,9 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     public ArrayList<FeedBack> getListTopFeedBacks() {
         try {
-            this.listTopFeedBacks = feedBackDAO.listTopFeedbackForStaff(getStaff());
+            if (currentStaff.getId() > 0) {
+                this.listTopFeedBacks = feedBackDAO.listTopFeedbackForStaff(currentStaff);
+            }
         } catch (Exception ex) {
             Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -164,7 +181,9 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     public ArrayList<FeedBack> getListFeedBacks() {
         try {
-            this.listFeedBacks = feedBackDAO.listFeedbackForStaff(getStaff());
+            if ((currentStaff.getId() > 0))  {
+                this.listFeedBacks = feedBackDAO.listFeedbackForStaff(currentStaff);
+            }
         } catch (Exception ex) {
             Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -213,22 +232,20 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     }
 
-    private Staff getStaff() {
-        try {
-            Object object = EachSession.getObjectFromSession("accountId");
-            if (object != null) {
-                if (object != null) {
-                    if (object instanceof Staff) {
-                        return currentStaff = (Staff) object;
-                    }
-                }
-            }
-            return null;
-        } catch (Exception ex) {
-            Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
+//    private Staff getStaff() {
+//        try {
+//            int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
+//            Staff staffByAccountId = staffDAO.getStaffByAccountId(accountId);
+//            if (staffByAccountId != null) {
+//                return currentStaff = staffByAccountId;
+//            } else {
+//                return null;
+//            }
+//        } catch (Exception ex) {
+//            Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+//            return null;
+//        }
+//    }
 
     public String onRowSelectNavigate(SelectEvent event) {
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedFeedBack", event.getObject());

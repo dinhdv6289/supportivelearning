@@ -6,26 +6,38 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
         <p:panel header="Insert News">
-            <h:panelGrid id="panelGrid_add">
-                <h:outputLabel value="Title:"></h:outputLabel>
-                <p:inputText id="title" value="#{newsManagedBean.news.title}"></p:inputText>
-                <p:message for="title"/>
-
-                <h:outputLabel value="Picture:"/>
-                <p:growl id="messages" showDetail="true"/>
-                <p:fileUpload  fileUploadListener="#{newsManagedBean.handleFileUpload}"
-                               auto="false" multiple="true" allowTypes="*.jpg"
-                               description="jpg" update="messages"  />
-
-                <h:outputLabel value="SubContent:"></h:outputLabel>
-                <p:inputText id="subContent" value="#{newsManagedBean.news.subContent}"></p:inputText>
-                <p:message for="subContent"></p:message>
-
-                <h:outputLabel value="newsContent:"></h:outputLabel>
-                <p:inputText id="newsContent" value="#{newsManagedBean.news.newsContent}"></p:inputText>
-                <p:message for="newsContent"></p:message>
-
-                <p:commandButton value="Save" ajax="false" action="#{newsManagedBean.insertNews}">
+            <p:growl id="messages" showDetail="true"/>
+            <p:messages />
+            <h:panelGrid id="panelGrid_add" columns="2" cellpadding="9" cellspacing="9">
+                <h:outputLabel value="Title:" for="title"></h:outputLabel>
+                <p:inputText id="title"
+                             value="#{newsManagedBean.news.title}"
+                             required="true"
+                             requiredMessage="Must enter title.">
+                </p:inputText>
+                <h:outputLabel value="Picture:" for="picture"/>
+                <p:fileUpload  id="picture"
+                               fileUploadListener="#{newsManagedBean.handleFileUpload}"
+                               auto="false"
+                               allowTypes="*.jpg;*.png;*.gif;"
+                               description="*.jpg;*.png;*.gif"
+                               update="messages"  />
+                <h:outputLabel value="SubContent:" for="subcontent"></h:outputLabel>
+                <p:inputTextarea id="subcontent"
+                             value="#{newsManagedBean.news.subContent}"
+                             style="width: 450px"
+                             required="true"
+                             requiredMessage="Must enter subcontent.">
+                </p:inputTextarea>
+                <h:outputLabel value="newsContent:" for="newcontent"></h:outputLabel>
+                <p:editor id="newcontent"
+                          value="#{newsManagedBean.news.newsContent}"
+                          required="true"
+                          requiredMessage="Must enter New content">
+                </p:editor>
+                <p:commandButton  ajax="false"
+                                  value="Save"
+                                  action="#{newsManagedBean.insertNews}">
                 </p:commandButton>
             </h:panelGrid>
         </p:panel>

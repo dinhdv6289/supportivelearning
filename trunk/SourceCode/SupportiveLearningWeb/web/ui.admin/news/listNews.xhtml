@@ -9,7 +9,9 @@
                      var="news"
                      value="#{newsManagedBean.listNews}"
                      selection="#{newsManagedBean.selectedNews}"
-                     selectionMode="single">
+                     selectionMode="single"
+                     paginator="true"
+                     rows="10">
             <f:facet name="header">
                 <p:commandButton ajax="false"
                                  value="Update"
@@ -22,28 +24,28 @@
 
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="title" />
+                    <h:outputText value="Title" />
                 </f:facet>
                 <h:outputText value="#{news.title}" />
             </p:column>
 
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="picture"/>
+                    <h:outputText value="Picture"/>
                 </f:facet>
                 <p:graphicImage value="../#{news.picture}" width="70px" height="70px" />
             </p:column>
 
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="subContent:" />
+                    <h:outputText value="SubContent:" />
                 </f:facet>
                 <h:outputText value="#{news.subContent}" />
             </p:column>
 
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="DateCreate:" />
+                    <h:outputText value="DateCreate" />
                 </f:facet>
                 <h:outputText value="#{news.dateCreate}" />
             </p:column>
