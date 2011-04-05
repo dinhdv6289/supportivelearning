@@ -32,6 +32,7 @@ public class StaffManagerBean implements Serializable {
     private ArrayList<Staff> listStaffs = new ArrayList<Staff>();
     private Staff[] selectedStaffs;
     private static boolean panelGroupListStaffs;
+    private static boolean panelGroupNewStaff;
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "staffManager.jsf";
     private Batch batch = new Batch();
@@ -48,9 +49,18 @@ public class StaffManagerBean implements Serializable {
         return result;
     }
 
+    public boolean isPanelGroupNewStaff() {
+        return panelGroupNewStaff;
+    }
+
+    public void setPanelGroupNewStaff(boolean panelGroupNewStaff) {
+        StaffManagerBean.panelGroupNewStaff = panelGroupNewStaff;
+    }
+
     public void setListBatchs(ArrayList<Batch> listBatchs) {
         this.listBatchs = listBatchs;
     }
+
     public Batch getBatch() {
         return batch;
     }
@@ -132,6 +142,13 @@ public class StaffManagerBean implements Serializable {
 
     public String onRequestGroupListStaffs(boolean flag) {
         this.setPanelGroupListStaffs(flag);
+        this.setPanelGroupNewStaff(false);
+        return THISPAGE + REDIRECT;
+    }
+
+    public String onRequestPanelGroupNewStaff(boolean flag) {
+        this.setPanelGroupListStaffs(false);
+        this.setPanelGroupNewStaff(flag);
         return THISPAGE + REDIRECT;
     }
 
@@ -175,5 +192,34 @@ public class StaffManagerBean implements Serializable {
     public String details(SelectEvent event) {
 
         return "staffdetails" + REDIRECT;
+    }
+
+    private String strError;
+
+    public String getStrError() {
+        return strError;
+    }
+
+    public String insertStaff() {
+        try {
+            int a = staffDAO.insertStaff(staff);
+            if (a == 1) {
+                //ok
+                this.setPanelGroupListStaffs(true);
+                this.setPanelGroupNewStaff(false);
+                listStaffs = staffDAO.list();
+                strError = "";
+                return THISPAGE + REDIRECT;
+            }
+            if (a == 2) {
+                strError = "Email is used";
+            }
+            if (a == 3) {
+                strError = "Username is used";
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(StaffManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

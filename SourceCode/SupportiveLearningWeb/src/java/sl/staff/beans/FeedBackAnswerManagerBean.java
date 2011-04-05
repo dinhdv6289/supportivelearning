@@ -18,6 +18,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 import sl.utils.beans.EachSession;
 
 /**
@@ -28,21 +30,111 @@ import sl.utils.beans.EachSession;
 @SessionScoped
 public class FeedBackAnswerManagerBean implements Serializable {
 
+    private static final String REDIRECT = "?faces-redirect=true";
+    private static final String THISPAGE = "messages.jsf";
     private FeedBack selectedFeedBack;
-    private FeedBackAnswer feedBackAnswer;
+    private FeedBackAnswer feedBackAnswer = new FeedBackAnswer();
     private FeedBackAnswerDAO feedBackAnswerDAO = new FeedBackAnswerDAO();
     private ArrayList<FeedBack> listFeedBacks = new ArrayList<FeedBack>();
     private ArrayList<FeedBack> listTopFeedBacks = new ArrayList<FeedBack>();
     private FeedBackDAO feedBackDAO = new FeedBackDAO();
     private Staff currentStaff;
+    private static boolean panelGroupMessageDetails;
+    private static boolean panelGroupMessage;
+    private static boolean panelAnswer;
+    private TreeNode selectedTreNode;
+
+    public TreeNode getSelectedTreNode() {
+        return selectedTreNode;
+    }
+
+    public void setSelectedTreNode(TreeNode selectedTreNode) {
+        this.selectedTreNode = selectedTreNode;
+    }
+
+    public boolean isPanelAnswer() {
+        return panelAnswer;
+    }
+
+    public void setPanelAnswer(boolean panelAnswer) {
+        FeedBackAnswerManagerBean.panelAnswer = panelAnswer;
+    }
+    private TreeNode feedbackRoot;
+
+    public TreeNode getFeedbackRoot() {
+        try {
+            feedbackRoot = new DefaultTreeNode("feedbackRoot", null);
+
+            ArrayList<FeedBack> listFB = feedBackDAO.listFeedbackForStudent(selectedFeedBack.getStudent(), getStaff());
+            for (FeedBack fb : listFB) {
+                TreeNode tn = new DefaultTreeNode(fb, feedbackRoot);
+                ArrayList<FeedBackAnswer> feedBackAnswers = feedBackAnswerDAO.getFeedbackAnswerByFeedbackId(fb.getId());
+                for (FeedBackAnswer feedBackAnswer : feedBackAnswers) {
+                    FeedBack feedBack1 = new FeedBack();
+                    feedBack1.setDateCreation(feedBackAnswer.getDateCreate());
+                    feedBack1.setFeedBackContent(feedBackAnswer.getFeedBackAnswer());
+                    feedBack1.setId(0);
+                    TreeNode tn1 = new DefaultTreeNode(feedBack1, tn);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return feedbackRoot;
+    }
+
+    public boolean checkFeedBack(FeedBack fb){
+        if(fb.getId() > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPanelGroupMessage() {
+        return panelGroupMessage;
+    }
+
+    public void setPanelGroupMessage(boolean panelGroupMessage) {
+        FeedBackAnswerManagerBean.panelGroupMessage = panelGroupMessage;
+    }
+
+    public boolean isPanelGroupMessageDetails() {
+        return panelGroupMessageDetails;
+    }
+
+    public void setPanelGroupMessageDetails(boolean panelGroupMessageDetails) {
+        FeedBackAnswerManagerBean.panelGroupMessageDetails = panelGroupMessageDetails;
+    }
 
     /** Creates a new instance of FeedBackAnswerManagerBean */
     public FeedBackAnswerManagerBean() {
+        this.panelGroupMessage = true;
+        this.panelGroupMessageDetails = false;
+        this.panelAnswer = false;
     }
 
     @PostConstruct
     public void init() {
         loadListFeedBacks();
+    }
+
+    public String onRequestpanelGroupMessageDetails(boolean flag) {
+        this.panelGroupMessage = true;
+        this.panelAnswer = false;
+        this.setPanelGroupMessageDetails(flag);
+        return THISPAGE + REDIRECT;
+    }
+
+    public String onRequestpanelAnswer(boolean flag) {
+        this.panelGroupMessage = true;
+        this.setPanelGroupMessageDetails(true);
+        this.setPanelAnswer(flag);
+        return THISPAGE + REDIRECT;
+    }
+
+    public String onRequestpanelGroupMessage(boolean flag) {
+        this.setPanelGroupMessage(flag);
+        return THISPAGE + REDIRECT;
     }
 
     public ArrayList<FeedBack> getListTopFeedBacks() {
@@ -71,6 +163,11 @@ public class FeedBackAnswerManagerBean implements Serializable {
     }
 
     public ArrayList<FeedBack> getListFeedBacks() {
+        try {
+            this.listFeedBacks = feedBackDAO.listFeedbackForStaff(getStaff());
+        } catch (Exception ex) {
+            Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return listFeedBacks;
     }
 
@@ -102,10 +199,13 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     public String insertFeedBackAnswer() {
         try {
-            feedBackAnswer.setStaff(getStaff());
-            feedBackAnswer.setFeedBack(selectedFeedBack);
-            feedBackAnswerDAO.insert(feedBackAnswer);
-            return "messages";
+            if (selectedFeedBack.getId() > 0) {
+                feedBackAnswer.setFeedBack(selectedFeedBack);
+                feedBackAnswerDAO.insert(feedBackAnswer);
+            } else {
+                //thong bao loi
+            }
+            return null;
         } catch (Exception ex) {
             Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -129,7 +229,6 @@ public class FeedBackAnswerManagerBean implements Serializable {
             return null;
         }
     }
-
 
     public String onRowSelectNavigate(SelectEvent event) {
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedFeedBack", event.getObject());
