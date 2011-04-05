@@ -9,15 +9,16 @@
             
             <h:panelGrid id="panelGrid_add">
                 <h:outputLabel value="Question:"></h:outputLabel>
-                <p:inputTextarea id="question" value="#{fAQManagerBean.faq.question}"></p:inputTextarea>
+                <p:inputTextarea id="question" value="#{fAQManagerBean.faq.question}" style="width: 450px;"
+                                 required="true"
+                                 requiredMessage="Question is not null !"></p:inputTextarea>
                 <p:message for="question"/>
 
                 <h:outputLabel value="Answer:"></h:outputLabel>
-                <p:inputTextarea id="answer" value="#{fAQManagerBean.faq.answer}"></p:inputTextarea>
+                <p:editor id="answer" value="#{fAQManagerBean.faq.answer}" width="670"
+                          required="true"
+                          requiredMessage="Answer is not null !"></p:editor>
                 <p:message for="answer"></p:message>
-
-                <h:outputText value="DateCreate:"></h:outputText>
-                <p:calendar value="#{fAQManagerBean.faq.date}"></p:calendar>
 
                 <p:commandButton value="Save" ajax="false" action="#{fAQManagerBean.insert}">
                 </p:commandButton>
