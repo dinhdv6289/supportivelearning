@@ -273,17 +273,6 @@
                             <div class="sblock">
                                 <div class="sblock-top">Messages</div>
                                 <div class="sblock-content">
-                                    <h:form>
-                                        <c:forEach var="feedBackItem" items="#{feedBackAnswerManagerBean.listTopFeedBacks}">
-                                            <p:commandLink ajax="false"
-                                                           value="#{feedBackItem.student.name}"
-                                                           action="#{feedBackAnswerManagerBean.onRequestpanelAnswer(true)}">
-                                                <f:setPropertyActionListener target="#{feedBackAnswerManagerBean.selectedFeedBack}" value="#{feedBackItem}">
-                                                </f:setPropertyActionListener>
-                                            </p:commandLink><br/>
-
-                                        </c:forEach>
-                                    </h:form>
                                     <a href="#{request.contextPath}/ui.staff/messages.jsf">Messages</a>
                                 </div>
                             </div>
