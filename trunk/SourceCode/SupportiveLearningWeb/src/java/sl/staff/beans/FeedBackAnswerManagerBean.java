@@ -35,7 +35,7 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "messages.jsf";
-    private FeedBack selectedFeedBack;
+    private FeedBack selectedFeedBack = new FeedBack();
     private FeedBackAnswer feedBackAnswer = new FeedBackAnswer();
     private FeedBackAnswerDAO feedBackAnswerDAO = new FeedBackAnswerDAO();
     private ArrayList<FeedBack> listFeedBacks = new ArrayList<FeedBack>();
@@ -93,22 +93,31 @@ public class FeedBackAnswerManagerBean implements Serializable {
     public void setPanelAnswer(boolean panelAnswer) {
         FeedBackAnswerManagerBean.panelAnswer = panelAnswer;
     }
-    private TreeNode feedbackRoot;
+    private TreeNode feedbackRoot = new DefaultTreeNode("feedbackRoot", null);;
+
+    public void setFeedbackRoot(TreeNode feedbackRoot) {
+        this.feedbackRoot = feedbackRoot;
+    }
+
+    
 
     public TreeNode getFeedbackRoot() {
         try {
-            feedbackRoot = new DefaultTreeNode("feedbackRoot", null);
+            
             int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
-            ArrayList<FeedBack> listFB = feedBackDAO.listFeedbackForStudent(selectedFeedBack.getStudent(), staffDAO.getStaffByAccountId(accountId));
-            for (FeedBack fb : listFB) {
-                TreeNode tn = new DefaultTreeNode(fb, feedbackRoot);
-                ArrayList<FeedBackAnswer> feedBackAnswers = feedBackAnswerDAO.getFeedbackAnswerByFeedbackId(fb.getId());
-                for (FeedBackAnswer feedBackAnswer : feedBackAnswers) {
-                    FeedBack feedBack1 = new FeedBack();
-                    feedBack1.setDateCreation(feedBackAnswer.getDateCreate());
-                    feedBack1.setFeedBackContent(feedBackAnswer.getFeedBackAnswer());
-                    feedBack1.setId(0);
-                    TreeNode tn1 = new DefaultTreeNode(feedBack1, tn);
+            Staff staffByAccountId = staffDAO.getStaffByAccountId(accountId);
+            if (staffByAccountId.getId() >0) {
+                ArrayList<FeedBack> listFB = feedBackDAO.listFeedbackForStudent(selectedFeedBack.getStudent(), staffByAccountId);
+                for (FeedBack fb : listFB) {
+                    TreeNode tn = new DefaultTreeNode(fb, feedbackRoot);
+                    ArrayList<FeedBackAnswer> feedBackAnswers = feedBackAnswerDAO.getFeedbackAnswerByFeedbackId(fb.getId());
+                    for (FeedBackAnswer fba : feedBackAnswers) {
+                        FeedBack feedBack1 = new FeedBack();
+                        feedBack1.setDateCreation(fba.getDateCreate());
+                        feedBack1.setFeedBackContent(fba.getFeedBackAnswer());
+                        feedBack1.setId(0);
+                        TreeNode tn1 = new DefaultTreeNode(feedBack1, tn);
+                    }
                 }
             }
         } catch (Exception ex) {
