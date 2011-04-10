@@ -37,11 +37,15 @@
                                     </strong><br/>
                                     -Start date:
                                     <h:outputText value="#{assignmentItem.startDate}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        <f:convertDateTime pattern="MM/dd/yyyy"
+                                                           locale="#{converterBean.strLocale}"
+                                                           timeZone="#{converterBean.timezone}"/>
                                     </h:outputText><br/>
                                     -End date:  
                                     <h:outputText style="color: red" value="#{assignmentItem.endDate}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        <f:convertDateTime pattern="MM/dd/yyyy"
+                                                           locale="#{converterBean.strLocale}"
+                                                           timeZone="#{converterBean.timezone}"/>
                                     </h:outputText><br/>
                                     -File upload: <a href="#{request.contextPath}/#{assignmentItem.fileUpload}">#{assignmentItem.name}</a><br/>
                                 </p>

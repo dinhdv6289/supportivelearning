@@ -31,11 +31,15 @@
                             <strong>Assignment Name: #{assignmentBean.assignmentDetails.name}</strong><br/>
                             -Start date:
                             <h:outputText value="#{assignmentBean.assignmentDetails.startDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                <f:convertDateTime pattern="MM/dd/yyyy"
+                                                   locale="#{converterBean.strLocale}"
+                                                   timeZone="#{converterBean.timezone}"/>
                             </h:outputText><br/>
                             -End date:
                             <h:outputText style="color: red" value="#{assignmentBean.assignmentDetails.endDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                <f:convertDateTime pattern="MM/dd/yyyy"
+                                                   locale="#{converterBean.strLocale}"
+                                                   timeZone="#{converterBean.timezone}"/>
                             </h:outputText><br/>
                             -File upload: 
                             <a href="#{request.contextPath}/#{assignmentBean.assignmentDetails.fileUpload}">
