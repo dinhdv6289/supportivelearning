@@ -30,10 +30,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.LazyDataModel;
 import sl.utils.beans.EachSession;
 import sl.utils.beans.LoginService;
 import sl.utils.beans.MessagesService;
@@ -58,10 +61,29 @@ public class StudentWorkBean implements Serializable {
     private static boolean panelGroupFormDisplayResult = false;
     private static final String REDIRECT = "?faces-redirect=true";
     private static final int BUFFER_SIZE = 1024;
+    private LazyDataModel<StudentWork> lazyModel;
 
     /** Creates a new instance of StudentWorkBean */
     public StudentWorkBean() {
-        loadStudentWorks();
+        try {
+            //loadStudentWorks();
+            lazyModel = new LazyDataModel<StudentWork>() {
+
+                @Override
+                public List<StudentWork> load(int first, int pageSize, String sortField, boolean sortOrder, Map<String, String> filters) {
+                    List<StudentWork> lazyCars = null;
+                    try {
+                        lazyCars = studentWorkDAO.listMarkUpdate().subList(first, first + pageSize);
+                    } catch (Exception ex) {
+                        Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return lazyCars;
+                }
+            };
+            lazyModel.setRowCount(studentWorkDAO.listMarkUpdate().size());
+        } catch (Exception ex) {
+            Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public boolean isPanelGroupFormDisplayResult() {
@@ -136,14 +158,14 @@ public class StudentWorkBean implements Serializable {
         this.file = file;
     }
 
-    private void loadStudentWorks() {
-        try {
-            listStudentWorksOfStudent = studentWorkDAO.listMarkUpdate();
-        } catch (Exception ex) {
-            Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
-            listStudentWorksOfStudent = null;
-        }
-    }
+//    private void loadStudentWorks() {
+//        try {
+//            listStudentWorksOfStudent = studentWorkDAO.listMarkUpdate();
+//        } catch (Exception ex) {
+//            Logger.getLogger(StudentWorkBean.class.getName()).log(Level.SEVERE, null, ex);
+//            listStudentWorksOfStudent = null;
+//        }
+//    }
 
     public void loadStudentWorksOfEachStudent() {
         try {
