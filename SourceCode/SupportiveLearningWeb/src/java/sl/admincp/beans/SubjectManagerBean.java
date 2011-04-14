@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -19,7 +20,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class SubjectManagerBean implements Serializable {
+public class SubjectManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private Subject subject;
     private ArrayList<Subject> listSubjects;
@@ -27,6 +28,7 @@ public class SubjectManagerBean implements Serializable {
 
     /** Creates a new instance of SubjectManagerBean */
     public SubjectManagerBean() {
+        super();
     }
 
     public ArrayList<Subject> getListSubjects() {

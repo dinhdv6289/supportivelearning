@@ -72,7 +72,6 @@ public class LoginFilter implements Filter {
         System.out.println("tat ca cac file: "+ uri);
         for (Iterator i = noFilters.iterator(); i.hasNext();) {
             String url = (String) i.next();
-
             if (uri.contains(url)) {
                 chain.doFilter(request, response);
                 return;

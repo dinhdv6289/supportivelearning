@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class FeedBackManagerBean implements Serializable {
+public class FeedBackManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private FeedBack feedBack;
     private ArrayList<FeedBack> listFeedBacks;
@@ -31,6 +32,7 @@ public class FeedBackManagerBean implements Serializable {
 
     /** Creates a new instance of FeedBackManagerBean */
     public FeedBackManagerBean() {
+        super();
     }
 
     @PostConstruct

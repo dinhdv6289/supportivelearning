@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import sl.utils.beans.EachSession;
+import sl.utils.beans.LoginService;
 
 /**
  *
@@ -120,6 +121,7 @@ public class AssignmentBean implements Serializable {
             }
         } catch (Exception ex) {
             Logger.getLogger(AssignmentBean.class.getName()).log(Level.SEVERE, null, ex);
+            LoginService.loginService("");
         }
     }
 

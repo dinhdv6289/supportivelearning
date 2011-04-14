@@ -24,8 +24,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FileUploadEvent;
+import sl.utils.beans.LoginService;
 import sl.utils.beans.MessagesService;
 import sl.utils.beans.SessionManager;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -33,7 +35,7 @@ import sl.utils.beans.SessionManager;
  */
 @ManagedBean
 @SessionScoped
-public class AssignmentManagerBean implements Serializable {
+public class AssignmentManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private Assignment assignment = new Assignment();
     private static Assignment selectedAssignment;
@@ -57,6 +59,7 @@ public class AssignmentManagerBean implements Serializable {
 
     /** Creates a new instance of AssignmentManagerBean */
     public AssignmentManagerBean() {
+        super();
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         if (SessionManager.getSession("accountId") == null) {
@@ -66,7 +69,8 @@ public class AssignmentManagerBean implements Serializable {
                 int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
                 thisStaff = staff = staffDAO.getStaffByAccountId(accountId);
             } catch (Exception ex) {
-                Logger.getLogger(StaffBatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                LoginService.loginService("");
             }
         }
     }
@@ -300,7 +304,7 @@ public class AssignmentManagerBean implements Serializable {
                 int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
                 Staff staffSearch = staffDAO.getStaffByAccountId(accountId);
                 if (staffSearch != null) {
-                   // assert this.getFileUpload().length() > 0;
+                    // assert this.getFileUpload().length() > 0;
                     selectedAssignment.setFileUpload(this.getFileUpload());
                     selectedAssignment.setSubject(subject);
                     selectedAssignment.setBatch(batch);

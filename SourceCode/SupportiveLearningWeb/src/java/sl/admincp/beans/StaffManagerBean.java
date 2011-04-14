@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.SelectEvent;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -24,7 +25,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean
 @SessionScoped
-public class StaffManagerBean implements Serializable {
+public class StaffManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private StaffDAO staffDAO = new StaffDAO();
     private Staff staff = new Staff();
@@ -108,6 +109,7 @@ public class StaffManagerBean implements Serializable {
 
     /** Creates a new instance of StaffManagerBean */
     public StaffManagerBean() {
+        super();
         panelGroupListStaffs = true;
     }
 

@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.LoginService;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -19,7 +21,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class AssignmentManagementBean implements Serializable {
+public class AssignmentManagementBean extends UtilCheckLoginBean implements Serializable {
 
     private Assignment assignment;
     private Assignment selectedAssignment;
@@ -29,6 +31,7 @@ public class AssignmentManagementBean implements Serializable {
 
     /** Creates a new instance of AssignmentManagementBean */
     public AssignmentManagementBean() {
+        super();
         panelGroupListAssignment = true;
     }
 
@@ -45,6 +48,8 @@ public class AssignmentManagementBean implements Serializable {
             listAssignments = assignmentDAO.list();
         } catch (Exception ex) {
             Logger.getLogger(AssignmentManagementBean.class.getName()).log(Level.SEVERE, null, ex);
+            LoginService.loginService("");
+
         }
         return listAssignments;
     }

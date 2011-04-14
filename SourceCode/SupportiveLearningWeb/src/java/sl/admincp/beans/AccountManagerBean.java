@@ -11,6 +11,7 @@ import el.model.Student;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -18,7 +19,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class AccountManagerBean implements Serializable {
+public class AccountManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private Account account;
     private Staff staff;
@@ -27,6 +28,7 @@ public class AccountManagerBean implements Serializable {
     
     /** Creates a new instance of AccountManagerBean */
     public AccountManagerBean() {
+        super();
         account = new Account();
         staff = new Staff();
         student = new Student();

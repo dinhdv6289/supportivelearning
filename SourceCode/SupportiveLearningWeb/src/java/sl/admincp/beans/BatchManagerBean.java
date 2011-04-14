@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class BatchManagerBean implements Serializable {
+public class BatchManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private Batch batch = new Batch();
     private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
@@ -36,14 +37,17 @@ public class BatchManagerBean implements Serializable {
 
     /** Creates a new instance of BatchManagerBean */
     public BatchManagerBean() {
+        super();
+        panelGroupNewBatch = false;
+        panelGroupBatchs = true;
+        panelGroupStudentInBatch = false;
+
     }
 
     @PostConstruct
     public void init() {
         getListBatchs();
-        panelGroupNewBatch = false;
-        panelGroupBatchs = true;
-        panelGroupStudentInBatch = false;
+
     }
 
     public Course getSelectedCourse() {
@@ -54,7 +58,6 @@ public class BatchManagerBean implements Serializable {
         this.selectedCourse = selectedCourse;
     }
 
-    
     public Batch getBatch() {
         return batch;
     }
@@ -132,17 +135,17 @@ public class BatchManagerBean implements Serializable {
         this.listBatchs = listBatchs;
     }
 
-
     public ArrayList<Batch> loadBatchs() {
         try {
-                listBatchs = batchDAO.list();
+            listBatchs = batchDAO.list();
             return listBatchs;
         } catch (Exception ex) {
             Logger.getLogger(BatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
-    public String insertBatch(){
+
+    public String insertBatch() {
         try {
             batchDAO.insert(batch);
             this.setPanelGroupBatchs(true);

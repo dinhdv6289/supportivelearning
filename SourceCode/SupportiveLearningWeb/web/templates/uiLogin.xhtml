@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <f:view contentType="text/html">
+        <h:head>
+            <title><ui:insert name="title"></ui:insert></title>
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <link media="screen" type="text/css" href="#{request.contextPath}/css/styleClient.css" rel="stylesheet"/>
+            <ui:insert name="head"></ui:insert>
+        </h:head>
+        <h:body>
+            <div id="wrapper">
+                <div id="header">
+                    <div id="logo"><h1><a href=""><span></span></a></h1></div>
+                </div>
+                <div id="menu">
+                    <h:form>
+                        <ul>
+                            <li><a href="#{request.contextPath}/ui.client/index.jsf">home</a></li>
+                            <li><a href="#{request.contextPath}/ui.client/markView.jsf">Mark view</a></li>
+                            <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site news</a></li>
+                            <li><a href="#{request.contextPath}/ui.client/faqs.jsf">FAQs</a></li>
+
+                            <li>
+                                <p:commandLink id="themeButton"
+                                               value="Theme: #{guestPreferencesBean.theme}"
+                                               type="button" style="width:100%"/>
+                                <p:menu widgetVar="themeMenu"
+                                        my="left top"
+                                        at="left bottom"
+                                        trigger="themeButton"
+                                        position="dynamic">
+                                    <p:submenu label="Themes">
+                                        <p:menuitem value="Aristo" ajax="false" styleClass="ui-widget-header ui-corner-all">
+                                            <f:setPropertyActionListener value="aristo"
+                                                                         target="#{guestPreferencesBean.theme}" />
+                                        </p:menuitem>
+                                        <p:menuitem value="ui-lightness" ajax="false">
+                                            <f:setPropertyActionListener value="ui-lightness"
+                                                                         target="#{guestPreferencesBean.theme}" />
+                                        </p:menuitem>
+                                    </p:submenu>
+                                </p:menu>
+
+                            </li>
+
+                        </ul>
+                    </h:form>
+                </div>
+                <div id="container">
+                    <div id="left-col">
+                        <h:panelGroup rendered="#{loginBean.panelStudent}" id="panelGroup_Student" >
+                            <!-- Main menu Block Starts Here -->
+                            <div class="sblock">
+                                <div class="sblock-top">Main menu</div>
+                                <div class="sblock-content">
+                                    <ul>
+                                        <li><a href="#{request.contextPath}/ui.client/index.jsf">Home</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Main menu Ends Here -->
+                            <h:panelGroup rendered="#{loginBean.panelHi}" id="panelGroup_Logon" >
+                                <!-- Navigation Block Starts Here -->
+                                <div class="sblock">
+                                    <div class="sblock-top">Navigation</div>
+                                    <div class="sblock-content">
+                                        <ul>
+
+                                            <h:form>
+                                                <li>
+                                                    <p:commandLink ajax="false"
+                                                                   value="My documents"
+                                                                   action="#{studentWorkBean.myFiles}">
+                                                    </p:commandLink>
+                                                </li>
+                                            </h:form>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Navigation Block Ends Here -->
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_Staff" >
+                            <!-- Main menu Block Starts Here -->
+                            <div class="sblock">
+                                <div class="sblock-top">Main menu</div>
+                                <div class="sblock-content">
+                                    <ul>
+                                        <li><a href="#{request.contextPath}/ui.staff/index.jsf">Home</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/siteNews.jsf">Site News</a></li>
+                                        <li><a href="#{request.contextPath}/ui.client/markView.jsf"> Mark View</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Main menu Ends Here -->
+                            <!-- Main menu Block Starts Here -->
+                            <div class="sblock">
+                                <div class="sblock-top">Navigation</div>
+                                <div class="sblock-content">
+                                    <ul>
+                                        <li><a href="#{request.contextPath}/ui.staff/insertAssignment.jsf">Insert Assignment</a></li>
+                                        <li><a href="#{request.contextPath}/ui.staff/managerAssignment.jsf">Assignment Manager</a></li>
+                                        <li><a href="#{request.contextPath}/ui.staff/updateMark.jsf">Update Mark By RollNumber</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Main menu Ends Here -->   
+
+                        </h:panelGroup>
+
+                        <!-- Quick Search Starts Here -->
+                        <!--                        <div class="sblock">
+                                                    <div class="sblock-top">Quick Search</div>
+                                                    <div class="sblock-content">
+                                                        <form method="get" action="#" name="quick-search">
+                                                            <p><input type="text" class="input" name="search"/>
+                                                                <input type="button" class="button1" value="Search"/></p>
+                                                            <p class="normal"><a href="#">Advanced Search</a></p>
+                                                        </form>
+                                                        <p>&nbsp;</p>
+                                                    </div>
+                                                </div>-->
+                        <!-- Quick Search Ends Here -->
+
+                        <!-- Navigation Block Starts Here -->
+                        <div class="sblock">
+                            <div class="sblock-top">Calendar</div>
+                            <div class="sblock-content">
+                                <h:form>
+                                    <p:calendar value="#{calendarBean.date1}" navigator="true" mode="inline" style="width: 150px" />
+                                </h:form>
+                            </div>
+                        </div>
+                        <style type="text/css" >
+                            .ui-widget{font-size: 0.9em;}
+                        </style>
+                        <!-- Navigation Block Ends Here -->
+
+
+                        <!-- Online users Block Starts Here -->
+                        <div class="sblock">
+                            <div class="sblock-top">Online users</div>
+                            <div class="sblock-content">
+                                <h:form prependId="false">
+                                    <c:forEach var="accountItem" items="#{accountBean.listAccountsOnline}">
+                                        <p>
+                                            <p:commandLink ajax="false"
+                                                           value="#{accountItem.name}"
+                                                           action="profile.jsf">
+                                            </p:commandLink>
+
+                                        </p>
+                                    </c:forEach>
+                                </h:form>
+                            </div>
+                        </div>
+                        <!-- Online users Ends Here -->
+
+
+                    </div>
+                    <div id="center-col">
+                        <ui:insert name="content"></ui:insert>
+                    </div>
+                    <div id="right-col">
+                        <h:panelGroup rendered="#{loginBean.panelHi}" id="panelGroup_hi" >
+                            <!-- Login Block Starts Here -->
+                            <div class="sblock">
+                                <div class="sblock-top">Welcome!</div>
+                                <div class="sblock-content">
+                                    <h:form id="form_hi" prependId="false">
+                                        <p>
+                                            <h:outputLabel style="color: #008000;font-size: 14px" value="#{loginBean.account.name}" />
+
+                                        </p>
+                                        <p>
+                                        </p>
+                                        <p>
+                                            <p:commandLink style="color: red"
+                                                           ajax="false"
+                                                           value="Logout"
+                                                           action="#{loginBean.logout}">
+                                            </p:commandLink>
+                                        </p>
+                                    </h:form>
+                                </div>
+                            </div>
+                            <!-- Login Block Ends Here -->
+                            <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_batch_staff" >
+                                <!-- Login Block Starts Here -->
+                                <div class="sblock">
+                                    <div class="sblock-top">My Batchs</div>
+                                    <div class="sblock-content">
+                                        <h:form id="form_batch_staff" prependId="false">
+                                            <c:forEach var="batchItem" items="#{loginBean.listBatchs}">
+                                                <p:commandLink style="color: #008000"
+                                                               ajax="false"
+                                                               value="#{batchItem.name}"
+                                                               action="#{assignmentManagerBean.onRequestBatchToStaff(batchItem)}">
+                                                </p:commandLink><br/>
+                                            </c:forEach>
+                                        </h:form>
+                                    </div>
+                                </div>
+                                <!-- Login Block Ends Here -->
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{loginBean.panelStudent}" id="panelGroup_batch_student" >
+                                <!-- Login Block Starts Here -->
+                                <div class="sblock">
+                                    <div class="sblock-top">My Batch</div>
+                                    <div class="sblock-content">
+                                        <h:form id="form_batch_student" prependId="false">
+                                            <p>
+
+                                            </p>
+                                            <p:commandLink ajax="false"
+                                                           value="#{loginBean.student.batch.name}"
+                                                           action="#{assignmentBean.details}">
+                                            </p:commandLink>
+                                        </h:form>
+                                    </div>
+                                </div>
+                                <!-- Login Block Ends Here -->
+                            </h:panelGroup>
+
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{loginBean.panelStaff}" id="panelGroup_Messages" >
+                            <!-- Messages Block Starts Here -->
+                            <div class="sblock">
+                                <div class="sblock-top">Messages</div>
+                                <div class="sblock-content">
+                                    <a href="#{request.contextPath}/ui.staff/messages.jsf">Messages</a>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                        <!-- Messages Ends Here -->
+
+
+
+                        <!-- Latest News Block Starts Here -->
+                        <div class="sblock">
+                            <div class="sblock-top">Latest News</div>
+                            <div class="sblock-content">
+                                <h:form>
+                                    <c:forEach var="latestNewsItem" items="#{newsBean.listTop3News}">
+                                        <p> #{latestNewsItem.dateCreate }</p>
+                                        <p>
+                                            #{latestNewsItem.title }
+                                        </p>
+                                        <p:commandLink value="more" ajax="false"
+                                                       action="#{newsBean.moreNews(latestNewsItem)}">
+                                        </p:commandLink>
+                                    </c:forEach>
+                                </h:form>
+                                <a href="#{request.contextPath}/ui.client/siteNews.jsf">Older news</a>
+                            </div>
+                        </div>
+                        <!-- Latest News Ends Here -->
+
+
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p class="floatleft"> <a href=""></a>  </p>
+                    <p class="floatright"><a href="#"></a><a href="#"></a><a href="#"></a></p>
+                </div>
+            </div>
+
+        </h:body>
+    </f:view>
+</html>

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -20,7 +21,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class CourseManagerBean implements Serializable {
+public class CourseManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private Course course;
     private Course selectedCourse;
@@ -29,6 +30,7 @@ public class CourseManagerBean implements Serializable {
 
     /** Creates a new instance of CourseManagerBean */
     public CourseManagerBean() {
+        super();
     }
 
     @PostConstruct
