@@ -5,11 +5,8 @@
  */
 package sl.admincp.beans;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import el.dao.NewsDAO;
 import el.model.News;
-import el.model.Student;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,16 +15,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.print.attribute.standard.OutputDeviceAssigned;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.event.SelectEvent;
-import sl.utils.beans.EachSession;
 import sl.utils.beans.MessagesService;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -35,7 +29,7 @@ import sl.utils.beans.MessagesService;
  */
 @ManagedBean
 @RequestScoped
-public class NewsManagedBean implements Serializable {
+public class NewsManagedBean extends UtilCheckLoginBean implements Serializable {
 
     private ArrayList<News> listNews;
     private News selectedNews;
@@ -45,12 +39,13 @@ public class NewsManagedBean implements Serializable {
     private static String pathImage = "";
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "newsManager.jsf";
-    private static boolean panelGroupCreateNews=false;
+    private static boolean panelGroupCreateNews = false;
     private static boolean panelGroupListNews = true;
     private static boolean panelGroupUpdateNews = false;
 
     /** Creates a new instance of NewsManagedBean */
     public NewsManagedBean() {
+        super();
 //        panelGroupListNews = true;
 //        panelGroupCreateNews = false;
 //        panelGroupUpdateNews = false;
@@ -218,7 +213,6 @@ public class NewsManagedBean implements Serializable {
 //    public String details(SelectEvent event) {
 //        return "detailNewsToUpdate" + REDIRECT;
 //    }
-
     /**
      * @return the panelGroupCreateNews
      */
@@ -274,6 +268,7 @@ public class NewsManagedBean implements Serializable {
         this.setPanelGroupCreateNews(false);
         return THISPAGE + REDIRECT;
     }
+
     public String onRequestListNews(boolean flag) {
         this.setPanelGroupListNews(flag);
         this.setPanelGroupUpdateNews(false);

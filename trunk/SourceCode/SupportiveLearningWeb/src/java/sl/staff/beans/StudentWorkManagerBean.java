@@ -20,8 +20,10 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sl.utils.beans.LoginService;
 import sl.utils.beans.MessagesService;
 import sl.utils.beans.SessionManager;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -29,7 +31,7 @@ import sl.utils.beans.SessionManager;
  */
 @ManagedBean
 @SessionScoped
-public class StudentWorkManagerBean implements Serializable {
+public class StudentWorkManagerBean extends UtilCheckLoginBean  implements Serializable {
 
     private StudentWork studentWork = new StudentWork();
     private StudentWork selectedStudentWork;
@@ -50,6 +52,7 @@ public class StudentWorkManagerBean implements Serializable {
 
     /** Creates a new instance of StudentWorkManagerBean */
     public StudentWorkManagerBean() {
+        super();
         panelHaveStudentWork = true;
         panelEditMark = false;
         FacesContext context = FacesContext.getCurrentInstance();
@@ -67,7 +70,8 @@ public class StudentWorkManagerBean implements Serializable {
                     response.sendRedirect("ui.client/login.jsf");
                 }
             } catch (Exception ex) {
-                Logger.getLogger(StaffBatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StudentWorkManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                LoginService.loginService("");
             }
         }
     }

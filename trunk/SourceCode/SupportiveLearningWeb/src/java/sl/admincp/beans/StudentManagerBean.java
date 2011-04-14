@@ -19,10 +19,9 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import org.primefaces.event.SelectEvent;
 import sl.utils.beans.MessagesService;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -30,7 +29,7 @@ import sl.utils.beans.MessagesService;
  */
 @ManagedBean
 @SessionScoped
-public class StudentManagerBean implements Serializable {
+public class StudentManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private Student student = new Student();
     private Student selectedStudent;
@@ -54,6 +53,17 @@ public class StudentManagerBean implements Serializable {
     private static boolean panelGroupNewStudent;
     private static boolean panelStudentDetails;
 
+    /** Creates a new instance of StudentManagerBean */
+    public StudentManagerBean() {
+        super();
+        panelGroupHaveBatch = false;
+        panelGroupChangeLearning = false;
+        panelGroupHaveNotBatch = true;
+        panelGroupNewStudent = false;
+        panelStudentDetails = false;
+        student = new Student();// reset Form
+    }
+
     public boolean isPanelStudentDetails() {
         return panelStudentDetails;
     }
@@ -70,16 +80,6 @@ public class StudentManagerBean implements Serializable {
         StudentManagerBean.panelGroupNewStudent = panelGroupNewStudent;
     }
     private int batchId;
-
-    /** Creates a new instance of StudentManagerBean */
-    public StudentManagerBean() {
-        panelGroupHaveBatch = false;
-        panelGroupChangeLearning = false;
-        panelGroupHaveNotBatch = true;
-        panelGroupNewStudent = false;
-        panelStudentDetails = false;
-        student = new Student();// reset Form
-    }
 
     @PostConstruct
     public void init() {
@@ -270,7 +270,7 @@ public class StudentManagerBean implements Serializable {
             username = Utility.GenerateUserName(username);
             student.setUserName(username);
             int[] result = studentDAO.insertStudent(student);
-            if (result[0] > 0 && result[0] != 2 ) {
+            if (result[0] > 0 && result[0] != 2) {
                 Student s = new Student();
                 s.setId(result[0]);
                 selectedStudent = studentDAO.getObject(s);

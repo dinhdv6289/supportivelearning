@@ -23,7 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import sl.utils.beans.LoginService;
 import sl.utils.beans.SessionManager;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -31,7 +33,7 @@ import sl.utils.beans.SessionManager;
  */
 @ManagedBean
 @SessionScoped
-public class FeedBackAnswerManagerBean implements Serializable {
+public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Serializable {
 
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "messages.jsf";
@@ -50,6 +52,7 @@ public class FeedBackAnswerManagerBean implements Serializable {
 
     /** Creates a new instance of FeedBackAnswerManagerBean */
     public FeedBackAnswerManagerBean() {
+        super();
         this.panelGroupMessage = true;
         this.panelGroupMessageDetails = false;
         this.panelAnswer = false;
@@ -68,7 +71,8 @@ public class FeedBackAnswerManagerBean implements Serializable {
                     response.sendRedirect("ui.client/login.jsf");
                 }
             } catch (Exception ex) {
-                Logger.getLogger(StaffBatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                LoginService.loginService("");
             }
         }
     }

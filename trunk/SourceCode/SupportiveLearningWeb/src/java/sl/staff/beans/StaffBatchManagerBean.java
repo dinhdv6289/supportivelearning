@@ -20,6 +20,7 @@ import sl.client.beans.LoginBean;
 import sl.utils.beans.EachSession;
 import sl.utils.beans.LoginService;
 import sl.utils.beans.SessionManager;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -27,7 +28,7 @@ import sl.utils.beans.SessionManager;
  */
 @ManagedBean
 @SessionScoped
-public class StaffBatchManagerBean implements Serializable {
+public class StaffBatchManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private ArrayList<Batch> listBatchs;
     //private static String pageRequest = "index.jsf";
@@ -40,6 +41,9 @@ public class StaffBatchManagerBean implements Serializable {
 
     /** Creates a new instance of StaffBatchManagerBean */
     public StaffBatchManagerBean() {
+        super();
+        panelGroupHaveBatchs = true;
+        panelGroupHaveNotBatchs = false;
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         if (SessionManager.getSession("accountId") == null) {
@@ -53,14 +57,13 @@ public class StaffBatchManagerBean implements Serializable {
                 }
             } catch (Exception ex) {
                 Logger.getLogger(StaffBatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+                LoginService.loginService("");
             }
         }
     }
 
     @PostConstruct
     public void init() {
-        panelGroupHaveBatchs = true;
-        panelGroupHaveNotBatchs = false;
     }
 
     public boolean isPanelGroupManagerAssignment() {

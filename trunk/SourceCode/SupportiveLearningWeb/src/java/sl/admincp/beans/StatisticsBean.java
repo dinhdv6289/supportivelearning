@@ -8,10 +8,12 @@ import el.dao.StaffDAO;
 import el.dao.StatisticsDAO;
 import el.dao.StudentDAO;
 import el.model.Statistics;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -19,11 +21,8 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class StatisticsBean {
+public class StatisticsBean extends UtilCheckLoginBean implements Serializable {
 
-    /** Creates a new instance of StatisticsBean */
-    public StatisticsBean() {
-    }
     private StudentDAO studentDAO = new StudentDAO();
     private StaffDAO staffDAO = new StaffDAO();
     private Statistics statistics = new Statistics();
@@ -34,6 +33,11 @@ public class StatisticsBean {
     private int staffNotBatch;
     private int staffInBatch;
     private int totalStaff;
+
+    /** Creates a new instance of StatisticsBean */
+    public StatisticsBean() {
+        super();
+    }
 
     public int getTotalStaff() {
         try {
@@ -46,7 +50,6 @@ public class StatisticsBean {
     public void setTotalStaff(int totalStaff) {
         this.totalStaff = totalStaff;
     }
-    
 
     public int getStaffInBatch() {
         return 0;
@@ -63,7 +66,6 @@ public class StatisticsBean {
     public void setStaffNotBatch(int staffNotBatch) {
         this.staffNotBatch = staffNotBatch;
     }
-    
 
     public int getStudentisDrop() {
         try {
@@ -133,4 +135,3 @@ public class StatisticsBean {
         this.statistics = statistics;
     }
 }
-

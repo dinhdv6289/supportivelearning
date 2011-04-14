@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 import org.primefaces.event.SelectEvent;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -21,7 +22,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean
 @SessionScoped
-public class FAQManagerBean implements Serializable {
+public class FAQManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private ArrayList<FAQ> listFAQ;
     private FAQ faq = new FAQ();
@@ -35,6 +36,7 @@ public class FAQManagerBean implements Serializable {
 
     /** Creates a new instance of FAQManagerBean */
     public FAQManagerBean() {
+        super();
         panelGroupListFAQ = true;
         panelGroupCreateFAQ = false;
         panelGroupUpdateFAQ = false;
