@@ -29,7 +29,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class StudentManagerBean extends UtilCheckLoginBean implements Serializable {
+public class StudentManagerBean  implements Serializable {
 
     private Student student = new Student();
     private Student selectedStudent;
@@ -39,7 +39,7 @@ public class StudentManagerBean extends UtilCheckLoginBean implements Serializab
     private StudentDAO studentDAO = new StudentDAO();
     private AccountDAO accountDAO = new AccountDAO();
     private Student[] selectedStudents;
-    private Batch selectedBatch;
+    private Batch selectedBatch = new Batch();
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "studentManager.jsf";
     private ArrayList<Student> listStudentsIsNotHaveBatch = new ArrayList<Student>();
@@ -55,7 +55,7 @@ public class StudentManagerBean extends UtilCheckLoginBean implements Serializab
 
     /** Creates a new instance of StudentManagerBean */
     public StudentManagerBean() {
-        super();
+//        super();
         panelGroupHaveBatch = false;
         panelGroupChangeLearning = false;
         panelGroupHaveNotBatch = true;
@@ -190,6 +190,7 @@ public class StudentManagerBean extends UtilCheckLoginBean implements Serializab
         this.setPanelStudentDetails(false);
         this.setPanelGroupChangeLearning(false);
         this.setPanelGroupNewStudent(false);
+        this.changeLearning.setReason("  ");
         return THISPAGE + REDIRECT;
     }
 

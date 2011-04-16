@@ -25,7 +25,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class StaffManagerBean extends UtilCheckLoginBean implements Serializable {
+public class StaffManagerBean   implements Serializable {
 
     private StaffDAO staffDAO = new StaffDAO();
     private Staff staff = new Staff();
@@ -109,7 +109,7 @@ public class StaffManagerBean extends UtilCheckLoginBean implements Serializable
 
     /** Creates a new instance of StaffManagerBean */
     public StaffManagerBean() {
-        super();
+//        super();
         panelGroupListStaffs = true;
     }
 

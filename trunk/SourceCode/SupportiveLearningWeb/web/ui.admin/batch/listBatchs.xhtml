@@ -9,9 +9,12 @@
                      value="#{batchManagerBean.listBatchs}"
                      paginator="true"
                      rows="10"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15"
                      selection="#{studentManagerBean.selectedBatch}"
                      selectionMode="single"
-                     rowSelectListener="#{batchManagerBean.onRequestPanelGroupStudentsInBatch(true)}">
+                     rowSelectListener="#{batchManagerBean.onRequestPanelGroupStudentsInBatch(true)}"
+                     emptyMessage="Not have batchs">
             <f:facet name="header">
                 Batchs
             </f:facet>

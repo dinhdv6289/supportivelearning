@@ -21,7 +21,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @RequestScoped
-public class StatisticsBean extends UtilCheckLoginBean implements Serializable {
+public class StatisticsBean  implements Serializable {
 
     private StudentDAO studentDAO = new StudentDAO();
     private StaffDAO staffDAO = new StaffDAO();
@@ -36,7 +36,7 @@ public class StatisticsBean extends UtilCheckLoginBean implements Serializable {
 
     /** Creates a new instance of StatisticsBean */
     public StatisticsBean() {
-        super();
+//        super();
     }
 
     public int getTotalStaff() {

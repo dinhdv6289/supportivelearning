@@ -52,7 +52,7 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
 
     /** Creates a new instance of FeedBackAnswerManagerBean */
     public FeedBackAnswerManagerBean() {
-        super();
+//        super();
         this.panelGroupMessage = true;
         this.panelGroupMessageDetails = false;
         this.panelAnswer = false;
@@ -72,7 +72,7 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
                 }
             } catch (Exception ex) {
                 Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-                LoginService.loginService("");
+             //   LoginService.loginService("");
             }
         }
     }

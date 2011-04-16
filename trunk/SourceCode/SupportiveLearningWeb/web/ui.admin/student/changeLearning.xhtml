@@ -5,11 +5,12 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
+        <p:commandButton value="Back Students"
+                         action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}"
+                         ajax="false">
+        </p:commandButton>
+        <br/><br/>
         <p:panel header="Change learning">
-            <p:commandLink value="Back Students"
-                           action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}"
-                           ajax="false">
-            </p:commandLink>
             <p:fieldset >
                 <f:facet name="legend">
                     <p:graphicImage value="/images/download.gif"/>

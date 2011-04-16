@@ -22,7 +22,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class BatchManagerBean extends UtilCheckLoginBean implements Serializable {
+public class BatchManagerBean  implements Serializable {
 
     private Batch batch = new Batch();
     private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
@@ -37,7 +37,7 @@ public class BatchManagerBean extends UtilCheckLoginBean implements Serializable
 
     /** Creates a new instance of BatchManagerBean */
     public BatchManagerBean() {
-        super();
+//        super();
         panelGroupNewBatch = false;
         panelGroupBatchs = true;
         panelGroupStudentInBatch = false;

@@ -15,14 +15,21 @@
             <div class="content-block-bottom">
                 <h4>Login</h4>
                 <h:form prependId="false"  >
+                    <p:messages/>
                     <h:panelGrid columns="2" cellpadding="4">
                         <p>
 							Username<br/>
-                            <p:inputText  value="#{loginBean.account.userName}"  required="true" requiredMessage="UserName is not null!"/>
+                            <p:inputText  value="#{loginBean.account.userName}"
+                                          required="true"
+                                          requiredMessage="UserName is not null!"/>
                         </p>
                         <p>
 							Password
-                            <p:password value="#{loginBean.account.password}" required="true" feedback="true" minLength="4" requiredMessage="Password is not null!"/>
+                            <p:password value="#{loginBean.account.password}"
+                                        required="true"
+                                        feedback="true"
+                                        minLength="4"
+                                        requiredMessage="Password is not null!"/>
                         </p>
                         <p>
                             <p:commandButton value="Sign-in"

@@ -52,7 +52,7 @@ public class StudentWorkManagerBean extends UtilCheckLoginBean  implements Seria
 
     /** Creates a new instance of StudentWorkManagerBean */
     public StudentWorkManagerBean() {
-        super();
+//        super();
         panelHaveStudentWork = true;
         panelEditMark = false;
         FacesContext context = FacesContext.getCurrentInstance();
@@ -71,7 +71,7 @@ public class StudentWorkManagerBean extends UtilCheckLoginBean  implements Seria
                 }
             } catch (Exception ex) {
                 Logger.getLogger(StudentWorkManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-                LoginService.loginService("");
+                //LoginService.loginService("");
             }
         }
     }

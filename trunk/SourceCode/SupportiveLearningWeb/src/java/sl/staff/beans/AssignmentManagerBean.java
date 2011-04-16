@@ -59,7 +59,7 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
 
     /** Creates a new instance of AssignmentManagerBean */
     public AssignmentManagerBean() {
-        super();
+        //super();
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         if (SessionManager.getSession("accountId") == null) {
@@ -70,7 +70,7 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
                 thisStaff = staff = staffDAO.getStaffByAccountId(accountId);
             } catch (Exception ex) {
                 Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-                LoginService.loginService("");
+               // LoginService.loginService("");
             }
         }
     }

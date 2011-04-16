@@ -14,7 +14,8 @@
         <div class="content-block">
             <div class="content-block-top"></div>
             <div class="content-block-bottom">
-                <h4>#{loginBean.student.name} &lt;-------&gt; #{feedBackBean.staff.name}</h4>
+                <h4>Send feedBack</h4>
+                #{loginBean.student.name} &lt;-------&gt; #{feedBackBean.staff.name}
                 <h:form>
                     <p:panel header="My Contact">                   
                         <h:panelGrid>
@@ -23,6 +24,7 @@
                             </c:forEach>
                         </h:panelGrid>
                     </p:panel>
+                    <br/>
                     <p:panel header="Message">
                         <p:treeTable value="#{feedBackBean.feedbackRoot}" var="item">
                             <p:column>

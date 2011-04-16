@@ -5,9 +5,14 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
+        <p:commandButton ajax="false"
+                         value="Back list FAQs"
+                         action="#{fAQManagerBean.onRequestListFAQs(true)}">
+        </p:commandButton>
+        <br/><br/>
         <p:panel header="Update FAQs">
-        <h:panelGrid id="panelGrid_update">
-            <h:outputLabel value="Question:"></h:outputLabel>
+            <h:panelGrid id="panelGrid_update">
+                <h:outputLabel value="Question:"></h:outputLabel>
                 <p:inputTextarea id="question" value="#{fAQManagerBean.selectedFAQ.question}" style="width: 450px;"
                                  required="true"
                                  requiredMessage="Question is not null !"></p:inputTextarea>
@@ -18,11 +23,11 @@
                           required="true"
                           requiredMessage="Answer is not null !"></p:editor>
                 <p:message for="answer"></p:message>
-            <p:commandButton ajax="false"
-                             value="Change"
-                             action="#{fAQManagerBean.update}">
-            </p:commandButton>
-        </h:panelGrid>
-            </p:panel>
+                <p:commandButton ajax="false"
+                                 value="Change"
+                                 action="#{fAQManagerBean.update}">
+                </p:commandButton>
+            </h:panelGrid>
+        </p:panel>
     </h:form>
 </ui:composition>
