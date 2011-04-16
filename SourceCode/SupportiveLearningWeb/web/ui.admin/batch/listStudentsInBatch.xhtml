@@ -5,25 +5,35 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
-        <p:commandLink value="Back to Batchs"
-                       action="#{batchManagerBean.onRequestPanelGripBatchs(true)}" >
+        <p:commandLink ajax="false"
+                       value="Back to Batchs"
+                       action="#{batchManagerBean.onRequestPanelGroupBatchs(true)}" >
         </p:commandLink>
         <p:dataTable var="student"
                      value="#{studentManagerBean.listStudentsInBatch}"
                      paginator="true"
                      rows="10"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15"
                      selection="#{studentManagerBean.selectedStudent}"
-                     selectionMode="single">
-            <f:facet name="header">
+                     selectionMode="single"
+                     widgetVar="table_studentsInBatch">
 
+            <f:facet name="header">
                 List of Students  In Batch
+            </f:facet>
+            <f:facet name="header">
+                <p:outputPanel>
+                    <h:outputText value="Search all fields:" />
+                    <p:inputText id="globalFilter" onkeyup="table_studentsInBatch.filter()" style="width:150px" />
+                </p:outputPanel>
             </f:facet>
             <p:column headerText="Batch">
                 <h:outputText value="#{student.batch.name}" />
             </p:column>
 
-            <p:column headerText="Name">
-                <h:outputText value="#{student.name}" />
+            <p:column filterBy="#{student.name}" headerText="Name" filterMatchMode="contains">
+                <h:outputText value="#{student.name}"  style="width:70px" />
             </p:column>
 
             <p:column headerText="BirthDay">
@@ -34,12 +44,12 @@
                 <h:outputText value="#{student.phone}" />
             </p:column>
 
-            <p:column headerText="Email">
-                <h:outputText value="#{student.email}" />
+            <p:column filterBy="#{student.email}" headerText="Email" filterMatchMode="contains">
+                <h:outputText value="#{student.email}"  style="width:70px"/>
             </p:column>
 
-            <p:column headerText="Address">
-                <h:outputText value="#{student.address}" />
+            <p:column filterBy="#{student.address}" headerText="Address" filterMatchMode="contains">
+                <h:outputText value="#{student.address}"  />
             </p:column>
             <p:column headerText="Date">
                 <h:outputText value="#{student.dateCreate}" />

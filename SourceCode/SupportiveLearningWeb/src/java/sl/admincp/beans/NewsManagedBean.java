@@ -29,7 +29,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @RequestScoped
-public class NewsManagedBean extends UtilCheckLoginBean implements Serializable {
+public class NewsManagedBean  implements Serializable {
 
     private ArrayList<News> listNews;
     private News selectedNews;
@@ -45,7 +45,7 @@ public class NewsManagedBean extends UtilCheckLoginBean implements Serializable 
 
     /** Creates a new instance of NewsManagedBean */
     public NewsManagedBean() {
-        super();
+//        super();
 //        panelGroupListNews = true;
 //        panelGroupCreateNews = false;
 //        panelGroupUpdateNews = false;

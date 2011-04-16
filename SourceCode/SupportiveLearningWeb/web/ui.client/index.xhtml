@@ -116,7 +116,8 @@
                                 <h:panelGrid columns="3" cellpadding="10">
                                     <p:graphicImage value="../#{newsItem.picture}" width="100px" height="100px" />
                                     <h:outputText value="#{newsItem.subContent}"/>
-                                    <p:commandLink value="more" ajax="false"
+                                    <p:commandLink value="more"
+                                                   ajax="false"
                                                    action="#{newsBean.moreNews(newsItem)}">
                                     </p:commandLink>
                                 </h:panelGrid>

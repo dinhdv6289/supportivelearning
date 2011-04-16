@@ -21,7 +21,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class SemesterManagerBean extends UtilCheckLoginBean implements Serializable {
+public class SemesterManagerBean  implements Serializable {
 
     private Semester semester;
     private Semester selectedSemester;
@@ -30,7 +30,7 @@ public class SemesterManagerBean extends UtilCheckLoginBean implements Serializa
 
     /** Creates a new instance of SemesterManagerBean */
     public SemesterManagerBean() {
-        super();
+//        super();
     }
 
     @PostConstruct

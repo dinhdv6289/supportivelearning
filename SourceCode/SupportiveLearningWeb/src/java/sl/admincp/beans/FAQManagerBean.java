@@ -22,21 +22,21 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class FAQManagerBean extends UtilCheckLoginBean implements Serializable {
+public class FAQManagerBean   implements Serializable {
 
     private ArrayList<FAQ> listFAQ;
     private FAQ faq = new FAQ();
     private FAQDAO faqDAO = new FAQDAO();
     private FAQ selectedFAQ = new FAQ();
     private static final String REDIRECT = "?faces-redirect=true";
-    private static final String THISPAGE = "faqManger.jsf";
+    private static final String THISPAGE = "faqManager.jsf";
     private static boolean panelGroupListFAQ;
     private static boolean panelGroupCreateFAQ;
     private static boolean panelGroupUpdateFAQ;
 
     /** Creates a new instance of FAQManagerBean */
     public FAQManagerBean() {
-        super();
+//        super();
         panelGroupListFAQ = true;
         panelGroupCreateFAQ = false;
         panelGroupUpdateFAQ = false;

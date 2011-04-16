@@ -9,6 +9,8 @@
                      value="#{studentManagerBean.listStudentsIsNotHaveBatch}"
                      paginator="true"
                      rows="10"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15"
                      selection="#{studentManagerBean.selectedStudents}"
                      id="table_student_is_have_not_batch">
             <p:column selectionMode="multiple" />

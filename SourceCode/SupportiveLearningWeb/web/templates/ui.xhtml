@@ -178,19 +178,27 @@
                                 <div class="sblock-top">Login Form</div>
                                 <div class="sblock-content">
                                     <h:form prependId="false" id="form_login"  >
+                                        <p:growl showSummary="true"/>
                                         <h:panelGrid columns="2" cellpadding="4">
                                             <p>
 							Username
-                                                <p:inputText  value="#{loginBean.account.userName}"  required="true" requiredMessage="UserName is not null!"/>
+                                                <p:inputText  value="#{loginBean.account.userName}" 
+                                                              required="true"
+                                                              requiredMessage="UserName is not null!"/>
                                             </p>
                                             <p>
 							Password
-                                                <p:password value="#{loginBean.account.password}" required="true" feedback="true" minLength="4" requiredMessage="Password is not null!"/>
+                                                <p:password value="#{loginBean.account.password}"
+                                                            required="true"
+                                                            feedback="true"
+                                                            minLength="4"
+                                                            requiredMessage="Password is not null!"/>
                                             </p>
                                             <p>
                                                 <p:commandButton value="Sign-in"
                                                                  action="#{loginBean.login}"
-                                                                 ajax="false">
+                                                                 ajax="false"
+                                                                 update="form_login">
                                                     <f:setPropertyActionListener target="#{assignmentBean.batchDetails}"
                                                                                  value="#{loginBean.student.batch}">
                                                     </f:setPropertyActionListener>
@@ -291,7 +299,8 @@
                                         <p>
                                             #{latestNewsItem.title }
                                         </p>
-                                        <p:commandLink value="more" ajax="false"
+                                        <p:commandLink value="more"
+                                                       ajax="false"
                                                        action="#{newsBean.moreNews(latestNewsItem)}">
                                         </p:commandLink>
                                     </c:forEach>
@@ -306,7 +315,7 @@
                     </div>
                 </div>
                 <div id="footer">
-                    <p class="floatleft"> <a href="index.html"></a>  </p>
+                    <p class="floatleft"> <a href=""></a>  </p>
                     <p class="floatright"><a href="#"></a><a href="#"></a><a href="#"></a></p>
                 </div>
             </div>

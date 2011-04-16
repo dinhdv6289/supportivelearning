@@ -68,15 +68,13 @@ public class LoginFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
         String uri = req.getRequestURI();
-        int index = uri.lastIndexOf("/");
-        System.out.println("tat ca cac file: "+ uri);
+       // int index = uri.lastIndexOf("/");
+      //  System.out.println("tat ca cac file: " + uri);
         for (Iterator i = noFilters.iterator(); i.hasNext();) {
             String url = (String) i.next();
             if (uri.contains(url)) {
                 chain.doFilter(request, response);
                 return;
-            } else {
-                System.out.println("Cac file ko filter:" + url);
             }
         }
         HttpSession session = req.getSession();
@@ -131,6 +129,7 @@ public class LoginFilter implements Filter {
     /**
      * Destroy method for this filter
      */
+    @Override
     public void destroy() {
         System.out.println("Destroyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
     }
@@ -138,6 +137,7 @@ public class LoginFilter implements Filter {
     /**
      * Init method for this filter
      */
+    @Override
     public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
 

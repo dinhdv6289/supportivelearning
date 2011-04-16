@@ -70,9 +70,10 @@
         <filter-class>sl.utils.beans.LoginFilter</filter-class>
         <init-param>
             <param-name>noFilter</param-name>
-            <param-value>/ui.client/login.jsf,/ui.client/index.jsf,/ui.client/faqs.jsf,/ui.client/markView.jsf,
-            /ui.client/moreNews.jsf,/ui.client/semesters.jsf,/ui.client/siteNews.jsf,/css/,/documents/,
-            /images/,/javax.faces.resource/
+            <param-value>
+            /ui.client/login.jsf,/ui.client/index.jsf,/ui.client/faqs.jsf,/ui.client/markView.jsf,
+            /ui.client/semesters.jsf,/ui.client/siteNews.jsf,/css/,/documents/,
+            /images/,/javax.faces.resource/,/ui.client/moreNews.jsf
             </param-value>
         </init-param>
     </filter>

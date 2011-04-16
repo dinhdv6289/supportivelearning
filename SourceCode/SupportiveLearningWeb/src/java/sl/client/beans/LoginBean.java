@@ -43,7 +43,7 @@ public class LoginBean implements Serializable {
     private static boolean panelStudent = true;
     private static boolean panelStaff = false;
     private Staff staff;
-
+    
     /** Creates a new instance of LoginBean */
     public LoginBean() {
     }

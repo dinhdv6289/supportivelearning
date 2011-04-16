@@ -32,7 +32,7 @@ public class FeedBackManagerBean extends UtilCheckLoginBean implements Serializa
 
     /** Creates a new instance of FeedBackManagerBean */
     public FeedBackManagerBean() {
-        super();
+//        super();
     }
 
     @PostConstruct

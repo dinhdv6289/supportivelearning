@@ -19,14 +19,22 @@
                     <p:dataTable id="tbl"
                                  var="studentWorkItem"
                                  value="#{studentWorkBean.listStudentWorksOfEachStudent}"
-                                 emptyMessage="Not have Works."
+                                 emptyMessage="Not have documents."
                                  paginator="true"
                                  rows="10"
-                                 style="color: #008000">
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Subject" />
-                            </f:facet>
+                                 style="color: #008000"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" 
+                                 widgetVar="tableDocument">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search fields:" />
+                                <p:inputText id="globalFilter" onkeyup="tableDocument.filter()" style="width:150px" />
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column filterBy="#{studentWorkItem.assignment.subject.name}" 
+                                  headerText="Subject"
+                                  filterMatchMode="contains">
                             <h:outputText value="#{studentWorkItem.assignment.subject.name}" />
                         </p:column>
 
@@ -47,7 +55,9 @@
                                 <h:outputText value="Date upload"/>
                             </f:facet>
                             <h:outputText value="#{studentWorkItem.dateUpload}" >
-                                <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                <f:convertDateTime pattern="MM/dd/yyyy"
+                                                   locale="#{converterBean.strLocale}"
+                                                   timeZone="#{converterBean.timezone}"/>
                             </h:outputText>
                         </p:column>
                     </p:dataTable>
