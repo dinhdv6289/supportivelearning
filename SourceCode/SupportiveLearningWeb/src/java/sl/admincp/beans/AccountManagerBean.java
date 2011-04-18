@@ -19,7 +19,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class AccountManagerBean  implements Serializable {
+public class AccountManagerBean extends UtilCheckLoginBean  implements Serializable {
 
     private Account account;
     private Staff staff;
@@ -28,7 +28,7 @@ public class AccountManagerBean  implements Serializable {
     
     /** Creates a new instance of AccountManagerBean */
     public AccountManagerBean() {
-        //super();
+        super();
         account = new Account();
         staff = new Staff();
         student = new Student();

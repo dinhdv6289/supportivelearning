@@ -6,11 +6,12 @@ package sl.client.beans;
 
 import el.dao.StaffDAO;
 import el.model.Staff;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -18,7 +19,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class StaffBean {
+public class StaffBean implements Serializable {
 
     private Staff staff;
     private StaffDAO staffDAO = new StaffDAO();
@@ -26,6 +27,7 @@ public class StaffBean {
 
     /** Creates a new instance of StaffBean */
     public StaffBean() {
+    //    super();
     }
 
     /**

@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import sl.utils.beans.EachSession;
 import sl.utils.beans.LoginService;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -24,7 +25,7 @@ import sl.utils.beans.LoginService;
  */
 @ManagedBean
 @SessionScoped
-public class AssignmentBean implements Serializable {
+public class AssignmentBean  implements Serializable {
 
     private ArrayList<Assignment> listAssignmentsOfStaff = new ArrayList<Assignment>();
     private ArrayList<Assignment> listAssignmentsOfBatch = new ArrayList<Assignment>();

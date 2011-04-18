@@ -37,6 +37,7 @@ import org.primefaces.event.FileUploadEvent;
 import sl.utils.beans.EachSession;
 import sl.utils.beans.LoginService;
 import sl.utils.beans.MessagesService;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -61,6 +62,7 @@ public class StudentWorkBean implements Serializable {
 
     /** Creates a new instance of StudentWorkBean */
     public StudentWorkBean() {
+     //   super();
         loadStudentWorks();
     }
 

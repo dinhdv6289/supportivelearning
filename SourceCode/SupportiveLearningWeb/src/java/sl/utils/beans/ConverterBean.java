@@ -16,10 +16,11 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class ConverterBean implements Serializable {
+public class ConverterBean extends UtilCheckLoginBean implements Serializable {
 
     /** Creates a new instance of ConverterBean */
     public ConverterBean() {
+        super();
     }
     private String strLocale;
     private TimeZone timezone;

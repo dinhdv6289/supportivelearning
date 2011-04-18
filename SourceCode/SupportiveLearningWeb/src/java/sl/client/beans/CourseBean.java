@@ -14,9 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
 import sl.utils.beans.EachSession;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -24,7 +23,7 @@ import sl.utils.beans.EachSession;
  */
 @ManagedBean
 @SessionScoped
-public class CourseBean implements Serializable {
+public class CourseBean  implements Serializable {
 
     private Course course = new Course();
     private CourseDAO courseDAO = new CourseDAO();

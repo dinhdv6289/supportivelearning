@@ -65,7 +65,7 @@
         </session-timeout>
     </session-config>
 
-    <filter>
+<!--    <filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>sl.utils.beans.LoginFilter</filter-class>
         <init-param>
@@ -76,7 +76,7 @@
             /images/,/javax.faces.resource/,/ui.client/moreNews.jsf
             </param-value>
         </init-param>
-    </filter>
+    </filter>-->
 <!--
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
@@ -88,10 +88,10 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>-->
 
-    <filter-mapping>
+<!--    <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <error-page>
         <error-code>404</error-code>
         <location>/ui.client/errors.jsf</location>

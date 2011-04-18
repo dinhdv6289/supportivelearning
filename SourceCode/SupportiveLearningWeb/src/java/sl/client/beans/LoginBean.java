@@ -21,6 +21,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import sl.utils.beans.SessionManager;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -28,7 +29,7 @@ import sl.utils.beans.SessionManager;
  */
 @ManagedBean
 @SessionScoped
-public class LoginBean implements Serializable {
+public class LoginBean  implements Serializable {
 
     private Account account = new Account();
     private Student student = new Student();
@@ -43,9 +44,10 @@ public class LoginBean implements Serializable {
     private static boolean panelStudent = true;
     private static boolean panelStaff = false;
     private Staff staff;
-    
+
     /** Creates a new instance of LoginBean */
     public LoginBean() {
+        
     }
 
     @PostConstruct
@@ -124,10 +126,10 @@ public class LoginBean implements Serializable {
         this.listBatchs = listBatchs;
     }
 
-    public String login() {
+    public void login() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
-        String result = "";
+        // String result = "";
         if (account != null) {
             try {
                 Account accountLogin = accountDAO.getObject(account);
@@ -144,19 +146,22 @@ public class LoginBean implements Serializable {
                         setPanelStaff(true);
                         setPanelStudent(false);
                         response.sendRedirect("../ui.staff/index.jsf");
-                    } else {
+                    } else if (accountLogin.getRole().getName().equals("Student")){
                         setPanelStaff(false);
                         setPanelStudent(true);
                         getStudentByAccount(accountLogin.getId());
+                        response.sendRedirect("../ui.client/index.jsf");
                     }
-                    result = this.getPageRequest();
+                    //  result = this.getPageRequest();
+                }else{
+                        response.sendRedirect("../ui.client/index.jsf");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
-                result = "";
+                //  result = "";
             }
         }
-        return result + REDIRECT;
+        // return result + REDIRECT;
     }
 
     public String logout() {

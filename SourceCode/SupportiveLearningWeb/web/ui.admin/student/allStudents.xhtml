@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <h4 align="center"> List All Students</h4>
+        <p:dataTable var="student"
+                     value="#{studentManagerBean.listAllStudents}"
+                     paginator="true"
+                     rows="10"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15"
+                     selection="#{studentManagerBean.selectedStudent}"
+                     selectionMode="single"
+                     style="margin-top:25px">
+            <f:facet name="header">
+                <p:commandButton ajax="false"
+                                 value="Update"
+                                 action="#{studentManagerBean.onRequestPanelGroupUpdateStudent(true)}">
+                </p:commandButton>
+            </f:facet>
+            <p:column headerText="Batch">
+                <h:outputText value="#{student.batch.name}" />
+            </p:column>
+
+            <p:column headerText="Name">
+                <h:outputText value="#{student.name}" />
+            </p:column>
+
+            <p:column headerText="BirthDay">
+                <h:outputText value="#{student.birthDay}" />
+            </p:column>
+
+            <p:column headerText="Phone">
+                <h:outputText value="#{student.phone}" />
+            </p:column>
+
+            <p:column headerText="Email">
+                <h:outputText value="#{student.email}" />
+            </p:column>
+
+            <p:column headerText="Address">
+                <h:outputText value="#{student.address}" />
+            </p:column>
+            <p:column headerText="Date">
+                <h:outputText value="#{student.dateCreate}" />
+            </p:column>
+
+        </p:dataTable>
+    </h:form>
+</ui:composition>

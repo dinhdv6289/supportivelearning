@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <p:panel header="Update Student">
+            <p:messages/>
+            <strong>You must enter full information.</strong>
+            <br/>
+            <h:panelGrid id="panelGrid_add" columns="2" cellpadding="9" cellspacing="9">
+                <h:outputLabel value="FullName: " for="name"></h:outputLabel>
+                <p:inputText id="name"
+                             value="#{studentManagerBean.selectedStudent.name}"
+                             required="true"
+                             requiredMessage="Fullname is not null!">
+                </p:inputText>
+                <h:outputLabel value="BirhDay: "></h:outputLabel>
+                <p:calendar value="#{studentManagerBean.selectedStudent.birthDay}"
+                            required="true"
+                            requiredMessage="Birth day is not null.">
+                </p:calendar>
+                <h:outputLabel value="Phone: "></h:outputLabel>
+                <p:inputText id="phone"
+                             value="#{studentManagerBean.selectedStudent.phone}"
+                             required="true"
+                             requiredMessage="Phone is not null.">
+                </p:inputText>
+                <h:outputLabel value="Gender:"></h:outputLabel>
+                <h:selectOneMenu id="gender" value="#{studentManagerBean.selectedStudent.gender}" required="true" requiredMessage="Gender is not null.">
+                    <f:selectItem itemLabel="Male" itemValue="#{true}"></f:selectItem>
+                    <f:selectItem itemLabel="FeMale" itemValue="#{false}"></f:selectItem>
+                </h:selectOneMenu>
+                <h:outputLabel value="Email:"></h:outputLabel>
+                <p:inputText id="email"
+                             value="#{studentManagerBean.selectedStudent.email}"
+                             required="true"
+                             requiredMessage="Email is not null."
+                             validator="#{validation.validateEmail}">
+                </p:inputText>
+                <h:outputLabel value="Address:"></h:outputLabel>
+                <p:inputText id="address"
+                             value="#{studentManagerBean.selectedStudent.address}"
+                             required="true"
+                             requiredMessage="Address is not null.">
+                </p:inputText>
+                <p:commandButton ajax="false"
+                                 value="Update"
+                                 action="#{studentManagerBean.updateStudent}">
+                </p:commandButton>
+            </h:panelGrid>
+        </p:panel>
+    </h:form>
+</ui:composition>

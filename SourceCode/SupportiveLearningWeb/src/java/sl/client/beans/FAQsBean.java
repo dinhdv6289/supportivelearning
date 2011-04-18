@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -20,7 +21,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class FAQsBean implements Serializable {
+public class FAQsBean  implements Serializable {
 
     private FAQ faq = new FAQ();
     private ArrayList<FAQ> listFAQs = new ArrayList<FAQ>();

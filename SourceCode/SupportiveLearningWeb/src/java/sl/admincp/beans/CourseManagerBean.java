@@ -21,7 +21,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class CourseManagerBean  implements Serializable {
+public class CourseManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private Course course;
     private Course selectedCourse;
@@ -30,7 +30,7 @@ public class CourseManagerBean  implements Serializable {
 
     /** Creates a new instance of CourseManagerBean */
     public CourseManagerBean() {
-//        super();
+        super();
     }
 
     @PostConstruct
