@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sl.utils.beans;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -21,10 +21,11 @@ import javax.faces.validator.ValidatorException;
  */
 @ManagedBean
 @SessionScoped
-public class Validation {
+public class Validation implements Serializable {
 
     /** Creates a new instance of Validation */
     public Validation() {
+        super();
     }
 
     public void validateEmail(FacesContext facesContext,
@@ -47,8 +48,7 @@ public class Validation {
             throw new ValidatorException(message);
         }
     }
-
-     private String password1;
+    private String password1;
     private String password2;
     private boolean input1Set;
 

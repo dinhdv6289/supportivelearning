@@ -8,10 +8,9 @@ import el.dao.SemesterDAO;
 import el.model.Semester;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -27,6 +26,7 @@ public class SemesterBean implements Serializable {
 
     /** Creates a new instance of SemesterBean */
     public SemesterBean() {
+       // super();
         loadSemesters();
     }
 

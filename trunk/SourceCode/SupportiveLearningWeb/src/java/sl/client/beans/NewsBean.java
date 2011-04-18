@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -19,7 +20,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class NewsBean implements Serializable {
+public class NewsBean   implements Serializable {
 
     private News news = new News();
     private ArrayList<News> listNews = new ArrayList<News>();
@@ -30,6 +31,7 @@ public class NewsBean implements Serializable {
 
     /** Creates a new instance of NewsBean */
     public NewsBean() {
+      //  super();
         loadListNews();
         loadTop3News();
     }

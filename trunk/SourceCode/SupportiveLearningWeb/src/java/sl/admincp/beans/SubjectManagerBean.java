@@ -20,7 +20,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class SubjectManagerBean  implements Serializable {
+public class SubjectManagerBean extends UtilCheckLoginBean  implements Serializable {
 
     private Subject subject;
     private ArrayList<Subject> listSubjects;
@@ -28,7 +28,7 @@ public class SubjectManagerBean  implements Serializable {
 
     /** Creates a new instance of SubjectManagerBean */
     public SubjectManagerBean() {
-      //  super();
+        super();
     }
 
     public ArrayList<Subject> getListSubjects() {

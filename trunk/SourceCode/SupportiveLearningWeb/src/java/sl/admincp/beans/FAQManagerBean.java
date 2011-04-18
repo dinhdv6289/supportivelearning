@@ -22,7 +22,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class FAQManagerBean   implements Serializable {
+public class FAQManagerBean extends UtilCheckLoginBean   implements Serializable {
 
     private ArrayList<FAQ> listFAQ;
     private FAQ faq = new FAQ();
@@ -36,7 +36,7 @@ public class FAQManagerBean   implements Serializable {
 
     /** Creates a new instance of FAQManagerBean */
     public FAQManagerBean() {
-//        super();
+        super();
         panelGroupListFAQ = true;
         panelGroupCreateFAQ = false;
         panelGroupUpdateFAQ = false;

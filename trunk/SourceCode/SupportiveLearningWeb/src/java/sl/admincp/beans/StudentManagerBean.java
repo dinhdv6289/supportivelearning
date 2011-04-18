@@ -29,7 +29,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class StudentManagerBean  implements Serializable {
+public class StudentManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private Student student = new Student();
     private Student selectedStudent;
@@ -46,22 +46,56 @@ public class StudentManagerBean  implements Serializable {
     private ArrayList<Student> listStudentsHaveBatch = new ArrayList<Student>();
     private ArrayList<Student> listStudent = new ArrayList<Student>();
     private ArrayList<Student> listStudentsInBatch = new ArrayList<Student>();
+    private ArrayList<Student> listAllStudents;
     private ChangeLearning changeLearning = new ChangeLearning();
     private static boolean panelGroupHaveNotBatch;
     private static boolean panelGroupHaveBatch;
     private static boolean panelGroupChangeLearning;
     private static boolean panelGroupNewStudent;
     private static boolean panelStudentDetails;
+    private static boolean panelGroupAllStudents;
+    private static boolean panelGroupUpdateStudent;
 
     /** Creates a new instance of StudentManagerBean */
     public StudentManagerBean() {
-//        super();
+        super();
         panelGroupHaveBatch = false;
         panelGroupChangeLearning = false;
         panelGroupHaveNotBatch = true;
         panelGroupNewStudent = false;
         panelStudentDetails = false;
+        panelGroupAllStudents = false;
+        panelGroupUpdateStudent = false;
         student = new Student();// reset Form
+    }
+
+    public boolean isPanelGroupUpdateStudent() {
+        return panelGroupUpdateStudent;
+    }
+
+    public void setPanelGroupUpdateStudent(boolean panelGroupUpdateStudent) {
+        StudentManagerBean.panelGroupUpdateStudent = panelGroupUpdateStudent;
+    }
+
+    public boolean isPanelGroupAllStudents() {
+        return panelGroupAllStudents;
+    }
+
+    public void setPanelGroupAllStudents(boolean panelGroupAllStudents) {
+        StudentManagerBean.panelGroupAllStudents = panelGroupAllStudents;
+    }
+
+    public ArrayList<Student> getListAllStudents() {
+        try {
+            listAllStudents = studentDAO.getAllStudents();
+        } catch (Exception ex) {
+            Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listAllStudents;
+    }
+
+    public void setListAllStudents(ArrayList<Student> listAllStudents) {
+        this.listAllStudents = listAllStudents;
     }
 
     public boolean isPanelStudentDetails() {
@@ -181,6 +215,19 @@ public class StudentManagerBean  implements Serializable {
         this.setPanelGroupChangeLearning(false);
         this.setPanelStudentDetails(false);
         this.setPanelGroupNewStudent(false);
+        this.setPanelGroupAllStudents(false);
+        this.setPanelGroupUpdateStudent(false);
+        return THISPAGE + REDIRECT;
+    }
+
+    public String onRequestPanelGroupUpdateStudent(boolean flag) {
+        StudentManagerBean.panelGroupHaveNotBatch = false;
+        StudentManagerBean.panelGroupHaveBatch = false;
+        this.setPanelGroupChangeLearning(false);
+        this.setPanelStudentDetails(false);
+        this.setPanelGroupNewStudent(false);
+        this.setPanelGroupAllStudents(false);
+        this.setPanelGroupUpdateStudent(flag);
         return THISPAGE + REDIRECT;
     }
 
@@ -190,7 +237,19 @@ public class StudentManagerBean  implements Serializable {
         this.setPanelStudentDetails(false);
         this.setPanelGroupChangeLearning(false);
         this.setPanelGroupNewStudent(false);
+        this.setPanelGroupAllStudents(false);
+        this.setPanelGroupUpdateStudent(false);
         this.changeLearning.setReason("  ");
+        return THISPAGE + REDIRECT;
+    }
+
+    public String onRequestPanelGroupAllStudents(boolean flag) {
+        this.setPanelGroupAllStudents(flag);
+        this.setPanelStudentDetails(false);
+        this.setPanelGroupChangeLearning(false);
+        this.setPanelGroupNewStudent(false);
+        this.setPanelGroupHaveNotBatch(false);
+        this.setPanelGroupUpdateStudent(false);
         return THISPAGE + REDIRECT;
     }
 
@@ -208,6 +267,8 @@ public class StudentManagerBean  implements Serializable {
         this.setPanelGroupHaveNotBatch(false);
         this.setPanelStudentDetails(false);
         this.setPanelGroupNewStudent(false);
+        this.setPanelGroupAllStudents(false);
+        this.setPanelGroupUpdateStudent(false);
         return THISPAGE + REDIRECT;
     }
 
@@ -217,6 +278,8 @@ public class StudentManagerBean  implements Serializable {
         this.setPanelGroupHaveNotBatch(false);
         this.setPanelGroupNewStudent(newstudent);
         this.setPanelStudentDetails(false);
+        this.setPanelGroupAllStudents(false);
+        this.setPanelGroupUpdateStudent(false);
         return THISPAGE + REDIRECT;
     }
 
@@ -280,6 +343,7 @@ public class StudentManagerBean  implements Serializable {
                 this.setPanelGroupHaveNotBatch(false);
                 this.setPanelGroupNewStudent(false);
                 this.setPanelStudentDetails(true);
+                this.setPanelGroupUpdateStudent(false);
                 changeListStudentsHaveBatch();
                 changeListStudentsIsNotHaveBatch();
                 student = new Student();
@@ -295,10 +359,17 @@ public class StudentManagerBean  implements Serializable {
 
     public String updateStudent() {
         try {
-            if (studentDAO.update(selectedStudent)) {
-                return "studentList";
+            if (selectedStudent.getId() > 0) {
+                if (studentDAO.update(selectedStudent)) {
+                    this.setPanelGroupUpdateStudent(false);
+                    this.setPanelGroupAllStudents(true);
+                    return THISPAGE + REDIRECT;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
             }
-            return null;
         } catch (Exception ex) {
             Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;

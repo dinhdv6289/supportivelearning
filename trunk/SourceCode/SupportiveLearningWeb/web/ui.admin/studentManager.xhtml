@@ -16,23 +16,26 @@
                 <h:form>
                     <p>
                         <p:commandLink ajax="false"
+                                       value="All Students"
+                                       action="#{studentManagerBean.onRequestPanelGroupAllStudents(true)}">
+                        </p:commandLink>
+                    </p>
+                    <p>
+                        <p:commandLink ajax="false"
                                        value="Students Have not Batch"
-                                       action="#{studentManagerBean.onRequestPanelGroupHaveNotBatch(true)}"
-                                       >
+                                       action="#{studentManagerBean.onRequestPanelGroupHaveNotBatch(true)}">
                         </p:commandLink>
                     </p>
                     <p>
                         <p:commandLink ajax="false"
                                        value="Students Have Batch"
-                                       action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}"
-                                       >
+                                       action="#{studentManagerBean.onRequestPanelGroupHaveBatch(true)}">
                         </p:commandLink>
                     </p>
                     <p>
                         <p:commandLink ajax="false"
                                        value="New Student"
-                                       action="#{studentManagerBean.onRequestPanelGroupNewStudent(true)}"
-                                       >
+                                       action="#{studentManagerBean.onRequestPanelGroupNewStudent(true)}">
                         </p:commandLink>
                     </p>
                 </h:form>
@@ -40,6 +43,9 @@
         </div>
     </ui:define>
     <ui:define name="content">
+        <h:panelGroup rendered="#{studentManagerBean.panelGroupAllStudents}" id="panelGroupAllStudents" >
+            <ui:include src="student/allStudents.xhtml"/>
+        </h:panelGroup>
         <h:panelGroup rendered="#{studentManagerBean.panelGroupHaveNotBatch}" id="panelGroupHaveNotBatch" >
             <ui:include src="student/studentsIsHaveNotBatch.xhtml"/>
         </h:panelGroup>
@@ -56,6 +62,9 @@
         </h:panelGroup>
         <h:panelGroup rendered="#{studentManagerBean.panelStudentDetails}" id="panelStudentDetails">
             <ui:include src="student/studentdetails.xhtml"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{studentManagerBean.panelGroupUpdateStudent}" id="panelGroupUpdateStudent">
+            <ui:include src="student/updateStudent.xhtml"/>
         </h:panelGroup>
     </ui:define>
 </ui:composition>

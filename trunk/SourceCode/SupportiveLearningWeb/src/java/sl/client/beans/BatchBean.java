@@ -6,17 +6,13 @@ package sl.client.beans;
 
 import el.dao.BatchDAO;
 import el.model.Batch;
-import el.model.Course;
-import el.model.Role;
-import el.model.Semester;
-import el.model.Student;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -24,7 +20,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class BatchBean implements Serializable {
+public class BatchBean  implements Serializable {
 
     private Batch batch = new Batch();
     private ArrayList<Batch> listBatchs;

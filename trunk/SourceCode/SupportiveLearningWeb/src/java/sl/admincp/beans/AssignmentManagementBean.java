@@ -21,7 +21,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class AssignmentManagementBean   implements Serializable {
+public class AssignmentManagementBean extends UtilCheckLoginBean  implements Serializable {
 
     private Assignment assignment;
     private Assignment selectedAssignment;
@@ -31,7 +31,7 @@ public class AssignmentManagementBean   implements Serializable {
 
     /** Creates a new instance of AssignmentManagementBean */
     public AssignmentManagementBean() {
-//        super();
+        super();
         panelGroupListAssignment = true;
     }
 

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -19,7 +20,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class AccountBean implements Serializable {
+public class AccountBean  implements Serializable {
 
     private Account account = new Account();
     private ArrayList<Account> listAccounts;
@@ -28,6 +29,7 @@ public class AccountBean implements Serializable {
 
     /** Creates a new instance of AccountBean */
     public AccountBean() {
+        
          loadListAccountsOnline();
     }
 

@@ -21,6 +21,7 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import sl.utils.beans.EachSession;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -28,7 +29,7 @@ import sl.utils.beans.EachSession;
  */
 @ManagedBean
 @SessionScoped
-public class FeedBackBean implements Serializable {
+public class FeedBackBean  implements Serializable {
 
     private FeedBack feedBack = new FeedBack();
     private ArrayList<FeedBack> listFeedBacks;
@@ -75,6 +76,7 @@ public class FeedBackBean implements Serializable {
 
     /** Creates a new instance of FeedBackBean */
     public FeedBackBean() {
+        //super();
         
     }
 

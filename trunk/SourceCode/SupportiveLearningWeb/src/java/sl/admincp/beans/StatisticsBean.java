@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import sl.utils.beans.UtilCheckLoginBean;
 
 /**
@@ -20,8 +21,8 @@ import sl.utils.beans.UtilCheckLoginBean;
  * @author TuyenPV
  */
 @ManagedBean
-@RequestScoped
-public class StatisticsBean  implements Serializable {
+@SessionScoped
+public class StatisticsBean extends UtilCheckLoginBean implements Serializable {
 
     private StudentDAO studentDAO = new StudentDAO();
     private StaffDAO staffDAO = new StaffDAO();
@@ -36,7 +37,7 @@ public class StatisticsBean  implements Serializable {
 
     /** Creates a new instance of StatisticsBean */
     public StatisticsBean() {
-//        super();
+        super();
     }
 
     public int getTotalStaff() {

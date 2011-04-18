@@ -4,9 +4,7 @@
  */
 package sl.client.beans;
 
-import el.dao.CourseDAO;
 import el.dao.StudentDAO;
-import el.model.Batch;
 import el.model.Course;
 import el.model.Student;
 import java.io.Serializable;
@@ -16,6 +14,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import sl.utils.beans.EachSession;
+import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -23,7 +22,7 @@ import sl.utils.beans.EachSession;
  */
 @ManagedBean
 @SessionScoped
-public class StudentBean implements Serializable {
+public class StudentBean  implements Serializable {
 
     private Student student = new Student();
     private ArrayList<Course> listCourses = new ArrayList<Course>();
@@ -32,6 +31,8 @@ public class StudentBean implements Serializable {
 
     /** Creates a new instance of StudentBean */
     public StudentBean() {
+        //super();
+
     }
 
     public ArrayList<Course> getListCourses() {
