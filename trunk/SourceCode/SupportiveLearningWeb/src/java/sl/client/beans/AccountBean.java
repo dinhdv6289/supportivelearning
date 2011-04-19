@@ -29,7 +29,6 @@ public class AccountBean  implements Serializable {
 
     /** Creates a new instance of AccountBean */
     public AccountBean() {
-        
          loadListAccountsOnline();
     }
 

@@ -19,16 +19,16 @@
                         <p:fieldset legend="Mark view"
                                     toggleable="true"
                                     toggleSpeed="500">
-                            <h:panelGrid columns="5" cellpadding="4"  style="height: 70px;">
-                                <p:messages/>
+                            <p:messages/>
+                            <h:panelGrid columns="2" cellpadding="4"  style="height: 70px;">
                                 <h:outputLabel for="rollNumber" value="Roll number" />
-                                <p:inputText id="rollNumber" value="#{studentWorkBean.student.rollNumber}"
+                                <p:inputText id="rollNumber"
+                                             value="#{studentWorkBean.student.rollNumber}"
                                              required="true"
                                              requiredMessage="RollNumber must format: Axxxxx . Example : A03829">
-                                    <!--                                    <f:validateRegex pattern="[A][a]{0-9}" />-->
                                 </p:inputText>
-                                <p:message for="rollNumber"/>
                                 <h:outputLabel value="Example: A03829"/>
+                                <br/>
                                 <p:commandButton ajax="false"
                                                  value="Search"
                                                  action="#{studentWorkBean.loadMarks}"

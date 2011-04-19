@@ -41,7 +41,7 @@ public class StaffBatchManagerBean extends UtilCheckLoginBean implements Seriali
 
     /** Creates a new instance of StaffBatchManagerBean */
     public StaffBatchManagerBean() {
-//        super();
+        super();
         panelGroupHaveBatchs = true;
         panelGroupHaveNotBatchs = false;
         FacesContext context = FacesContext.getCurrentInstance();

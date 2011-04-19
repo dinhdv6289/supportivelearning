@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <p:dataTable id="tbl_listFeedBack"
+                             var="messageItem"
+                             value="#{feedBackAnswerManagerBean.listFeedBacks}"
+                             emptyMessage="Not have messages."
+                             paginator="true"
+                             rows="10"
+                             selection="#{feedBackAnswerManagerBean.selectedFeedBack}"
+                             selectionMode="single"
+                             rowSelectListener="#{feedBackAnswerManagerBean.onRequestpanelGroupMessageDetails(true)}"
+                             dblClickSelect="true">
+                    <f:facet name="header">
+                        FeedBacks
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Student Name"/>
+                        </f:facet>
+                        <h:outputText value="#{messageItem.student.name}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Content"/>
+                        </f:facet>
+                        <h:outputText value="#{messageItem.feedBackContent}" />
+                    </p:column>
+                </p:dataTable>
+
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

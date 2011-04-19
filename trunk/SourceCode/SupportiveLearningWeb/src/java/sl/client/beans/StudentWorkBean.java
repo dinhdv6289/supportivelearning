@@ -45,7 +45,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class StudentWorkBean implements Serializable {
+public class StudentWorkBean  implements Serializable {
 
     private Student student = new Student();
     private StudentWork studentWork = new StudentWork();
@@ -62,7 +62,6 @@ public class StudentWorkBean implements Serializable {
 
     /** Creates a new instance of StudentWorkBean */
     public StudentWorkBean() {
-     //   super();
         loadStudentWorks();
     }
 

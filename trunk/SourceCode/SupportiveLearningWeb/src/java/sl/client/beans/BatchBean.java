@@ -20,7 +20,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class BatchBean  implements Serializable {
+public class BatchBean implements Serializable {
 
     private Batch batch = new Batch();
     private ArrayList<Batch> listBatchs;
@@ -29,6 +29,7 @@ public class BatchBean  implements Serializable {
 
     /** Creates a new instance of BatchBean */
     public BatchBean() {
+//        super();
     }
 
     public Batch getBatchDetails() {

@@ -15,10 +15,9 @@
             <div class="content-block">
                 <div class="content-block-top"></div>
                 <div class="content-block-bottom">
-                    <h4>#{assignmentManagerBean.assignmentDetails.batch.name}</h4>
+                    <h4>Batch: #{assignmentManagerBean.assignmentDetails.batch.name}</h4>
                     <p:fieldset legend="Assignment #{assignmentManagerBean.assignmentDetails.subject.name}"
-                                toggleable="true"
-                                toggleSpeed="500">
+                                style="font-size: 14px">
                         <h:form>
                             <h4 class="style9">
                                 <img width="315" height="70" src=""/>
@@ -48,6 +47,12 @@
                                     <p:graphicImage value="/images/download.gif"/>
                                 </a>
                                 <br/>
+                                -Content:
+                                <br/>
+                                <p:inputTextarea value="#{assignmentManagerBean.assignmentDetails.content}"
+                                                 readonly="true"
+                                                 autoResize="true"
+                                                 style="width: 100%"/>
                             </p>
                             <p>
                                 <span class="style10"></span>

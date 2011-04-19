@@ -19,7 +19,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class StaffBean implements Serializable {
+public class StaffBean  implements Serializable {
 
     private Staff staff;
     private StaffDAO staffDAO = new StaffDAO();
@@ -27,7 +27,6 @@ public class StaffBean implements Serializable {
 
     /** Creates a new instance of StaffBean */
     public StaffBean() {
-    //    super();
     }
 
     /**

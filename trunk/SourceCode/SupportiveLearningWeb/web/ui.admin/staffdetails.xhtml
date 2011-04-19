@@ -21,8 +21,6 @@
                              selection="#{staffManagerBean.batch}"
                              id="batchofstaff">
                     <f:facet name="header">
-                        <p:commandButton value="Delete" image="ui-icon ui-icon-search"
-                                         update="form:display" oncomplete="confirmation.show()"/>
                         <p:commandButton id="btn_insert_staff_and_batch"
                                          value="Add new batch"
                                          type="button" >
@@ -51,16 +49,6 @@
                     
 
                 </p:dataTable>
-                <p:confirmDialog message="Are you sure want to delete?"
-                                 showEffect="bounce" hideEffect="explode"
-                                 header="Initiating destroy process" severity="alert" widgetVar="confirmation">
-                    <h:panelGrid id="display">
-                        <p:commandButton value="Yes Sure" oncomplete="confirmation.hide()"
-                                         action="#{staffManagerBean.deleteBatchByStaff}"
-                                         update="batchofstaff, themeMenu"/>
-                        <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
-                    </h:panelGrid>
-                </p:confirmDialog>
             </h:form>
         </h:body>
     </ui:define>

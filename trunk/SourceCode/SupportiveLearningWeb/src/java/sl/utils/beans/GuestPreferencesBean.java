@@ -16,11 +16,11 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class GuestPreferencesBean extends UtilCheckLoginBean implements Serializable {
+public class GuestPreferencesBean  implements Serializable {
 
     /** Creates a new instance of GuestPreferencesBean */
     public GuestPreferencesBean() {
-        super();
+        //super();
     }
     private String theme = "ui-lightness"; //default
 

@@ -23,7 +23,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class CourseBean  implements Serializable {
+public class CourseBean   implements Serializable {
 
     private Course course = new Course();
     private CourseDAO courseDAO = new CourseDAO();
@@ -32,6 +32,7 @@ public class CourseBean  implements Serializable {
 
     /** Creates a new instance of CourseBean */
     public CourseBean() {
+       
         //    root = new DefaultTreeNode("Root", null);
         //  addToTreeNode(root);
        // loadCourses();
