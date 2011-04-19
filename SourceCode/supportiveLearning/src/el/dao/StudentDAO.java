@@ -65,26 +65,19 @@ public class StudentDAO extends AbstractDAO<Student> {
 
     @Override
     public boolean update(Student student) throws Exception {
-        String sql = "{call Udp_StudentById (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call Udp_StudentById (?, ?, ?, ?, ?, ?, ?)}";
         Connection conn = null;
         int a = 0;
         try {
             conn = getConnection();
             CallableStatement stmt = conn.prepareCall(sql);
             stmt.setInt(1, student.getId());
-            stmt.setInt(2, student.getBatch().getId());
-            stmt.setInt(3, student.getCourse().getId());
-            stmt.setString(4, student.getName());
-            stmt.setString(5, student.getAddress());
+            stmt.setString(2, student.getName());
+            stmt.setDate(3, Utility.date2sql(student.getBirthDay()));
+            stmt.setBoolean(4, student.getGender());
+            stmt.setString(5, student.getPhone());
             stmt.setString(6, student.getEmail());
-            stmt.setString(7, student.getPhone());
-            stmt.setString(8, student.getUserName());
-            stmt.setString(9, student.getPassword());
-            stmt.setDate(10, (Date) student.getBirthDay());
-            stmt.setBoolean(11, student.getGender());
-            stmt.setDate(12, (Date) student.getDateCreate());
-
-            stmt.setString(13, student.getRollNumber());
+            stmt.setString(7, student.getAddress());
             a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -436,5 +429,41 @@ public class StudentDAO extends AbstractDAO<Student> {
             }
         }
         return result;
+    }
+
+    public ArrayList<Student> getAllStudents() throws Exception {
+        ArrayList<Student> students = new ArrayList<Student>();
+        Connection conn = null;
+        String sql = "{call Sel_AllStudent}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            ResultSet rsstudents = cstmt.executeQuery();
+            while (rsstudents.next()) {
+                Student student = new Student();
+                student.setId(rsstudents.getInt("StudentId"));
+                student.setName(rsstudents.getString("FullName"));
+                student.setDateCreate(rsstudents.getDate("DateCreation"));
+                student.setBirthDay(rsstudents.getDate("BirthDay"));
+                student.setGender(rsstudents.getBoolean("Gender"));
+                student.setPhone(rsstudents.getString("Phone"));
+                student.setEmail(rsstudents.getString("Email"));
+                student.setAddress(rsstudents.getString("Address"));
+                student.setRollNumber(rsstudents.getString("RollNumber"));
+                BatchDAO batchDAO = new BatchDAO();
+                Batch batch = new Batch();
+                batch.setId(rsstudents.getInt("BatchId"));
+                batch = batchDAO.getObject(batch);
+                student.setBatch(batch);
+                students.add(student);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return students;
     }
 }
