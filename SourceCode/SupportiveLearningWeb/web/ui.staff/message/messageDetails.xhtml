@@ -4,16 +4,16 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <h:form>
+    <h:form id="form_message_details">
         <div class="content-block">
             <div class="content-block-top"></div>
             <div class="content-block-bottom">
-                <p:fieldset >
+                <p:fieldset>
                     <f:facet name="legend">
                         <p:graphicImage value="/images/download.gif"/>
                     </f:facet>
                     #{feedBackAnswerManagerBean.currentStaff.name} &lt;-------&gt; #{feedBackAnswerManagerBean.selectedFeedBack.student.name}
-                    <p:treeTable value="#{feedBackAnswerManagerBean.feedbackRoot}" var="item">
+                    <p:treeTable  var="item" value="#{feedBackAnswerManagerBean.feedbackRoot}">
                         <p:column>
                             <f:facet name="header">
                                 Content
@@ -30,8 +30,8 @@
                             <h:outputText value="#{item.dateCreation}" >
                                 <f:convertDateTime pattern="HH:mm  MM.dd.yyyy"
                                                    locale="#{converterBean.strLocale}"
-                                                   timeZone="#{converterBean.timezone}"
-                                                   ></f:convertDateTime>
+                                                   timeZone="#{converterBean.timezone}">
+                                </f:convertDateTime>
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -42,11 +42,14 @@
                         </p:column>
                     </p:treeTable>
                     <h:panelGroup rendered="#{feedBackAnswerManagerBean.panelAnswer}" id="panelAnswer" >
+                        <p:messages/>
                         <h:panelGrid id="display" columns="3" cellpadding="4">
-                            <p:messages/>
                             <h:outputLabel for="feedBackAnswer" value="content:"></h:outputLabel>
-                            <p:inputTextarea id="feedBackAnswer" value="#{feedBackAnswerManagerBean.feedBackAnswer.feedBackAnswer}"></p:inputTextarea>
-                            <p:message for="feedBackAnswer"/>
+                            <p:inputTextarea id="feedBackAnswer"
+                                             value="#{feedBackAnswerManagerBean.feedBackAnswer.feedBackAnswer}"
+                                             required="true"
+                                             requiredMessage="Answer is not null.">
+                            </p:inputTextarea>
                             <p:commandButton ajax="false"
                                              value="Answer"
                                              action="#{feedBackAnswerManagerBean.insertFeedBackAnswer}">

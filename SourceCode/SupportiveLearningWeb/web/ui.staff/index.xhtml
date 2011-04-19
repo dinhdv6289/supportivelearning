@@ -20,7 +20,7 @@
                         <div class="content-block-bottom">
 
                             <h4>Batch: #{batchItem.name} </h4>
-                            <c:forEach var="assignmentItem" items="#{assignmentManagerBean.listAssignmentsStaff}">
+                            <c:forEach var="assignmentItem" items="#{assignmentManagerBean.listAssignmentsOfBatch(batchItem)}">
                                 <p:fieldset legend="Assignment #{assignmentItem.subject.name}"
                                             toggleable="true"
                                             toggleSpeed="500">

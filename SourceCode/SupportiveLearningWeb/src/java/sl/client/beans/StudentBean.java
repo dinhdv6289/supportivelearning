@@ -22,7 +22,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class StudentBean  implements Serializable {
+public class StudentBean   implements Serializable {
 
     private Student student = new Student();
     private ArrayList<Course> listCourses = new ArrayList<Course>();
@@ -31,7 +31,6 @@ public class StudentBean  implements Serializable {
 
     /** Creates a new instance of StudentBean */
     public StudentBean() {
-        //super();
 
     }
 

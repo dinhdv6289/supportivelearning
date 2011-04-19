@@ -46,6 +46,7 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
     private static Assignment assignmentDetails;
     private ArrayList<Assignment> listAssignmentsUploadByStaff = new ArrayList<Assignment>();
     private ArrayList<Assignment> listAssignmentsStaff = new ArrayList<Assignment>();
+    private ArrayList<Assignment> listAssignmentsOfBatch;
     private ArrayList<Batch> listMyBatchs;
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
     private StaffDAO staffDAO = new StaffDAO();
@@ -59,7 +60,7 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
 
     /** Creates a new instance of AssignmentManagerBean */
     public AssignmentManagerBean() {
-        //super();
+        super();
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         if (SessionManager.getSession("accountId") == null) {
@@ -70,7 +71,7 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
                 thisStaff = staff = staffDAO.getStaffByAccountId(accountId);
             } catch (Exception ex) {
                 Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-               // LoginService.loginService("");
+                // LoginService.loginService("");
             }
         }
     }
@@ -156,8 +157,8 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
         return batchDetailsToStaff;
     }
 
-    public void setBatchDetailsToStaff(Batch baatchDetailsToStaff) {
-        this.batchDetailsToStaff = baatchDetailsToStaff;
+    public void setBatchDetailsToStaff(Batch batchDetailsToStaff) {
+        this.batchDetailsToStaff = batchDetailsToStaff;
     }
 
     public ArrayList<Assignment> getListAssignmentsUploadByStaff() {
@@ -203,6 +204,20 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
             Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    public ArrayList<Assignment> getListAssignmentsOfBatch(Batch batch) {
+        try {
+            listAssignmentsOfBatch = assignmentDAO.getListAssignmentsByBatchId(batch.getId());
+
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listAssignmentsOfBatch;
+    }
+
+    public void setListAssignmentsOfBatch(ArrayList<Assignment> listAssignmentsOfBatch) {
+        this.listAssignmentsOfBatch = listAssignmentsOfBatch;
     }
 
     public void setListAssignmentsStaff(ArrayList<Assignment> listAssignmentsStaff) {

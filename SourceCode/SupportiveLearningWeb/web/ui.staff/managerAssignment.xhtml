@@ -11,66 +11,72 @@
     <ui:define name="title">Manager Assignment </ui:define>
     <ui:define name="content">
         <h:form>
-            <c:forEach var="batchItem" items="#{staffBatchManagerBean.listBatchs}" >
+            <c:forEach var="batchItem" items="#{staffBatchManagerBean.listBatchs}" varStatus="num" >
                 <!-- News Block Starts Here -->
-                <div class="content-block">
-                    <div class="content-block-top"></div>
-                    <div class="content-block-bottom">
+                <p:fieldset legend="Batch: #{batchItem.name} "
+                            toggleable="true"
+                            toggleSpeed="500" >
+                    <p:dataTable id="tbl_assignmentOfBach#{num.index}"
+                                 var="assignmentItem"
+                                 value="#{assignmentManagerBean.listAssignmentsOfBatch(batchItem)}"
+                                 emptyMessage="Not have assignments."
+                                 paginator="true"
+                                 rows="10"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            <h:outputLabel value="List Assignments"/>
+                        </f:facet>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Subject" />
+                            </f:facet>
+                            <h:outputText value="#{assignmentItem.subject.name}" />
+                        </p:column>
 
-                        <h4>Batch: #{batchItem.name} </h4>
-                        <p:dataTable id="tbl"
-                                     var="assignmentItem"
-                                     value="#{assignmentManagerBean.listAssignmentsOfBatch(batchItem)}"
-                                     emptyMessage="Not have assignments."
-                                     paginator="true"
-                                     rows="10">
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Subject" />
-                                </f:facet>
-                                <h:outputText value="#{assignmentItem.subject.name}" />
-                            </p:column>
-
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Assignment Name"/>
-                                </f:facet>
-                                <h:outputText value="#{assignmentItem.name}" />
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="File upload"/>
-                                </f:facet>
-                                <a href="#{request.contextPath}/#{assignmentItem.fileUpload}">#{assignmentItem.name}</a>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Functions"/>
-                                </f:facet>
-                                <p:commandButton ajax="false"
-                                                 value="Edit"
-                                                 action="#{assignmentManagerBean.onRequestAssignmentToEdit(assignmentItem)}">
-                                </p:commandButton>
-                                <p:commandButton value="Delete" image="ui-icon ui-icon-search"
-                                                 update="form:display" oncomplete="confirmation.show()">
-                                    <f:setPropertyActionListener target="#{assignmentManagerBean.selectedAssignment}"
-                                                                 value="#{assignmentItem}">
-                                    </f:setPropertyActionListener>
-                                </p:commandButton>
-                            </p:column>
-                        </p:dataTable>
-                        <p:confirmDialog message="Are you sure want to delete?"
-                                         showEffect="bounce" hideEffect="explode"
-                                         header="Initiating destroy process" severity="alert" widgetVar="confirmation">
-                            <h:panelGrid id="display">
-                                <p:commandButton value="Yes Sure" update="tbl" oncomplete="confirmation.hide()"
-                                                 action="#{assignmentManagerBean.deleteAssignment}">
-                                </p:commandButton>
-                                <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
-                            </h:panelGrid>
-                        </p:confirmDialog>
-                    </div>
-                </div>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Assignment Name"/>
+                            </f:facet>
+                            <h:outputText value="#{assignmentItem.name}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="File upload"/>
+                            </f:facet>
+                            <a href="#{request.contextPath}/#{assignmentItem.fileUpload}">#{assignmentItem.name}</a>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Functions"/>
+                            </f:facet>
+                            <p:commandButton ajax="false"
+                                             value="Edit"
+                                             action="#{assignmentManagerBean.onRequestAssignmentToEdit(assignmentItem)}">
+                            </p:commandButton>
+                            <p:commandButton value="Delete" image="ui-icon ui-icon-search"
+                                             update="form:display#{num.index}" oncomplete="confirmation.show()">
+                                <f:setPropertyActionListener target="#{assignmentManagerBean.selectedAssignment}"
+                                                             value="#{assignmentItem}">
+                                </f:setPropertyActionListener>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:confirmDialog message="Are you sure want to delete?"
+                                     showEffect="bounce"
+                                     hideEffect="explode"
+                                     header="Initiating destroy process"
+                                     severity="alert"
+                                     widgetVar="confirmation">
+                        <h:panelGrid id="display#{num.index}">
+                            <p:commandButton value="Yes Sure" update="tbl" oncomplete="confirmation.hide()"
+                                             action="#{assignmentManagerBean.deleteAssignment}">
+                            </p:commandButton>
+                            <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
+                        </h:panelGrid>
+                    </p:confirmDialog>
+                </p:fieldset>
+                <br/>
                 <!-- News Block Ends Here -->
             </c:forEach>
         </h:form>

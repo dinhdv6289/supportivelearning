@@ -10,61 +10,79 @@
 
     <ui:define name="title">Assignment </ui:define>
     <ui:define name="content">
-        <!-- Assignment Block Starts Here -->
-        <div class="content-block">
-            <div class="content-block-top"></div>
-            <div class="content-block-bottom">
-                <h3>Edit Assignment</h3>
-                <h:form prependId="false">
-                    <h4>Batch:  #{assignmentManagerBean.selectedAssignment.batch.name}</h4>
-                    <h4>Subject: #{assignmentManagerBean.selectedAssignment.subject.name}</h4>
-                    <p:growl id="errorr" showDetail="true"/>
-                    <p:messages/>
-                    <h:panelGrid columns="2">
-                        <h:outputLabel value="Assignment Name:" for="assignmentName"></h:outputLabel>
-                        <p:inputText id="assignmentName"
-                                     value="#{assignmentManagerBean.selectedAssignment.name}"
-                                     required="true"
-                                     requiredMessage="Enter assignment name">
-                        </p:inputText>
+        <p:fieldset legend="Edit Assignment"
+                    style="background: #fefefe"
+                    toggleable="true"
+                    toggleSpeed="500" >
+            <h:form prependId="false">
+                <h:outputLabel value="Batch:  #{assignmentManagerBean.selectedAssignment.batch.name}"
+                               style="font-size: 16px">
+                </h:outputLabel><br/><br/>
+                <h:outputLabel value="Subject: #{assignmentManagerBean.selectedAssignment.subject.name}"
+                               style="font-size: 16px">
+                </h:outputLabel>
+                <br/>
+                <p:growl id="errorr" showDetail="true" life="5000"/>
+                <p:messages/>
+                <br/>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Assignment Name:"
+                                   for="assignmentName"
+                                   style="width: 120px;font-size: 14px"></h:outputLabel>
+                    <p:inputText id="assignmentName"
+                                 value="#{assignmentManagerBean.selectedAssignment.name}"
+                                 required="true"
+                                 requiredMessage="Enter assignment name"
+                                 style="width: 150px"
+                                 title="Enter assignment name.">
+                    </p:inputText>
 
-                        <h:outputLabel value=" -Start date:" for="startDate"/>
-                        <p:calendar id="startDate"
-                                    value="#{assignmentManagerBean.selectedAssignment.startDate}"
-                                    mindate="#{calendarBean.startDate}"
-                                    pattern="MM/dd/yyyy"
-                                    required="true"
-                                    requiredMessage="Choice start date">
-                        </p:calendar>
-                        <h:outputLabel value=" -End date:" for="endDate"/>
-                        <p:calendar id="endDate"
-                                    value="#{assignmentManagerBean.selectedAssignment.endDate}"
-                                    mindate="#{calendarBean.endDate}"
-                                    pattern="MM/dd/yyyy"
-                                    required="true"
-                                    requiredMessage="Choice end date">
-                        </p:calendar>
-                        <h:outputLabel value="-Old File upload: " ></h:outputLabel>
-                        <a href="#{request.contextPath}/#{assignmentManagerBean.selectedAssignment.fileUpload}">#{assignmentManagerBean.selectedAssignment.name}</a>
-                        <h:outputLabel value="-File upload: " ></h:outputLabel>
-                        <p:fileUpload fileUploadListener="#{assignmentManagerBean.handleFileUpload}"
-                                      update="errorr"
-                                      allowTypes="*.txt;*.doc;*.pdf;"
-                                      description="Text Documents"  />
-                    </h:panelGrid>
-                    <h:outputLabel value="Content" for="content"></h:outputLabel>
-                    <p:editor value="#{assignmentManagerBean.selectedAssignment.content}"
-                              id="content"
-                              width="475">
-                    </p:editor>
-                    <p:commandButton ajax="false"
-                                     value="Update"
-                                     action="#{assignmentManagerBean.updateAssignment}"
-                                     update="errorr">
-                    </p:commandButton>
-                </h:form>
-            </div>
-        </div>
+                    <h:outputLabel value="Start date:"
+                                   for="startDate"
+                                   style="width: 120px;font-size: 14px"/>
+                    <p:calendar id="startDate"
+                                value="#{assignmentManagerBean.selectedAssignment.startDate}"
+                                mindate="#{calendarBean.startDate}"
+                                pattern="MM/dd/yyyy"
+                                required="true"
+                                requiredMessage="Choice start date"
+                                size="30"
+                                title="Choice start date">
+                    </p:calendar>
+                    <h:outputLabel value="End date:"
+                                   for="endDate"
+                                   style="width: 120px;font-size: 14px"/>
+                    <p:calendar id="endDate"
+                                value="#{assignmentManagerBean.selectedAssignment.endDate}"
+                                mindate="#{calendarBean.endDate}"
+                                pattern="MM/dd/yyyy"
+                                required="true"
+                                requiredMessage="Choice end date"
+                                size="30"
+                                title="Choice end date">
+                    </p:calendar>
+                    <h:outputLabel value="Old File upload: " style="font-size: 14px" ></h:outputLabel>
+                    <a href="#{request.contextPath}/#{assignmentManagerBean.selectedAssignment.fileUpload}">#{assignmentManagerBean.selectedAssignment.name}</a>
+                    <h:outputLabel value="File upload: "
+                                   style="font-size: 14px">
+                    </h:outputLabel>
+                    <p:fileUpload fileUploadListener="#{assignmentManagerBean.handleFileUpload}"
+                                  update="errorr"
+                                  allowTypes="*.txt;*.doc;*.pdf;"
+                                  description="Text Documents"  />
+                </h:panelGrid>
+                <h:outputLabel value="Content" for="content" style="font-size: 14px"></h:outputLabel>
+                <p:editor value="#{assignmentManagerBean.selectedAssignment.content}"
+                          id="content"
+                          width="475">
+                </p:editor>
+                <p:commandButton ajax="false"
+                                 value="Update"
+                                 action="#{assignmentManagerBean.updateAssignment}"
+                                 update="errorr">
+                </p:commandButton>
+            </h:form>
+        </p:fieldset>
     </ui:define>
 </ui:composition>
 

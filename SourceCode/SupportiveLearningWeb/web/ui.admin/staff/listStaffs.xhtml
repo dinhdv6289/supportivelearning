@@ -5,26 +5,28 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
-        <p:dataTable var="staff1"
-                     value="#{staffManagerBean.listStaffs}"
-                     paginator="true"
-                     rows="10"
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="5,10,15"
-                     selection="#{staffManagerBean.selectedstaff}"
-                     dblClickSelect="true"
-                     rowSelectListener="#{staffManagerBean.details}"
-                     selectionMode="single">
-            <f:facet name="header">
-                List of Staffs
-            </f:facet>
-            <p:column headerText="Name">
-                <h:outputText value="#{staff1.name}" />
-            </p:column>
-            <p:column headerText="Have Batch">
-                <h:outputText value="#{staffManagerBean.listBatch(staff1.id)}" />
-            </p:column>
-                    
-        </p:dataTable>
+        <p:fieldset legend="List Staffs">
+            <p:dataTable var="staff1"
+                         value="#{staffManagerBean.listStaffs}"
+                         paginator="true"
+                         rows="10"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         selection="#{staffManagerBean.selectedstaff}"
+                         dblClickSelect="true"
+                         rowSelectListener="#{staffManagerBean.details}"
+                         selectionMode="single">
+                <f:facet name="header">
+                    Double click selecting a row to details
+                </f:facet>
+                <p:column headerText="Name">
+                    <h:outputText value="#{staff1.name}" />
+                </p:column>
+                <p:column headerText="Have Batch">
+                    <h:outputText value="#{staffManagerBean.listBatch(staff1.id)}" />
+                </p:column>
+
+            </p:dataTable>
+        </p:fieldset>
     </h:form>
 </ui:composition>

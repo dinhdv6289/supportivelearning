@@ -25,11 +25,10 @@ import org.primefaces.event.DateSelectEvent;
  */
 @ManagedBean
 @SessionScoped
-public class CalendarBean extends UtilCheckLoginBean implements Serializable {
+public class CalendarBean  implements Serializable {
 
     /** Creates a new instance of CalendarBean */
     public CalendarBean() {
-        super();
     }
     private Date startDate;
     private Date endDate;

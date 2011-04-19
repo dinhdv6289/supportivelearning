@@ -25,7 +25,7 @@ public class AccountManagerBean extends UtilCheckLoginBean  implements Serializa
     private Staff staff;
     private Student student;
     private Role role;
-    
+
     /** Creates a new instance of AccountManagerBean */
     public AccountManagerBean() {
         super();
@@ -68,7 +68,7 @@ public class AccountManagerBean extends UtilCheckLoginBean  implements Serializa
     }
 
     public String insert() {
-        
+
         return null;
     }
 

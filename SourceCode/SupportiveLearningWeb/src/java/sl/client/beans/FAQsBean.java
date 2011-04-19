@@ -29,6 +29,7 @@ public class FAQsBean  implements Serializable {
 
     /** Creates a new instance of FAQsBean */
     public FAQsBean() {
+        super();
     }
 
     @PostConstruct

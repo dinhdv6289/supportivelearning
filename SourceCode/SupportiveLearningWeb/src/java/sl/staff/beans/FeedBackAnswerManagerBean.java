@@ -103,11 +103,11 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
         this.feedbackRoot = feedbackRoot;
     }
 
-    
+
 
     public TreeNode getFeedbackRoot() {
         try {
-            
+
             int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
             Staff staffByAccountId = staffDAO.getStaffByAccountId(accountId);
             if (staffByAccountId.getId() >0) {

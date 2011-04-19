@@ -29,7 +29,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class LoginBean  implements Serializable {
+public class LoginBean   implements Serializable {
 
     private Account account = new Account();
     private Student student = new Student();
@@ -47,7 +47,6 @@ public class LoginBean  implements Serializable {
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
-        
     }
 
     @PostConstruct

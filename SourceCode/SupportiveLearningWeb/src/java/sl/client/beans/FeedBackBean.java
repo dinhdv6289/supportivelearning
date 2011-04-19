@@ -76,7 +76,6 @@ public class FeedBackBean  implements Serializable {
 
     /** Creates a new instance of FeedBackBean */
     public FeedBackBean() {
-        //super();
         
     }
 

@@ -108,8 +108,8 @@
                                 <div class="sblock-top">Navigation</div>
                                 <div class="sblock-content">
                                     <ul>
-                                        <li><a href="#{request.contextPath}/ui.staff/insertAssignment.jsf">Insert Assignment</a></li>
-                                        <li><a href="#{request.contextPath}/ui.staff/managerAssignment.jsf">Assignment Manager</a></li>
+                                        <li><a href="#{request.contextPath}/ui.staff/insertAssignment.jsf">New Assignment</a></li>
+                                        <li><a href="#{request.contextPath}/ui.staff/managerAssignment.jsf">Manager Assignment </a></li>
                                         <li><a href="#{request.contextPath}/ui.staff/updateMark.jsf">Update Mark By RollNumber</a></li>
                                     </ul>
                                 </div>
@@ -281,7 +281,12 @@
                             <div class="sblock">
                                 <div class="sblock-top">Messages</div>
                                 <div class="sblock-content">
-                                    <a href="#{request.contextPath}/ui.staff/messages.jsf">Messages</a>
+                                    <h:form>
+                                        <p:commandLink ajax="false"
+                                                       value="Messages"
+                                                       action="messages.jsf?faces-redirect=true">
+                                        </p:commandLink>
+                                    </h:form>
                                 </div>
                             </div>
                         </h:panelGroup>
