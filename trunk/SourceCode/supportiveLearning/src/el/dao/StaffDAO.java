@@ -31,7 +31,6 @@ public class StaffDAO extends AbstractDAO<Staff> {
         return 0;
     }
 
-
     public int insertStaff(Staff staff) throws Exception {
         int result = 0;
         String sql = "{call Ins_Staff (?, ?, ?, ?, ?, ?, ?, ?, ?)}";
@@ -60,6 +59,7 @@ public class StaffDAO extends AbstractDAO<Staff> {
         }
         return result;
     }
+
     @Override
     public boolean update(Staff staff) throws Exception {
         Connection conn = null;
@@ -225,11 +225,9 @@ public class StaffDAO extends AbstractDAO<Staff> {
 
     //Batch.BatchName, Batch.StartDate, Staff.AccountId,
     //StaffAndBatch.StaffAndBatchId, StaffAndBatch.StaffId, StaffAndBatch.BatchId
-
     public ArrayList<Batch> getListBatchsByStaffId(int staffId) throws Exception {
         ArrayList<Batch> listBatchs = new ArrayList<Batch>();
-        Batch batch = new Batch();
-        Staff staff = new Staff();
+
         Connection conn = null;
         String sql = "{call Sel_BatchsOfStaff (?)}";
         CallableStatement cstmt = null;
@@ -239,6 +237,8 @@ public class StaffDAO extends AbstractDAO<Staff> {
             cstmt.setInt(1, staffId);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
+                Batch batch = new Batch();
+                Staff staff = new Staff();
                 batch.setId(rs.getInt("BatchId"));
                 batch.setName(rs.getString("BatchName"));
                 batch.setStartDate(rs.getDate("StartDate"));
@@ -253,7 +253,7 @@ public class StaffDAO extends AbstractDAO<Staff> {
         return listBatchs;
     }
 
-    public boolean deleteBatchByStaff(Staff s, Batch b) throws Exception{
+    public boolean deleteBatchByStaff(Staff s, Batch b) throws Exception {
         String sql = "{call Del_BatchByStaff (?, ?)}";
         Connection conn = null;
         int a = 0;
