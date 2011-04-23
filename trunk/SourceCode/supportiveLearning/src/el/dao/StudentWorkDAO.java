@@ -409,4 +409,30 @@ public class StudentWorkDAO extends AbstractDAO<StudentWork> {
         }
         return studentWorks;
     }
+
+    public boolean checkMarkToUpload(StudentWork studentWork) throws Exception {
+        boolean flag;
+        Connection conn = null;
+        String sql = "{call CheckMarkToUpload (?,?)}";
+        CallableStatement cstmt = null;
+        try {
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, studentWork.getStudent().getId());
+            cstmt.setFloat(2, studentWork.getAssignment().getId());
+            ResultSet rs = cstmt.executeQuery();
+            if(rs.next()){
+                flag = true;
+            }else{
+                flag = false;
+            }
+
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return flag;
+    }
+
 }

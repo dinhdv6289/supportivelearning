@@ -47,6 +47,7 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
     private ArrayList<Assignment> listAssignmentsUploadByStaff = new ArrayList<Assignment>();
     private ArrayList<Assignment> listAssignmentsStaff = new ArrayList<Assignment>();
     private ArrayList<Assignment> listAssignmentsOfBatch;
+    private ArrayList<Assignment> listAssignmentsOfBatchInDueDate;
     private ArrayList<Batch> listMyBatchs;
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
     private StaffDAO staffDAO = new StaffDAO();
@@ -224,6 +225,8 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
         this.listAssignmentsStaff = listAssignmentsStaff;
     }
 
+
+
     public String onRequestBatchToStaff(Batch batch) {
         try {
             listAssignmentsUploadByStaff = assignmentDAO.getListAssignmentsByBatchId(batch.getId());
@@ -250,6 +253,30 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
             return null;
         }
     }
+    public ArrayList<Assignment> listAssignmentsOfBatchInDueDate(Batch batch) {
+        try {
+            return assignmentDAO.getListAssignmentsByBatchIdDueDate(batch.getId());
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public ArrayList<Assignment> getListAssignmentsOfBatchInDueDate(Batch batch) {
+        try {
+            listAssignmentsOfBatchInDueDate = assignmentDAO.getListAssignmentsByBatchIdDueDate(batch.getId());
+
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return listAssignmentsOfBatchInDueDate;
+    }
+
+    public void setListAssignmentsOfBatchInDueDate(ArrayList<Assignment> listAssignmentsOfBatchInDueDate) {
+        this.listAssignmentsOfBatchInDueDate = listAssignmentsOfBatchInDueDate;
+    }
+
+
 
     /** Creates a new instance of FileUploadController */
     public void handleFileUpload(FileUploadEvent event) {

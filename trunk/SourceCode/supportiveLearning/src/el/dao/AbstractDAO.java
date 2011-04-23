@@ -26,7 +26,7 @@ public abstract class AbstractDAO<T> {
     public abstract T getObject(T t) throws Exception;
 
     private static String jdbcDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static String connString = "jdbc:sqlserver://TUYENPV-PC:1433;databaseName=SupportiveLearning;user=sa;password=adminadmin";
+    private static String connString = "jdbc:sqlserver://localhost:1433;databaseName=SupportiveLearning;user=sa;password=adminadmin";
 
 
     protected Connection getConnection() throws Exception {
