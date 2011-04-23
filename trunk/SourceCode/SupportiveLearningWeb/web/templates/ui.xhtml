@@ -184,7 +184,8 @@
 							Username
                                                 <p:inputText  value="#{loginBean.account.userName}" 
                                                               required="true"
-                                                              requiredMessage="UserName is not null!"/>
+                                                              requiredMessage="UserName is not null!">
+                                                </p:inputText>
                                             </p>
                                             <p>
 							Password
@@ -192,7 +193,8 @@
                                                             required="true"
                                                             feedback="true"
                                                             minLength="4"
-                                                            requiredMessage="Password is not null!"/>
+                                                            requiredMessage="Password is not null!">
+                                                </p:password>
                                             </p>
                                             <p>
                                                 <p:commandButton value="Sign-in"

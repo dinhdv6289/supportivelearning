@@ -17,13 +17,13 @@
                 <h6 align="center">
                     <h3 align="center">
                         <p:graphicImage url="../images/imagesFAQs.jpg" alt="Frequently Asked Questions" title="Frequently Asked Questions" width="200px" height="200px" />
-                        
+
                     </h3>
                     <strong style="color: red"> FAQ is where you can resolve questions surrounding these common problems:
-                    check the assignments,
-                    download the assignment,
-                    submit the assignment,
-                    check the marks, post a query.</strong></h6><br/><br/><b></b>
+                        check the assignments,
+                        download the assignment,
+                        submit the assignment,
+                        check the marks, post a query.</strong></h6><br/><br/><b></b>
                 <h:form>
                     <c:forEach var="faqItem" items="#{fAQsBean.listFAQs}" varStatus="no">
                         <strong style="color: #4d9319">#{no.index+1} .#{faqItem.question}</strong>
