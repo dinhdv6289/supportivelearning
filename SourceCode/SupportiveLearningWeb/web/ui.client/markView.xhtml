@@ -19,15 +19,15 @@
                         <p:fieldset legend="Mark view"
                                     toggleable="true"
                                     toggleSpeed="500">
-                            <p:messages/>
+                            <p:messages />
                             <h:panelGrid columns="2" cellpadding="4"  style="height: 70px;">
-                                <h:outputLabel for="rollNumber" value="Roll number" />
+                                <h:outputLabel for="rollNumber" value="Roll number" ></h:outputLabel>
                                 <p:inputText id="rollNumber"
                                              value="#{studentWorkBean.student.rollNumber}"
                                              required="true"
                                              requiredMessage="RollNumber must format: Axxxxx . Example : A03829">
                                 </p:inputText>
-                                <h:outputLabel value="Example: A03829"/>
+                                <h:outputLabel value="Example: A03829" ></h:outputLabel>
                                 <br/>
                                 <p:commandButton ajax="false"
                                                  value="Search"
@@ -41,7 +41,7 @@
                 </h:panelGroup>
                 <h:panelGroup rendered="#{studentWorkBean.panelGroupFormDisplayResult}">
                     <h:form prependId="false">
-                        <p:commandLink ajax="false" value="Back To mark view" action="markView.jsf">
+                        <p:commandLink ajax="false" value="Back To mark view" action="markView.jsf?faces-redirect=true">
                             <f:setPropertyActionListener target="#{studentWorkBean.panelGroupFormDisplayResult}"
                                                          value="#{false}"/>
                             <f:setPropertyActionListener target="#{studentWorkBean.panelGroupFormMarkView}"
