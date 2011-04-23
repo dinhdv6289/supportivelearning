@@ -81,7 +81,7 @@ public class NewsBean   implements Serializable {
         try {
             News object = newsDAO.getObject(news);
             this.setNews(object);
-            return "moreNews.jsf" + REDIRECT;
+            return "ui.client/moreNews.jsf" + REDIRECT;
         } catch (Exception ex) {
             Logger.getLogger(NewsBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;

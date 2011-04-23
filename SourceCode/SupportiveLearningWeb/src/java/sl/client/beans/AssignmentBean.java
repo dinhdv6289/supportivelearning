@@ -5,9 +5,11 @@
 package sl.client.beans;
 
 import el.dao.AssignmentDAO;
+import el.dao.StudentWorkDAO;
 import el.model.Assignment;
 import el.model.Batch;
 import el.model.Student;
+import el.model.StudentWork;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +19,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import sl.utils.beans.EachSession;
 import sl.utils.beans.LoginService;
-import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -25,11 +26,12 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class AssignmentBean  implements Serializable {
+public class AssignmentBean implements Serializable {
 
     private ArrayList<Assignment> listAssignmentsOfStaff = new ArrayList<Assignment>();
     private ArrayList<Assignment> listAssignmentsOfBatch = new ArrayList<Assignment>();
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
+    private StudentWorkDAO studentWorkDAO = new StudentWorkDAO();
     private Batch batchDetails = new Batch();
     private Assignment assignmentDetails = new Assignment();
     private static boolean haveAssignment = false;
@@ -104,6 +106,7 @@ public class AssignmentBean  implements Serializable {
     public String onRequestAssignment(Assignment assignment) {
         this.assignmentDetails = assignment;
         this.checkDueDate(assignment);
+
         return "assignmentDetails" + REDIRECT;
     }
 
@@ -134,11 +137,30 @@ public class AssignmentBean  implements Serializable {
 
     private void checkDueDate(Assignment assignment) {
         Date date = new Date();
-        if (date.before(assignment.getEndDate())) {
+        if (date.before(assignment.getEndDate()) || checkMarkToUpload(assignment)) {
             dueDate = true;
         } else {
             dueDate = false;
         }
+    }
+
+    private boolean checkMarkToUpload(Assignment assignment) {
+        boolean checkMarkToUpload = false;
+        try {
+            StudentWork studentWork = new StudentWork();
+            studentWork.setAssignment(assignment);
+            Student student = (Student) EachSession.getObjectFromSession("accountId");
+            if (student != null) {
+                studentWork.setStudent(student);
+                checkMarkToUpload = studentWorkDAO.checkMarkToUpload(studentWork);
+            }else{
+                checkMarkToUpload = false;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentBean.class.getName()).log(Level.SEVERE, null, ex);
+            checkMarkToUpload = false;
+        }
+        return checkMarkToUpload;
     }
 
     public String sendFeedBack() {
