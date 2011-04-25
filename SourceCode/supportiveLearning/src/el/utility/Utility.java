@@ -23,7 +23,7 @@ public class Utility {
             }
         }
         String result = name + b;
-        return result;
+        return result.toLowerCase();
     }
 
     public static Date sql2date(java.sql.Date date) {

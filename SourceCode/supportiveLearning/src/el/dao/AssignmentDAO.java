@@ -229,11 +229,57 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
         return assignments;
     }
 
-    public ArrayList<Assignment> getListAssignmentsByBatchId(int batchId) throws Exception {
+//    public ArrayList<Assignment> getListAssignmentsByBatchId(int batchId) throws Exception {
+//        ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+//
+//        Connection conn = null;
+//        String sql = "{call Sel_AssignmentsByBacthId (?)}";
+//        try {
+//            conn = getConnection();
+//            CallableStatement cstmt = null;
+//
+//            cstmt = conn.prepareCall(sql);
+//            cstmt.setInt(1, batchId);
+//            ResultSet rs = cstmt.executeQuery();
+//            while (rs.next()) {
+//                Assignment assignment = new Assignment();
+//                assignment.setId(rs.getInt("AssignmentId"));
+//                assignment.setName(rs.getString("AssignmentName"));
+//                assignment.setContent(rs.getString("AssignmentContent"));
+//                assignment.setFileUpload(rs.getString("AssignmentFile"));
+//                assignment.setStartDate(rs.getDate("StartDate"));
+//                assignment.setEndDate(rs.getDate("EndDate"));
+//                StaffDAO staffDAO = new StaffDAO();
+//                Staff s = new Staff();
+//                s.setId(rs.getInt("StaffId"));
+//                s = staffDAO.getObject(s);
+//                assignment.setStaff(s);
+//                SubjectDAO subjectDAO = new SubjectDAO();
+//                Subject subject = new Subject();
+//                subject.setId(rs.getInt("SubjectId"));
+//                subject = subjectDAO.getObject(subject);
+//                assignment.setSubject(subject);
+//                BatchDAO batchDAO = new BatchDAO();
+//                Batch batch = new Batch();
+//                batch.setId(rs.getInt("BatchId"));
+//                batch = batchDAO.getObject(batch);
+//                assignment.setBatch(batch);
+//                assignments.add(assignment);
+//            }
+//        } finally {
+//            if (conn != null) {
+//                conn.close();
+//            }
+//        }
+//
+//        return assignments;
+//    }
+
+ public ArrayList<Assignment> getListAssignmentsByBatchId(int batchId) throws Exception {
         ArrayList<Assignment> assignments = new ArrayList<Assignment>();
 
         Connection conn = null;
-        String sql = "{call Sel_AssignmentsByBacthId (?)}";
+        String sql = "{call Sel_AssignmentsByBacthIdOld (?)}";
         try {
             conn = getConnection();
             CallableStatement cstmt = null;
@@ -274,6 +320,7 @@ public class AssignmentDAO extends AbstractDAO<Assignment> {
 
         return assignments;
     }
+
     public ArrayList<Assignment> getListAssignmentsByBatchIdDueDate(int batchId) throws Exception {
         ArrayList<Assignment> assignments = new ArrayList<Assignment>();
 

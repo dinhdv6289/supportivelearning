@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author DINHDV
  */
-public class Account implements Serializable{
+public class Account implements Serializable {
 
     private int id;
     private String name;
@@ -24,6 +24,7 @@ public class Account implements Serializable{
     private String phone;
     private String email;
     private String address;
+    private boolean allowLogin;
 
     public Account() {
     }
@@ -118,5 +119,13 @@ public class Account implements Serializable{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public boolean isAllowLogin() {
+        return allowLogin;
+    }
+
+    public void setAllowLogin(boolean allowLogin) {
+        this.allowLogin = allowLogin;
     }
 }

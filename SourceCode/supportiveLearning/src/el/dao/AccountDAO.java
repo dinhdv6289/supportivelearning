@@ -61,6 +61,7 @@ public class AccountDAO extends AbstractDAO<Account> {
                 account1.setName(rs.getString("FullName"));
                 account1.setPassword(rs.getString("PassWord"));
                 account1.setPhone(rs.getString("Phone"));
+                account1.setAllowLogin(rs.getBoolean("AlowLogin"));
                 Role role = new Role();
                 role.setId(rs.getInt("RoleId"));
                 RoleDAO roleDAO = new RoleDAO();
