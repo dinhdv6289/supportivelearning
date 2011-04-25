@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.SelectEvent;
+import sl.utils.beans.MessagesService;
 import sl.utils.beans.UtilCheckLoginBean;
 
 /**
@@ -25,7 +26,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class StaffManagerBean extends UtilCheckLoginBean  implements Serializable {
+public class StaffManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private StaffDAO staffDAO = new StaffDAO();
     private Staff staff = new Staff();
@@ -38,6 +39,7 @@ public class StaffManagerBean extends UtilCheckLoginBean  implements Serializabl
     private static final String THISPAGE = "staffManager.jsf";
     private Batch batch = new Batch();
     private ArrayList<Batch> listBatchs = new ArrayList<Batch>();
+    private String repassword;
 
     public ArrayList<Batch> getListBatchs() {
         ArrayList<Batch> result = new ArrayList<Batch>();
@@ -48,6 +50,14 @@ public class StaffManagerBean extends UtilCheckLoginBean  implements Serializabl
             Logger.getLogger(StaffManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
     }
 
     public boolean isPanelGroupNewStaff() {
@@ -195,8 +205,7 @@ public class StaffManagerBean extends UtilCheckLoginBean  implements Serializabl
 
         return "staffdetails" + REDIRECT;
     }
-
-    private String strError ="";
+    private String strError = "";
 
     public String getStrError() {
         return strError;
@@ -205,24 +214,45 @@ public class StaffManagerBean extends UtilCheckLoginBean  implements Serializabl
     public String insertStaff() {
         strError = "";
         try {
-            int a = staffDAO.insertStaff(staff);
-            if (a == 1) {
-                //ok
-                this.setPanelGroupListStaffs(true);
-                this.setPanelGroupNewStaff(false);
-                listStaffs = staffDAO.list();
-                strError = "";
-                return THISPAGE + REDIRECT;
-            }
-            if (a == 2) {
-                strError = "Email is used";
-            }
-            if (a == 3) {
-                strError = "Username is used";
+            if (checkPassword(staff)) {
+                int a = staffDAO.insertStaff(staff);
+                if (a == 1) {
+                    //ok
+                    this.setPanelGroupListStaffs(true);
+                    this.setPanelGroupNewStaff(false);
+                    listStaffs = staffDAO.list();
+                    strError = "";
+                    return THISPAGE + REDIRECT;
+                }
+                if (a == 2) {
+                    strError = "Email is used";
+                }
+                if (a == 3) {
+                    strError = "Username is used";
+                }
+            } else {
+                strError = "The entered passwords do not match.";
+               // MessagesService.showMessage(strError);
             }
         } catch (Exception ex) {
             Logger.getLogger(StaffManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+          //  MessagesService.showMessage(ex.getMessage());
+            return null;
         }
         return null;
+    }
+
+    private boolean checkPassword(Staff staff) {
+        boolean flag = false;
+        if (repassword == null || repassword.length() == 0 || staff.getPassword() == null || staff.getPassword().length() == 0) {
+            flag = false;
+        } else {
+            if (repassword.equals(staff.getPassword())) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        }
+        return flag;
     }
 }

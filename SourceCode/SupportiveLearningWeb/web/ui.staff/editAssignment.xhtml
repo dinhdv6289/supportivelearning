@@ -67,6 +67,7 @@
                                    style="font-size: 14px">
                     </h:outputLabel>
                     <p:fileUpload fileUploadListener="#{assignmentManagerBean.handleFileUpload}"
+                                  sizeLimit="10000"
                                   update="errorr"
                                   allowTypes="*.txt;*.doc;*.pdf;"
                                   description="Text Documents"  />

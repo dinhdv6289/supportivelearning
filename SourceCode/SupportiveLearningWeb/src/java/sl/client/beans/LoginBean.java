@@ -16,12 +16,13 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import sl.utils.beans.SessionManager;
-import sl.utils.beans.UtilCheckLoginBean;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import sl.utils.beans.MessageBean;
 
 /**
  *
@@ -29,7 +30,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class LoginBean   implements Serializable {
+public class LoginBean implements Serializable {
 
     private Account account = new Account();
     private Student student = new Student();
@@ -47,6 +48,17 @@ public class LoginBean   implements Serializable {
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
+    }
+    
+    @ManagedProperty(value = "#{messageBean}")
+    private MessageBean messageBean;
+
+    public void setMessageBean(MessageBean messageBean) {
+        this.messageBean = messageBean;
+    }
+
+    public MessageBean getMessageBean() {
+        return messageBean;
     }
 
     @PostConstruct
@@ -125,42 +137,46 @@ public class LoginBean   implements Serializable {
         this.listBatchs = listBatchs;
     }
 
-    public void login() {
+    public String login() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
-        // String result = "";
+        String result = "";
         if (account != null) {
             try {
                 Account accountLogin = accountDAO.getObject(account);
                 if (accountLogin.getId() > 0) {
-                    account = accountLogin;
-                    setPanelHi(true);
-                    setPanelLogin(false);
-                    SessionManager.setSession("accountId", accountLogin.getId());
-                    updateStatusOnline(true, accountLogin.getId());
-                    if (accountLogin.getRole().getName().equals("Admin")) {
-                        response.sendRedirect("../ui.admin/index.jsf");
-                    } else if (accountLogin.getRole().getName().equals("Staff")) {
-                        loadListBatchs(accountLogin.getId());
-                        setPanelStaff(true);
-                        setPanelStudent(false);
-                        response.sendRedirect("../ui.staff/index.jsf");
-                    } else if (accountLogin.getRole().getName().equals("Student")){
-                        setPanelStaff(false);
-                        setPanelStudent(true);
-                        getStudentByAccount(accountLogin.getId());
-                        response.sendRedirect("../ui.client/index.jsf");
+                    if (!accountLogin.isAllowLogin()) {
+                        messageBean.setMessage("Your account is locked.");
+                        result = "../ui.client/messages.jsf";
+                    } else {
+                        account = accountLogin;
+                        setPanelHi(true);
+                        setPanelLogin(false);
+                        SessionManager.setSession("accountId", accountLogin.getId());
+                        updateStatusOnline(true, accountLogin.getId());
+                        if (accountLogin.getRole().getName().equals("Admin")) {
+                            result = "../ui.admin/index.jsf";
+                        } else if (accountLogin.getRole().getName().equals("Staff")) {
+                            loadListBatchs(accountLogin.getId());
+                            setPanelStaff(true);
+                            setPanelStudent(false);
+                            result = "../ui.staff/index.jsf";
+                        } else if (accountLogin.getRole().getName().equals("Student")) {
+                            setPanelStaff(false);
+                            setPanelStudent(true);
+                            getStudentByAccount(accountLogin.getId());
+                            result = "../ui.client/index.jsf";
+                        }
                     }
-                    //  result = this.getPageRequest();
-                }else{
-                        response.sendRedirect("../ui.client/index.jsf");
+                } else {
+                    response.sendRedirect("../ui.client/index.jsf");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
-                //  result = "";
+                result = "../ui.client/index.jsf";
             }
         }
-        // return result + REDIRECT;
+        return result + REDIRECT;
     }
 
     public String logout() {

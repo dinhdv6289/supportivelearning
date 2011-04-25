@@ -6,10 +6,10 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
         <p:panel header="Update Student">
-            <p:messages/>
+            <p:messages />
             <strong>You must enter full information.</strong>
             <br/>
-            <h:panelGrid id="panelGrid_add" columns="2" cellpadding="9" cellspacing="9">
+            <h:panelGrid id="panelGrid_update" columns="2" cellpadding="9" cellspacing="9">
                 <h:outputLabel value="FullName: " for="name"></h:outputLabel>
                 <p:inputText id="name"
                              value="#{studentManagerBean.selectedStudent.name}"

@@ -457,22 +457,22 @@ public class StudentManagerBean extends UtilCheckLoginBean implements Serializab
                 if (result > 0) {
                     changeListStudentsHaveBatch();
                     changeListStudentsIsNotHaveBatch();
-                    MessagesService.showMessage("changeLearning Success!");
+                    MessagesService.showMessage("changeLearning success!");
                     this.setPanelGroupChangeLearning(false);
                     this.setPanelGroupHaveBatch(true);
                     return "studentManager.jsf" + REDIRECT;
                 } else {
                     MessagesService.showMessage("changeLearning  failure!");
-                    return "changeLearning.jsf" + REDIRECT;
+                    return null;
                 }
             } else {
                 MessagesService.showMessage("Move to Batch failure!");
-                return "changeLearning.jsf" + REDIRECT;
+                return null;
             }
 
         } catch (Exception ex) {
             Logger.getLogger(StudentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-            return "changeLearning.jsf" + REDIRECT;
+            return null;
         }
 
     }

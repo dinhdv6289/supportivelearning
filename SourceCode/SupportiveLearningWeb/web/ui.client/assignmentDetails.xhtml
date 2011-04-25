@@ -10,75 +10,68 @@
 
     <ui:define name="title">Assignment </ui:define>
     <ui:define name="content">
-        <!-- Assignment Block Starts Here -->
-        <div class="content-block">
-            <div class="content-block-top"></div>
-            <div class="content-block-bottom">
-                <p:fieldset legend="Assignment #{assignmentBean.assignmentDetails.subject.name}"
-                            toggleable="true"
-                            toggleSpeed="500">
-                    <h:form>
-                        <h4 class="style9">
-                            <img width="315" height="70" src=""/>
-                        </h4>
-                        <h4 class="style9">
-                            <span class="style7"></span>
-                        </h4>
-                        <p>
-                            <!--                                    <span class="style11">
-                                                                </span>
-                                                                <span class="style10"></span><br/>-->
-                            <strong>Assignment Name: #{assignmentBean.assignmentDetails.name}</strong><br/>
-                            -Start date:
-                            <h:outputText value="#{assignmentBean.assignmentDetails.startDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy"
-                                                   locale="#{converterBean.strLocale}"
-                                                   timeZone="#{converterBean.timezone}"/>
-                            </h:outputText><br/>
-                            -End date:
-                            <h:outputText style="color: red" value="#{assignmentBean.assignmentDetails.endDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy"
-                                                   locale="#{converterBean.strLocale}"
-                                                   timeZone="#{converterBean.timezone}"/>
-                            </h:outputText><br/>
-                            -File upload: 
-                            <a href="#{request.contextPath}/#{assignmentBean.assignmentDetails.fileUpload}">
-                                <p:graphicImage value="/images/download.gif"/>
-                            </a>
-                            <br/>
-                        </p>
-                        <p>
-                            <span class="style10"></span>
-                            <br/>
-                            <strong></strong>
-                        </p>
-                        <p>
-                            <br/>
-                        </p>
+        <p:fieldset legend="Subject: #{assignmentBean.assignmentDetails.subject.name}"
+                    toggleable="true"
+                    toggleSpeed="500"
+                    style="background:#fefefe;border: #008000">
+            <h:form>
+                <h4 class="style9">
+                    <img width="315" height="70" src=""/>
+                </h4>
+                <h4 class="style9">
+                    <span class="style7"></span>
+                </h4>
+                <p>
+                    <!--                                    <span class="style11">
+                                                        </span>
+                                                        <span class="style10"></span><br/>-->
+                    <strong>Assignment Name: #{assignmentBean.assignmentDetails.name}</strong><br/>
+                    -Start date:
+                    <h:outputText value="#{assignmentBean.assignmentDetails.startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy"
+                                           locale="#{converterBean.strLocale}"
+                                           timeZone="#{converterBean.timezone}"/>
+                    </h:outputText><br/>
+                    -End date:
+                    <h:outputText style="color: red" value="#{assignmentBean.assignmentDetails.endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy"
+                                           locale="#{converterBean.strLocale}"
+                                           timeZone="#{converterBean.timezone}"/>
+                    </h:outputText><br/>
+                    -File upload:
+                    <a href="#{request.contextPath}/#{assignmentBean.assignmentDetails.fileUpload}">
+                        <p:graphicImage value="/images/download.gif"/>
+                    </a>
+                    <br/>
+                </p>
+                <p>
+                    <span class="style10"></span>
+                    <br/>
+                    <strong></strong>
+                </p>
+                <p>
+                    <br/>
+                </p>
 
-                    </h:form>
-                </p:fieldset>
-            </div>
-        </div>
-        <!-- Assignment Block Ends Here -->
+            </h:form>
+        </p:fieldset>
 
         <h:panelGroup rendered="#{assignmentBean.dueDate}">
-            <!-- In due Date Block Starts Here -->
-            <div class="content-block">
-                <div class="content-block-top"></div>
-                <div class="content-block-bottom">
-                    <h4>Upload assignment</h4>
-                    <h:form enctype="multipart/form-data">
-                        <p:growl id="messages" showDetail="true"/>
-                        <p:fileUpload fileUploadListener="#{studentWorkBean.handleFileUpload}"
-                                      update="messages"
-                                      allowTypes="*.txt;*.doc;*.pdf;"
-                                      description="Text Documents">
-                        </p:fileUpload>
-                    </h:form>
-                </div>
-            </div>
-            <!-- In due Date Block Ends Here -->
+            <br/>
+            <p:fieldset legend="Upload assignment"
+                        toggleable="true"
+                        toggleSpeed="500"
+                        style="background:#fefefe;border: #008000">
+                <h:form enctype="multipart/form-data">
+                    <p:growl id="messages"/>
+                    <p:fileUpload fileUploadListener="#{studentWorkBean.handleFileUpload}"
+                                  sizeLimit="10000"
+                                  update="messages"
+                                  allowTypes="*.txt;*.doc;*.pdf;"
+                                  description="Text Documents">
+                    </p:fileUpload>
+                </h:form>
+            </p:fieldset>
         </h:panelGroup>
     </ui:define>
 </ui:composition>

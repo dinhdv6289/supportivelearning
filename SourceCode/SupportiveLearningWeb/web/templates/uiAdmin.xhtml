@@ -41,16 +41,16 @@
                     <div id="sidearea">
                         <!-- Login Block Starts -->
                         <div class="sblock1">
-
                             <h:panelGroup rendered="#{loginBean.panelHi}" id="panelGroup_hi" >
                                 <!-- Login Block Starts Here -->
                                 <div class="sblock">
                                     <div class="sblock1-top">Welcome!</div>
                                     <div class="sblock1-bottom">
-                                        <h:form id="form_hi" prependId="false">
+                                        <h:form id="form_hiff" prependId="false">
                                             <p>
-                                                <h:outputLabel style=" padding-left: 15px; color: #008000;font-size: 14px" value="#{loginBean.account.name}" />
-
+                                                <h:outputLabel style=" padding-left: 15px; color: #008000;font-size: 14px"
+                                                               value="#{loginBean.account.name}">
+                                                </h:outputLabel>
                                             </p>
                                             <p>
                                             </p>
@@ -72,13 +72,11 @@
                         <div class="sblock1">
                             <div class="sblock1-top">Themes</div>
                             <div class="sblock1-bottom">
-
                                 <p>
                                     <h:form>
-                                    <ui:include src="themeMenu.xhtml" />
+                                        <ui:include src="themeMenu.xhtml" />
                                     </h:form>
                                 </p>
-
                             </div>
                         </div>
                     </div>
@@ -97,11 +95,17 @@
                 <!-- Footer Starts -->
                 <div id="footer">
                     <p class="floatleft"> <a href=""></a></p>
-                    <p class="floatright"><a href="#"></a>    <a href="#"></a>    <a href="#"></a></p>
+                    <p class="floatright">
+                        <a href="#">
+                        </a>
+                        <a href="#"></a>
+                        <a href="#"></a>
+                    </p>
                 </div>
                 <!-- Footer Ends -->
             </div>
             <!-- Footer Outer Ends -->
         </h:body>
+
     </f:view>
 </html>

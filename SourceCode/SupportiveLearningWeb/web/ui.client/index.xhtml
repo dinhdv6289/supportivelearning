@@ -65,10 +65,10 @@
             <div class="content-block-bottom">
                 <h4>Site news!</h4>
                 <h:form>
-                    <c:if test="#{newsBean.listNews == null}">
+                    <c:if test="#{empty newsBean.listNews}">
                         Not have news
                     </c:if>
-                    <c:if test="#{newsBean.listNews != null}">
+                    <c:if test="#{ !empty newsBean.listNews}">
                         <c:forEach var="newsItem" items="#{newsBean.listNews}" varStatus="newsStatus">
                             <p:fieldset legend="#{newsItem.title}" >
                                 <h:panelGrid columns="3" cellpadding="10">

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
@@ -28,7 +28,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  * @author HIEUTT
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class NewsManagedBean extends UtilCheckLoginBean implements Serializable {
 
     private ArrayList<News> listNews;
@@ -46,9 +46,9 @@ public class NewsManagedBean extends UtilCheckLoginBean implements Serializable 
     /** Creates a new instance of NewsManagedBean */
     public NewsManagedBean() {
         super();
-//        panelGroupListNews = true;
-//        panelGroupCreateNews = false;
-//        panelGroupUpdateNews = false;
+        panelGroupListNews = true;
+        panelGroupCreateNews = false;
+        panelGroupUpdateNews = false;
     }
 
     /**

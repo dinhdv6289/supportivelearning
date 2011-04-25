@@ -20,7 +20,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class NewsBean   implements Serializable {
+public class NewsBean implements Serializable {
 
     private News news = new News();
     private ArrayList<News> listNews = new ArrayList<News>();
@@ -31,7 +31,7 @@ public class NewsBean   implements Serializable {
 
     /** Creates a new instance of NewsBean */
     public NewsBean() {
-      //  super();
+        //  super();
         loadListNews();
         loadTop3News();
     }
@@ -81,7 +81,7 @@ public class NewsBean   implements Serializable {
         try {
             News object = newsDAO.getObject(news);
             this.setNews(object);
-            return "ui.client/moreNews.jsf" + REDIRECT;
+            return "/ui.client/moreNews.jsf" + REDIRECT;
         } catch (Exception ex) {
             Logger.getLogger(NewsBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;

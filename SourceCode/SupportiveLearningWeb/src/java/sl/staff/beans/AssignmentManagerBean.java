@@ -24,7 +24,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FileUploadEvent;
-import sl.utils.beans.LoginService;
 import sl.utils.beans.MessagesService;
 import sl.utils.beans.SessionManager;
 import sl.utils.beans.UtilCheckLoginBean;
@@ -225,8 +224,6 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
         this.listAssignmentsStaff = listAssignmentsStaff;
     }
 
-
-
     public String onRequestBatchToStaff(Batch batch) {
         try {
             listAssignmentsUploadByStaff = assignmentDAO.getListAssignmentsByBatchId(batch.getId());
@@ -253,9 +250,18 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
             return null;
         }
     }
-    public ArrayList<Assignment> listAssignmentsOfBatchInDueDate(Batch batch) {
+
+    public ArrayList<Assignment> listAssignmentsOfBatchDueDate(Batch batch) {
         try {
-            return assignmentDAO.getListAssignmentsByBatchIdDueDate(batch.getId());
+            return assignmentDAO.getListAssignmentsDueDate(staff.getId(),batch.getId());
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    public ArrayList<Assignment> listAssignmentsOfBatchOld(Batch batch) {
+        try {
+            return assignmentDAO.getListAssignmentsOld(staff.getId(),batch.getId());
         } catch (Exception ex) {
             Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -268,7 +274,7 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
 
         } catch (Exception ex) {
             Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         return listAssignmentsOfBatchInDueDate;
     }
 
@@ -276,34 +282,35 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
         this.listAssignmentsOfBatchInDueDate = listAssignmentsOfBatchInDueDate;
     }
 
-
-
     /** Creates a new instance of FileUploadController */
     public void handleFileUpload(FileUploadEvent event) {
         this.setFileUpload("");
         ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
         File result = new File(extContext.getRealPath("/documents/assignmentFiles") + "//" + event.getFile().getFileName());
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(result);
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int bulk;
-            InputStream inputStream = event.getFile().getInputstream();
-            while (true) {
-                bulk = inputStream.read(buffer);
-                if (bulk < 0) {
-                    break;
+        if (!result.exists()) {
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(result);
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bulk;
+                InputStream inputStream = event.getFile().getInputstream();
+                while (true) {
+                    bulk = inputStream.read(buffer);
+                    if (bulk < 0) {
+                        break;
+                    }
+                    fileOutputStream.write(buffer, 0, bulk);
+                    fileOutputStream.flush();
                 }
-                fileOutputStream.write(buffer, 0, bulk);
-                fileOutputStream.flush();
+                fileOutputStream.close();
+                inputStream.close();
+                this.setFileUpload("documents/assignmentFiles/" + event.getFile().getFileName());
+
+            } catch (IOException e) {
+                MessagesService.showMessage("The files were not uploaded!");
+                e.printStackTrace();
             }
-            fileOutputStream.close();
-            inputStream.close();
-            this.setFileUpload("documents/assignmentFiles/" + event.getFile().getFileName());
-
-        } catch (IOException e) {
-            MessagesService.showMessage("The files were not uploaded!");
-            e.printStackTrace();
-
+        } else {
+            MessagesService.showMessage(event.getFile().getFileName() + " is exists.");
         }
     }
 

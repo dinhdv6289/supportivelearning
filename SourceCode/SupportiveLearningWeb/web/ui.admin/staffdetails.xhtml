@@ -10,29 +10,28 @@
 
     <ui:define name="title">Staff Details </ui:define>
     <ui:define name="content">
-       
-        <h:body>
-            <h:form prependId="false">
-                <p:dataTable var="item"
-                             value="#{staffManagerBean.listBatchsOfstaff(staffManagerBean.selectedstaff.id)}"
-                             paginator="true"
-                             rows="10"
-                             selectionMode="single"
-                             selection="#{staffManagerBean.batch}"
-                             id="batchofstaff">
-                    <f:facet name="header">
-                        <p:commandButton id="btn_insert_staff_and_batch"
-                                         value="Add new batch"
-                                         type="button" >
-                        </p:commandButton>
-                        <p:menu widgetVar="themeMenu"
-                                my="left top"
-                                at="left bottom"
-                                trigger="btn_insert_staff_and_batch"
-                                position="dynamic"
-                                styleClass="themeMenu"
-                                id="menu_batch">
-                            <p:submenu label="Batchs">
+        <h:form>
+            <p:dataTable var="item"
+                         value="#{staffManagerBean.listBatchsOfstaff(staffManagerBean.selectedstaff.id)}"
+                         paginator="true"
+                         rows="10"
+                         selectionMode="single"
+                         selection="#{staffManagerBean.batch}"
+                         id="batchofstaff">
+                <f:facet name="header">
+                    <p:commandButton id="btn_insert_staff_and_batch"
+                                     value="Add new batch"
+                                     type="button" >
+                    </p:commandButton>
+                    <p:menu widgetVar="themeMenu"
+                            my="left top"
+                            at="left bottom"
+                            trigger="btn_insert_staff_and_batch"
+                            position="dynamic"
+                            styleClass="themeMenu"
+                            id="menu_batch">
+                        <p:submenu label="Batchs">
+                            <h:form>
                                 <c:forEach var="item" items="#{staffManagerBean.listBatchs}" >
                                     <p:menuitem value="#{item.name}" ajax="false" action="#{staffManagerBean.insertStaffAndBatch}" update="batchofstaff">
                                         <f:setPropertyActionListener value="#{item}"
@@ -40,17 +39,15 @@
                                         </f:setPropertyActionListener>
                                     </p:menuitem>
                                 </c:forEach>
-                            </p:submenu>
-                        </p:menu>
-                    </f:facet>
-                    <p:column headerText="Batch Name">
-                        <h:outputText value="#{item.name}" />
-                    </p:column>
-                    
-
-                </p:dataTable>
-            </h:form>
-        </h:body>
+                            </h:form>
+                        </p:submenu>
+                    </p:menu>
+                </f:facet>
+                <p:column headerText="Batch Name">
+                    <h:outputText value="#{item.name}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>
 

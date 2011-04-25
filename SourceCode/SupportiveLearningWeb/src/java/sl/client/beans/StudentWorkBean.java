@@ -37,7 +37,6 @@ import org.primefaces.event.FileUploadEvent;
 import sl.utils.beans.EachSession;
 import sl.utils.beans.LoginService;
 import sl.utils.beans.MessagesService;
-import sl.utils.beans.UtilCheckLoginBean;
 
 /**
  *
@@ -45,7 +44,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class StudentWorkBean  implements Serializable {
+public class StudentWorkBean implements Serializable {
 
     private Student student = new Student();
     private StudentWork studentWork = new StudentWork();
@@ -215,32 +214,35 @@ public class StudentWorkBean  implements Serializable {
     /** Creates a new instance of FileUploadController */
     public void handleFileUpload(FileUploadEvent event) {
         ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
-        File result = new File(extContext.getRealPath("/documents/assignmentFiles") + "//" + event.getFile().getFileName());
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(result);
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int bulk;
-            InputStream inputStream = event.getFile().getInputstream();
-            while (true) {
-                bulk = inputStream.read(buffer);
-                if (bulk < 0) {
-                    break;
+        File result = new File(extContext.getRealPath("/documents/studentswork") + "//" + event.getFile().getFileName());
+        if (!result.exists()) {
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(result);
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bulk;
+                InputStream inputStream = event.getFile().getInputstream();
+                while (true) {
+                    bulk = inputStream.read(buffer);
+                    if (bulk < 0) {
+                        break;
+                    }
+                    fileOutputStream.write(buffer, 0, bulk);
+                    fileOutputStream.flush();
                 }
-                fileOutputStream.write(buffer, 0, bulk);
-                fileOutputStream.flush();
+                fileOutputStream.close();
+                inputStream.close();
+                int uploadFile = uploadFile("documents/studentswork/" + event.getFile().getFileName());
+                if (uploadFile > 0) {
+                    MessagesService.showMessage("Succesful " + event.getFile().getFileName() + "is uploaded.");
+                } else {
+                    MessagesService.showMessage("Upload " + event.getFile().getFileName() + "is failure.");
+                }
+            } catch (IOException e) {
+                MessagesService.showMessage("The files were not uploaded!");
+                e.printStackTrace();
             }
-            fileOutputStream.close();
-            inputStream.close();
-            int uploadFile = uploadFile("documents/assignmentFiles/" + event.getFile().getFileName());
-            if (uploadFile > 0) {
-                MessagesService.showMessage("Succesful " + event.getFile().getFileName() + "is uploaded.");
-            } else {
-                MessagesService.showMessage("Upload " + event.getFile().getFileName() + "is failure.");
-            }
-        } catch (IOException e) {
-            MessagesService.showMessage("The files were not uploaded!");
-            e.printStackTrace();
-
+        } else {
+            MessagesService.showMessage("Upload " + event.getFile().getFileName() + " is  exists.");
         }
     }
 
