@@ -38,10 +38,41 @@ public class AssignmentBean implements Serializable {
     private static boolean notHaveAssignment = false;
     private static final String REDIRECT = "?faces-redirect=true";
     private static boolean dueDate = false;
+//    private static boolean latestAssignments = false;
+//    private static boolean oldAssignments = false;
+    private ArrayList<Assignment> listAssignmentsOfBatchInDueDate;
 
     /** Creates a new instance of AssignmentBean */
     public AssignmentBean() {
+//        latestAssignments = true;
+//        oldAssignments = false;
     }
+
+//    public boolean isLatestAssignments() {
+//        return latestAssignments;
+//    }
+//
+//    public void setLatestAssignments(boolean latestAssignments) {
+//        AssignmentBean.latestAssignments = latestAssignments;
+//    }
+//
+//    public void onRequestActiveTabView() {
+//        if (latestAssignments) {
+//            latestAssignments = false;
+//            oldAssignments = true;
+//        } else {
+//            latestAssignments = true;
+//            oldAssignments = false;
+//        }
+//    }
+//
+//    public boolean isOldAssignments() {
+//        return oldAssignments;
+//    }
+//
+//    public void setOldAssignments(boolean oldAssignments) {
+//        AssignmentBean.oldAssignments = oldAssignments;
+//    }
 
     public Batch getBatchDetails() {
         return batchDetails;
@@ -110,12 +141,21 @@ public class AssignmentBean implements Serializable {
         return "assignmentDetails" + REDIRECT;
     }
 
+    public ArrayList<Assignment> getListAssignmentsOfBatchInDueDate() {
+        return listAssignmentsOfBatchInDueDate;
+    }
+
+    public void setListAssignmentsOfBatchInDueDate(ArrayList<Assignment> listAssignmentsOfBatchInDueDate) {
+        this.listAssignmentsOfBatchInDueDate = listAssignmentsOfBatchInDueDate;
+    }
+
     private void loadListAssignmentsOfBatch() {
         try {
             Student student = (Student) EachSession.getObjectFromSession("accountId");
             if (student != null) {
                 this.listAssignmentsOfBatch = assignmentDAO.getListAssignmentsByBatchId(student.getBatch().getId());
-                if (listAssignmentsOfBatch.size() > 0) {
+                this.listAssignmentsOfBatchInDueDate = assignmentDAO.getListAssignmentsByBatchIdDueDate(student.getBatch().getId());
+                if (listAssignmentsOfBatch.size() > 0 || listAssignmentsOfBatchInDueDate.size() > 0) {
                     haveAssignment = true;
                     notHaveAssignment = false;
                 } else {
@@ -153,7 +193,7 @@ public class AssignmentBean implements Serializable {
             if (student != null) {
                 studentWork.setStudent(student);
                 checkMarkToUpload = studentWorkDAO.checkMarkToUpload(studentWork);
-            }else{
+            } else {
                 checkMarkToUpload = false;
             }
         } catch (Exception ex) {

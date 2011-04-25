@@ -14,11 +14,12 @@
                      rowsPerPageTemplate="5,10,15"
                      selection="#{studentManagerBean.selectedStudent}"
                      selectionMode="single"
-                     rowSelectListener="#{studentManagerBean.onRequestPanelGroupChangeLearning(true)}"
-                     style="margin-top:25px"
-                     dblClickSelect="true">
+                     style="margin-top:25px">
             <f:facet name="header">
-                Double click selecting a row to Change Learning
+                <p:commandButton ajax="false"
+                                 value="Change learning"
+                                 action="#{studentManagerBean.onRequestPanelGroupChangeLearning(true)}"   >
+                </p:commandButton>
             </f:facet>
             <p:column headerText="Batch">
                 <h:outputText value="#{student.batch.name}" />

@@ -39,32 +39,6 @@
             <p:column headerText="Date">
                 <h:outputText value="#{student.dateCreate}" />
             </p:column>
-
-            <f:facet name="footer">
-                <p:commandButton id="btn_move_to_batch"
-                                 value="Move to batch"
-                                 type="button" >
-                </p:commandButton>
-                <p:menu widgetVar="themeMenu"
-                        my="left top"
-                        at="left bottom"
-                        trigger="btn_move_to_batch"
-                        position="dynamic"
-                        styleClass="themeMenu">
-                    <p:submenu label="Batchs">
-                        <c:forEach var="item" items="#{batchManagerBean.listBatchs}" >
-                            <p:menuitem value="#{item.name}"
-                                        ajax="false"
-                                        action="#{studentManagerBean.addStudentsToBatch}"
-                                        update="table_student_is_have_not_batch">
-                                <f:setPropertyActionListener value="#{item}"
-                                                             target="#{studentManagerBean.selectedBatch}">
-                                </f:setPropertyActionListener>
-                            </p:menuitem>
-                        </c:forEach>
-                    </p:submenu>
-                </p:menu>
-            </f:facet>
         </p:dataTable>
     </h:form>
 </ui:composition>

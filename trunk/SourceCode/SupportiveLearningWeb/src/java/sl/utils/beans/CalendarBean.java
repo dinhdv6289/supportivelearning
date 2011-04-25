@@ -38,6 +38,8 @@ public class CalendarBean  implements Serializable {
     private Date date4;
     private Date date5;
     private Date date6;
+    private Date maxDate;
+    private Date minDate;
     private Date[] dates;
 
     public Date getDate1() {
@@ -129,4 +131,22 @@ public class CalendarBean  implements Serializable {
     public TimeZone getTimeZone() {
         return TimeZone.getDefault();
     }
+
+    public Date getMaxDate() {
+        return maxDate = new Date();
+    }
+
+    public void setMaxDate(Date maxDate) {
+        this.maxDate = maxDate;
+    }
+
+    public Date getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(Date minDate) {
+        this.minDate = minDate;
+    }
+
+
 }

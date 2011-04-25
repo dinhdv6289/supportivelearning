@@ -8,12 +8,14 @@
         <p:panel header="New Staff">
             <h:panelGrid id="panelGrid_Error">
                 <h:outputText value="#{staffManagerBean.strError}"
-                              style="color: red;"></h:outputText>
+                              style="color: red;">
+                </h:outputText>
                 <p:messages/>
             </h:panelGrid>
             <h:panelGrid id="panelGrid_add" columns="2" cellpadding="20">
                 <h:outputLabel value="UserName:"></h:outputLabel>
-                <p:inputText id="username" value="#{staffManagerBean.staff.userName}"
+                <p:inputText id="username"
+                             value="#{staffManagerBean.staff.userName}"
                              required="true"
                              requiredMessage="Username is not null!"></p:inputText>
 
@@ -22,28 +24,39 @@
                             required="true"
                             feedback="true"
                             minLength="4"
-                            requiredMessage="Password is not null!"
-                            validator="#{validation.validateFieldPassword}"></p:password>
+                            requiredMessage="Password is not null!">
+                </p:password>
 
                 <h:outputLabel value="Confirm Password:"></h:outputLabel>
                 <p:password id="cpassword"
+                            value="#{staffManagerBean.repassword}"
                             required="true"
                             feedback="true"
                             minLength="4"
-                            requiredMessage="Confirm Password is not null!"
-                            validator="#{validation.validateFieldPassword}"></p:password>
+                            requiredMessage="Confirm Password is not null!">
+                </p:password>
 
                 <h:outputLabel value="FullName:"></h:outputLabel>
-                <p:inputText id="name" value="#{staffManagerBean.staff.name}"
+                <p:inputText id="name"
+                             value="#{staffManagerBean.staff.name}"
                              required="true"
                              requiredMessage="Fullname is not null!"></p:inputText>
 
 
                 <h:outputLabel value="BirhDay:"></h:outputLabel>
-                <p:calendar value="#{staffManagerBean.staff.birthDay}"></p:calendar>
+                <p:calendar value="#{staffManagerBean.staff.birthDay}"
+                            pattern="MM/dd/yyyy"
+                            navigator="true"
+                            maxdate="#{calendarBean.maxDate}"
+                            mindate="01/01/1900"
+                            required="true"
+                            requiredMessage="Birth day is not null.">
+                </p:calendar>
 
                 <h:outputLabel value="Phone:"></h:outputLabel>
-                <p:inputText id="phone" value="#{staffManagerBean.staff.phone}"></p:inputText>
+                <p:inputText id="phone" 
+                             value="#{staffManagerBean.staff.phone}">
+                </p:inputText>
 
                 <h:outputLabel value="Gender:"></h:outputLabel>
                 <h:selectOneMenu id="gender" value="#{staffManagerBean.staff.gender}">
@@ -53,16 +66,22 @@
 
 
                 <h:outputLabel value="Email:"></h:outputLabel>
-                <p:inputText id="email" value="#{staffManagerBean.staff.email}"
+                <p:inputText id="email"
+                             value="#{staffManagerBean.staff.email}"
                              required="true"
                              requiredMessage="Email is not null !"
                              validator="#{validation.validateEmail}">
                 </p:inputText>
 
                 <h:outputLabel value="Address:"></h:outputLabel>
-                <p:inputTextarea id="address" value="#{staffManagerBean.staff.address}" style="width: 400px;"></p:inputTextarea>
+                <p:inputTextarea id="address"
+                                 value="#{staffManagerBean.staff.address}"
+                                 style="width: 400px;">
+                </p:inputTextarea>
 
-                <p:commandButton value="Save" ajax="false" action="#{staffManagerBean.insertStaff}">
+                <p:commandButton value="Save"
+                                 ajax="false"
+                                 action="#{staffManagerBean.insertStaff}">
                 </p:commandButton>
             </h:panelGrid>
         </p:panel>
