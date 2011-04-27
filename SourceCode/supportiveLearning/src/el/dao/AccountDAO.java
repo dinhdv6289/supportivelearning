@@ -9,6 +9,7 @@ import el.model.Role;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -193,6 +194,184 @@ public class AccountDAO extends AbstractDAO<Account> {
             ps.setBoolean(2, isLogin);
 
             a = ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return a == 1 ? true : false;
+    }
+
+    public ArrayList<Account> listAccountRoleStudent() throws Exception {
+        ArrayList<Account> accounts = new ArrayList<Account>();
+        Connection conn = null;
+        String sql = "{call Sel_AccountsToProcess (?,?)}";
+        try {
+            CallableStatement cstmt = null;
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, 2);
+            cstmt.setBoolean(2, true);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                Account account1 = new Account();
+                account1.setAddress(rs.getString("Address"));
+                account1.setBirthDay(rs.getDate("BirthDay"));
+                account1.setDateCreate(rs.getDate("DateCreation"));
+                account1.setEmail(rs.getString("Email"));
+                account1.setGender(rs.getBoolean("Gender"));
+                account1.setId(rs.getInt("AccountId"));
+                account1.setName(rs.getString("FullName"));
+                account1.setPassword(rs.getString("PassWord"));
+                account1.setPhone(rs.getString("Phone"));
+                account1.setAllowLogin(rs.getBoolean("AlowLogin"));
+                Role role = new Role();
+                role.setId(rs.getInt("RoleId"));
+                RoleDAO roleDAO = new RoleDAO();
+                role = roleDAO.getObject(role);
+                account1.setRole(role);
+                account1.setUserName(rs.getString("UserName"));
+                accounts.add(account1);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return accounts;
+    }
+
+    public ArrayList<Account> listAccountRoleStaff() throws Exception {
+        ArrayList<Account> accounts = new ArrayList<Account>();
+        Connection conn = null;
+        String sql = "{call Sel_AccountsToProcess (?,?)}";
+        try {
+            CallableStatement cstmt = null;
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, 3);
+            cstmt.setBoolean(2, true);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                Account account1 = new Account();
+                account1.setAddress(rs.getString("Address"));
+                account1.setBirthDay(rs.getDate("BirthDay"));
+                account1.setDateCreate(rs.getDate("DateCreation"));
+                account1.setEmail(rs.getString("Email"));
+                account1.setGender(rs.getBoolean("Gender"));
+                account1.setId(rs.getInt("AccountId"));
+                account1.setName(rs.getString("FullName"));
+                account1.setPassword(rs.getString("PassWord"));
+                account1.setPhone(rs.getString("Phone"));
+                account1.setAllowLogin(rs.getBoolean("AlowLogin"));
+                Role role = new Role();
+                role.setId(rs.getInt("RoleId"));
+                RoleDAO roleDAO = new RoleDAO();
+                role = roleDAO.getObject(role);
+                account1.setRole(role);
+                account1.setUserName(rs.getString("UserName"));
+                accounts.add(account1);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return accounts;
+    }
+
+
+   public ArrayList<Account> listAccountRoleStudentLocked() throws Exception {
+        ArrayList<Account> accounts = new ArrayList<Account>();
+        Connection conn = null;
+        String sql = "{call Sel_AccountsToProcess (?,?)}";
+        try {
+            CallableStatement cstmt = null;
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, 2);
+            cstmt.setBoolean(2, false);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                Account account1 = new Account();
+                account1.setAddress(rs.getString("Address"));
+                account1.setBirthDay(rs.getDate("BirthDay"));
+                account1.setDateCreate(rs.getDate("DateCreation"));
+                account1.setEmail(rs.getString("Email"));
+                account1.setGender(rs.getBoolean("Gender"));
+                account1.setId(rs.getInt("AccountId"));
+                account1.setName(rs.getString("FullName"));
+                account1.setPassword(rs.getString("PassWord"));
+                account1.setPhone(rs.getString("Phone"));
+                account1.setAllowLogin(rs.getBoolean("AlowLogin"));
+                Role role = new Role();
+                role.setId(rs.getInt("RoleId"));
+                RoleDAO roleDAO = new RoleDAO();
+                role = roleDAO.getObject(role);
+                account1.setRole(role);
+                account1.setUserName(rs.getString("UserName"));
+                accounts.add(account1);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return accounts;
+    }
+
+    public ArrayList<Account> listAccountRoleStaffLocked() throws Exception {
+        ArrayList<Account> accounts = new ArrayList<Account>();
+        Connection conn = null;
+        String sql = "{call Sel_AccountsToProcess (?,?)}";
+        try {
+            CallableStatement cstmt = null;
+            conn = getConnection();
+            cstmt = conn.prepareCall(sql);
+            cstmt.setInt(1, 3);
+            cstmt.setBoolean(2, false);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                Account account1 = new Account();
+                account1.setAddress(rs.getString("Address"));
+                account1.setBirthDay(rs.getDate("BirthDay"));
+                account1.setDateCreate(rs.getDate("DateCreation"));
+                account1.setEmail(rs.getString("Email"));
+                account1.setGender(rs.getBoolean("Gender"));
+                account1.setId(rs.getInt("AccountId"));
+                account1.setName(rs.getString("FullName"));
+                account1.setPassword(rs.getString("PassWord"));
+                account1.setPhone(rs.getString("Phone"));
+                account1.setAllowLogin(rs.getBoolean("AlowLogin"));
+                Role role = new Role();
+                role.setId(rs.getInt("RoleId"));
+                RoleDAO roleDAO = new RoleDAO();
+                role = roleDAO.getObject(role);
+                account1.setRole(role);
+                account1.setUserName(rs.getString("UserName"));
+                accounts.add(account1);
+            }
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return accounts;
+    }
+
+
+    public boolean lockAccount(int accountId, boolean status) throws SQLException {
+        String sql = "{call LockAccount (?, ?)}";
+        Connection conn = null;
+        int a = 0;
+        try {
+            conn = getConnection();
+            CallableStatement stmt = conn.prepareCall(sql);
+            stmt.setInt(1, accountId);
+            stmt.setBoolean(2, status);
+            a = stmt.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
