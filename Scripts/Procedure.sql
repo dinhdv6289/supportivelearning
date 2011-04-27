@@ -920,3 +920,159 @@ end
 GO 
 
 select * from staff
+
+go
+
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AllStudent' AND TYPE = 'P')
+DROP PROC Sel_AllStudent
+GO
+CREATE PROCEDURE Sel_AllStudent
+AS BEGIN
+SELECT     Account.AccountId, Account.RoleId, Account.FullName, Account.BirthDay, Account.Gender, Account.Phone, Account.Email, Account.Address, Student.StudentId, 
+                      Student.RollNumber,  Account.DateCreation,Student.BatchId
+FROM         Account INNER JOIN
+                      Student ON Account.AccountId = Student.AccountId
+order by Student.BatchId
+end
+go
+
+
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Udp_StudentById' AND TYPE = 'P')
+DROP PROC Udp_StudentById
+GO
+CREATE PROCEDURE Udp_StudentById
+@FullName nvarchar(100),
+@BirthDay datetime,
+@Gender BIT,
+@Phone  nvarchar(50),
+@Email  nvarchar(100),
+@Address nvarchar(200),
+@AccountId  int
+AS BEGIN
+UPDATE Account set FullName = @FullName,BirthDay = @BirthDay ,Gender = @Gender,
+Phone = @Phone, Email= @Email,Address = @Address
+WHERE  AccountId = @AccountId
+end
+go
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AssignmentsByBacthIdDueDate' AND TYPE = 'P')
+DROP PROC Sel_AssignmentsByBacthIdDueDate
+GO
+create proc Sel_AssignmentsByBacthIdDueDate
+@BatchId int
+as
+begin
+	select * from Assignment 
+where BatchId = @BatchId and DATEADD(d, 0, DATEDIFF(d, 0, Assignment.EndDate)) >= DATEADD(d, 0, DATEDIFF(d, 0, getdate()))
+end
+
+
+go
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AssignmentsByBacthIdOld' AND TYPE = 'P')
+DROP PROC Sel_AssignmentsByBacthIdOld
+GO
+create proc Sel_AssignmentsByBacthIdOld
+@BatchId int
+as
+begin
+	select * from Assignment 
+where BatchId = @BatchId and DATEADD(d, 0, DATEDIFF(d, 0, Assignment.EndDate)) < DATEADD(d, 0, DATEDIFF(d, 0, getdate()))
+end
+
+go
+
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'CheckMarkToUpload' AND TYPE = 'P')
+DROP PROC CheckMarkToUpload
+GO
+CREATE PROCEDURE CheckMarkToUpload 
+@StudentId int,
+@AssignmentId int
+AS BEGIN
+SELECT * FROM StudentWork
+ WHERE StudentId = @StudentId and AssignmentId = @AssignmentId and Mark is null
+END
+
+go
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AssignmentsDueDate' AND TYPE = 'P')
+DROP PROC Sel_AssignmentsDueDate
+GO
+create proc Sel_AssignmentsDueDate
+@StaffId int,
+@BatchId int
+as
+begin
+	select * from Assignment 
+where StaffId = @StaffId and BatchId = @BatchId and  DATEADD(d, 0, DATEDIFF(d, 0, Assignment.EndDate)) >= DATEADD(d, 0, DATEDIFF(d, 0, getdate()))
+end
+
+
+go
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AssignmentsOld' AND TYPE = 'P')
+DROP PROC Sel_AssignmentsOld
+GO
+create proc Sel_AssignmentsOld
+@StaffId int,
+@BatchId int
+as
+begin
+	select * from Assignment 
+where StaffId = @StaffId and BatchId = @BatchId  and  DATEADD(d, 0, DATEDIFF(d, 0, Assignment.EndDate)) < DATEADD(d, 0, DATEDIFF(d, 0, getdate()))
+end
+
+
+go
+--IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AssignmentsOld' AND TYPE = 'P')
+--DROP PROC Sel_AssignmentsOld
+--GO
+--create proc Sel_AssignmentsOld
+--@StaffId int,
+--@BatchId int
+--as
+--begin
+--select BatchId from Batch where BatchId not in (select BatchId from StaffAndBatch)
+--end
+go
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AccountsToProcess' AND TYPE = 'P')
+DROP PROC Sel_AccountsToProcess
+GO
+create proc Sel_AccountsToProcess
+@RoleId int,
+@AllowLogin bit
+as
+begin
+select * from dbo.Account where RoleId = @RoleId and AlowLogin = @AllowLogin
+end
+go
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'LockAccount' AND TYPE = 'P')
+DROP PROC LockAccount
+GO
+create proc LockAccount
+@AccountId int,
+@AllowLogin bit
+as
+begin
+update Account set AlowLogin = @AllowLogin where AccountId = @AccountId
+end
+go
+
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AllAssignmentNotUse' AND TYPE = 'P')
+DROP PROC Sel_AllAssignmentNotUse
+GO
+CREATE PROCEDURE Sel_AllAssignmentNotUse
+@BatchId int
+AS BEGIN
+SELECT   Assignment.*
+FROM         Assignment 
+WHERE BatchId = @BatchId and AssignmentId not IN( select AssignmentId From StudentWork)
+END
+go
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'Sel_AllAssignmentsWork' AND TYPE = 'P')
+DROP PROC Sel_AllAssignmentsWork
+GO
+CREATE PROCEDURE Sel_AllAssignmentsWork
+@BatchId int
+AS BEGIN
+SELECT   Assignment.*
+FROM         Assignment 
+WHERE BatchId = @BatchId and AssignmentId  IN( select AssignmentId From StudentWork)
+END
+go
