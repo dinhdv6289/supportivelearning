@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/uiAdmin.xhtml">
+
+    <ui:define name="title">Admin </ui:define>
+    <ui:define name="menuFunctions">
+        <div class="sblock1">
+            <div class="sblock1-top">Functions</div>
+            <div class="sblock1-bottom">
+                <h:form>
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="All Students"
+                                       action="#{accountManagerBean.onRequestAllStudent(true)}">
+                        </p:commandLink>
+                    </p>
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="All Students Locked"
+                                       action="#{accountManagerBean.onRequestAllStudentLocked(true)}">
+                        </p:commandLink>
+                    </p>
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="All Staff"
+                                       action="#{accountManagerBean.onRequestAllStaff(true)}">
+                        </p:commandLink>
+                    </p>
+
+                    <p>
+                        <p:commandLink ajax="false"
+                                       value="All Staff Locked"
+                                       action="#{accountManagerBean.onRequestAllStaffLocked(true)}">
+                        </p:commandLink>
+                    </p>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="content">
+        <h:panelGroup rendered="#{accountManagerBean.panelListAccountRoleStudent}" id="panelListAccountRoleStudent" >
+            <ui:include src="account/allStudent.xhtml"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{accountManagerBean.panelListAccountRoleStudentLocked}" id="panelListAccountRoleStudentLocked" >
+            <ui:include src="account/allStudentLocked.xhtml"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{accountManagerBean.panelListAccountRoleStaff}" id="panelListAccountRoleStaff" >
+            <ui:include src="account/allStaff.xhtml"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{accountManagerBean.panelListAccountRoleStaffLocked}" id="panelListAccountRoleStaffLocked" >
+            <ui:include src="account/allStafLocked.xhtml"/>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>
+
