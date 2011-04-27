@@ -31,15 +31,13 @@
                             styleClass="themeMenu"
                             id="menu_batch">
                         <p:submenu label="Batchs">
-                            <h:form>
-                                <c:forEach var="item" items="#{staffManagerBean.listBatchs}" >
-                                    <p:menuitem value="#{item.name}" ajax="false" action="#{staffManagerBean.insertStaffAndBatch}" update="batchofstaff">
-                                        <f:setPropertyActionListener value="#{item}"
-                                                                     target="#{staffManagerBean.batch}">
-                                        </f:setPropertyActionListener>
-                                    </p:menuitem>
-                                </c:forEach>
-                            </h:form>
+                            <c:forEach var="item" items="#{staffManagerBean.listBatchs}" >
+                                <p:menuitem value="#{item.name}" ajax="false" action="#{staffManagerBean.insertStaffAndBatch}" update="batchofstaff">
+                                    <f:setPropertyActionListener value="#{item}"
+                                                                 target="#{staffManagerBean.batch}">
+                                    </f:setPropertyActionListener>
+                                </p:menuitem>
+                            </c:forEach>
                         </p:submenu>
                     </p:menu>
                 </f:facet>
