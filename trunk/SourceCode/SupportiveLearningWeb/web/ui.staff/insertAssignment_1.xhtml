@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../templates/ui.xhtml">
+
+    <ui:define name="title">Assignment </ui:define>
+    <ui:define name="content">
+        <p:fieldset legend="New Assignment"
+                    style="background: #fefefe"
+                    toggleable="true"
+                    toggleSpeed="500" >
+            <h:form prependId="false">
+                <p:growl id="errorr" life="5000" />
+                <p:messages />
+                <h:panelGrid id="panel_grid_insert" columns="2" cellpadding="9" cellspacing="9">
+                    <h:outputLabel value="Batch: *" for="batchNN" style="width: 120px"></h:outputLabel>
+                    <h:selectOneMenu id="batchNN" value="#{assignmentManagerBean.batch.id}" required="true" requiredMessage="Must choice batch" style="width: 150px" >
+                        <f:selectItem noSelectionOption="true" itemLabel="Select Batch" itemValue=""/>
+                        <f:selectItems  var="b"
+                                        value="#{staffBatchManagerBean.listBatchs}"
+                                        itemLabel="#{b.name}"
+                                        itemValue="#{b.id}">
+                        </f:selectItems>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Subject: *" for="subject" style="width: 120px"></h:outputLabel>
+                    <h:selectOneMenu id="subject" value="#{assignmentManagerBean.subject.id}" required="true" requiredMessage="Must choice subject" style="width: 150px">
+                        <f:selectItem noSelectionOption="true" itemLabel="Select Subject" itemValue=""/>
+                        <f:selectItems var="s"
+                                       value="#{subjectManagerBean.listSubjects}"
+                                       itemLabel="#{s.name}"
+                                       itemValue="#{s.id}">
+                        </f:selectItems>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Assignment Name: *" for="assignmentName" style="width: 120px"></h:outputLabel>
+                    <p:inputText id="assignmentName"
+                                 value="#{assignmentManagerBean.assignment.name}"
+                                 required="true"
+                                 requiredMessage="Enter assignment name"
+                                 style="width: 150px"
+                                 title="Enter Assignment Name">
+                    </p:inputText>
+                    <h:outputLabel value="Start date:" for="startDate" style="width: 120px"/>
+                    <p:calendar id="startDate"
+                                value="#{assignmentManagerBean.assignment.startDate}"
+                                mindate="#{calendarBean.startDate}"
+                                pattern="MM/dd/yyyy"
+                                required="true"
+                                requiredMessage="Choice start date"
+                                size="30"
+                                title="Choice start date.">
+                    </p:calendar>
+                    <h:outputLabel value="End date:" for="endDate" style="width: 120px"/>
+                    <p:calendar id="endDate"
+                                value="#{assignmentManagerBean.assignment.endDate}"
+                                mindate="#{calendarBean.endDate}"
+                                pattern="MM/dd/yyyy"
+                                required="true"
+                                requiredMessage="Choice end date"
+                                size="30"
+                                title="Choice end date">
+                    </p:calendar>
+
+                    <h:outputLabel value="File upload: " style="width: 120px" ></h:outputLabel>
+                    <p:fileUpload fileUploadListener="#{assignmentManagerBean.handleFileUpload}"
+                                  update="errorr"
+                                  allowTypes="*.txt;*.doc;*.pdf;"
+                                  description="Text Documents" />
+                </h:panelGrid>
+                <h:outputLabel value="Content" for="content"></h:outputLabel>
+                <p:editor value="#{assignmentManagerBean.assignment.content}"
+                          id="content"
+                          width="475">
+                </p:editor>
+                <br/>
+                <p:commandButton ajax="false"
+                                 value="Save"
+                                 action="#{assignmentManagerBean.insertAssignment}"
+                                 update="errorr"
+                                 style="width: 100px;height: 30px">
+                </p:commandButton>
+            </h:form>
+        </p:fieldset>
+    </ui:define>
+</ui:composition>
+

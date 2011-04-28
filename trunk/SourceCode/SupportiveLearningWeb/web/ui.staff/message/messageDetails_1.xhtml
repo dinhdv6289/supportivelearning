@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form id="form_message_details">
+        <div class="content-block">
+            <div class="content-block-top"></div>
+            <div class="content-block-bottom">
+                <p:fieldset>
+                    <f:facet name="legend">
+                        <p:graphicImage value="/images/download.gif"/>
+                    </f:facet>
+                    #{feedBackAnswerManagerBean.currentStaff.name} &lt;-------&gt; #{feedBackAnswerManagerBean.selectedFeedBack.student.name}
+                    <p:treeTable  var="item" value="#{feedBackAnswerManagerBean.feedbackRoot}">
+                        <p:column>
+                            <f:facet name="header">
+                                Content
+                            </f:facet>
+                            <h:outputText value="#{item.feedBackContent}" >
+
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                Date
+                            </f:facet>
+                            <h:outputText value="#{item.dateCreation}" >
+                                <f:convertDateTime pattern="HH:mm  MM.dd.yyyy"
+                                                   locale="#{converterBean.strLocale}"
+                                                   timeZone="#{converterBean.timezone}">
+                                </f:convertDateTime>
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton rendered="#{item.id > 0}" ajax="false" action="#{feedBackAnswerManagerBean.onRequestpanelAnswer(true)}" value="Answer" >
+                                <f:setPropertyActionListener target="#{feedBackAnswerManagerBean.selectedFeedBack}" value="#{item}">
+                                </f:setPropertyActionListener>
+                            </p:commandButton>
+                        </p:column>
+                    </p:treeTable>
+                    <h:panelGroup rendered="#{feedBackAnswerManagerBean.panelAnswer}" id="panelAnswer" >
+                        <p:messages/>
+                        <h:panelGrid id="display" columns="3" cellpadding="4">
+                            <h:outputLabel for="feedBackAnswer" value="content:"></h:outputLabel>
+                            <p:inputTextarea id="feedBackAnswer"
+                                             value="#{feedBackAnswerManagerBean.feedBackAnswer.feedBackAnswer}"
+                                             required="true"
+                                             requiredMessage="Answer is not null.">
+                            </p:inputTextarea>
+                            <p:commandButton ajax="false"
+                                             value="Answer"
+                                             action="#{feedBackAnswerManagerBean.insertFeedBackAnswer}">
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </h:panelGroup>
+                </p:fieldset>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

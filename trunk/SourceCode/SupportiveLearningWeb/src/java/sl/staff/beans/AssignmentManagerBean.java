@@ -47,6 +47,8 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
     private ArrayList<Assignment> listAssignmentsStaff = new ArrayList<Assignment>();
     private ArrayList<Assignment> listAssignmentsOfBatch;
     private ArrayList<Assignment> listAssignmentsOfBatchInDueDate;
+    private ArrayList<Assignment> listAssignmentsOfBatchNotUse;
+    private ArrayList<Assignment> listAssignmentsOfBatchWork;
     private ArrayList<Batch> listMyBatchs;
     private AssignmentDAO assignmentDAO = new AssignmentDAO();
     private StaffDAO staffDAO = new StaffDAO();
@@ -253,15 +255,16 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
 
     public ArrayList<Assignment> listAssignmentsOfBatchDueDate(Batch batch) {
         try {
-            return assignmentDAO.getListAssignmentsDueDate(staff.getId(),batch.getId());
+            return assignmentDAO.getListAssignmentsDueDate(staff.getId(), batch.getId());
         } catch (Exception ex) {
             Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
+
     public ArrayList<Assignment> listAssignmentsOfBatchOld(Batch batch) {
         try {
-            return assignmentDAO.getListAssignmentsOld(staff.getId(),batch.getId());
+            return assignmentDAO.getListAssignmentsOld(staff.getId(), batch.getId());
         } catch (Exception ex) {
             Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -280,6 +283,50 @@ public class AssignmentManagerBean extends UtilCheckLoginBean implements Seriali
 
     public void setListAssignmentsOfBatchInDueDate(ArrayList<Assignment> listAssignmentsOfBatchInDueDate) {
         this.listAssignmentsOfBatchInDueDate = listAssignmentsOfBatchInDueDate;
+    }
+
+    public ArrayList<Assignment> getListAssignmentsOfBatchNotUse(Batch batch) {
+        try {
+            listAssignmentsOfBatchNotUse = assignmentDAO.getListAssignmentsByBatchIdNotUse(batch.getId());
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listAssignmentsOfBatchNotUse;
+    }
+
+    public void setListAssignmentsOfBatchNotUse(ArrayList<Assignment> listAssignmentsOfBatchNotUse) {
+        this.listAssignmentsOfBatchNotUse = listAssignmentsOfBatchNotUse;
+    }
+
+    public ArrayList<Assignment> listAssignmentsOfBatchNotUse(Batch batch) {
+        try {
+            return assignmentDAO.getListAssignmentsByBatchIdNotUse(batch.getId());
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public ArrayList<Assignment> getListAssignmentsOfBatchWork(Batch batch) {
+        try {
+            listAssignmentsOfBatchWork = assignmentDAO.getListAssignmentsByBatchIdWork(batch.getId());
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listAssignmentsOfBatchWork;
+    }
+
+    public ArrayList<Assignment> listAssignmentsOfBatchWork(Batch batch) {
+        try {
+            return assignmentDAO.getListAssignmentsByBatchIdWork(batch.getId());
+        } catch (Exception ex) {
+            Logger.getLogger(AssignmentManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public void setListAssignmentsOfBatchWork(ArrayList<Assignment> listAssignmentsOfBatchWork) {
+        this.listAssignmentsOfBatchWork = listAssignmentsOfBatchWork;
     }
 
     /** Creates a new instance of FileUploadController */

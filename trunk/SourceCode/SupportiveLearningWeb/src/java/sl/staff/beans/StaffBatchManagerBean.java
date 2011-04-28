@@ -7,15 +7,19 @@ package sl.staff.beans;
 import el.dao.StaffDAO;
 import el.model.Batch;
 import el.model.Staff;
+import el.model.Subject;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import sl.admincp.beans.SubjectManagerBean;
 import sl.client.beans.LoginBean;
 import sl.utils.beans.EachSession;
 import sl.utils.beans.LoginService;
@@ -38,6 +42,7 @@ public class StaffBatchManagerBean extends UtilCheckLoginBean implements Seriali
     private static boolean panelGroupHaveBatchs;
     private static boolean panelGroupHaveNotBatchs;
     private static boolean panelGroupManagerAssignment;
+    private String txt1;
 
     /** Creates a new instance of StaffBatchManagerBean */
     public StaffBatchManagerBean() {
@@ -57,13 +62,44 @@ public class StaffBatchManagerBean extends UtilCheckLoginBean implements Seriali
                 }
             } catch (Exception ex) {
                 Logger.getLogger(StaffBatchManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-             //   LoginService.loginService("");
+                //   LoginService.loginService("");
             }
         }
     }
 
     @PostConstruct
     public void init() {
+    }
+    @ManagedProperty(value = "#{subjectManagerBean}")
+    private SubjectManagerBean subjectManagerBean;
+
+    public SubjectManagerBean getSubjectManagerBean() {
+        return subjectManagerBean;
+    }
+
+    public void setSubjectManagerBean(SubjectManagerBean subjectManagerBean) {
+        this.subjectManagerBean = subjectManagerBean;
+    }
+
+    public String getTxt1() {
+        return txt1;
+    }
+
+    public void setTxt1(String txt1) {
+        this.txt1 = txt1;
+    }
+
+//    public List<String> complete(String query) {
+//        List<String> results = new ArrayList<String>();
+//
+//        for (int i = 0; i < 10; i++) {
+//            results.add(query + i);
+//        }
+//
+//        return results;
+//    }
+    public List<Subject> complete(String query) {
+        return subjectManagerBean.getListSubjects();
     }
 
     public boolean isPanelGroupManagerAssignment() {

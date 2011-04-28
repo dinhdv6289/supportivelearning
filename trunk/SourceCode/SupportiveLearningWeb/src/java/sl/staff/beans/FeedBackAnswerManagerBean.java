@@ -24,6 +24,7 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import sl.utils.beans.LoginService;
+import sl.utils.beans.MessagesService;
 import sl.utils.beans.SessionManager;
 import sl.utils.beans.UtilCheckLoginBean;
 
@@ -33,7 +34,7 @@ import sl.utils.beans.UtilCheckLoginBean;
  */
 @ManagedBean
 @SessionScoped
-public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Serializable {
+public class FeedBackAnswerManagerBean extends UtilCheckLoginBean implements Serializable {
 
     private static final String REDIRECT = "?faces-redirect=true";
     private static final String THISPAGE = "messages.jsf";
@@ -42,20 +43,24 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
     private FeedBackAnswerDAO feedBackAnswerDAO = new FeedBackAnswerDAO();
     private ArrayList<FeedBack> listFeedBacks = new ArrayList<FeedBack>();
     private ArrayList<FeedBack> listTopFeedBacks = new ArrayList<FeedBack>();
+    private ArrayList<FeedBack> listFeedbackForStudent;
     private FeedBackDAO feedBackDAO = new FeedBackDAO();
     private Staff currentStaff = new Staff();
     private StaffDAO staffDAO = new StaffDAO();
     private static boolean panelGroupMessageDetails;
     private static boolean panelGroupMessage;
     private static boolean panelAnswer;
+    private static boolean panelViewDetails;
     private TreeNode selectedTreNode;
+    private ArrayList<FeedBackAnswer> listFeedBackAnswers;
 
     /** Creates a new instance of FeedBackAnswerManagerBean */
     public FeedBackAnswerManagerBean() {
 //        super();
-        this.panelGroupMessage = true;
-        this.panelGroupMessageDetails = false;
-        this.panelAnswer = false;
+        panelGroupMessage = true;
+        panelGroupMessageDetails = false;
+        panelAnswer = false;
+        panelViewDetails = false;
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
@@ -72,7 +77,7 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
                 }
             } catch (Exception ex) {
                 Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
-             //   LoginService.loginService("");
+                //   LoginService.loginService("");
             }
         }
     }
@@ -97,20 +102,20 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
     public void setPanelAnswer(boolean panelAnswer) {
         FeedBackAnswerManagerBean.panelAnswer = panelAnswer;
     }
-    private TreeNode feedbackRoot = new DefaultTreeNode("feedbackRoot", null);;
+    private TreeNode feedbackRoot = new DefaultTreeNode("feedbackRoot", null);
+
+    ;
 
     public void setFeedbackRoot(TreeNode feedbackRoot) {
         this.feedbackRoot = feedbackRoot;
     }
-
-
 
     public TreeNode getFeedbackRoot() {
         try {
 
             int accountId = Integer.valueOf(SessionManager.getSession("accountId").toString());
             Staff staffByAccountId = staffDAO.getStaffByAccountId(accountId);
-            if (staffByAccountId.getId() >0) {
+            if (staffByAccountId.getId() > 0) {
                 ArrayList<FeedBack> listFB = feedBackDAO.listFeedbackForStudent(selectedFeedBack.getStudent(), staffByAccountId);
                 for (FeedBack fb : listFB) {
                     TreeNode tn = new DefaultTreeNode(fb, feedbackRoot);
@@ -128,6 +133,36 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
             Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return feedbackRoot;
+    }
+
+    public ArrayList<FeedBack> getListFeedbackForStudent() {
+        if (currentStaff.getId() > 0) {
+            try {
+                listFeedbackForStudent = feedBackDAO.listFeedbackForStudent(selectedFeedBack.getStudent(), currentStaff);
+            } catch (Exception ex) {
+                Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return listFeedbackForStudent;
+    }
+
+    public void setListFeedbackForStudent(ArrayList<FeedBack> listFeedbackForStudent) {
+        this.listFeedbackForStudent = listFeedbackForStudent;
+    }
+
+    public ArrayList<FeedBackAnswer> getListFeedBackAnswers() {
+        if (selectedFeedBack.getId() > 0) {
+            try {
+                listFeedBackAnswers = feedBackAnswerDAO.getFeedbackAnswerByFeedbackId(selectedFeedBack.getId());
+            } catch (Exception ex) {
+                Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return listFeedBackAnswers;
+    }
+
+    public void setListFeedBackAnswers(ArrayList<FeedBackAnswer> listFeedBackAnswers) {
+        this.listFeedBackAnswers = listFeedBackAnswers;
     }
 
     public boolean checkFeedBack(FeedBack fb) {
@@ -153,10 +188,19 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
         FeedBackAnswerManagerBean.panelGroupMessageDetails = panelGroupMessageDetails;
     }
 
+    public boolean isPanelViewDetails() {
+        return panelViewDetails;
+    }
+
+    public void setPanelViewDetails(boolean panelViewDetails) {
+        FeedBackAnswerManagerBean.panelViewDetails = panelViewDetails;
+    }
+
     public String onRequestpanelGroupMessageDetails(boolean flag) {
         this.panelGroupMessage = true;
         this.panelAnswer = false;
         this.setPanelGroupMessageDetails(flag);
+        this.setPanelViewDetails(false);
         return THISPAGE + REDIRECT;
     }
 
@@ -164,6 +208,15 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
         this.panelGroupMessage = true;
         this.setPanelGroupMessageDetails(true);
         this.setPanelAnswer(flag);
+        setPanelViewDetails(true);
+        return THISPAGE + REDIRECT;
+    }
+
+    public String onRequestPanelViewDetails(boolean flag) {
+        this.panelGroupMessage = true;
+        this.setPanelGroupMessageDetails(true);
+        this.setPanelAnswer(false);
+        setPanelViewDetails(flag);
         return THISPAGE + REDIRECT;
     }
 
@@ -240,13 +293,20 @@ public class FeedBackAnswerManagerBean extends UtilCheckLoginBean  implements Se
         try {
             if (selectedFeedBack.getId() > 0) {
                 feedBackAnswer.setFeedBack(selectedFeedBack);
-                feedBackAnswerDAO.insert(feedBackAnswer);
+                int insert = feedBackAnswerDAO.insert(feedBackAnswer);
+                if (insert > 0) {
+                    MessagesService.showMessage("Send answer success.");
+                } else {
+                    MessagesService.showMessage("Send answer failure.");
+                }
+
             } else {
-                //thong bao loi
+                MessagesService.showMessage("Send answer failure.");
             }
             return null;
         } catch (Exception ex) {
             Logger.getLogger(FeedBackAnswerManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+            MessagesService.showMessage("Send answer failure.");
             return null;
         }
 

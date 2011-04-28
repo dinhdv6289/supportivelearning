@@ -73,7 +73,6 @@ public class AssignmentBean implements Serializable {
 //    public void setOldAssignments(boolean oldAssignments) {
 //        AssignmentBean.oldAssignments = oldAssignments;
 //    }
-
     public Batch getBatchDetails() {
         return batchDetails;
     }
@@ -137,7 +136,7 @@ public class AssignmentBean implements Serializable {
     public String onRequestAssignment(Assignment assignment) {
         this.assignmentDetails = assignment;
         this.checkDueDate(assignment);
-
+        this.checkMarkToUpload(assignment);
         return "assignmentDetails" + REDIRECT;
     }
 
@@ -177,30 +176,31 @@ public class AssignmentBean implements Serializable {
 
     private void checkDueDate(Assignment assignment) {
         Date date = new Date();
-        if (date.before(assignment.getEndDate()) || checkMarkToUpload(assignment)) {
+        if (date.before(assignment.getEndDate())) {
             dueDate = true;
         } else {
             dueDate = false;
         }
     }
 
-    private boolean checkMarkToUpload(Assignment assignment) {
-        boolean checkMarkToUpload = false;
+    private void checkMarkToUpload(Assignment assignment) {
         try {
             StudentWork studentWork = new StudentWork();
             studentWork.setAssignment(assignment);
             Student student = (Student) EachSession.getObjectFromSession("accountId");
             if (student != null) {
                 studentWork.setStudent(student);
-                checkMarkToUpload = studentWorkDAO.checkMarkToUpload(studentWork);
-            } else {
-                checkMarkToUpload = false;
+                if (studentWorkDAO.checkMarkToUpload(studentWork)) {
+                    dueDate = true;
+                } else {
+                    dueDate = false;
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(AssignmentBean.class.getName()).log(Level.SEVERE, null, ex);
-            checkMarkToUpload = false;
+            //  checkMarkToUpload = false;
         }
-        return checkMarkToUpload;
+        //return checkMarkToUpload;
     }
 
     public String sendFeedBack() {

@@ -282,8 +282,7 @@ public class AccountDAO extends AbstractDAO<Account> {
         return accounts;
     }
 
-
-   public ArrayList<Account> listAccountRoleStudentLocked() throws Exception {
+    public ArrayList<Account> listAccountRoleStudentLocked() throws Exception {
         ArrayList<Account> accounts = new ArrayList<Account>();
         Connection conn = null;
         String sql = "{call Sel_AccountsToProcess (?,?)}";
@@ -361,7 +360,6 @@ public class AccountDAO extends AbstractDAO<Account> {
         return accounts;
     }
 
-
     public boolean lockAccount(int accountId, boolean status) throws SQLException {
         String sql = "{call LockAccount (?, ?)}";
         Connection conn = null;
@@ -380,5 +378,26 @@ public class AccountDAO extends AbstractDAO<Account> {
             }
         }
         return a == 1 ? true : false;
+    }
+
+    public boolean updatePassword(int id,String newPassword) throws SQLException {
+        String sql = "{call UPDATE_PASSWORD(?,?)}";
+        Connection conn = null;
+        int a = 0;
+        try {
+            conn = getConnection();
+            CallableStatement stmt = conn.prepareCall(sql);
+            stmt.setInt(1, id);
+            stmt.setString(2, newPassword);
+            a = stmt.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return a == 1 ? true : false;
+
     }
 }

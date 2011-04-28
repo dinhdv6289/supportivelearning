@@ -23,6 +23,7 @@ import sl.utils.beans.SessionManager;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import sl.utils.beans.MessageBean;
+import sl.utils.beans.MessagesService;
 
 /**
  *
@@ -49,7 +50,6 @@ public class LoginBean implements Serializable {
     /** Creates a new instance of LoginBean */
     public LoginBean() {
     }
-    
     @ManagedProperty(value = "#{messageBean}")
     private MessageBean messageBean;
 
@@ -170,11 +170,14 @@ public class LoginBean implements Serializable {
                     }
                 } else {
                     response.sendRedirect("../ui.client/index.jsf");
+                    MessagesService.showMessage("UserName or password incorrect.");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
                 result = "../ui.client/index.jsf";
             }
+        } else {
+            MessagesService.showMessage("Account not exist.");
         }
         return result + REDIRECT;
     }
