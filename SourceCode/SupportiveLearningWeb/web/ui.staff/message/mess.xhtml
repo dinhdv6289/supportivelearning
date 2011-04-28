@@ -5,37 +5,36 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:form>
-        <div class="content-block">
-            <div class="content-block-top"></div>
-            <div class="content-block-bottom">
-                <p:dataTable id="tbl_listFeedBack"
-                             var="messageItem"
-                             value="#{feedBackAnswerManagerBean.listFeedBacks}"
-                             emptyMessage="Not have messages."
-                             paginator="true"
-                             rows="10"
-                             selection="#{feedBackAnswerManagerBean.selectedFeedBack}"
-                             selectionMode="single"
-                             rowSelectListener="#{feedBackAnswerManagerBean.onRequestpanelGroupMessageDetails(true)}"
-                             dblClickSelect="true">
+        <p:fieldset legend="Feedbacks"
+                    toggleable="true"
+                    toggleSpeed="500" >
+            <p:dataTable id="tbl_listFeedBack"
+                         var="messageItem"
+                         value="#{feedBackAnswerManagerBean.listFeedBacks}"
+                         emptyMessage="Not have messages."
+                         paginator="true"
+                         rows="10"
+                         selection="#{feedBackAnswerManagerBean.selectedFeedBack}"
+                         selectionMode="single"
+                         rowSelectListener="#{feedBackAnswerManagerBean.onRequestpanelGroupMessageDetails(true)}"
+                         dblClickSelect="true">
+                <f:facet name="header">
+                    Double click  a row to view details feedback.
+                </f:facet>
+                <p:column>
                     <f:facet name="header">
-                        FeedBacks
+                        <h:outputText value="Student Name"/>
                     </f:facet>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Student Name"/>
-                        </f:facet>
-                        <h:outputText value="#{messageItem.student.name}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Content"/>
-                        </f:facet>
-                        <h:outputText value="#{messageItem.feedBackContent}" />
-                    </p:column>
-                </p:dataTable>
-
-            </div>
-        </div>
+                    <h:outputText value="#{messageItem.student.name}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Content"/>
+                    </f:facet>
+                    <h:outputText value="#{messageItem.feedBackContent}" />
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+        <br/>
     </h:form>
 </ui:composition>

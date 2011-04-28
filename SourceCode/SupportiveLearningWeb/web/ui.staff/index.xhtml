@@ -25,7 +25,8 @@
                                     <h4>Batch: #{batchItem.name} </h4>
                                     <c:if test="#{empty  assignmentManagerBean.listAssignmentsOfBatchDueDate(batchItem)}">
                                         Not have assignment.<br/>
-                                        <p:commandLink value="New Assignment"
+                                        <p:commandLink ajax="false"
+                                                       value="New Assignment"
                                                        action="insertAssignment.jsf?faces-redirect=true"
                                                        style="color: red">
                                         </p:commandLink>
@@ -101,7 +102,8 @@
                                     <h4>Batch: #{batchItem.name} </h4>
                                     <c:if test="#{empty  assignmentManagerBean.listAssignmentsOfBatchOld(batchItem)}">
                                         Not have assignment.<br/>
-                                        <p:commandLink value="New Assignment"
+                                        <p:commandLink ajax="false"
+                                                       value="New Assignment"
                                                        action="insertAssignment.jsf?faces-redirect=true"
                                                         style="color: red">
                                         </p:commandLink>

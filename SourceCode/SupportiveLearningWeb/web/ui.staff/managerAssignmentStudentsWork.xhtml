@@ -8,9 +8,9 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 template="../templates/ui.xhtml">
 
-    <ui:define name="title">Manager Assignment </ui:define>
+    <ui:define name="title">Manager Assignment have Student Work </ui:define>
     <ui:define name="content">
-        <h4> Manager Assignment</h4>
+        <h4> Manager Assignment Work</h4>
         <h:form>
             <c:forEach var="batchItem" items="#{staffBatchManagerBean.listBatchs}" varStatus="num" >
                 <!-- News Block Starts Here -->
@@ -19,7 +19,7 @@
                             toggleSpeed="500" >
                     <p:dataTable id="tbl_assignmentOfBach#{num.index}"
                                  var="assignmentItem"
-                                 value="#{assignmentManagerBean.listAssignmentsOfBatchNotUse(batchItem)}"
+                                 value="#{assignmentManagerBean.listAssignmentsOfBatchWork(batchItem)}"
                                  emptyMessage="Not have assignments."
                                  paginator="true"
                                  rows="10"
@@ -55,27 +55,8 @@
                                              value="Edit"
                                              action="#{assignmentManagerBean.onRequestAssignmentToEdit(assignmentItem)}">
                             </p:commandButton>
-                            <p:commandButton value="Delete" image="ui-icon ui-icon-search"
-                                             update="form:display#{num.index}" oncomplete="confirmation.show()">
-                                <f:setPropertyActionListener target="#{assignmentManagerBean.selectedAssignment}"
-                                                             value="#{assignmentItem}">
-                                </f:setPropertyActionListener>
-                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
-                    <p:confirmDialog message="Are you sure want to delete?"
-                                     showEffect="bounce"
-                                     hideEffect="explode"
-                                     header="Initiating destroy process"
-                                     severity="alert"
-                                     widgetVar="confirmation">
-                        <h:panelGrid id="display#{num.index}">
-                            <p:commandButton value="Yes Sure" update="tbl" oncomplete="confirmation.hide()"
-                                             action="#{assignmentManagerBean.deleteAssignment}">
-                            </p:commandButton>
-                            <p:commandButton value="Not Yet" onclick="confirmation.hide()" type="button" />
-                        </h:panelGrid>
-                    </p:confirmDialog>
                 </p:fieldset>
                 <br/>
                 <!-- News Block Ends Here -->

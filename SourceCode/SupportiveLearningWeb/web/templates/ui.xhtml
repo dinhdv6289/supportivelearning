@@ -84,6 +84,7 @@
                                     <ul>
                                         <li><a href="#{request.contextPath}/ui.staff/insertAssignment.jsf">New Assignment</a></li>
                                         <li><a href="#{request.contextPath}/ui.staff/managerAssignment.jsf">Manager Assignment </a></li>
+                                        <li><a href="#{request.contextPath}/ui.staff/managerAssignmentStudentsWork.jsf">Manager Assignment Work </a></li>
                                         <li><a href="#{request.contextPath}/ui.staff/updateMark.jsf">Update Mark By RollNumber</a></li>
                                     </ul>
                                 </div>
@@ -208,6 +209,11 @@
                                                            ajax="false"
                                                            value="Logout"
                                                            action="#{loginBean.logout}">
+                                            </p:commandLink>
+                                            <br/>
+                                            <p:commandLink ajax="false"
+                                                           value="Change password"
+                                                           action="changePassword.jsf?faces-redirect=true">
                                             </p:commandLink>
                                         </p>
                                     </h:form>
